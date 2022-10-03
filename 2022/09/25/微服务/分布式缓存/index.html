@@ -1,0 +1,913 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xw">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="分布式缓存 redis版本6.2.4  Redis持久化 RDB (Redis Database Backup file) Redis数据备份文件 AOF (Append Only File) 追加文件   RDB持久化在四种情况下会执行：  执行save命令：同步保存，会导致其他命令被阻塞 执行bgsave命令：background save 异步保存，不会影响主进程 Redis停机时：自动执行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式缓存">
+<meta property="og:url" content="http://xwww12.github.io/2022/09/25/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="分布式缓存 redis版本6.2.4  Redis持久化 RDB (Redis Database Backup file) Redis数据备份文件 AOF (Append Only File) 追加文件   RDB持久化在四种情况下会执行：  执行save命令：同步保存，会导致其他命令被阻塞 执行bgsave命令：background save 异步保存，不会影响主进程 Redis停机时：自动执行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/RDB%E5%92%8CAOF%E6%AF%94%E8%BE%83.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/redis%E5%A4%8D%E5%88%B6%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E6%B5%81%E7%A8%8B.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/Redis%E5%93%A8%E5%85%B5.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/Redis%E5%93%A8%E5%85%B5%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/redis%E5%88%86%E7%89%87%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/Redis%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C.png">
+<meta property="article:published_time" content="2022-09-25T14:32:53.887Z">
+<meta property="article:modified_time" content="2022-09-25T14:35:42.762Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="微服务">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/weifuwu_img/RDB%E5%92%8CAOF%E6%AF%94%E8%BE%83.png">
+  
+  
+  
+  <title>分布式缓存 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xwww12.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>夕立ち的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img/Reimu1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">分布式缓存</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        xw
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-25 22:32" pubdate>
+          2022年9月25日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          57 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">分布式缓存</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="分布式缓存"><a href="#分布式缓存" class="headerlink" title="分布式缓存"></a>分布式缓存</h2><blockquote>
+<p>redis版本6.2.4</p>
+</blockquote>
+<h3 id="Redis持久化"><a href="#Redis持久化" class="headerlink" title="Redis持久化"></a>Redis持久化</h3><blockquote>
+<p>RDB (Redis Database Backup file) Redis数据备份文件</p>
+<p>AOF (Append Only File) 追加文件 </p>
+</blockquote>
+<p>RDB持久化在四种情况下会执行：</p>
+<ul>
+<li>执行save命令：同步保存，会导致其他命令被阻塞</li>
+<li>执行bgsave命令：background save 异步保存，不会影响主进程</li>
+<li>Redis停机时：自动执行save命令</li>
+<li>触发RDB条件时</li>
+</ul>
+<p> AOF原理</p>
+<ul>
+<li>Redis处理的每一个写命令都会记录在AOF文件，可以看做是命令日志文件，记录的是步骤</li>
+</ul>
+<h4 id="设置RDB触发条件"><a href="#设置RDB触发条件" class="headerlink" title="设置RDB触发条件"></a>设置RDB触发条件</h4><ul>
+<li><p>修改redis目录下的redis.conf文件</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 900秒内，如果至少有1个key被修改，则执行bgsave ， 如果是save &quot;&quot; 则表示禁用RDB</span><br><span class="hljs-attribute">save</span> <span class="hljs-number">900</span> <span class="hljs-number">1</span>  <br><span class="hljs-attribute">save</span> <span class="hljs-number">300</span> <span class="hljs-number">10</span>  <br><span class="hljs-attribute">save</span> <span class="hljs-number">60</span> <span class="hljs-number">10000</span> <br><br><span class="hljs-comment"># 是否压缩 ,建议不开启，压缩也会消耗cpu，磁盘的话不值钱</span><br><span class="hljs-attribute">rdbcompression</span> yes<br><br><span class="hljs-comment"># RDB文件名称</span><br><span class="hljs-attribute">dbfilename</span> dump.rdb  <br><br><span class="hljs-comment"># 文件保存的路径目录</span><br><span class="hljs-attribute">dir</span> ./ <br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="设置AOF"><a href="#设置AOF" class="headerlink" title="设置AOF"></a>设置AOF</h4><ul>
+<li><p>开启AOF</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs livescript"><span class="hljs-comment">#修改配置文件</span><br>appendonly <span class="hljs-literal">no</span>	--&gt;   appendonly <span class="hljs-literal">yes</span><br><br><span class="hljs-comment">#AOF文件名</span><br>appendfilename <span class="hljs-string">&quot;appendonly.aof&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置记录频率</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># always: 每执行一次写命令，立即记录到AOF文件</span><br><span class="hljs-comment"># every sync: 写命令执行完先放入AOF缓冲区，然后表示每隔1秒将缓冲区数据写到AOF文件，是默认方案</span><br><span class="hljs-comment"># no: 写命令执行完先放入AOF缓冲区，由操作系统决定何时将缓冲区内容写回磁盘</span><br><br><span class="hljs-comment"># appendfsync always</span><br><span class="hljs-attribute">appendfsync</span> everysec<br><span class="hljs-comment"># appendfsync no</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>因为是记录命令，AOF文件会比RDB文件大的多，故需要重写AOF文件来压缩体积</p>
+</blockquote>
+<ul>
+<li><p>设置重写触发条件</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># AOF文件比上次文件 增长超过多少百分比则触发重写</span><br><span class="hljs-attribute">auto</span>-aof-rewrite-percentage <span class="hljs-number">100</span><br><span class="hljs-comment"># AOF文件体积最小多大以上才触发重写 </span><br><span class="hljs-attribute">auto</span>-aof-rewrite-min-size <span class="hljs-number">64</span>mb <br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="RDB和AOF比较"><a href="#RDB和AOF比较" class="headerlink" title="RDB和AOF比较"></a>RDB和AOF比较</h4><p><img src="/img/weifuwu_img/RDB%E5%92%8CAOF%E6%AF%94%E8%BE%83.png" srcset="/img/loading.gif" lazyload alt="RDB和AOF比较"></p>
+<h3 id="Redis主从节点"><a href="#Redis主从节点" class="headerlink" title="Redis主从节点"></a>Redis主从节点</h3><h4 id="配置主从节点"><a href="#配置主从节点" class="headerlink" title="配置主从节点"></a>配置主从节点</h4><ul>
+<li><p>准备实例和配置</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 复制三份redis.conf配置文件到不同的文件夹下</span><br><span class="hljs-built_in">cp</span> redis-4.0.0/redis.conf 7001<br><span class="hljs-built_in">cp</span> redis-4.0.0/redis.conf 7002<br><span class="hljs-built_in">cp</span> redis-4.0.0/redis.conf 7003<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/weifuwu_img/redis%E5%A4%8D%E5%88%B6%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png" srcset="/img/loading.gif" lazyload alt="复制配置文件"></p>
+</li>
+<li><p>修改端口和工作目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">sed -i -e <span class="hljs-string">&#x27;s/6379/7001/g&#x27;</span> -e <span class="hljs-string">&#x27;s/dir .\//dir \/home\/cyx\/redis\/7001\//g&#x27;</span> 7001/redis.conf<br>sed -i -e <span class="hljs-string">&#x27;s/6379/7002/g&#x27;</span> -e <span class="hljs-string">&#x27;s/dir .\//dir \/home\/cyx\/redis\/7002\//g&#x27;</span> 7002/redis.conf<br>sed -i -e <span class="hljs-string">&#x27;s/6379/7003/g&#x27;</span> -e <span class="hljs-string">&#x27;s/dir .\//dir \/home\/cyx\/redis\/7003\//g&#x27;</span> 7003/redis.conf<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改每个实例的声明IP</p>
+<blockquote>
+<p>虚拟机本身有多个IP，为了避免将来混乱，我们需要在redis.conf文件中指定每一个实例的绑定ip信息，</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">sed -i <span class="hljs-string">&#x27;1a slave-announce-ip 192.168.229.128&#x27;</span> 7001/redis.conf<br>sed -i <span class="hljs-string">&#x27;1a slave-announce-ip 192.168.229.128&#x27;</span> 7002/redis.conf<br>sed -i <span class="hljs-string">&#x27;1a slave-announce-ip 192.168.229.128&#x27;</span> 7003/redis.conf<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>启动服务端</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 分别启动三个服务端</span><br>[root@root src]<span class="hljs-comment"># ./redis-server ../../7001/redis.conf</span><br><br>[root@root src]<span class="hljs-comment"># ./redis-server ../../7002/redis.conf</span><br><br>[root@root src]<span class="hljs-comment"># ./redis-server ../../7003/redis.conf</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>客户端连接</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># -p选择端口</span><br>redis-cli -p 7001<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置主从节点</p>
+<blockquote>
+<p>有临时和永久两种模式：</p>
+<ul>
+<li><p>修改配置文件（永久生效）</p>
+<ul>
+<li>在redis.conf中添加一行配置：<code>slaveof &lt;masterip&gt; &lt;masterport&gt;</code></li>
+</ul>
+</li>
+<li><p>使用redis-cli客户端连接到redis服务，执行slaveof命令（重启后失效）</p>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 连接 7002</span><br>redis-cli -p 7002<br><span class="hljs-comment"># 执行slaveof</span><br>slaveof 192.168.229.128 7001<br><br><span class="hljs-comment"># 连接 7003</span><br>redis-cli -p 7003<br><span class="hljs-comment"># 执行slaveof</span><br>slaveof 192.168.229.128 7001<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<blockquote>
+<p>通过7001端口的主节点写入数据，在从节点也能读得到</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="主从同步流程"><a href="#主从同步流程" class="headerlink" title="主从同步流程"></a>主从同步流程</h4><p><img src="/img/weifuwu_img/%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E6%B5%81%E7%A8%8B.png" srcset="/img/loading.gif" lazyload alt="主从同步流程.png"></p>
+<p>概念</p>
+<blockquote>
+<ul>
+<li><strong>Replication Id</strong>：简称replid，是数据集的标记，id一致则说明是同一数据集。每一个master都有唯一的replid，slave则会继承master节点的replid</li>
+<li><strong>offset</strong>：偏移量，随着记录在repl_baklog中的数据增多而逐渐增大。slave完成同步时也会记录当前同步的offset。如果slave的offset小于master的offset，说明slave数据落后于master，需要更新。</li>
+</ul>
+<p>因此slave做数据同步，必须向master声明自己的replication id 和offset，master才可以判断到底需要同步哪些数据。</p>
+</blockquote>
+<p>完整流程描述：</p>
+<ul>
+<li>slave节点请求增量同步</li>
+<li>master节点判断replid，发现不一致，拒绝增量同步</li>
+<li>master将完整内存数据生成RDB，发送RDB到slave</li>
+<li>slave清空本地数据，加载master的RDB</li>
+<li>master将RDB期间的命令记录在repl_baklog，并持续将log中的命令发送给slave</li>
+<li>slave执行接收到的命令，保持与master之间的同步</li>
+</ul>
+<h3 id="Redis哨兵"><a href="#Redis哨兵" class="headerlink" title="Redis哨兵"></a>Redis哨兵</h3><blockquote>
+<p>Redis提供了哨兵（Sentinel）机制来实现主从集群的自动故障恢复。</p>
+</blockquote>
+<h4 id="哨兵作用"><a href="#哨兵作用" class="headerlink" title="哨兵作用"></a>哨兵作用</h4><p><img src="/img/weifuwu_img/Redis%E5%93%A8%E5%85%B5.png" srcset="/img/loading.gif" lazyload alt="Redis哨兵"></p>
+<p>哨兵的作用如下：</p>
+<ul>
+<li><strong>监控</strong>：Sentinel 会不断检查您的master和slave是否按预期工作</li>
+<li><strong>自动故障恢复</strong>：如果master故障，Sentinel会将一个slave提升为master。当故障实例恢复后也以新的master为主</li>
+<li><strong>通知</strong>：Sentinel充当Redis客户端的服务发现来源，当集群发生故障转移时，会将最新信息推送给Redis的客户端</li>
+</ul>
+<p>Sentinel如何判断一个redis实例是否健康</p>
+<ul>
+<li>每隔1秒发送一次ping命令，如果超过一定时间没有相向则认为是主观下线</li>
+<li>如果大多数sentinel都认为实例主观下线，则判定服务下线</li>
+</ul>
+<p>故障转移步骤有哪些？</p>
+<ul>
+<li>首先选定一个slave作为新的master，执行slaveof no one</li>
+<li>然后让所有节点都执行slaveof 新master</li>
+<li>修改故障节点配置，添加slaveof 新master</li>
+</ul>
+<h4 id="配置哨兵节点"><a href="#配置哨兵节点" class="headerlink" title="配置哨兵节点"></a>配置哨兵节点</h4><ul>
+<li><p>准备实例和配置</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta"># 创建三个文件夹，存放sentinel的配置文件</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/weifuwu_img/Redis%E5%93%A8%E5%85%B5%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>每个目录下创建一个sentinel.conf文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh">port 27001<br>sentinel announce-ip 192.168.229.128<br>sentinel monitor mymaster 192.168.229.128 7001 2<br>sentinel down-after-milliseconds mymaster 5000<br>sentinel failover-timeout mymaster 60000<br><span class="hljs-built_in">dir</span> <span class="hljs-string">&quot;/home/cyx/redis/sentinel1&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>解读：</p>
+<ul>
+<li><code>port 27001</code>：是当前sentinel实例的端口</li>
+<li><code>sentinel monitor mymaster 192.168.150.101 7001 2</code>：指定主节点信息<ul>
+<li><code>mymaster</code>：主节点名称，自定义，任意写</li>
+<li><code>192.168.150.101 7001</code>：主节点的ip和端口</li>
+<li><code>2</code>：选举master时的quorum值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>修改每个配置文件的端口<code>port XXX</code></p>
+</li>
+<li><p>启动</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 第1个</span><br>.<span class="hljs-regexp">/redis-sentinel ../</span>..<span class="hljs-regexp">/sentinel1/</span>sentinel.conf<br><span class="hljs-comment"># 第2个</span><br>.<span class="hljs-regexp">/redis-sentinel ../</span>..<span class="hljs-regexp">/sentinel2/</span>sentinel.conf<br><span class="hljs-comment"># 第3个</span><br>.<span class="hljs-regexp">/redis-sentinel ../</span>..<span class="hljs-regexp">/sentinel3/</span>sentinel.conf<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>出现无法故障转移的时候，试试把从节点的slaveof 改成 slaveof 127.0.0.1 主节点端口</p>
+</li>
+</ul>
+<h4 id="RedisTemplate"><a href="#RedisTemplate" class="headerlink" title="RedisTemplate"></a>RedisTemplate</h4><p><strong>导入坐标</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>配置Redis地址</strong></p>
+<p>然后在配置文件application.yml中指定redis的sentinel相关信息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">spring:<br>  redis:<br>    sentinel:<br>      master: mymaster<br>      nodes:<br>        - <span class="hljs-number">192.168</span><span class="hljs-number">.150</span><span class="hljs-number">.101</span>:<span class="hljs-number">27001</span><br>        - <span class="hljs-number">192.168</span><span class="hljs-number">.150</span><span class="hljs-number">.101</span>:<span class="hljs-number">27002</span><br>        - <span class="hljs-number">192.168</span><span class="hljs-number">.150</span><span class="hljs-number">.101</span>:<span class="hljs-number">27003</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>配置读写分离</strong></p>
+<p>在项目的启动类中，添加一个新的bean：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> LettuceClientConfigurationBuilderCustomizer <span class="hljs-title function_">clientConfigurationBuilderCustomizer</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-keyword">return</span> clientConfigurationBuilder -&gt; clientConfigurationBuilder.readFrom(ReadFrom.REPLICA_PREFERRED);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>这个bean中配置的就是读写策略，包括四种：</p>
+<ul>
+<li>MASTER：从主节点读取</li>
+<li>MASTER_PREFERRED：优先从master节点读取，master不可用才读取replica</li>
+<li>REPLICA：从slave（replica）节点读取</li>
+<li>REPLICA _PREFERRED：优先从slave（replica）节点读取，所有的slave都不可用才读取master</li>
+</ul>
+<h3 id="Redis分片集群"><a href="#Redis分片集群" class="headerlink" title="Redis分片集群"></a>Redis分片集群</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>分片集群特点</p>
+<ul>
+<li><p>集群中有多个master，每个master保存不同数据</p>
+</li>
+<li><p>每个master都可以有多个slave节点</p>
+</li>
+<li><p>master之间通过ping监测彼此健康状态</p>
+</li>
+<li><p>客户端请求可以访问集群任意节点，最终都会被转发到正确节点</p>
+</li>
+</ul>
+<p>散列插槽</p>
+<p>0~16383共16384个插槽会被分配到master节点上，</p>
+<p>数据key不是与节点绑定，而是与插槽绑定，redis会根据key的有效部分计算插槽值</p>
+<ul>
+<li>key中包含”{}”，且“{}”中至少包含1个字符，“{}”中的部分是有效部分，可以通过{}来将同一类数据存储到同一个Redis实例中</li>
+<li>key中不包含“{}”，整个key都是有效部分</li>
+</ul>
+<h4 id="配置分片集群实例"><a href="#配置分片集群实例" class="headerlink" title="配置分片集群实例"></a>配置分片集群实例</h4><h5 id="准备实例和配置"><a href="#准备实例和配置" class="headerlink" title="准备实例和配置"></a>准备实例和配置</h5><ul>
+<li><p>准备实例和配置</p>
+<table>
+<thead>
+<tr>
+<th align="center">IP</th>
+<th align="center">PORT</th>
+<th align="center">角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">192.168.229.128</td>
+<td align="center">7001</td>
+<td align="center">master</td>
+</tr>
+<tr>
+<td align="center">192.168.229.128</td>
+<td align="center">7002</td>
+<td align="center">master</td>
+</tr>
+<tr>
+<td align="center">192.168.229.128</td>
+<td align="center">7003</td>
+<td align="center">master</td>
+</tr>
+<tr>
+<td align="center">192.168.229.128</td>
+<td align="center">8001</td>
+<td align="center">slave</td>
+</tr>
+<tr>
+<td align="center">192.168.229.128</td>
+<td align="center">8002</td>
+<td align="center">slave</td>
+</tr>
+<tr>
+<td align="center">192.168.229.128</td>
+<td align="center">8003</td>
+<td align="center">slave</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>创建配置文件redis.conf</p>
+<p><img src="/img/weifuwu_img/redis%E5%88%86%E7%89%87%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs sh">port 6379<br><span class="hljs-comment"># 开启集群功能</span><br>cluster-enabled <span class="hljs-built_in">yes</span><br><span class="hljs-comment"># 集群的配置文件名称，不需要我们创建，由redis自己维护</span><br>cluster-config-file /home/cyx/redis/6379/nodes.conf<br><span class="hljs-comment"># 节点心跳失败的超时时间</span><br>cluster-node-timeout 5000<br><span class="hljs-comment"># 持久化文件存放目录</span><br><span class="hljs-built_in">dir</span> /home/cyx/redis/6379<br><span class="hljs-comment"># 绑定地址</span><br><span class="hljs-built_in">bind</span> 0.0.0.0<br><span class="hljs-comment"># 让redis后台运行</span><br>daemonize <span class="hljs-built_in">yes</span><br><span class="hljs-comment"># 注册的实例ip</span><br>replica-announce-ip 192.168.229.128<br><span class="hljs-comment"># 保护模式</span><br>protected-mode no<br><span class="hljs-comment"># 数据库数量</span><br>databases 1<br><span class="hljs-comment"># 日志</span><br>logfile /home/cyx/redis/6379/run.log<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 执行拷贝</span><br><span class="hljs-attribute">echo</span> <span class="hljs-number">7001</span> <span class="hljs-number">7002</span> <span class="hljs-number">7003</span> <span class="hljs-number">8001</span> <span class="hljs-number">8002</span> <span class="hljs-number">8003</span> | xargs -t -n <span class="hljs-number">1</span> cp redis.conf<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置文件,将其中的6379修改为与所在目录一致</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 同时修改配置文件</span><br><span class="hljs-built_in">printf</span> <span class="hljs-string">&#x27;%s\n&#x27;</span> 7001 7002 7003 8001 8002 8003 | xargs -I&#123;&#125; -t sed -i <span class="hljs-string">&#x27;s/6379/&#123;&#125;/g&#x27;</span> &#123;&#125;/redis.conf<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>启动&#x2F;关闭</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment">#同时启动所有redis</span><br><span class="hljs-built_in">printf</span> <span class="hljs-string">&#x27;%s\n&#x27;</span> 7001 7002 7003 8001 8002 8003 | xargs -I&#123;&#125; -t redis-server &#123;&#125;/redis.conf<br><br><span class="hljs-comment">#查看redis进程</span><br>ps -ef | grep redis<br><br><span class="hljs-comment">#关闭所有redis进程</span><br><span class="hljs-built_in">printf</span> <span class="hljs-string">&#x27;%s\n&#x27;</span> 7001 7002 7003 8001 8002 8003 | xargs -I&#123;&#125; -t redis-cli -p &#123;&#125; shutdown<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h5><ul>
+<li><p>集群管理以及集成到了redis-cli中</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">redis-cli --cluster create --cluster-replicas 1 192.168.229.128:7001 192.168.229.128:7002 192.168.229.128:7003 192.168.229.128:8001 192.168.229.128:8002 192.168.229.128:8003<br></code></pre></td></tr></table></figure>
+
+<p>命令说明：</p>
+<ul>
+<li><code>redis-cli --cluster</code>或者<code>./redis-trib.rb</code>：代表集群操作命令</li>
+<li><code>create</code>：代表是创建集群</li>
+<li><code>--replicas 1</code>或者<code>--cluster-replicas 1</code> ：指定集群中每个master的副本个数为1，此时<code>节点总数 ÷ (replicas + 1)</code> 得到的就是master的数量。因此节点列表中的前n个就是master，其它节点都是slave节点，随机分配到不同master</li>
+</ul>
+</li>
+<li><p>查看集群状态</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">redis-cli -p 7001 cluster nodes<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><ul>
+<li><p>添加数据</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 打开客户端，-c代表集群操作</span><br>redis-cli -c -p 7001<br><span class="hljs-comment"># 之后就可以CRUD了，redis根据key算出的hash值存到对应插槽中</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="操作集群"><a href="#操作集群" class="headerlink" title="操作集群"></a>操作集群</h5><ul>
+<li><p>查看帮助文档</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">redis-cli --cluster <span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><img src="/img/weifuwu_img/Redis%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>添加节点到集群(add-node)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 添加的节点是没有插槽的</span><br>redis-cli --cluster add-node 要添加的节点ip:端口 一个maser节点的ip:端口<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>转移插槽(reshard)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">redis-cli --cluster reshard 要分配插槽的Redis实例的ip:端口<br><span class="hljs-comment"># 之后会让输入要分配的插槽数量、从哪个节点移动插槽、跟着提示来就行</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="故障转移"><a href="#故障转移" class="headerlink" title="故障转移"></a>故障转移</h4><h5 id="自动故障转移"><a href="#自动故障转移" class="headerlink" title="自动故障转移"></a>自动故障转移</h5><blockquote>
+<p>出现宕机的节点时，自动提升一个slave为新的master</p>
+<p>宕机的节点重新上线时，会变成slave节点</p>
+</blockquote>
+<h5 id="手动故障转移"><a href="#手动故障转移" class="headerlink" title="手动故障转移"></a>手动故障转移</h5><blockquote>
+<p>进入节点的客户端，执行cluster failover命令，这个节点就会称为master节点</p>
+</blockquote>
+<h4 id="RedisTemplate访问集群"><a href="#RedisTemplate访问集群" class="headerlink" title="RedisTemplate访问集群"></a>RedisTemplate访问集群</h4><p> 和哨兵模式差不多</p>
+<ul>
+<li>引入redis的starter依赖</li>
+<li>配置分片集群地址 (就这步有差异)</li>
+<li>配置读写分离</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">redis:</span><br>    <span class="hljs-attr">cluster:</span><br>      <span class="hljs-attr">nodes:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-number">192.168</span><span class="hljs-number">.229</span><span class="hljs-number">.128</span><span class="hljs-string">:7001</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-number">192.168</span><span class="hljs-number">.229</span><span class="hljs-number">.128</span><span class="hljs-string">:7002</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-number">192.168</span><span class="hljs-number">.229</span><span class="hljs-number">.128</span><span class="hljs-string">:7003</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-number">192.168</span><span class="hljs-number">.229</span><span class="hljs-number">.128</span><span class="hljs-string">:8001</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-number">192.168</span><span class="hljs-number">.229</span><span class="hljs-number">.128</span><span class="hljs-string">:8002</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-number">192.168</span><span class="hljs-number">.229</span><span class="hljs-number">.128</span><span class="hljs-string">:8003</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>分布式缓存</div>
+      <div>http://xwww12.github.io/2022/09/25/微服务/分布式缓存/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>xw</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月25日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/29/%E8%BD%AF%E8%80%83/UML%E5%9B%BE/" title="UML图">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">UML图</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/20/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" title="分布式事务">
+                        <span class="hidden-mobile">分布式事务</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 10px"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/snow2.js"></script>
+<script src="/js/pageTitle.js"></script>
+<script src="/js/sakura.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

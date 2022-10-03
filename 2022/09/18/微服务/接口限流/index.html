@@ -1,0 +1,849 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xw">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="接口限流Sentinel 由阿里巴巴中间件团队开发的开源项目，是一种面向分布式微服务架构的轻量级高可用流量控制组件 提供了流量控制、熔断降级、系统负载保护等多个维度来保障服务之间的稳定性   sentinel分为两部分：  sentinel-dashboard(控制面板)：提供实时监控之外，还提供了流控规则、熔断规则的在线维护等功能 客户端整合：每个微服务客户端都需要整合sentinel的客户端封">
+<meta property="og:type" content="article">
+<meta property="og:title" content="接口限流">
+<meta property="og:url" content="http://xwww12.github.io/2022/09/18/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E6%8E%A5%E5%8F%A3%E9%99%90%E6%B5%81/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="接口限流Sentinel 由阿里巴巴中间件团队开发的开源项目，是一种面向分布式微服务架构的轻量级高可用流量控制组件 提供了流量控制、熔断降级、系统负载保护等多个维度来保障服务之间的稳定性   sentinel分为两部分：  sentinel-dashboard(控制面板)：提供实时监控之外，还提供了流控规则、熔断规则的在线维护等功能 客户端整合：每个微服务客户端都需要整合sentinel的客户端封">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/sentinel.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/sentinel%E4%BE%8B%E5%AD%90.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/sentinel%E6%8E%A7%E5%88%B6%E5%8F%B0.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/sentinel%E6%B5%81%E6%8E%A7.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/sentinel%E6%96%B0%E5%A2%9E%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E7%83%AD%E7%82%B9%E8%A7%84%E5%88%991.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E7%83%AD%E7%82%B9%E8%A7%84%E5%88%992.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E9%9A%94%E7%A6%BB%E8%A7%84%E5%88%991.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E9%9A%94%E7%A6%BB%E8%A7%84%E5%88%992.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E6%85%A2%E8%B0%83%E7%94%A81.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E6%85%A2%E8%B0%83%E7%94%A82.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E6%AF%94%E4%BE%8B%E5%92%8C%E5%BC%82%E5%B8%B8%E6%95%B0.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E6%8E%88%E6%9D%83%E8%A7%84%E5%88%991.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E6%8E%88%E6%9D%83%E8%A7%84%E5%88%992.png">
+<meta property="article:published_time" content="2022-09-18T10:58:05.612Z">
+<meta property="article:modified_time" content="2022-09-18T11:06:16.874Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="微服务">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/weifuwu_img/sentinel.png">
+  
+  
+  
+  <title>接口限流 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xwww12.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>夕立ち的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img/Reimu1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">接口限流</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        xw
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-18 18:58" pubdate>
+          2022年9月18日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">接口限流</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="接口限流"><a href="#接口限流" class="headerlink" title="接口限流"></a>接口限流</h2><h3 id="Sentinel"><a href="#Sentinel" class="headerlink" title="Sentinel"></a>Sentinel</h3><blockquote>
+<p>由阿里巴巴中间件团队开发的开源项目，是一种面向分布式微服务架构的轻量级高可用<strong>流量控制</strong>组件</p>
+<p>提供了流量控制、熔断降级、系统负载保护等多个维度来保障服务之间的稳定性</p>
+</blockquote>
+<p><img src="/img/weifuwu_img/sentinel.png" srcset="/img/loading.gif" lazyload alt="sentinel"></p>
+<p>sentinel分为两部分：</p>
+<ul>
+<li>sentinel-dashboard(控制面板)：提供实时监控之外，还提供了流控规则、熔断规则的在线维护等功能</li>
+<li>客户端整合：每个微服务客户端都需要整合sentinel的客户端封装与配置，才能将监控信息上报给dashboard展示以及实时的更改限流或熔断规则等。</li>
+</ul>
+<h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><h5 id="部署Sentinel-Dashboard"><a href="#部署Sentinel-Dashboard" class="headerlink" title="部署Sentinel Dashboard"></a>部署Sentinel Dashboard</h5><p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/alibaba/Sentinel/releases">sentinel-dashboard</a></p>
+<ul>
+<li><p>运行jar包</p>
+<figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ldif">java -jar sentinel-dashboard-1.8.3.jar<br><br><span class="hljs-comment">#后面可跟参数</span><br><span class="hljs-literal">-</span>Dserver.port=8080 		<span class="hljs-comment">#设置端口，默认8080</span><br><span class="hljs-literal">-</span>Dsentinel.dashboard.auth.username=sentinel		<span class="hljs-comment">#设置用户名, 默认sentinel</span><br><span class="hljs-literal">-</span>Dsentinel.dashboard.auth.password=123456		<span class="hljs-comment">#设置密码, 默认sentinel</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>访问<code>localhost:8080</code>来打开控制面板</p>
+</li>
+</ul>
+<h5 id="客户端整合Sentinel"><a href="#客户端整合Sentinel" class="headerlink" title="客户端整合Sentinel"></a>客户端整合Sentinel</h5><ul>
+<li><p>导入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!--sentinel--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-sentinel<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1.1.RELEASE<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置Sentinel Dashboard的访问地址</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">sentinel:</span><br>      <span class="hljs-attr">transport:</span><br>        <span class="hljs-attr">dashboard:</span> <span class="hljs-string">localhost:8080</span>   <span class="hljs-comment"># 控制面板端口</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">alibaba-sentinel-rate-limiting</span>  <span class="hljs-comment"># 服务名</span><br><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">8001</span>  <span class="hljs-comment"># 服务端口</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写一个访问的接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.xw.controller;<br><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestController</span> &#123;<br><br>    <span class="hljs-meta">@GetMapping(&quot;/hello&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">hello</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>访问此接口和控制台</p>
+<p><img src="/img/weifuwu_img/sentinel%E4%BE%8B%E5%AD%90.png" srcset="/img/loading.gif" lazyload alt="sentinel例子"></p>
+<p><img src="/img/weifuwu_img/sentinel%E6%8E%A7%E5%88%B6%E5%8F%B0.png" srcset="/img/loading.gif" lazyload alt="sentinel控制台"></p>
+</li>
+</ul>
+<h4 id="限流"><a href="#限流" class="headerlink" title="限流"></a>限流</h4><h5 id="配置限流规则"><a href="#配置限流规则" class="headerlink" title="配置限流规则"></a>配置限流规则</h5><blockquote>
+<p>对访问某个接口的所有请求进行限流</p>
+</blockquote>
+<p><img src="/img/weifuwu_img/sentinel%E6%B5%81%E6%8E%A7.png" srcset="/img/loading.gif" lazyload alt="sentinel流控"></p>
+<p><img src="/img/weifuwu_img/sentinel%E6%96%B0%E5%A2%9E%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png" srcset="/img/loading.gif" lazyload alt="sentinel新增流控规则"></p>
+<p>流控模式：</p>
+<ul>
+<li><p>直接：统计当前资源的请求，触发阈值时对当前资源直接限流，也是默认模式。</p>
+</li>
+<li><p>关联：统计与当前相关的另一个资源，触发阈值时，对当前资源限流。</p>
+</li>
+<li><p>链路：统计从指定链路访问到本资源的请求，触发阈值时，对指定链路限流</p>
+<blockquote>
+<p>链路模式中，是对不同来源的两个链路做监控。但是sentinel默认会给进入SpringMVC的所有请求设置同一个root资源，会导致链路模式失效。</p>
+<p>我们需要关闭这种对SpringMVC的资源聚合</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">sentinel:</span><br>      <span class="hljs-attr">web-context-unify:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 关闭context整合</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>流控效果：</p>
+<ul>
+<li>快速失效：达到阈值后，新的请求会被立即拒绝并抛出FlowException异常。是默认的处理方式。</li>
+<li>warm up：预热模式，对超出阈值的请求同样是拒绝，并抛出异常。但这种模式阈值会动态变化，从一个较小的值逐渐增加到最大值。</li>
+<li>排队等待：让所有请求按照先后次序排队执行，两个请求的间隔不能小于指定时长。对流量进行整形，将波动的qps整形成平滑的直线。</li>
+</ul>
+<h5 id="配置热点参数限流"><a href="#配置热点参数限流" class="headerlink" title="配置热点参数限流"></a>配置热点参数限流</h5><blockquote>
+<p>粒度更细，对访问某个接口的指定参数进行限流</p>
+</blockquote>
+<ul>
+<li><p>热点参数限流对默认的SpringMVC是无效的，添加@SentinelResource注解开启热点限流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SentinelResource(&quot;hot&quot;)</span>    <span class="hljs-comment">//设置资源名</span><br><span class="hljs-meta">@GetMapping(&quot;/hot&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">hot</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String id)</span> &#123;<br>    System.out.println(<span class="hljs-string">&quot;热点参数&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;success&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通过控制面板设置</p>
+<p><img src="/img/weifuwu_img/%E7%83%AD%E7%82%B9%E8%A7%84%E5%88%991.png" srcset="/img/loading.gif" lazyload alt="热点规则1"></p>
+<p><img src="/img/weifuwu_img/%E7%83%AD%E7%82%B9%E8%A7%84%E5%88%992.png" srcset="/img/loading.gif" lazyload alt="热点规则2"></p>
+</li>
+</ul>
+<h4 id="隔离"><a href="#隔离" class="headerlink" title="隔离"></a>隔离</h4><blockquote>
+<p>对访问某个接口的线程进行限制</p>
+</blockquote>
+<h5 id="FeignClient整合Sentinel"><a href="#FeignClient整合Sentinel" class="headerlink" title="FeignClient整合Sentinel"></a>FeignClient整合Sentinel</h5><blockquote>
+<p>将Feign与Sentinel整合，在Feign里面实现线程隔离和服务熔断。</p>
+<p>SpringCloud版本为&lt;spring-cloud.version&gt;Hoxton.SR8&lt;&#x2F;spring-cloud.version&gt;</p>
+<p>循环依赖可能是版本问题</p>
+</blockquote>
+<p>Feign整合Sentinel的步骤：</p>
+<ul>
+<li>在application.yml中配置：feign.sentienl.enable&#x3D;true</li>
+<li>给FeignClient编写FallbackFactory并注册为Bean</li>
+<li>将FallbackFactory配置到FeignClient</li>
+</ul>
+<ul>
+<li><p>在用到feign的类的配置中开启sentinel功能</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">feign:</span><br>  <span class="hljs-attr">sentinel:</span><br>    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 开启feign对sentinel的支持</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写失败降级逻辑</p>
+<blockquote>
+<p>业务失败后，不能直接报错，而应该返回用户一个友好提示或者默认结果，这个就是失败降级逻辑。</p>
+<p>给FeignClient编写失败后的降级逻辑</p>
+<p>①方式一：FallbackClass，无法对远程调用的异常做处理</p>
+<p>②方式二：FallbackFactory，可以对远程调用的异常做处理</p>
+</blockquote>
+<p>在feign-api包中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.client.fallback;<br><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserClientFallbackFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">FallbackFactory</span>&lt;UserClient&gt; &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> UserClient <span class="hljs-title function_">create</span><span class="hljs-params">(Throwable throwable)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserClient</span>() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> User <span class="hljs-title function_">findById</span><span class="hljs-params">(Long id)</span> &#123;<br>                log.error(<span class="hljs-string">&quot;查询用户异常&quot;</span>);<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>();<br>            &#125;<br>        &#125;;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>将UserClientFallbackFactory注册为一个bean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DefaultFeignConfiguration</span> &#123;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> UserClientFallbackFactory <span class="hljs-title function_">userClientFallbackFactory</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserClientFallbackFactory</span>();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在用到feign的类上记得在启动类上设置默认配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableFeignClients(clients = &#123;UserClient.class&#125;,defaultConfiguration = DefaultFeignConfiguration.class)</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在feing-api项目中的UserClient接口中使用UserClientFallbackFactory</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.client;<br><br><span class="hljs-comment">//注意是fallbackFactory不是fallback</span><br><span class="hljs-meta">@FeignClient(value = &quot;userservice&quot;, fallbackFactory = UserClientFallbackFactory.class)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserClient</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/user/&#123;id&#125;&quot;)</span><br>    User <span class="hljs-title function_">findById</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable(&quot;id&quot;)</span> Long id)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重启服务</p>
+</li>
+</ul>
+<h5 id="线程隔离"><a href="#线程隔离" class="headerlink" title="线程隔离"></a>线程隔离</h5><p>线程隔离的两种手段</p>
+<ul>
+<li><p>信号量隔离</p>
+</li>
+<li><p>线程池隔离</p>
+</li>
+</ul>
+<p>信号量隔离的特点</p>
+<ul>
+<li>基于计数器模式，简单，开销小，适合高扇出的场景</li>
+</ul>
+<p>线程池隔离的特点</p>
+<ul>
+<li>基于线程池模式，有额外开销，但隔离控制更强</li>
+</ul>
+<h5 id="配置隔离规则"><a href="#配置隔离规则" class="headerlink" title="配置隔离规则"></a>配置隔离规则</h5><p><img src="/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E9%9A%94%E7%A6%BB%E8%A7%84%E5%88%991.png" srcset="/img/loading.gif" lazyload alt="配置隔离规则1"></p>
+<p><img src="/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E9%9A%94%E7%A6%BB%E8%A7%84%E5%88%992.png" srcset="/img/loading.gif" lazyload alt="配置隔离规则2"></p>
+<h5 id="熔断"><a href="#熔断" class="headerlink" title="熔断"></a>熔断</h5><blockquote>
+<p>熔断降级是解决雪崩问题的重要手段。其思路是由<strong>断路器</strong>统计服务调用的异常比例、慢请求比例，如果超出阈值则会<strong>熔断</strong>该服务。即拦截访问该服务的一切请求；而当服务恢复时，断路器会放行访问该服务的请求。</p>
+</blockquote>
+<p>熔断策略：</p>
+<ul>
+<li>慢调用：当响应时间大于设定的值(RT)时，为一次慢调用。若慢调用的次数大于设定的阈值，请求数量超过设定的最小数量，则会触发熔断</li>
+<li>异常比例：单位时间里出现异常的比例大于设置的比例，则会触发熔断</li>
+<li>异常数: 单位时间里出现异常的比例大于设置的数值，则会触发熔断</li>
+</ul>
+<p><strong>配置慢调用</strong></p>
+<p><img src="/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E6%85%A2%E8%B0%83%E7%94%A81.png" srcset="/img/loading.gif" lazyload alt="配置慢调用1"></p>
+<p><img src="/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E6%85%A2%E8%B0%83%E7%94%A82.png" srcset="/img/loading.gif" lazyload alt="配置慢调用2"></p>
+<p><strong>配置异常比例&#x2F;异常数</strong></p>
+<p><img src="/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E5%BC%82%E5%B8%B8%E6%AF%94%E4%BE%8B%E5%92%8C%E5%BC%82%E5%B8%B8%E6%95%B0.png" srcset="/img/loading.gif" lazyload alt="配置异常比例和异常数"></p>
+<h4 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h4><blockquote>
+<p>授权规则可以对调用方的来源做控制，有白名单和黑名单两种方式。</p>
+<p>只对有授权的请求提供服务</p>
+</blockquote>
+<p>默认情况下，sentinel对一切请求的来源都被认为是一样的值default。</p>
+<ul>
+<li><p>自定义请求来源解析器</p>
+<blockquote>
+<p>配置授权规则时会根据解析器的返回值来判断请求来源</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.order.sentinel;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 自定义来源解析器</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HeaderOriginParser</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">RequestOriginParser</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">parseOrigin</span><span class="hljs-params">(HttpServletRequest request)</span> &#123;<br>        <span class="hljs-comment">//从请求头获取来源信息</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">origin</span> <span class="hljs-operator">=</span> request.getHeader(<span class="hljs-string">&quot;origin&quot;</span>);<br>		<span class="hljs-comment">//请求头中没有&quot;origin&quot;，则默认值为&quot;blank&quot;</span><br>        <span class="hljs-keyword">if</span> (StringUtil.isEmpty(origin)) &#123;<br>            origin = <span class="hljs-string">&quot;blank&quot;</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> origin;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通过配置，给网关添加过滤器</p>
+<blockquote>
+<p>通过网关的请求都会被加上origin的请求头，值为”gateway”</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">gateway:</span><br>      <span class="hljs-attr">default-filters:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">AddRequestHeader=origin,gateway</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置授权规则</p>
+<p><img src="/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E6%8E%88%E6%9D%83%E8%A7%84%E5%88%991.png" srcset="/img/loading.gif" lazyload alt="配置授权规则1"></p>
+<p><img src="/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E6%8E%88%E6%9D%83%E8%A7%84%E5%88%992.png" srcset="/img/loading.gif" lazyload alt="配置授权规则2"></p>
+</li>
+</ul>
+<h4 id="自定义异常结果"><a href="#自定义异常结果" class="headerlink" title="自定义异常结果"></a>自定义异常结果</h4><blockquote>
+<p>发生限流、降级、授权拦截时，都会抛出异常到调用方，异常结果都是flow limmiting（限流）</p>
+</blockquote>
+<p><strong>异常种类</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>异常</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FlowException</td>
+<td>限流异常</td>
+</tr>
+<tr>
+<td>ParamFlowException</td>
+<td>热点参数限流的异常</td>
+</tr>
+<tr>
+<td>DegradeException</td>
+<td>降级异常</td>
+</tr>
+<tr>
+<td>AuthorityException</td>
+<td>授权规则异常</td>
+</tr>
+<tr>
+<td>SystemBlockException</td>
+<td>系统规则异常</td>
+</tr>
+</tbody></table>
+<p>通过自定义堵塞异常处理器来自定义返回结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.order.sentinel;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SentinelExceptionHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">BlockExceptionHandler</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">handle</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, BlockException e)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">msg</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;未知错误&quot;</span>;    <span class="hljs-comment">//异常信息</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">status</span> <span class="hljs-operator">=</span> <span class="hljs-number">429</span>;   <span class="hljs-comment">//状态码</span><br><br>        <span class="hljs-keyword">if</span> (e <span class="hljs-keyword">instanceof</span> FlowException) &#123;<br>            msg = <span class="hljs-string">&quot;请求被限流了&quot;</span>;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (e <span class="hljs-keyword">instanceof</span> ParamFlowException) &#123;<br>            msg = <span class="hljs-string">&quot;请求被热点参数限流&quot;</span>;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (e <span class="hljs-keyword">instanceof</span> DegradeException) &#123;<br>            msg = <span class="hljs-string">&quot;请求被降级了&quot;</span>;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (e <span class="hljs-keyword">instanceof</span> AuthorityException) &#123;<br>            msg = <span class="hljs-string">&quot;没有权限访问&quot;</span>;<br>            status = <span class="hljs-number">401</span>;<br>        &#125;<br><br>        response.setContentType(<span class="hljs-string">&quot;application/json;charset=utf-8&quot;</span>);<br>        response.setStatus(status);<br>        response.getWriter().println(<span class="hljs-string">&quot;&#123;\&quot;msg\&quot;: &quot;</span> + msg + <span class="hljs-string">&quot;, \&quot;status\&quot;: &quot;</span> + status + <span class="hljs-string">&quot;&#125;&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>接口限流</div>
+      <div>http://xwww12.github.io/2022/09/18/微服务/接口限流/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>xw</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月18日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/18/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2(2)/" title="分布式搜索(2)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">分布式搜索(2)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2/" title="分布式搜索(1)">
+                        <span class="hidden-mobile">分布式搜索(1)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 10px"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/snow2.js"></script>
+<script src="/js/pageTitle.js"></script>
+<script src="/js/sakura.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
