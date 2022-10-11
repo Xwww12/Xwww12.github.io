@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title></title>
+    <link href="/2022/10/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MP%E9%80%BB%E8%BE%91%E5%88%A0%E9%99%A4/"/>
+    <url>/2022/10/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MP%E9%80%BB%E8%BE%91%E5%88%A0%E9%99%A4/</url>
+    
+    <content type="html"><![CDATA[<h2 id="MP逻辑删除"><a href="#MP逻辑删除" class="headerlink" title="MP逻辑删除"></a>MP逻辑删除</h2><blockquote><p>删除数据只是逻辑上删除，数据库中还能查到</p></blockquote><p>使用场景：</p><ul><li><p>可以进行数据恢复</p></li><li><p>有关联数据，不便删除</p></li><li><p>表中添加<code>deleted</code>字段，类型为boolean默认值为false</p></li><li><p>修改实体类，添加<code>deleted</code>字段</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@TableLogic</span><br><span class="hljs-keyword">private</span> Integer deleted;<br></code></pre></td></tr></table></figure></li><li><p>配置(下面是默认配置，可配可不配)</p><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-comment"># 逻辑删除</span><br><span class="hljs-attr">mybatis-plus.global-config.db-config.logic-delete-value</span>=<span class="hljs-string">1</span><br><span class="hljs-attr">mybatis-plus.global-config.db-config.logic-not-delete-value</span>=<span class="hljs-string">0</span><br></code></pre></td></tr></table></figure></li><li><p>测试</p></li></ul>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>MP分页</title>
     <link href="/2022/10/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MP%E5%88%86%E9%A1%B5/"/>
     <url>/2022/10/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MP%E5%88%86%E9%A1%B5/</url>
@@ -849,9 +862,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -880,9 +893,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -969,9 +982,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
