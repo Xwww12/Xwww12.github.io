@@ -4,6 +4,93 @@
   
   
   <entry>
+    <title>安装vue-element-admin</title>
+    <link href="/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/%E5%AE%89%E8%A3%85vue-element-admin/"/>
+    <url>/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/%E5%AE%89%E8%A3%85vue-element-admin/</url>
+    
+    <content type="html"><![CDATA[<h2 id="安装vue-element-admin"><a href="#安装vue-element-admin" class="headerlink" title="安装vue-element-admin"></a>安装vue-element-admin</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs awk">git clone https:<span class="hljs-regexp">//gi</span>tee.com<span class="hljs-regexp">/panjiachen/</span>vue-element-admin.git client-action<br><br>cd client-action<br><br>git branch -a<br><br>git checkout -b i18n remotes<span class="hljs-regexp">/origin/i</span>18n<br><br>git config --global url.<span class="hljs-string">&quot;https://&quot;</span>.insteadOf git:<span class="hljs-regexp">//</span><br><br>npm install<br><br>npm run dev<br></code></pre></td></tr></table></figure><ul><li>需要切换分支到 i18n，否则不支持国际化（中文）功能</li><li>npm install 要多试几次，因为中间会连接 gitbub 下载一些依赖，网络不稳定会导致失败</li><li>npm run dev 运行后回自动打开浏览器，使用的端口是 9527</li><li>安装失败可以试试<a href="https://blog.csdn.net/qq_43271844/article/details/125865607">npm install 安装tui-editor报错解决_Thorold’s Deer的博客-CSDN博客_tui-editor vue</a></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>前端</category>
+      
+      <category>搭建环境</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>前端</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title></title>
+    <link href="/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/WebPack%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/"/>
+    <url>/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/WebPack%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/</url>
+    
+    <content type="html"><![CDATA[<h2 id="WebPack打包工具"><a href="#WebPack打包工具" class="headerlink" title="WebPack打包工具"></a>WebPack打包工具</h2><blockquote><p>Webpack 是一个前端资源加载&#x2F;打包工具。它将根据模块的依赖关系进行静态分析，然后将这些模块按照指定的规则生成对应的静态资源。</p><p>Webpack 可以将多种静态资源 js、css、less 转换成一个静态文件，减少了页面的请求。 </p></blockquote><ul><li><p>全局安装</p><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">npm install -g webpack webpack-<span class="hljs-keyword">cli</span><br></code></pre></td></tr></table></figure></li><li><p>创建配置文件<code>webpack.config.js</code></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;path&#x27;</span> <span class="hljs-comment">//Node.js内置模块</span><br><span class="hljs-keyword">const</span> __dirname = path.<span class="hljs-title function_">resolve</span>()<br><br><span class="hljs-comment">// 打包的是js</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>    <span class="hljs-attr">entry</span>: <span class="hljs-string">&#x27;./src/main.js&#x27;</span>, <span class="hljs-comment">//配置入口文件</span><br>    <span class="hljs-attr">output</span>: &#123;<br>        <span class="hljs-attr">path</span>: path.<span class="hljs-title function_">resolve</span>(__dirname, <span class="hljs-string">&#x27;./dist&#x27;</span>), <span class="hljs-comment">//输出路径，__dirname：当前文件所在路径</span><br>        <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;bundle.js&#x27;</span><span class="hljs-comment">//输出文件</span><br>    &#125;   <br>&#125;<br></code></pre></td></tr></table></figure></li><li><p>创建dist文件夹，用于放置打包后的文件</p></li><li><p>执行打包命令</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">webpack <span class="hljs-attribute">--mode</span>=development<br></code></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>前端</category>
+      
+      <category>搭建环境</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>前端</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>搭建前端项目</title>
+    <link href="/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/%E6%90%AD%E5%BB%BA%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE/"/>
+    <url>/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/%E6%90%AD%E5%BB%BA%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE/</url>
+    
+    <content type="html"><![CDATA[<h2 id="搭建前端项目"><a href="#搭建前端项目" class="headerlink" title="搭建前端项目"></a>搭建前端项目</h2><blockquote><p>npm包管理工具</p></blockquote><ul><li><p>查看npm版本</p><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> -v<br></code></pre></td></tr></table></figure></li><li><p>在项目文件夹下，项目初始化</p><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> init<br><br><span class="hljs-comment"># 之后按照提示输入相关信息</span><br><span class="hljs-comment"># 或者加个-y参数，直接只生成一个package.json文件</span><br></code></pre></td></tr></table></figure></li><li><p>修改npm镜像</p><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">npm config set registry https:<span class="hljs-comment">//registry.npm.taobao.org</span><br></code></pre></td></tr></table></figure></li><li><p>查看npm配置信息</p><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">npm config list<br></code></pre></td></tr></table></figure></li><li><p>下载依赖(全局&#x2F;当前项目)</p><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">npm install</span> <span class="hljs-title">[</span><span class="hljs-literal">--</span><span class="hljs-comment">global/</span><span class="hljs-literal">--</span><span class="hljs-comment">save</span><span class="hljs-literal">-</span><span class="hljs-comment">dev</span><span class="hljs-title">]</span> <span class="hljs-comment">依赖名</span><br></code></pre></td></tr></table></figure></li><li><p>在package.json文件中添加<code>&quot;type&quot;: &quot;module&quot;</code>就可使用<code>import</code>来导入其他模块</p></li></ul><blockquote><p>npm管理的项目在备份和传输的时候一般不携带node_modules文件夹</p><p>安装会自动在项目目录下添加 package-lock.json文件，这个文件帮助锁定安装包的版本</p><p>npm install     #根据package.json中的配置下载依赖，初始化项目</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>前端</category>
+      
+      <category>搭建环境</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>前端</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>自定义异常处理器</title>
     <link href="/2022/10/11/spring/springboot/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/"/>
     <url>/2022/10/11/spring/springboot/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/</url>
@@ -942,9 +1029,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -973,9 +1060,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -1062,9 +1149,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
