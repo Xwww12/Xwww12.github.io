@@ -4,13 +4,58 @@
   
   
   <entry>
-    <title></title>
+    <title>easyExcel</title>
+    <link href="/2022/10/14/%E5%85%B6%E4%BB%96/easyExcel/"/>
+    <url>/2022/10/14/%E5%85%B6%E4%BB%96/easyExcel/</url>
+    
+    <content type="html"><![CDATA[<h2 id="easyExcel"><a href="#easyExcel" class="headerlink" title="easyExcel"></a>easyExcel</h2><blockquote><p>EasyExcel是一个基于Java的、快速、简洁、解决大文件内存溢出的Excel处理工具。<br>他能让你在不用考虑性能、内存的等因素的情况下，快速完成Excel的读、写等功能。</p></blockquote><h3 id="写入"><a href="#写入" class="headerlink" title="写入"></a>写入</h3><ul><li><p>导入依赖</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>easyexcel<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure></li><li><p>在实体类的属性上添加注解，设置Excel表表头信息</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserData</span> &#123;<br><br>    <span class="hljs-meta">@ExcelProperty(&quot;用户编号&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> uid;<br><br>    <span class="hljs-meta">@ExcelProperty(&quot;用户名称&quot;)</span><br>    <span class="hljs-keyword">private</span> String username;<br>&#125;<br></code></pre></td></tr></table></figure></li><li><p>写入内容</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">testWrite</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 文件路径</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">fileName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;F:\\excel\\01.xlsx&quot;</span>;<br><br>        <span class="hljs-comment">// 要写入的内容</span><br>        ArrayList&lt;UserData&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; ++i) &#123;<br>            list.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UserData</span>(i, <span class="hljs-string">&quot;name&quot;</span> + i));<br>        &#125;<br><br>        <span class="hljs-comment">// 写入excel表</span><br>        EasyExcel.write(fileName, UserData.class)<br>                .sheet(<span class="hljs-string">&quot;用户信息&quot;</span>)  <span class="hljs-comment">// excel表表名</span><br>                .doWrite(list);<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p><img src="/img/else_img/easyExcel1.png"></p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>其他</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>其他</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>vue-element-admin简单使用</title>
     <link href="/2022/10/13/%E5%89%8D%E7%AB%AF/vue-element-admin/vue-element-admin%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"/>
     <url>/2022/10/13/%E5%89%8D%E7%AB%AF/vue-element-admin/vue-element-admin%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
     
     <content type="html"><![CDATA[<h2 id="vue-element-admin简单使用"><a href="#vue-element-admin简单使用" class="headerlink" title="vue-element-admin简单使用"></a>vue-element-admin简单使用</h2><h3 id="控制面板添加路由"><a href="#控制面板添加路由" class="headerlink" title="控制面板添加路由"></a>控制面板添加路由</h3><ul><li><p>在<code>router/index.js</code>文件中添加路由，就会显示到面板上</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 自己添加的路由</span><br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/hospSet&#x27;</span>,<br>    <span class="hljs-attr">component</span>: <span class="hljs-title class_">Layout</span>,<br>    <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;/hospSet/list&#x27;</span>,<br>    <span class="hljs-attr">meta</span>: &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;医院设置管理&#x27;</span>, <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;example&#x27;</span>&#125;,<br>    <span class="hljs-attr">children</span>: [<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/list&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;医院设置列表&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&#x27;@/views/i18n-demo/index&#x27;</span>),<br>        <span class="hljs-attr">meta</span>: &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;医院设置列表&#x27;</span>, <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;table&#x27;</span> &#125;<br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/add&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;医院设置列表添加&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&#x27;@/views/i18n-demo/index&#x27;</span>),<br>        <span class="hljs-attr">meta</span>: &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;医院设置列表添加&#x27;</span>, <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;tree&#x27;</span> &#125;<br>      &#125;<br>    ]<br>  &#125;,<br></code></pre></td></tr></table></figure></li><li><p>将组件文件地址换成自己的</p></li><li><p>配置个自己的axios来发送请求</p></li><li><p>在<code>api</code>文件夹下创建发送请求的js</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/utils/myAxios&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getHospSetList</span>(<span class="hljs-params">current, limit, searchObj</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title function_">axios</span>(&#123;<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">`/admin/hosp/hospitalSet/findPage/<span class="hljs-subst">$&#123;current&#125;</span>/<span class="hljs-subst">$&#123;limit&#125;</span>`</span>,<br>    <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;post&#x27;</span>,<br>    <span class="hljs-attr">data</span>: searchObj<br>  &#125;)<br>&#125;<br></code></pre></td></tr></table></figure></li></ul>]]></content>
     
     
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>前端</category>
+      
+      <category>vue-element-admin</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>前端</tag>
+      
+      <tag>Vue</tag>
+      
+    </tags>
     
   </entry>
   
@@ -186,9 +231,9 @@
     
     <tags>
       
-      <tag>mysql</tag>
-      
       <tag>后端</tag>
+      
+      <tag>mysql</tag>
       
     </tags>
     
@@ -217,9 +262,9 @@
     
     <tags>
       
-      <tag>mysql</tag>
-      
       <tag>后端</tag>
+      
+      <tag>mysql</tag>
       
     </tags>
     
@@ -248,9 +293,9 @@
     
     <tags>
       
-      <tag>mysql</tag>
-      
       <tag>后端</tag>
+      
+      <tag>mysql</tag>
       
     </tags>
     
@@ -1102,9 +1147,9 @@
     
     <tags>
       
-      <tag>mysql</tag>
-      
       <tag>后端</tag>
+      
+      <tag>mysql</tag>
       
     </tags>
     
@@ -1386,9 +1431,9 @@
     
     <tags>
       
-      <tag>mysql</tag>
-      
       <tag>后端</tag>
+      
+      <tag>mysql</tag>
       
     </tags>
     
