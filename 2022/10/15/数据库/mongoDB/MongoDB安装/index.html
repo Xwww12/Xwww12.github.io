@@ -16,23 +16,23 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="MySQL主从配置注意 主从服务器操作系统版本和位数一致； Master 和 Slave 数据库的版本要一致； Master 和 Slave 数据库中的数据要一致； Master 开启二进制日志， Master 和 Slave 的 server_id 在局域网内必须唯一；  步骤​	主库配置  修改配置文件&#x2F;etc&#x2F;my.cnf(windows下在my.ini文件中) 123[">
+    <meta name="description" content="MongoDB安装 MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。 在高负载的情况下，添加更多的节点，可以保证服务器性能。 MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。 MongoDB 将数据存储为一个文档，数据结构由键值(key&#x3D;&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL主从配置">
-<meta property="og:url" content="http://xwww12.github.io/2022/08/19/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:title" content="MongoDB安装">
+<meta property="og:url" content="http://xwww12.github.io/2022/10/15/%E6%95%B0%E6%8D%AE%E5%BA%93/mongoDB/MongoDB%E5%AE%89%E8%A3%85/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="MySQL主从配置注意 主从服务器操作系统版本和位数一致； Master 和 Slave 数据库的版本要一致； Master 和 Slave 数据库中的数据要一致； Master 开启二进制日志， Master 和 Slave 的 server_id 在局域网内必须唯一；  步骤​	主库配置  修改配置文件&#x2F;etc&#x2F;my.cnf(windows下在my.ini文件中) 123[">
+<meta property="og:description" content="MongoDB安装 MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。 在高负载的情况下，添加更多的节点，可以保证服务器性能。 MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。 MongoDB 将数据存储为一个文档，数据结构由键值(key&#x3D;&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-19T13:07:21.797Z">
-<meta property="article:modified_time" content="2022-08-20T07:39:36.785Z">
+<meta property="article:published_time" content="2022-10-15T14:01:12.137Z">
+<meta property="article:modified_time" content="2022-10-15T14:16:38.669Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="后端">
-<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="MongoDB">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>MySQL主从配置 - Hexo</title>
+  <title>MongoDB安装 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">MySQL主从配置</span>
+            <span id="subtitle">MongoDB安装</span>
           
         </div>
 
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-19 21:07" pubdate>
-          2022年8月19日 晚上
+        <time datetime="2022-10-15 22:01" pubdate>
+          2022年10月15日 晚上
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          399 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          19 分钟
+          4 分钟
         
       </span>
     
@@ -288,79 +288,27 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">MySQL主从配置</h1>
+            <h1 style="display: none">MongoDB安装</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="MySQL主从配置"><a href="#MySQL主从配置" class="headerlink" title="MySQL主从配置"></a>MySQL主从配置</h2><h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ul>
-<li>主从服务器操作系统版本和位数一致；</li>
-<li>Master 和 Slave 数据库的版本要一致；</li>
-<li>Master 和 Slave 数据库中的数据要一致；</li>
-<li>Master 开启二进制日志， Master 和 Slave 的 server_id 在局域网内必须唯一；</li>
+                <h2 id="MongoDB安装"><a href="#MongoDB安装" class="headerlink" title="MongoDB安装"></a>MongoDB安装</h2><blockquote>
+<p>MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。</p>
+<p>在高负载的情况下，添加更多的节点，可以保证服务器性能。</p>
+<p>MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。</p>
+<p>MongoDB 将数据存储为一个文档，数据结构由键值(key&#x3D;&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。</p>
+</blockquote>
+<h3 id="通过docker安装"><a href="#通过docker安装" class="headerlink" title="通过docker安装"></a>通过docker安装</h3><ul>
+<li><p>拉取镜像</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> pull mongo:latest<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建和启动容器</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker run -d --restart=always -p <span class="hljs-number">27017</span>:<span class="hljs-number">27017</span> --name mymongo -v <span class="hljs-regexp">/data/</span>db:<span class="hljs-regexp">/data/</span>db -d mongo<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 进入容器</span><br>docker exec -it mymongo <span class="hljs-regexp">/bin/</span>bash<br><span class="hljs-comment"># 使用mongoDB客户端进行操作</span><br>mongo<br><span class="hljs-comment"># 查询所有数据库</span><br>show dbs<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p>​	<strong>主库配置</strong></p>
-<ol>
-<li><p>修改配置文件&#x2F;etc&#x2F;my.cnf(windows下在my.ini文件中)</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[mysqld]</span><br><span class="hljs-attr">log-bin</span>=master-bin	<span class="hljs-comment">#开启二进制文件</span><br><span class="hljs-attr">server-id</span>=<span class="hljs-number">100</span>	<span class="hljs-comment">#服务器唯一ID</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>重启mysql服务</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl restart mysqld</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>登录mysql创建一个用户并赋予REPLICATION SLAVE权限</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE USER &#x27;username&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;password&#x27;;<br>GRANT REPLICATION SLAVE ON *.* TO &#x27;username&#x27;@&#x27;%&#x27;;<br>ALTER USER &#x27;username&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;password&#x27;;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>查看主库状态</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">show master status;<br></code></pre></td></tr></table></figure></li>
-</ol>
-<p>​	<strong>从库配置</strong>	</p>
-<ol>
-<li><p>修改配置文件</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[mysqld]</span><br><span class="hljs-attr">server-id</span>=<span class="hljs-number">101</span>	<span class="hljs-comment">#服务器唯一ID</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>重启mysql服务</p>
-</li>
-<li><p>设置主节点参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CHANGE MASTER TO<br>MASTER_HOST=&#x27;192.168.229.168&#x27;,<br>MASTER_USER=&#x27;zs&#x27;,<br>MASTER_PASSWORD=&#x27;123456&#x27;,<br>MASTER_LOG_FILE=&#x27;master-bin.000001&#x27;,		#查看主库状态时File列的参数<br>MASTER_LOG_POS=3578;						#查看主库状态时Position列的参数<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>开启主从服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">start slave;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>查看是否成功</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">show slave status \G<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h4><ol>
-<li>Slave_SQL_Running: NO</li>
-</ol>
-<p>解决方式:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; stop slave ;<br>mysql&gt; set GLOBAL SQL_SLAVE_SKIP_COUNTER=1;<br>mysql&gt; start slave ;<br><br>或者主节点参数配置错误，重新配置一遍<br></code></pre></td></tr></table></figure>
-
-
-
-<ol start="2">
-<li>Slave_IO_Running: NO&#x2F;Collecting</li>
-</ol>
-<p>解决方式:</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk">每次数据库重启后都会导致master status发生变化,重新配置从库的主节点参数<br><br>或者复制虚拟机时数据库的uuid相同，删除<span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/mysql/</span>auto.cnf文件后重启数据库<br>systemctl restart mysqld<br><br>或者防火墙没关<br></code></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-<h4 id="读写分离"><a href="#读写分离" class="headerlink" title="读写分离"></a>读写分离</h4><p>主库负责增删改，从库负责查</p>
-<p><strong>Sharding-JDBC</strong></p>
-<p>轻量级java框架，增强JDBC功能，可以在程序中实现数据库读写分离</p>
-<ol>
-<li><p>导入坐标</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.shardingsphere<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>sharding-jdbc-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.0.0-RC1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>配置</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">shardingsphere:</span><br>    <span class="hljs-attr">datasource:</span><br>      <span class="hljs-comment"># 定义数据源名称</span><br>      <span class="hljs-attr">names:</span><br>        <span class="hljs-string">master,slave</span><br>      <span class="hljs-comment"># 主数据源</span><br>      <span class="hljs-attr">master:</span><br>        <span class="hljs-attr">type:</span> <span class="hljs-string">com.alibaba.druid.pool.DruidDataSource</span><br>        <span class="hljs-attr">driver-class-name:</span> <span class="hljs-string">com.mysql.cj.jdbc.Driver</span><br>        <span class="hljs-attr">url:</span> <span class="hljs-string">jdbc:mysql://192.168.229.168:3306/rw?characterEncoding=utf-8</span><br>        <span class="hljs-attr">username:</span> <span class="hljs-string">root</span><br>        <span class="hljs-attr">password:</span> <span class="hljs-number">123456</span><br>      <span class="hljs-comment"># 从数据源</span><br>      <span class="hljs-attr">slave:</span><br>        <span class="hljs-attr">type:</span> <span class="hljs-string">com.alibaba.druid.pool.DruidDataSource</span><br>        <span class="hljs-attr">driver-class-name:</span> <span class="hljs-string">com.mysql.cj.jdbc.Driver</span><br>        <span class="hljs-attr">url:</span> <span class="hljs-string">jdbc:mysql://192.168.229.130:3306/rw?characterEncoding=utf-8</span><br>        <span class="hljs-attr">username:</span> <span class="hljs-string">root</span><br>        <span class="hljs-attr">password:</span> <span class="hljs-number">123456</span><br>    <span class="hljs-attr">masterslave:</span><br>      <span class="hljs-comment"># 读写分离配置（轮询）</span><br>      <span class="hljs-attr">load-balance-algorithm-type:</span> <span class="hljs-string">round_robin</span><br>      <span class="hljs-comment"># 最终的数据源名称</span><br>      <span class="hljs-attr">name:</span> <span class="hljs-string">dataSource</span><br>      <span class="hljs-comment"># 主库数据源名称</span><br>      <span class="hljs-attr">master-data-source-name:</span> <span class="hljs-string">master</span><br>      <span class="hljs-comment"># 从库数据源名称列表，多个逗号分隔</span><br>      <span class="hljs-attr">slave-data-source-names:</span> <span class="hljs-string">slave</span><br>    <span class="hljs-attr">props:</span><br>      <span class="hljs-attr">sql:</span><br>        <span class="hljs-attr">show:</span> <span class="hljs-literal">true</span> <span class="hljs-comment">#开启SQL显示，默认false</span><br>  <span class="hljs-attr">main:</span><br>  	<span class="hljs-comment">#Sharding和Druid的类有重名的，需要加上这个配置</span><br>    <span class="hljs-attr">allow-bean-definition-overriding:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></li>
-</ol>
 
                 
               </div>
@@ -384,7 +332,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/mysql/" class="category-chain-item">mysql</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/MongoDB/" class="category-chain-item">MongoDB</a>
   
   
 
@@ -403,7 +351,7 @@
       
         <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
       
-        <a href="/tags/mysql/">#mysql</a>
+        <a href="/tags/MongoDB/">#MongoDB</a>
       
     </div>
   
@@ -415,8 +363,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>MySQL主从配置</div>
-      <div>http://xwww12.github.io/2022/08/19/数据库/MySQL主从配置/</div>
+      <div>MongoDB安装</div>
+      <div>http://xwww12.github.io/2022/10/15/数据库/mongoDB/MongoDB安装/</div>
     </div>
     <div class="license-meta">
       
@@ -428,7 +376,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年8月19日</div>
+          <div>2022年10月15日</div>
         </div>
       
       
@@ -458,18 +406,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/20/%E4%B8%AD%E9%97%B4%E4%BB%B6/Nginx/" title="Nginx">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Nginx</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/08/19/spring/Spring%20Cache/" title="Spring Cache">
-                        <span class="hidden-mobile">Spring Cache</span>
+                      <a href="/2022/10/14/%E5%85%B6%E4%BB%96/easyExcel/" title="easyExcel">
+                        <span class="hidden-mobile">easyExcel</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

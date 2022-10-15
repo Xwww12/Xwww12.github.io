@@ -24,8 +24,9 @@
 <meta property="og:description" content="easyExcel EasyExcel是一个基于Java的、快速、简洁、解决大文件内存溢出的Excel处理工具。他能让你在不用考虑性能、内存的等因素的情况下，快速完成Excel的读、写等功能。  写入 导入依赖 12345&lt;dependency&gt;    &lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;eas">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/easyExcel1.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/easyExcel2.png">
 <meta property="article:published_time" content="2022-10-14T13:38:40.449Z">
-<meta property="article:modified_time" content="2022-10-14T13:57:59.626Z">
+<meta property="article:modified_time" content="2022-10-15T07:25:43.722Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -226,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          837 字
+          1.7k 字
         
       </span>
     
@@ -237,7 +238,7 @@
         
         
         
-          7 分钟
+          15 分钟
         
       </span>
     
@@ -308,6 +309,19 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">testWrite</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 文件路径</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">fileName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;F:\\excel\\01.xlsx&quot;</span>;<br><br>        <span class="hljs-comment">// 要写入的内容</span><br>        ArrayList&lt;UserData&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; ++i) &#123;<br>            list.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UserData</span>(i, <span class="hljs-string">&quot;name&quot;</span> + i));<br>        &#125;<br><br>        <span class="hljs-comment">// 写入excel表</span><br>        EasyExcel.write(fileName, UserData.class)<br>                .sheet(<span class="hljs-string">&quot;用户信息&quot;</span>)  <span class="hljs-comment">// excel表表名</span><br>                .doWrite(list);<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><img src="/img/else_img/easyExcel1.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<h3 id="读出"><a href="#读出" class="headerlink" title="读出"></a>读出</h3><ul>
+<li><p>实体类上要添加相对应的列号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ExcelProperty(value = &quot;用户编号&quot;, index = 0)</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> uid;<br><br><span class="hljs-meta">@ExcelProperty(value = &quot;用户名称&quot;, index = 1)</span><br><span class="hljs-keyword">private</span> String username;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写监听方法，当读取excel时会执行此监听方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExcelListener</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AnalysisEventListener</span>&lt;UserData&gt; &#123;<br><br>    <span class="hljs-comment">// 一行行读取excel内容，从第二行开始读取</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">invoke</span><span class="hljs-params">(UserData userData, AnalysisContext analysisContext)</span> &#123;<br>        System.out.println(userData);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doAfterAllAnalysed</span><span class="hljs-params">(AnalysisContext analysisContext)</span> &#123;<br><br>    &#125;<br><br>    <span class="hljs-comment">// 读取表头信息</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">invokeHeadMap</span><span class="hljs-params">(Map&lt;Integer, String&gt; headMap, AnalysisContext context)</span> &#123;<br>        System.out.println(headMap);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>读出内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestRead</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">fileName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;F:\\excel\\01.xlsx&quot;</span>;<br><br>        EasyExcel.read(fileName,<br>                UserData.class,<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExcelListener</span>()).sheet().doRead();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/else_img/easyExcel2.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ul>
 
@@ -404,6 +418,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/10/15/%E6%95%B0%E6%8D%AE%E5%BA%93/mongoDB/MongoDB%E5%AE%89%E8%A3%85/" title="MongoDB安装">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MongoDB安装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
