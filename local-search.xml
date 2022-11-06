@@ -1116,9 +1116,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1147,9 +1147,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1236,9 +1236,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1835,7 +1835,7 @@
     <link href="/2022/07/20/blog/"/>
     <url>/2022/07/20/blog/</url>
     
-    <content type="html"><![CDATA[<h4 id="2022-11-5"><a href="#2022-11-5" class="headerlink" title="2022.11.5"></a>2022.11.5</h4><p>软件工程期中复习</p><h4 id="2022-11-4"><a href="#2022-11-4" class="headerlink" title="2022.11.4"></a>2022.11.4</h4><p><strong>尚医通整合注册中心nacos</strong>：</p><ul><li>启动nacos命令startup.cmd -m standalone，</li><li>项目导入坐标，添加nacos配置（nacos地址，服务名称等），启动类添加@EnableDiscoveryClient注解，</li><li>在nacos控制台可以查看以注册的服务</li></ul><p><strong>尚医通整合远程调用feign</strong>：</p><ul><li>创建新模块并添加feign坐标</li><li>创建接口，添加@FeignClient(“服务名”)注解，将要远程调用的该服务的方法写入，路径参数的名字记得加，地址映射记得补全</li><li>在要使用feign的模块中添加feign坐标，启动类添加注解@EnableFeignClients(basePackages &#x3D; “feign接口所在包”)</li><li>最后自动装配到要用的类中来使用</li></ul>]]></content>
+    <content type="html"><![CDATA[<h4 id="202211-6"><a href="#202211-6" class="headerlink" title="202211.6"></a>202211.6</h4><p><strong>尚医通整合网关gateway</strong>：</p><ul><li>创建新模块并添加gateway和nacos坐标</li><li>添加基本配置，添加配置类解决跨域(之前Controller上的@CrossOrigin要去掉)</li><li>启动模块，之后前端可以访问网关的端口</li></ul><h4 id="2022-11-4"><a href="#2022-11-4" class="headerlink" title="2022.11.4"></a>2022.11.4</h4><p><strong>尚医通整合注册中心nacos</strong>：</p><ul><li>启动nacos命令startup.cmd -m standalone，</li><li>项目导入坐标，添加nacos配置（nacos地址，服务名称等），启动类添加@EnableDiscoveryClient注解，</li><li>在nacos控制台可以查看以注册的服务</li></ul><p><strong>尚医通整合远程调用feign</strong>：</p><ul><li>创建新模块并添加feign坐标</li><li>创建接口，添加@FeignClient(“服务名”)注解，将要远程调用的该服务的方法写入，路径参数的名字记得加，地址映射记得补全</li><li>在要使用feign的模块中添加feign坐标，启动类添加注解@EnableFeignClients(basePackages &#x3D; “feign接口所在包”)</li><li>最后自动装配到要用的类中来使用</li></ul>]]></content>
     
     
     <categories>
