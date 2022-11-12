@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>通过阿里云发送短信</title>
+    <link href="/2022/11/12/%E5%85%B6%E4%BB%96/%E9%80%9A%E8%BF%87%E9%98%BF%E9%87%8C%E4%BA%91%E5%8F%91%E9%80%81%E7%9F%AD%E4%BF%A1/"/>
+    <url>/2022/11/12/%E5%85%B6%E4%BB%96/%E9%80%9A%E8%BF%87%E9%98%BF%E9%87%8C%E4%BA%91%E5%8F%91%E9%80%81%E7%9F%AD%E4%BF%A1/</url>
+    
+    <content type="html"><![CDATA[<h2 id="通过阿里云发送短信"><a href="#通过阿里云发送短信" class="headerlink" title="通过阿里云发送短信"></a>通过阿里云发送短信</h2><blockquote><p>这里通过测试API来发送</p></blockquote><p><a href="https://www.aliyun.com/">阿里云网址</a></p><h3 id="查看官网"><a href="#查看官网" class="headerlink" title="查看官网"></a>查看官网</h3><ul><li><p>搜索短信服务</p><p><img src="/img/else_img/aliyunMSM1.png"></p></li><li><p>绑定测试手机号，点击调用API</p><p><img src="/img/else_img/aliyunMSM2.png"></p></li><li><p>可以看到有发送短信的示例代码</p><p><img src="/img/else_img/aliyunMSM3.png"></p></li><li><p>创建用于发送短信的AccessKey</p><p><img src="/img/else_img/aliyunMSM4.png"></p><p><img src="/img/else_img/aliyunMSM5.png"></p></li><li><p>创建完用户后给其分配发送SMS的权限</p><p><img src="/img/else_img/aliyunMSM6.png"></p></li><li><p>给用户创建AccessKey（创建完记得保存）</p><p><img src="/img/else_img/aliyunMSM7.png"></p></li></ul><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ul><li>根据示例代码，首先导入依赖</li></ul><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 阿里云短信服务 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.aliyun<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>aliyun-java-sdk-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.6.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.aliyun<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>aliyun-java-sdk-dysmsapi<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure><ul><li><p>这里通过将AccessKey 和密钥放到配置文件中，再通过@Value注解来读取</p><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-comment"># 地域节点</span><br><span class="hljs-attr">aliyun.sms.regionId</span>=<span class="hljs-string">default</span><br><span class="hljs-comment"># 访问ID</span><br><span class="hljs-attr">aliyun.sms.accessKeyId</span>=<span class="hljs-string"></span><br><span class="hljs-comment"># 访问密钥</span><br><span class="hljs-attr">aliyun.sms.secret</span>=<span class="hljs-string"></span><br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-comment">// InitializingBean接口为bean提供了属性初始化后的处理方法</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ConstantPropertiesUtils</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">InitializingBean</span> &#123;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;aliyun.sms.regionId&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String regionId;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;aliyun.sms.accessKeyId&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String accessKeyId;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;aliyun.sms.secret&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String secret;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String REGION_Id;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String ACCESS_KEY_ID;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String SECRET;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterPropertiesSet</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        REGION_Id = regionId;<br>        ACCESS_KEY_ID = accessKeyId;<br>        SECRET = secret;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li><li><p>创建发送短信的service</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MsmServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">MsmService</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">send</span><span class="hljs-params">(String phone, String code)</span> &#123;<br><br>        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(phone))<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br><br>        <span class="hljs-comment">// 基础配置</span><br>        <span class="hljs-type">DefaultProfile</span> <span class="hljs-variable">profile</span> <span class="hljs-operator">=</span> DefaultProfile.getProfile(<br>                ConstantPropertiesUtils.REGION_Id,  <span class="hljs-comment">// 地域节点</span><br>                ConstantPropertiesUtils.ACCESS_KEY_ID,  <span class="hljs-comment">// 访问ID</span><br>                ConstantPropertiesUtils.SECRET);    <span class="hljs-comment">//访问密钥</span><br><br>        <span class="hljs-type">IAcsClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DefaultAcsClient</span>(profile);<br><br>        <span class="hljs-type">SendSmsRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SendSmsRequest</span>();<br>        request.setSignName(<span class="hljs-string">&quot;阿里云短信测试&quot;</span>); <span class="hljs-comment">// 短信签名</span><br>        request.setTemplateCode(<span class="hljs-string">&quot;SMS_154950909&quot;</span>);   <span class="hljs-comment">// 短信模板</span><br>        request.setPhoneNumbers(phone); <span class="hljs-comment">// 发送的手机号</span><br>        request.setTemplateParam(<span class="hljs-string">&quot;&#123;\&quot;code\&quot;:\&quot;&quot;</span> + code + <span class="hljs-string">&quot;\&quot;&#125;&quot;</span>);    <span class="hljs-comment">// 发送的验证码</span><br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 发送短信</span><br>            <span class="hljs-type">SendSmsResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.getAcsResponse(request);<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;OK&quot;</span>.equals(response.getCode());<br>        &#125; <span class="hljs-keyword">catch</span> (ServerException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (ClientException e) &#123;<br>            System.out.println(<span class="hljs-string">&quot;ErrCode:&quot;</span> + e.getErrCode());<br>            System.out.println(<span class="hljs-string">&quot;ErrMsg:&quot;</span> + e.getErrMsg());<br>            System.out.println(<span class="hljs-string">&quot;RequestId:&quot;</span> + e.getRequestId());<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>其他</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>其他</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title></title>
     <link href="/2022/11/07/%E5%89%8D%E7%AB%AF/nuxt/nuxt/"/>
     <url>/2022/11/07/%E5%89%8D%E7%AB%AF/nuxt/nuxt/</url>
@@ -27,6 +54,8 @@
     <categories>
       
       <category>学习笔记</category>
+      
+      <category>数据库</category>
       
       <category>MongoDB</category>
       
@@ -264,6 +293,8 @@
       
       <category>学习笔记</category>
       
+      <category>数据库</category>
+      
       <category>mysql</category>
       
       <category>mybatis-plus</category>
@@ -295,6 +326,8 @@
       
       <category>学习笔记</category>
       
+      <category>数据库</category>
+      
       <category>mysql</category>
       
       <category>mybatis-plus</category>
@@ -325,6 +358,8 @@
     <categories>
       
       <category>学习笔记</category>
+      
+      <category>数据库</category>
       
       <category>mysql</category>
       
@@ -1129,9 +1164,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1160,9 +1195,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1181,6 +1216,8 @@
     <categories>
       
       <category>学习笔记</category>
+      
+      <category>数据库</category>
       
       <category>mysql</category>
       
@@ -1249,9 +1286,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1463,6 +1500,8 @@
     <categories>
       
       <category>学习笔记</category>
+      
+      <category>数据库</category>
       
       <category>mysql</category>
       
@@ -1848,7 +1887,7 @@
     <link href="/2022/07/20/blog/"/>
     <url>/2022/07/20/blog/</url>
     
-    <content type="html"><![CDATA[<h4 id="2022-11-10"><a href="#2022-11-10" class="headerlink" title="2022.11.10"></a>2022.11.10</h4><p><strong>尚医通用户后端模块搭建</strong></p><p>token：</p><ul><li>通过JWT(Json Web Token)生成token</li><li>每次请求在请求头中存放token，后端校验</li></ul><p>阿里云短信服务：</p><ul><li>通过支付宝注册，充值1元</li><li>使用’短信服务’来发送短信（这里只用了测试API发送短信）</li><li>将官方的模板改为自己的来发送短信</li></ul><h4 id="2022-11-8"><a href="#2022-11-8" class="headerlink" title="2022.11.8"></a>2022.11.8</h4><p>nuxt路由：</p><ul><li>固定路由：地址固定，访问时会跳转指定目录下的index.vue文件</li><li>动态路由：地址中后面带参数，在目录下创建 _参数名称.vue 的文件，访问时会跳转到这个文件</li></ul><h4 id="2022-11-7"><a href="#2022-11-7" class="headerlink" title="2022.11.7"></a>2022.11.7</h4><p><strong>尚医通用户前台搭建</strong>：</p><ul><li>Nuxt：下载<a href="https://github.com/nuxt-community/starter-template/archive/master.zip">压缩包</a>，解压到文件夹</li><li>修改package.json和nuxt.config.js中的name、description、author</li><li>终端npm install，npm  install  element-ui，npm install axios下载依赖，</li><li>在plugins目录下创建js文件，引入Vue、ElementUI，</li><li>在nuxt.config.js文件中使用自定义的plugin</li></ul><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">plugins</span>: [<br>        &#123; <span class="hljs-attr">src</span>: <span class="hljs-string">&#x27;~/plugins/myPlugin.js&#x27;</span>, <span class="hljs-attr">ssr</span>: <span class="hljs-literal">false</span> &#125;<br>]<br></code></pre></td></tr></table></figure><ul><li>启动 npm run dev</li><li>axios可能版本太高，需要install老版本</li></ul><h4 id="2022-11-6"><a href="#2022-11-6" class="headerlink" title="2022.11.6"></a>2022.11.6</h4><p><strong>尚医通整合网关gateway</strong>：</p><ul><li>创建新模块并添加gateway和nacos坐标</li><li>添加基本配置，添加配置类解决跨域(之前Controller上的@CrossOrigin要去掉)</li><li>启动模块，之后前端可以访问网关的端口</li></ul><h4 id="2022-11-4"><a href="#2022-11-4" class="headerlink" title="2022.11.4"></a>2022.11.4</h4><p><strong>尚医通整合注册中心nacos</strong>：</p><ul><li>启动nacos命令startup.cmd -m standalone，</li><li>项目导入坐标，添加nacos配置（nacos地址，服务名称等），启动类添加@EnableDiscoveryClient注解，</li><li>在nacos控制台可以查看以注册的服务</li></ul><p><strong>尚医通整合远程调用feign</strong>：</p><ul><li>创建新模块并添加feign坐标</li><li>创建接口，添加@FeignClient(“服务名”)注解，将要远程调用的该服务的方法写入，路径参数的名字记得加，地址映射记得补全</li><li>在要使用feign的模块中添加feign坐标，启动类添加注解@EnableFeignClients(basePackages &#x3D; “feign接口所在包”)</li><li>最后自动装配到要用的类中来使用</li></ul>]]></content>
+    <content type="html"><![CDATA[<h4 id="2022-11-11"><a href="#2022-11-11" class="headerlink" title="2022.11.11"></a>2022.11.11</h4><p><strong>尚医通用户前端登录模块模块搭建</strong></p><p>安装js用的cookie</p><ul><li>npm install js-cookie</li></ul><h4 id="2022-11-10"><a href="#2022-11-10" class="headerlink" title="2022.11.10"></a>2022.11.10</h4><p><strong>尚医通用户后端模块搭建</strong></p><p>token：</p><ul><li>通过JWT(Json Web Token)生成token</li><li>每次请求在请求头中存放token，后端校验</li></ul><p>阿里云短信服务：</p><ul><li>通过支付宝注册，充值1元</li><li>使用’短信服务’来发送短信（这里只用了测试API发送短信）</li><li>将官方的模板改为自己的来发送短信</li></ul><h4 id="2022-11-8"><a href="#2022-11-8" class="headerlink" title="2022.11.8"></a>2022.11.8</h4><p>nuxt路由：</p><ul><li>固定路由：地址固定，访问时会跳转指定目录下的index.vue文件</li><li>动态路由：地址中后面带参数，在目录下创建 _参数名称.vue 的文件，访问时会跳转到这个文件</li></ul><h4 id="2022-11-7"><a href="#2022-11-7" class="headerlink" title="2022.11.7"></a>2022.11.7</h4><p><strong>尚医通用户前台搭建</strong>：</p><ul><li>Nuxt：下载<a href="https://github.com/nuxt-community/starter-template/archive/master.zip">压缩包</a>，解压到文件夹</li><li>修改package.json和nuxt.config.js中的name、description、author</li><li>终端npm install，npm  install  element-ui，npm install axios下载依赖，</li><li>在plugins目录下创建js文件，引入Vue、ElementUI，</li><li>在nuxt.config.js文件中使用自定义的plugin</li></ul><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">plugins</span>: [<br>        &#123; <span class="hljs-attr">src</span>: <span class="hljs-string">&#x27;~/plugins/myPlugin.js&#x27;</span>, <span class="hljs-attr">ssr</span>: <span class="hljs-literal">false</span> &#125;<br>]<br></code></pre></td></tr></table></figure><ul><li>启动 npm run dev</li><li>axios可能版本太高，需要install老版本</li></ul><h4 id="2022-11-6"><a href="#2022-11-6" class="headerlink" title="2022.11.6"></a>2022.11.6</h4><p><strong>尚医通整合网关gateway</strong>：</p><ul><li>创建新模块并添加gateway和nacos坐标</li><li>添加基本配置，添加配置类解决跨域(之前Controller上的@CrossOrigin要去掉)</li><li>启动模块，之后前端可以访问网关的端口</li></ul><h4 id="2022-11-4"><a href="#2022-11-4" class="headerlink" title="2022.11.4"></a>2022.11.4</h4><p><strong>尚医通整合注册中心nacos</strong>：</p><ul><li>启动nacos命令startup.cmd -m standalone，</li><li>项目导入坐标，添加nacos配置（nacos地址，服务名称等），启动类添加@EnableDiscoveryClient注解，</li><li>在nacos控制台可以查看以注册的服务</li></ul><p><strong>尚医通整合远程调用feign</strong>：</p><ul><li>创建新模块并添加feign坐标</li><li>创建接口，添加@FeignClient(“服务名”)注解，将要远程调用的该服务的方法写入，路径参数的名字记得加，地址映射记得补全</li><li>在要使用feign的模块中添加feign坐标，启动类添加注解@EnableFeignClients(basePackages &#x3D; “feign接口所在包”)</li><li>最后自动装配到要用的类中来使用</li></ul>]]></content>
     
     
     <categories>
