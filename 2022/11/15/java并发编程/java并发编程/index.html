@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/bingfa_img/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%815.png">
 <meta property="og:image" content="http://xwww12.github.io/img/bingfa_img/jol.png">
 <meta property="article:published_time" content="2022-11-15T12:16:50.934Z">
-<meta property="article:modified_time" content="2022-11-22T11:43:51.124Z">
+<meta property="article:modified_time" content="2022-11-23T13:59:41.273Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/bingfa_img/jconsole%E7%95%8C%E9%9D%A2.png">
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          12k 字
+          13k 字
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          105 分钟
+          107 分钟
         
       </span>
     
@@ -439,13 +439,11 @@
 <td>将此线程标记为守护线程或用户线程</td>
 </tr>
 </tbody></table>
-<p><strong>run start</strong></p>
-<ul>
+<h5 id="run-start"><a href="#run-start" class="headerlink" title="run start"></a><strong>run start</strong></h5><ul>
 <li>直接调用run方法相当于在当前线程中进行了普通的方法调用，</li>
 <li>使用start方法则为启动新的线程，通过新的线程执行run中的代码</li>
 </ul>
-<p><strong>sleep yield</strong></p>
-<p>sleep</p>
+<h5 id="sleep-yield"><a href="#sleep-yield" class="headerlink" title="sleep yield"></a><strong>sleep yield</strong></h5><p>sleep</p>
 <blockquote>
 <p> 调用 sleep 会让当前线程<strong>从 Running 进入 Timed Waiting 状态</strong>（阻塞）</p>
 <p>当睡眠时间结束后状态为Runnable</p>
@@ -466,15 +464,13 @@
 
 
 
-<p><strong>join</strong></p>
-<blockquote>
+<h5 id="join"><a href="#join" class="headerlink" title="join"></a><strong>join</strong></h5><blockquote>
 <p>join()等待这个线程结束</p>
 <p>join(long n) 最多等待n秒</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>    log.debug(<span class="hljs-string">&quot;开始&quot;</span>);<br>    <span class="hljs-type">Thread</span> <span class="hljs-variable">t1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(() -&gt; &#123;<br>        log.debug(<span class="hljs-string">&quot;开始&quot;</span>);<br>        <span class="hljs-keyword">try</span> &#123;<br>            Thread.sleep(<span class="hljs-number">3000</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>        r = <span class="hljs-number">10</span>;<br>        log.debug(<span class="hljs-string">&quot;结束&quot;</span>);<br>    &#125;, <span class="hljs-string">&quot;t1&quot;</span>);<br>    t1.start();<br>    t1.join();  <span class="hljs-comment">// 等待t1结束后继续执行后面的代码</span><br>    <span class="hljs-comment">// t1.join(1000); r: 0</span><br>    log.debug(<span class="hljs-string">&quot;r: &#123;&#125;&quot;</span>, r);  <span class="hljs-comment">// r: 10</span><br>    log.debug(<span class="hljs-string">&quot;结束&quot;</span>);<br><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>interrupt</strong></p>
-<blockquote>
+<h5 id="interrupt"><a href="#interrupt" class="headerlink" title="interrupt"></a><strong>interrupt</strong></h5><blockquote>
 <p>打断正在运行的线程</p>
 <ul>
 <li><p>打断只是通知要被打断的线程，将isInterrupted置为true</p>
@@ -488,6 +484,10 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 打断正常线程</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>    <span class="hljs-type">Thread</span> <span class="hljs-variable">t1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(() -&gt; &#123;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (Thread.currentThread().isInterrupted()) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>    &#125;, <span class="hljs-string">&quot;t1&quot;</span>);<br><br>    t1.start();<br>    Thread.sleep(<span class="hljs-number">1000</span>);<br>    log.debug(<span class="hljs-string">&quot;interrupt&quot;</span>);<br>    t1.interrupt();<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h5 id="wait-notify"><a href="#wait-notify" class="headerlink" title="wait notify"></a>wait notify</h5><blockquote>
+<p>wait 让当前线程进入<strong>WaitSet</strong>，变为<strong>WAITING</strong>状态</p>
+<p>当Owner线程调用notify时会唤醒wait的线程，并进入阻塞队列来竞争锁</p>
+</blockquote>
 <h4 id="主线程和守护线程"><a href="#主线程和守护线程" class="headerlink" title="主线程和守护线程"></a>主线程和守护线程</h4><ul>
 <li>默认情况Java进程需要等所有线程都运行结束，进程才会结束</li>
 <li>而不需要等待守护线程，技术守护线程没有执行完，也会强制结束</li>
@@ -558,8 +558,7 @@
 <p>不能通过锁this来解决，因为有两个不同的实例</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">transfer</span><span class="hljs-params">(Account target, <span class="hljs-type">int</span> amount)</span> &#123;<br>    <span class="hljs-comment">// 通过锁类对象来实现线程安全</span><br>    <span class="hljs-keyword">synchronized</span> (Account.class) &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.money &gt; amount) &#123;<br>            <span class="hljs-built_in">this</span>.setMoney(<span class="hljs-built_in">this</span>.getMoney() - amount);<br>            target.setMoney(target.getMoney() + amount);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="Monitor概念"><a href="#Monitor概念" class="headerlink" title="Monitor概念"></a>Monitor概念</h3><p>monitor（管程&#x2F;监视器）</p>
-<h4 id="java对象头"><a href="#java对象头" class="headerlink" title="java对象头"></a>java对象头</h4><p>对象在内存中可以分为三部分：<strong>对象头、实例数据、对齐填充</strong></p>
+<h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3><h4 id="java对象头"><a href="#java对象头" class="headerlink" title="java对象头"></a>java对象头</h4><p>对象在内存中可以分为三部分：<strong>对象头、实例数据、对齐填充</strong></p>
 <ul>
 <li><p>对象头：如hash码,对象所属的年代，对象锁，锁状态标志，偏向锁（线程）ID，偏向时间等,32位机器里Java对象头一般占有2个机器码</p>
 </li>
@@ -570,7 +569,10 @@
 </ul>
 <p><img src="/img/bingfa_img/java%E5%A4%B4%E5%AF%B9%E8%B1%A11.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="/img/bingfa_img/java%E5%A4%B4%E5%AF%B9%E8%B1%A12.png" srcset="/img/loading.gif" lazyload></p>
-<h4 id="Monitor（锁）原理"><a href="#Monitor（锁）原理" class="headerlink" title="Monitor（锁）原理"></a>Monitor（锁）原理</h4><p>如果使用synchronized给对象上锁（<strong>重量级</strong>）后，该对象头的<strong>Mark word</strong>中就被设置指向<strong>Monitor对象</strong>的指针。（原来Mark Word中的信息被放到了Monitor对象中）</p>
+<h4 id="Monitor（重量级锁）原理"><a href="#Monitor（重量级锁）原理" class="headerlink" title="Monitor（重量级锁）原理"></a>Monitor（重量级锁）原理</h4><blockquote>
+<p>锁的类型有：无锁、偏向锁、轻量级锁、重量级锁</p>
+</blockquote>
+<p>如果使用synchronized给对象上锁（<strong>重量级</strong>）后，该对象头的<strong>Mark word</strong>中就被设置指向<strong>Monitor对象</strong>的指针。（原来Mark Word中的信息被放到了Monitor对象中）</p>
 <p><img src="/img/bingfa_img/Monitor%E5%8E%9F%E7%90%86.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li>Monitor只能有一个Owner</li>
@@ -613,12 +615,12 @@
 </ul>
 </li>
 </ul>
-<h4 id="锁膨胀"><a href="#锁膨胀" class="headerlink" title="锁膨胀"></a>锁膨胀</h4><blockquote>
+<h5 id="锁膨胀"><a href="#锁膨胀" class="headerlink" title="锁膨胀"></a>锁膨胀</h5><blockquote>
 <p>如果在尝试加轻量级锁的过程中，CAS 操作无法成功，这时一种情况就是有其它线程为此对象加上了轻量级锁（有竞争），这时需要进行锁膨胀，将轻量级锁变为重量级锁。</p>
 </blockquote>
 <p>锁对象的Mark word会指向Monitor对象  </p>
 <p>原本给其上锁的线程需要找到Monitor对象来释放锁</p>
-<h4 id="自旋优化"><a href="#自旋优化" class="headerlink" title="自旋优化"></a>自旋优化</h4><p>相当于对象已经被上锁，后来的线程先不进入阻塞队列（进入阻塞队列是重型操作，耗时），而是重试几次对对象的上锁（自旋），如果这时锁被释放，则上锁成功（自旋成功）。否则则自旋失败，进入阻塞队列</p>
+<h5 id="自旋优化"><a href="#自旋优化" class="headerlink" title="自旋优化"></a>自旋优化</h5><p>相当于对象已经被上锁，后来的线程先不进入阻塞队列（进入阻塞队列是重型操作，耗时），而是重试几次对对象的上锁（自旋），如果这时锁被释放，则上锁成功（自旋成功）。否则则自旋失败，进入阻塞队列</p>
 <p>注意：</p>
 <ul>
 <li>自旋会占用CPU时间，多核CPU自旋才能发挥优势</li>
@@ -644,8 +646,16 @@
 <li>处于偏向锁的对象解锁后，线程 id 仍存储于对象头中</li>
 <li>正常状态对象一开始是没有 hashCode 的，第一次调用才生成；如果<strong>调用 hashCode 会导致偏向锁被撤销</strong></li>
 </ul>
-<h4 id="批量重偏向"><a href="#批量重偏向" class="headerlink" title="批量重偏向"></a>批量重偏向</h4><p>如果对象被多个线程访问，但没有竞争，偏向线程T1的对象仍有可能重新偏向到线程T2，重偏向会重置对象 的 Thread ID</p>
-<p>当撤销偏向锁阈值超过 20 次后，会在给这些对象加锁时重新偏向至 加锁线程</p>
+<h5 id="批量重偏向"><a href="#批量重偏向" class="headerlink" title="批量重偏向"></a>批量重偏向</h5><p>重偏向是以类为单位</p>
+<p>如果对象被多个线程访问，但没有竞争，偏向线程T1的对象仍有可能重新偏向到线程T2，重偏向会重置对象 的 Thread ID</p>
+<p>当这个class类型的实例对象撤销达到<strong>20</strong>次后，会执行批量重偏向，所有这个类的实例都会指向新的线程</p>
+<h5 id="批量撤销"><a href="#批量撤销" class="headerlink" title="批量撤销"></a>批量撤销</h5><p>当撤销偏向锁阈值<strong>超过</strong> <strong>40</strong> 次后，jvm认为在明显多线程竞争剧烈的场景下使用偏向锁是不合适的，整个类的<strong>所有对象</strong>都会变为不可偏向的</p>
+<h4 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h4><p>锁消除是发生在编译器级别的<strong>一种锁优化方式</strong></p>
+<p>如果局部对象只在方法的作用域中有效（没有发生逃逸），不同线程调用时使用的都是不同的对象，使用锁就只会白白浪费资源</p>
+<p>这时编译器将其优化，将锁消除</p>
+<ul>
+<li>关闭锁消除<code>java -XX:-EliminateLocks -jar benchmarks.jar</code></li>
+</ul>
 
                 
               </div>
