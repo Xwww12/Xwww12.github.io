@@ -16,25 +16,25 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="接口管理YApi 一款api管理平台  源码地址 安装比较麻烦，和apifox功能差不多 Swagger 用来生成各种格式的接口文档  knife4j是集成swagger生成api文档的增强解决方案 使用步骤  导入坐标 12345&lt;dependency&gt;    &lt;groupId&gt;com.github.xiaoymin&lt;&#x2F;groupId&gt;    &lt;arti">
+    <meta name="description" content="git工作流通常 先将远程仓库的项目拉到本地 1git clone &lt;仓库地址&gt;  在本地新建一个自己的分支  建议在自己的branch上修改代码，而不是直接在主分支上修改  12git checkout -b &lt;分支名&gt;&#x2F;&#x2F; -b 新建并且切换到新分支  在自己分支上修改代码  在写完代码，还没有保存到git本地仓库时，可以通过git diff查看修改后的代码和修改前的代">
 <meta property="og:type" content="article">
-<meta property="og:title" content="接口管理">
-<meta property="og:url" content="http://xwww12.github.io/2022/08/21/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:title" content="git工作流">
+<meta property="og:url" content="http://xwww12.github.io/2022/11/24/git/git%E5%B7%A5%E4%BD%9C%E6%B5%81/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="接口管理YApi 一款api管理平台  源码地址 安装比较麻烦，和apifox功能差不多 Swagger 用来生成各种格式的接口文档  knife4j是集成swagger生成api文档的增强解决方案 使用步骤  导入坐标 12345&lt;dependency&gt;    &lt;groupId&gt;com.github.xiaoymin&lt;&#x2F;groupId&gt;    &lt;arti">
+<meta property="og:description" content="git工作流通常 先将远程仓库的项目拉到本地 1git clone &lt;仓库地址&gt;  在本地新建一个自己的分支  建议在自己的branch上修改代码，而不是直接在主分支上修改  12git checkout -b &lt;分支名&gt;&#x2F;&#x2F; -b 新建并且切换到新分支  在自己分支上修改代码  在写完代码，还没有保存到git本地仓库时，可以通过git diff查看修改后的代码和修改前的代">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://xwww12.github.io/img/post_img/6452456.png">
-<meta property="article:published_time" content="2022-08-21T15:42:55.002Z">
-<meta property="article:modified_time" content="2022-08-21T15:48:19.703Z">
+<meta property="og:image" content="http://xwww12.github.io/img/git_img/pullRequest.png">
+<meta property="og:image" content="http://xwww12.github.io/img/git_img/viewBranchs.png">
+<meta property="article:published_time" content="2022-11-24T06:36:06.094Z">
+<meta property="article:modified_time" content="2022-11-24T07:32:18.381Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="后端">
-<meta property="article:tag" content="中间件">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://xwww12.github.io/img/post_img/6452456.png">
+<meta name="twitter:image" content="http://xwww12.github.io/img/git_img/pullRequest.png">
   
   
   
-  <title>接口管理 - Hexo</title>
+  <title>git工作流 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">接口管理</span>
+            <span id="subtitle">git工作流</span>
           
         </div>
 
@@ -215,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-21 23:42" pubdate>
-          2022年8月21日 晚上
+        <time datetime="2022-11-24 14:36" pubdate>
+          2022年11月24日 下午
         </time>
       </span>
     
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          910 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          13 分钟
+          8 分钟
         
       </span>
     
@@ -290,73 +290,67 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">接口管理</h1>
+            <h1 style="display: none">git工作流</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="接口管理"><a href="#接口管理" class="headerlink" title="接口管理"></a>接口管理</h2><h4 id="YApi"><a href="#YApi" class="headerlink" title="YApi"></a>YApi</h4><blockquote>
-<p>一款api管理平台</p>
+                <h2 id="git工作流"><a href="#git工作流" class="headerlink" title="git工作流"></a>git工作流</h2><h3 id="通常"><a href="#通常" class="headerlink" title="通常"></a>通常</h3><ol>
+<li><p>先将远程仓库的项目拉到本地</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">git clone &lt;仓库地址&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在本地<strong>新建一个自己的分支</strong></p>
+<blockquote>
+<p>建议在自己的branch上修改代码，而不是直接在主分支上修改</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/YMFE/yapi">源码地址</a></p>
-<p>安装比较麻烦，和apifox功能差不多</p>
-<h4 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a>Swagger</h4><blockquote>
-<p>用来生成各种格式的接口文档</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git checkout -b &lt;分支名&gt;<br>// -b 新建并且切换到新分支<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在自己分支上<strong>修改代码</strong></p>
+</li>
+<li><p>在写完代码，还没有保存到git本地仓库时，可以通过<code>git diff</code>查看修改后的代码和修改前的代码的不同</p>
+<blockquote>
+<p>建议先看一下修改了哪些内容再继续</p>
 </blockquote>
-<p>knife4j是集成swagger生成api文档的增强解决方案</p>
-<p><strong>使用步骤</strong></p>
-<ol>
-<li><p>导入坐标</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.github.xiaoymin<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>knife4j-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.0.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
 </li>
-<li><p>导入配置类</p>
-<p>在mvc配置类上加入两个注解并构建createRestApi方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableSwagger2</span><br><span class="hljs-meta">@EnableKnife4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WebMvcConfigSupport</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">WebMvcConfigurationSupport</span> &#123;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Docket <span class="hljs-title function_">createRestApi</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Docket</span>(DocumentationType.SWAGGER_2)<br>                .apiInfo(apiInfo())<br>                .select()<br>                .apis(RequestHandlerSelectors.basePackage(<span class="hljs-string">&quot;com.xw.reggie.controller&quot;</span>))<br>                .paths(PathSelectors.any())<br>                .build();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> ApiInfo <span class="hljs-title function_">apiInfo</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiInfoBuilder</span>()<br>                .title(<span class="hljs-string">&quot;瑞吉外卖&quot;</span>)<br>                .version(<span class="hljs-string">&quot;1.0&quot;</span>)<br>                .description(<span class="hljs-string">&quot;瑞吉外码接口文档&quot;</span>)<br>                .build();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<li><p>将修改的代码<strong>保存到暂存区</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git status	// 查看还没有保存到暂存区的文件<br>git add &lt;文件名/*&gt;	// 将文件添加到暂存区，*表示所有<br></code></pre></td></tr></table></figure>
 </li>
-<li><p>在mvc配置类的addResourceHandlers方法中设置静态资源映射</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">registry.addResourceHandler(<span class="hljs-string">&quot;doc.html&quot;</span>).addResourceLocations(<span class="hljs-string">&quot;classpath:/META-INF/resources/&quot;</span>);<br>registry.addResourceHandler(<span class="hljs-string">&quot;/webjars/**&quot;</span>).addResourceLocations(<span class="hljs-string">&quot;classpath:/META-INF/resources/webjars/&quot;</span>);<br></code></pre></td></tr></table></figure>
+<li><p>将暂存区的代码<strong>提交到git本地仓库中</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">git commit -m &quot;&lt;备注信息&gt;&quot;<br></code></pre></td></tr></table></figure>
 </li>
-<li><p>如果有登录状态检测的话要设置放行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//放行的路径</span><br><span class="hljs-string">&quot;/doc.html&quot;</span>,<br><span class="hljs-string">&quot;/webjars/**&quot;</span>,<br><span class="hljs-string">&quot;/swagger-resources&quot;</span>,<br><span class="hljs-string">&quot;/v2/api-docs&quot;</span><br></code></pre></td></tr></table></figure>
+<li><p>将自己<strong>本地的分支提交到远程仓库</strong>，远程仓库会多出一个新分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">git push origin &lt;提交的远程仓库的分支名&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="当远程仓库的主分支代码有改动时"><a href="#当远程仓库的主分支代码有改动时" class="headerlink" title="当远程仓库的主分支代码有改动时"></a>当远程仓库的主分支代码有改动时</h3><blockquote>
+<p>如果在合并自己的分支和远程仓库主分支时，远程仓库主分支的代码在之前clone下来的基础上有改动，需要同步远程仓库的代码到本地的分支里，看看会不会冲突</p>
+</blockquote>
+<ol start="8">
+<li><p>先将本地git的分支切换回主分支，再<strong>将远程仓库的代码拉到本地</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git checkout main<br>git pull origin main<br></code></pre></td></tr></table></figure>
 </li>
-<li><p>访问<code>http://localhost:8080/doc.html</code>可以查看接口和导出离线文档</p>
+<li><p>切换到分支上，将分支上的代码和最新的代码<strong>尝试进行合并</strong></p>
+<blockquote>
+<p>可能会出现冲突，需要手动选择要保存的代码</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">git rebase main	// 意思是在最新的main的基础上，将我的修改添加到main中<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>解决完冲突后，将本地的分支推到远程仓库的分支上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git push -f origin &lt;分支名&gt;<br>// -f force强行<br></code></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="远程仓库上将分支和主分支合并"><a href="#远程仓库上将分支和主分支合并" class="headerlink" title="远程仓库上将分支和主分支合并"></a>远程仓库上将分支和主分支合并</h3><ol start="11">
+<li><p>远程仓库主人通过pull request的squash and merge 将所有的commit合并成一个commit ，再合并到主分支上</p>
+<p><img src="/img/git_img/pullRequest.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>合并完，通常会删除本地分支和远程分支，再把最新的主分支拉到本地主分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git branch -D &lt;分支名&gt;	// 删除本地分支<br>git pull origin main	// 把最新的主分支拉到本地主分支<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">删除远程分支：点击view all branchs，点击垃圾桶标识就可删除了<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/git_img/viewBranchs.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ol>
-<p><img src="/img/post_img/6452456.png" srcset="/img/loading.gif" lazyload></p>
-<p><strong>常用注解</strong></p>
-<p>使文档说明更加易读</p>
-<table>
-<thead>
-<tr>
-<th>注解</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>@Api</td>
-<td>用在请求类上(如Controller)，表示对类的说明</td>
-</tr>
-<tr>
-<td>@ApiModel</td>
-<td>用在实体类上，表示返回响应数据的信息</td>
-</tr>
-<tr>
-<td>@ApiModelProperty</td>
-<td>用在实体类属性上</td>
-</tr>
-<tr>
-<td>@ApiOperation</td>
-<td>用在请求的方法上，说明方法的用途</td>
-</tr>
-<tr>
-<td>@ApiImplicitParams</td>
-<td>用在请求的方法上，表示一组参数的说明</td>
-</tr>
-<tr>
-<td>@ApiImplicitParam</td>
-<td>用在@ApiImplicitParams中，指定一个参数的各个方面</td>
-</tr>
-</tbody></table>
 
                 
               </div>
@@ -380,15 +374,8 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="category-chain-item">中间件</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/git/" class="category-chain-item">git</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/" class="category-chain-item">接口管理</a>
-  
-  
-
   
 
   
@@ -404,9 +391,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-      
-        <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">#中间件</a>
+        <a href="/tags/git/">#git</a>
       
     </div>
   
@@ -418,8 +403,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>接口管理</div>
-      <div>http://xwww12.github.io/2022/08/21/中间件/接口管理/</div>
+      <div>git工作流</div>
+      <div>http://xwww12.github.io/2022/11/24/git/git工作流/</div>
     </div>
     <div class="license-meta">
       
@@ -431,7 +416,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年8月21日</div>
+          <div>2022年11月24日</div>
         </div>
       
       
@@ -461,18 +446,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/25/%E8%BD%AF%E8%80%83/%E8%BD%AF%E4%BB%B6%E8%BF%87%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="软件过程模型">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">软件过程模型</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/08/20/%E4%B8%AD%E9%97%B4%E4%BB%B6/Nginx/" title="Nginx">
-                        <span class="hidden-mobile">Nginx</span>
+                      <a href="/2022/11/15/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="java并发编程">
+                        <span class="hidden-mobile">java并发编程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
