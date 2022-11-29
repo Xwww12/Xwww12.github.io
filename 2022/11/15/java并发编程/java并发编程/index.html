@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/bingfa_img/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%815.png">
 <meta property="og:image" content="http://xwww12.github.io/img/bingfa_img/jol.png">
 <meta property="article:published_time" content="2022-11-15T12:16:50.934Z">
-<meta property="article:modified_time" content="2022-11-27T14:01:18.945Z">
+<meta property="article:modified_time" content="2022-11-29T07:31:48.301Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/bingfa_img/jconsole%E7%95%8C%E9%9D%A2.png">
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          22k 字
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          162 分钟
+          181 分钟
         
       </span>
     
@@ -830,7 +830,66 @@
 <li>可见性：指令不会受 cpu 缓存的影响</li>
 <li>有序性：指令不会受 cpu 指令并行优化的影响</li>
 </ul>
-<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><blockquote>
+<p>如果线程频繁从主存中获取某个值，就会形成缓存，减少对主存的访问，提高效率</p>
+<p>但会出现内存中的值更新了，使得<strong>缓存中的值和内存中的不一致</strong></p>
+<p>从而出现可见性问题</p>
+</blockquote>
+<p>示例</p>
+<blockquote>
+<p>t线程无法退出循环</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test9</span> &#123;<br>    <br>    <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">run</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(() -&gt; &#123;<br>            <span class="hljs-comment">// 因为 t 线程要频繁从主内存中读取 run 的值，JIT 编译器会将 run 的值缓存至自己工作内存中的高速缓存中，</span><br>            <span class="hljs-comment">// 减少对主存中 run 的访问，提高效率</span><br>            <span class="hljs-keyword">while</span> (run) &#123;<br>            &#125;<br>        &#125;);<br>        t.start();<br><br>        Thread.sleep(<span class="hljs-number">1000</span>);<br>        log.debug(<span class="hljs-string">&quot;stop t&quot;</span>);<br>        run = <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>解决方式：</p>
+<ol>
+<li><p>volatile关键字：表示变量是易变的，每次都从内存中读取（轻量）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">volatile</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">run</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>给代码块加锁（重量）</p>
+<blockquote>
+<p> synchronized规定，线程在加锁时， 先<strong>清空工作内存</strong>→在主内存中拷贝最新变量的副本到工作内存 →执行完代码→将更改后的共享变量的值刷新到主内存中→释放互斥锁。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h3><blockquote>
+<p>指令重排：JVM 会在不影响正确性的前提下，可以调整语句的执行顺序（流水线），在多线程下有可能会影响正确性</p>
+</blockquote>
+<p>通过volatile关键字，可以进制指令重排</p>
+<p><strong>volatile原理：</strong></p>
+<blockquote>
+<p>读屏障：保证在该屏障之后，对共享变量的读取，加载的是主存中最新数据</p>
+<p>写屏障：保证在该屏障之前的，对共享变量的改动，都同步到主存当中</p>
+</blockquote>
+<ul>
+<li><p>对 volatile 变量的写指令后会加入写屏障，之前的代码都会执行完再执行当前指令，不会被重排序到当前指令之后 （保证本线程内的有序性）</p>
+</li>
+<li><p>对 volatile 变量的读指令前会加入读屏障（保证可见性）</p>
+</li>
+</ul>
+<h3 id="dcl问题"><a href="#dcl问题" class="headerlink" title="dcl问题"></a>dcl问题</h3><blockquote>
+<p>double-checked locking 单例模式</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">Singleton</span><span class="hljs-params">()</span> &#123; &#125;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">Singleton</span> <span class="hljs-variable">INSTANCE</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title function_">getInstance</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span>(INSTANCE == <span class="hljs-literal">null</span>) &#123; <span class="hljs-comment">// t2</span><br>            <span class="hljs-comment">// 首次访问会同步，而之后的使用没有 synchronized</span><br>            <span class="hljs-keyword">synchronized</span>(Singleton.class) &#123;<br>                <span class="hljs-keyword">if</span> (INSTANCE == <span class="hljs-literal">null</span>) &#123; <span class="hljs-comment">// t1</span><br>                    INSTANCE = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Singleton</span>();<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> INSTANCE;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>创建对象的过程不是原子操作</strong>，</p>
+<p>在单线程下没有问题，但多线程下可能会出现问题，</p>
+<p>在创建对象的时候发生了重排序，JVM先将对象分配给了变量，再调用构造方法；其他线程判断<code>INSTANCE != null</code>从而使用了没有初始化完成的对象</p>
+<p><strong>解决方式：</strong>给INSTANCE添加volatile关键字，使之不会被重排序</p>
+<p><strong>单例模式</strong></p>
+<p>饿汉&#x2F;懒汉实现单例模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 加final表示不能被继承，防止子类重写获取单例的方法不当导致new出多个对象</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">Singleton</span><span class="hljs-params">()</span> &#123; &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">volatile</span> <span class="hljs-type">Singleton</span> <span class="hljs-variable">INSTANCE</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>    <span class="hljs-comment">// 静态成员对象实在类加载的时候创建的，不会有线程安全问题（懒汉式）</span><br>    <span class="hljs-comment">// private static final Singleton INSTANCE = new Singleton();</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title function_">getInstance</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span>(INSTANCE == <span class="hljs-literal">null</span>) &#123; <span class="hljs-comment">// t2</span><br>            <span class="hljs-comment">// 首次访问会同步，而之后的使用没有 synchronized</span><br>            <span class="hljs-keyword">synchronized</span>(Singleton.class) &#123;<br>                <span class="hljs-keyword">if</span> (INSTANCE == <span class="hljs-literal">null</span>) &#123; <span class="hljs-comment">// t1</span><br>                    INSTANCE = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Singleton</span>();<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> INSTANCE;<br>    &#125;<br><br>    <span class="hljs-comment">// 如果实现了序列化接口</span><br>    <span class="hljs-comment">// 反序列化也会常见新对象，使用这个方法，这个方法的返回值就会被当成反序列化的结果</span><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">readResovle</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> INSTANCE;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>枚举实现单例</p>
+<blockquote>
+<p>INSTANCE相当于静态成员对象，属于懒汉式</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Singleton</span> &#123;<br>    INSTANCE<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>静态内部类实现单例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">Singleton</span><span class="hljs-params">()</span> &#123; &#125;<br>    <br>    <span class="hljs-comment">// 静态内部类是懒汉式加载的</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LazyHolder</span> &#123;<br>        <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Singleton</span> <span class="hljs-variable">INSTANCE</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Singleton</span>();<br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title function_">getInstance</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> LazyHolder.INSTANCE;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h2>
                 
               </div>
             
