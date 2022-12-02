@@ -16,25 +16,22 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="接口管理YApi 一款api管理平台  源码地址 安装比较麻烦，和apifox功能差不多 Swagger 用来生成各种格式的接口文档  knife4j是集成swagger生成api文档的增强解决方案 使用步骤  导入坐标 12345&lt;dependency&gt;    &lt;groupId&gt;com.github.xiaoymin&lt;&#x2F;groupId&gt;    &lt;arti">
+    <meta name="description" content="python连接数据库pymysql 通过pymysql进行数据库操作  创建表12345678910111213141516171819202122232425import pymysql# 1.创建连接conn &#x3D; pymysql.connect(host&#x3D;&quot;127.0.0.1&quot;,                       port&#x3D;3306,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="接口管理">
-<meta property="og:url" content="http://xwww12.github.io/2022/08/21/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:title" content="python连接数据库">
+<meta property="og:url" content="http://xwww12.github.io/2022/12/01/%E5%85%B6%E4%BB%96/python/python%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="接口管理YApi 一款api管理平台  源码地址 安装比较麻烦，和apifox功能差不多 Swagger 用来生成各种格式的接口文档  knife4j是集成swagger生成api文档的增强解决方案 使用步骤  导入坐标 12345&lt;dependency&gt;    &lt;groupId&gt;com.github.xiaoymin&lt;&#x2F;groupId&gt;    &lt;arti">
+<meta property="og:description" content="python连接数据库pymysql 通过pymysql进行数据库操作  创建表12345678910111213141516171819202122232425import pymysql# 1.创建连接conn &#x3D; pymysql.connect(host&#x3D;&quot;127.0.0.1&quot;,                       port&#x3D;3306,">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://xwww12.github.io/img/post_img/6452456.png">
-<meta property="article:published_time" content="2022-08-21T15:42:55.002Z">
-<meta property="article:modified_time" content="2022-08-21T15:48:19.703Z">
+<meta property="article:published_time" content="2022-12-01T11:23:57.910Z">
+<meta property="article:modified_time" content="2022-12-01T12:41:26.944Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="中间件">
-<meta property="article:tag" content="后端">
+<meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://xwww12.github.io/img/post_img/6452456.png">
   
   
   
-  <title>接口管理 - Hexo</title>
+  <title>python连接数据库 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">接口管理</span>
+            <span id="subtitle">python连接数据库</span>
           
         </div>
 
@@ -215,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-21 23:42" pubdate>
-          2022年8月21日 晚上
+        <time datetime="2022-12-01 19:23" pubdate>
+          2022年12月1日 晚上
         </time>
       </span>
     
@@ -227,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          2.9k 字
         
       </span>
     
@@ -238,7 +235,7 @@
         
         
         
-          13 分钟
+          24 分钟
         
       </span>
     
@@ -290,73 +287,42 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">接口管理</h1>
+            <h1 style="display: none">python连接数据库</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="接口管理"><a href="#接口管理" class="headerlink" title="接口管理"></a>接口管理</h2><h4 id="YApi"><a href="#YApi" class="headerlink" title="YApi"></a>YApi</h4><blockquote>
-<p>一款api管理平台</p>
+                <h2 id="python连接数据库"><a href="#python连接数据库" class="headerlink" title="python连接数据库"></a>python连接数据库</h2><h3 id="pymysql"><a href="#pymysql" class="headerlink" title="pymysql"></a>pymysql</h3><blockquote>
+<p>通过pymysql进行数据库操作</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/YMFE/yapi">源码地址</a></p>
-<p>安装比较麻烦，和apifox功能差不多</p>
-<h4 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a>Swagger</h4><blockquote>
-<p>用来生成各种格式的接口文档</p>
+<h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pymysql<br><br><span class="hljs-comment"># 1.创建连接</span><br>conn = pymysql.connect(host=<span class="hljs-string">&quot;127.0.0.1&quot;</span>,<br>                       port=<span class="hljs-number">3306</span>,<br>                       user=<span class="hljs-string">&#x27;root&#x27;</span>,<br>                       password=<span class="hljs-string">&#x27;123456&#x27;</span>,<br>                       charset=<span class="hljs-string">&#x27;utf8&#x27;</span>,<br>                       db=<span class="hljs-string">&#x27;pyconn&#x27;</span>)<br><br><span class="hljs-comment"># 2.创建游标（cursor）</span><br>cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)<br><br><span class="hljs-comment"># 3.执行sql</span><br>sql = <span class="hljs-string">&quot;&quot;&quot;CREATE TABLE admin(</span><br><span class="hljs-string">	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,</span><br><span class="hljs-string">	username VARCHAR(16) NOT NULL,</span><br><span class="hljs-string">	PASSWORD VARCHAR(64) NOT NULL,</span><br><span class="hljs-string">	mobile CHAR(11) NOT NULL</span><br><span class="hljs-string">) DEFAULT CHARSET=utf8;&quot;&quot;&quot;</span><br><br>cursor.execute(sql)<br><br><span class="hljs-comment"># 4.断开连接</span><br>conn.close()<br></code></pre></td></tr></table></figure>
+
+<h4 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h4><blockquote>
+<p>要使用connit提交到数据库</p>
 </blockquote>
-<p>knife4j是集成swagger生成api文档的增强解决方案</p>
-<p><strong>使用步骤</strong></p>
-<ol>
-<li><p>导入坐标</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.github.xiaoymin<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>knife4j-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.0.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>导入配置类</p>
-<p>在mvc配置类上加入两个注解并构建createRestApi方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableSwagger2</span><br><span class="hljs-meta">@EnableKnife4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WebMvcConfigSupport</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">WebMvcConfigurationSupport</span> &#123;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Docket <span class="hljs-title function_">createRestApi</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Docket</span>(DocumentationType.SWAGGER_2)<br>                .apiInfo(apiInfo())<br>                .select()<br>                .apis(RequestHandlerSelectors.basePackage(<span class="hljs-string">&quot;com.xw.reggie.controller&quot;</span>))<br>                .paths(PathSelectors.any())<br>                .build();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> ApiInfo <span class="hljs-title function_">apiInfo</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiInfoBuilder</span>()<br>                .title(<span class="hljs-string">&quot;瑞吉外卖&quot;</span>)<br>                .version(<span class="hljs-string">&quot;1.0&quot;</span>)<br>                .description(<span class="hljs-string">&quot;瑞吉外码接口文档&quot;</span>)<br>                .build();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>在mvc配置类的addResourceHandlers方法中设置静态资源映射</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">registry.addResourceHandler(<span class="hljs-string">&quot;doc.html&quot;</span>).addResourceLocations(<span class="hljs-string">&quot;classpath:/META-INF/resources/&quot;</span>);<br>registry.addResourceHandler(<span class="hljs-string">&quot;/webjars/**&quot;</span>).addResourceLocations(<span class="hljs-string">&quot;classpath:/META-INF/resources/webjars/&quot;</span>);<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>如果有登录状态检测的话要设置放行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//放行的路径</span><br><span class="hljs-string">&quot;/doc.html&quot;</span>,<br><span class="hljs-string">&quot;/webjars/**&quot;</span>,<br><span class="hljs-string">&quot;/swagger-resources&quot;</span>,<br><span class="hljs-string">&quot;/v2/api-docs&quot;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>访问<code>http://localhost:8080/doc.html</code>可以查看接口和导出离线文档</p>
-</li>
-</ol>
-<p><img src="/img/post_img/6452456.png" srcset="/img/loading.gif" lazyload></p>
-<p><strong>常用注解</strong></p>
-<p>使文档说明更加易读</p>
-<table>
-<thead>
-<tr>
-<th>注解</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>@Api</td>
-<td>用在请求类上(如Controller)，表示对类的说明</td>
-</tr>
-<tr>
-<td>@ApiModel</td>
-<td>用在实体类上，表示返回响应数据的信息</td>
-</tr>
-<tr>
-<td>@ApiModelProperty</td>
-<td>用在实体类属性上</td>
-</tr>
-<tr>
-<td>@ApiOperation</td>
-<td>用在请求的方法上，说明方法的用途</td>
-</tr>
-<tr>
-<td>@ApiImplicitParams</td>
-<td>用在请求的方法上，表示一组参数的说明</td>
-</tr>
-<tr>
-<td>@ApiImplicitParam</td>
-<td>用在@ApiImplicitParams中，指定一个参数的各个方面</td>
-</tr>
-</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 1.创建连接</span><br>conn = pymysql.connect(host=<span class="hljs-string">&quot;127.0.0.1&quot;</span>,<br>                       port=<span class="hljs-number">3306</span>,<br>                       user=<span class="hljs-string">&#x27;root&#x27;</span>,<br>                       password=<span class="hljs-string">&#x27;123456&#x27;</span>,<br>                       charset=<span class="hljs-string">&#x27;utf8&#x27;</span>,<br>                       db=<span class="hljs-string">&#x27;pyconn&#x27;</span>)<br><span class="hljs-comment"># 2.创建游标（cursor）</span><br>cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)<br><br><span class="hljs-comment"># 3.用游标execute执行sql语句</span><br>cursor.execute(<span class="hljs-string">&quot;insert into admin(username, password, mobile) values (&#x27;zs&#x27;,&#x27;123456&#x27;,&#x27;12312345678&#x27;)&quot;</span>)<br>conn.commit()<br><br><span class="hljs-comment"># 4.断开连接</span><br>conn.close()<br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 不要用拼接字符串来注入变量，而是使用pymysql的占位符</span><br>sql = <span class="hljs-string">&quot;insert into admin(username, password, mobile) values (%s,%s,%s)&quot;</span><br>cursor.execute(sql, [<span class="hljs-string">&#x27;ls&#x27;</span>, <span class="hljs-string">&#x27;123456&#x27;</span>, <span class="hljs-string">&#x27;45612345678&#x27;</span>])<br></code></pre></td></tr></table></figure>
+
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pthon"># 可以给占位符起名<br>sql = &quot;insert into admin(username, password, mobile) values (%(n1)s,%(n2)s,%(n3)s)&quot;<br>cursor.execute(sql, &#123;&#x27;n1&#x27;: &#x27;ww&#x27;, &#x27;n2&#x27;: &#x27;123456&#x27;, &#x27;n3&#x27;: &#x27;12345678123&#x27;&#125;)<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h4><blockquote>
+<p>fetchone()：查询一条</p>
+<p>fetchall(): 返回所有结果的集合</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pymysql<br><br><span class="hljs-comment"># 1.创建连接</span><br>conn = pymysql.connect(host=<span class="hljs-string">&quot;127.0.0.1&quot;</span>,<br>                       port=<span class="hljs-number">3306</span>,<br>                       user=<span class="hljs-string">&#x27;root&#x27;</span>,<br>                       password=<span class="hljs-string">&#x27;123456&#x27;</span>,<br>                       charset=<span class="hljs-string">&#x27;utf8&#x27;</span>,<br>                       db=<span class="hljs-string">&#x27;pyconn&#x27;</span>)<br><span class="hljs-comment"># 2.创建游标（cursor）</span><br>cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)<br><br><span class="hljs-comment"># 3.执行sql</span><br>sql = <span class="hljs-string">&#x27;select * from admin&#x27;</span><br>cursor.execute(sql)<br><br><span class="hljs-comment"># 3.1fetchone</span><br>data = cursor.fetchone()<br><br><span class="hljs-comment"># 3.2fetchall</span><br>data_list = cursor.fetchall()<br><span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> data_list:<br>    <span class="hljs-built_in">print</span>(row)<br><br><span class="hljs-comment"># 4.断开连接</span><br>conn.close()<br></code></pre></td></tr></table></figure>
+
+<h4 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs pyhton">import pymysql<br><br># 1.创建连接<br>conn = pymysql.connect(host=&quot;127.0.0.1&quot;,<br>                       port=3306,<br>                       user=&#x27;root&#x27;,<br>                       password=&#x27;123456&#x27;,<br>                       charset=&#x27;utf8&#x27;,<br>                       db=&#x27;pyconn&#x27;)<br># 2.创建游标（cursor）<br>cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)<br><br># 3.执行sql<br>sql = &#x27;update admin set password = %s where id = %s&#x27;<br>cursor.execute(sql, [&#x27;987654&#x27;, &#x27;1&#x27;])<br>conn.commit()<br><br># 4.断开连接<br>conn.close()<br></code></pre></td></tr></table></figure>
+
+<h4 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pymysql<br><br><span class="hljs-comment"># 1.创建连接</span><br>conn = pymysql.connect(host=<span class="hljs-string">&quot;127.0.0.1&quot;</span>,<br>                       port=<span class="hljs-number">3306</span>,<br>                       user=<span class="hljs-string">&#x27;root&#x27;</span>,<br>                       password=<span class="hljs-string">&#x27;123456&#x27;</span>,<br>                       charset=<span class="hljs-string">&#x27;utf8&#x27;</span>,<br>                       db=<span class="hljs-string">&#x27;pyconn&#x27;</span>)<br><span class="hljs-comment"># 2.创建游标（cursor）</span><br>cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)<br><br><span class="hljs-comment"># 3.执行sql</span><br>sql = <span class="hljs-string">&#x27;delete from admin where id=%s&#x27;</span><br>cursor.execute(sql, [<span class="hljs-number">1</span>, ])<br>conn.commit()<br><br><span class="hljs-comment"># 4.断开连接</span><br>conn.close()<br></code></pre></td></tr></table></figure>
+
+<h4 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs pythoon">try: <br>    sql = &#x27;delete from admin where id=%s&#x27;<br>    cursor.execute(sql, [1, ])<br>    conn.commit()<br>except:<br>    conn.rollback()	# 回滚事务<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -380,12 +346,12 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="category-chain-item">中间件</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/" class="category-chain-item">其他</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/" class="category-chain-item">接口管理</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/python/" class="category-chain-item">python</a>
   
   
 
@@ -404,9 +370,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">#中间件</a>
-      
-        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+        <a href="/tags/%E5%85%B6%E4%BB%96/">#其他</a>
       
     </div>
   
@@ -418,8 +382,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>接口管理</div>
-      <div>http://xwww12.github.io/2022/08/21/中间件/接口管理/</div>
+      <div>python连接数据库</div>
+      <div>http://xwww12.github.io/2022/12/01/其他/python/python连接数据库/</div>
     </div>
     <div class="license-meta">
       
@@ -431,7 +395,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年8月21日</div>
+          <div>2022年12月1日</div>
         </div>
       
       
@@ -461,9 +425,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/25/%E8%BD%AF%E8%80%83/%E8%BD%AF%E4%BB%B6%E8%BF%87%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="软件过程模型">
+                      <a href="/2022/12/01/%E5%85%B6%E4%BB%96/python/flask/" title="flask">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">软件过程模型</span>
+                        <span class="hidden-mobile">flask</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -471,8 +435,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/08/20/%E4%B8%AD%E9%97%B4%E4%BB%B6/Nginx/" title="Nginx">
-                        <span class="hidden-mobile">Nginx</span>
+                      <a href="/2022/11/29/%E5%85%B6%E4%BB%96/json%E8%BD%AC%E6%8D%A2/" title="json转换">
+                        <span class="hidden-mobile">json转换</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
