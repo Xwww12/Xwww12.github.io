@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/bingfa_img/GuardedSuspension.png">
 <meta property="article:published_time" content="2022-11-24T12:41:38.432Z">
-<meta property="article:modified_time" content="2022-12-04T02:58:41.689Z">
+<meta property="article:modified_time" content="2022-12-06T07:56:58.608Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/bingfa_img/GuardedSuspension.png">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.3k 字
+          9.6k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          78 分钟
+          81 分钟
         
       </span>
     
@@ -353,16 +353,16 @@
 <p><strong>线程池小demo</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test20</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Pool</span> <span class="hljs-variable">pool</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Pool</span>(<span class="hljs-number">2</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) &#123;<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(() -&gt; &#123;<br>                <span class="hljs-type">Connection</span> <span class="hljs-variable">conn</span> <span class="hljs-operator">=</span> pool.borrow();<br>                <span class="hljs-keyword">try</span> &#123;<br>                    Thread.sleep(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Random</span>().nextInt(<span class="hljs-number">1000</span>));<br>                &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>                pool.free(conn);<br>            &#125;).start();<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-meta">@Slf4j(topic = &quot;c.Pool&quot;)</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pool</span> &#123;<br>    <span class="hljs-comment">// 连接池大小</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> poolSize;<br><br>    <span class="hljs-comment">// 连接对象的数组</span><br>    <span class="hljs-keyword">private</span> Connection[] connections;<br><br>    <span class="hljs-comment">// 连接状态的数组 0 表示空闲，1 表示繁忙</span><br>    <span class="hljs-keyword">private</span> AtomicIntegerArray states;<br><br>    <span class="hljs-comment">// 构造方法</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Pool</span><span class="hljs-params">(<span class="hljs-type">int</span> poolSize)</span> &#123;<br>        <span class="hljs-built_in">this</span>.poolSize = poolSize;<br>        <span class="hljs-built_in">this</span>.connections = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Connection</span>[poolSize];<br>        <span class="hljs-built_in">this</span>.states = <span class="hljs-keyword">new</span> <span class="hljs-title class_">AtomicIntegerArray</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[poolSize]);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; poolSize; i++) &#123;<br>            connections[i] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MockConnection</span>(<span class="hljs-string">&quot;连接&quot;</span> + i);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 获取连接</span><br>    <span class="hljs-keyword">public</span> Connection <span class="hljs-title function_">borrow</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; poolSize; i++) &#123;<br>                <span class="hljs-keyword">if</span> (states.get(i) == <span class="hljs-number">0</span>) &#123;<br>                    states.compareAndSet(i, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);<br>                    log.debug(<span class="hljs-string">&quot;获取连接&#123;&#125;&quot;</span>, connections[i].toString());<br>                    <span class="hljs-keyword">return</span> connections[i];<br>                &#125;<br>            &#125;<br><br>            <span class="hljs-comment">// 没有空闲连接，线程进入等待状态，防止cpu空转</span><br>            <span class="hljs-keyword">synchronized</span> (<span class="hljs-built_in">this</span>) &#123;<br>                <span class="hljs-keyword">try</span> &#123;<br>                    log.debug(<span class="hljs-string">&quot;等待获取连接&quot;</span>);<br>                    <span class="hljs-built_in">this</span>.wait();<br>                &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 归还连接</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">free</span><span class="hljs-params">(Connection connection)</span> &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; poolSize; i++) &#123;<br>            <span class="hljs-keyword">if</span> (connections[i] == connection) &#123;<br>                states.set(i, <span class="hljs-number">0</span>);<br>                <span class="hljs-keyword">synchronized</span> (<span class="hljs-built_in">this</span>) &#123;<br>                    log.debug(<span class="hljs-string">&quot;归还连接&#123;&#125;&quot;</span>, connections[i].toString());<br>                    <span class="hljs-built_in">this</span>.notifyAll();<br>                &#125;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
-
-
+<h3 id="分工模式"><a href="#分工模式" class="headerlink" title="分工模式"></a>分工模式</h3><p>让有限的工作线程（Worker Thread）来轮流异步处理无限多的任务，它的典型实现 就是线程池，也体现了经典设计模式中的享元模式。</p>
+<p><strong>饥饿问题</strong></p>
+<p>如果一个线程池的线程什么都做，有可能会产生饥饿。</p>
+<p>如一个线程调用线程池中的其他线程来完成任务，如果所有线程都处于调用其他线程的状态，而没有执行任务的线程，就会发生饥饿</p>
+<p><strong>解决饥饿方式</strong></p>
+<p>不同的任务类型，采用不同的线程池</p>
+<p><strong>创建多少线程池合适</strong></p>
+<p>线程不是越多越好，太多线程会占用大量内存，线程的上下文切换也会消耗资源</p>
+<p>任务分为运算密集型和I&#x2F;O密集型，当运算密集型任务多的时候，应线程数较少；而I&#x2F;O密集型任务多时，应多创建线程</p>
+<p>经验公式：<code>线程数 = 核数 * 期望 CPU 利用率 * 总时间(CPU计算时间+等待时间) / CPU 计算时间</code></p>
 
                 
               </div>
