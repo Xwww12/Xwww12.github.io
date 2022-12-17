@@ -24,7 +24,7 @@
 <meta property="og:description" content="linux软件安装防火墙​	查看状态 ​	systemctl status firewalld.service ​	打开防火墙 ​	systemctl start firewalld.service ​	关闭防火墙 ​	systemctl stop firewalld.service ​	开启防火墙 ​	systemctl enable firewalld.service ​	禁用防火墙 ​	sy">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-13T08:46:02.607Z">
-<meta property="article:modified_time" content="2022-09-25T08:10:37.171Z">
+<meta property="article:modified_time" content="2022-12-16T09:00:29.813Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary_large_image">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          3k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          24 分钟
+          25 分钟
         
       </span>
     
@@ -416,6 +416,16 @@
 
 <p>停止redis服务：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">redis-cli shutdown<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h4><ol>
+<li><p>安装python-pip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs linux">yum -y install epel-release<br>dnf install -y python3<br>dnf install python3-paramiko<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>安装docker-compose</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs linux">pip3 install docker-compose<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查看版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs linux">docker-compose --version<br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
