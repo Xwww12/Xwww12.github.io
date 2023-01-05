@@ -1,0 +1,969 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xw">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="分布式搜索(1)Elasticsearch 一个开源的分布式搜索引擎，可以用来实现搜索、日志统计、分析、系统监控等功能  概念elastic stack（ELK）: 是以elasticsearch为核心的技术栈，包括beats、Logstash、kibana、elasticsearch 正向索引：根据id索引来查找文档 倒排索引：根据搜索的词条找id再找文档 安装es创建一个网络, 让es和kib">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式搜索(1)">
+<meta property="og:url" content="http://xwww12.github.io/2022/09/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="分布式搜索(1)Elasticsearch 一个开源的分布式搜索引擎，可以用来实现搜索、日志统计、分析、系统监控等功能  概念elastic stack（ELK）: 是以elasticsearch为核心的技术栈，包括beats、Logstash、kibana、elasticsearch 正向索引：根据id索引来查找文档 倒排索引：根据搜索的词条找id再找文档 安装es创建一个网络, 让es和kib">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/TF-IDF%E7%AE%97%E6%B3%95.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/BM25.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E7%BB%93%E6%9E%9C.png">
+<meta property="article:published_time" content="2022-09-13T12:39:53.044Z">
+<meta property="article:modified_time" content="2022-09-18T11:04:03.246Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="微服务">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/weifuwu_img/TF-IDF%E7%AE%97%E6%B3%95.png">
+  
+  
+  
+  <title>分布式搜索(1) - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xwww12.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>夕立ち的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img/Reimu1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">分布式搜索(1)</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        xw
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-13 20:39" pubdate>
+          2022年9月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          20k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          165 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">分布式搜索(1)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="分布式搜索-1"><a href="#分布式搜索-1" class="headerlink" title="分布式搜索(1)"></a>分布式搜索(1)</h2><h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><blockquote>
+<p>一个开源的分布式搜索引擎，可以用来实现搜索、日志统计、分析、系统监控等功能</p>
+</blockquote>
+<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>elastic stack（ELK）: 是以elasticsearch为核心的技术栈，包括beats、Logstash、kibana、elasticsearch</p>
+<p>正向索引：根据id索引来查找文档</p>
+<p>倒排索引：根据搜索的词条找id再找文档</p>
+<h4 id="安装es"><a href="#安装es" class="headerlink" title="安装es"></a>安装es</h4><p>创建一个网络, 让es和kibana容器互联</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dos">docker network create es-<span class="hljs-built_in">net</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>拉取镜像(体积比较大，下载时间可能比较长)</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> pull elasticsearch:<span class="hljs-number">7</span>.<span class="hljs-number">12</span>.<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>运行</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs livescript">docker run -d <span class="hljs-string">\</span><br>	--name es <span class="hljs-string">\</span><br>    -e <span class="hljs-string">&quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot;</span> <span class="hljs-string">\</span><br>    -e <span class="hljs-string">&quot;discovery.type=single-node&quot;</span> <span class="hljs-string">\</span><br>    -v es-data:/usr/share/elasticsearch/data <span class="hljs-string">\</span><br>    -v es-plugins:/usr/share/elasticsearch/plugins <span class="hljs-string">\</span><br>    --privileged <span class="hljs-string">\</span><br>    --network es-net <span class="hljs-string">\</span><br>    -p <span class="hljs-number">9200</span>:<span class="hljs-number">9200</span> <span class="hljs-string">\</span><br>    -p <span class="hljs-number">9300</span>:<span class="hljs-number">9300</span> <span class="hljs-string">\</span><br>elasticsearch:<span class="hljs-number">7.12</span>.<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>命令解释：</p>
+<ul>
+<li><code>-e &quot;cluster.name=es-docker-cluster&quot;</code>：设置集群名称</li>
+<li><code>-e &quot;http.host=0.0.0.0&quot;</code>：监听的地址，可以外网访问</li>
+<li><code>-e &quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot;</code>：内存大小</li>
+<li><code>-e &quot;discovery.type=single-node&quot;</code>：非集群模式</li>
+<li><code>-v es-data:/usr/share/elasticsearch/data</code>：挂载逻辑卷，绑定es的数据目录</li>
+<li><code>-v es-logs:/usr/share/elasticsearch/logs</code>：挂载逻辑卷，绑定es的日志目录</li>
+<li><code>-v es-plugins:/usr/share/elasticsearch/plugins</code>：挂载逻辑卷，绑定es的插件目录</li>
+<li><code>--privileged</code>：授予逻辑卷访问权</li>
+<li><code>--network es-net</code> ：加入一个名为es-net的网络中</li>
+<li><code>-p 9200:9200</code>：端口映射配置</li>
+</ul>
+<h4 id="安装kibana"><a href="#安装kibana" class="headerlink" title="安装kibana"></a>安装kibana</h4><blockquote>
+<p>kibana可以给我们提供一个elasticsearch的可视化界面</p>
+</blockquote>
+<ul>
+<li><p>拉取镜像(一定要和es版本一样)</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> pull kibana:<span class="hljs-number">7</span>.<span class="hljs-number">12</span>.<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>运行</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs routeros">docker <span class="hljs-built_in">run</span> -d \<br>--name kibana \<br>-e <span class="hljs-attribute">ELASTICSEARCH_HOSTS</span>=http://es:9200 \<br><span class="hljs-attribute">--network</span>=es-net \<br>-p 5601:5601  \<br>kibana:7.12.1<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>命令解释</p>
+<ul>
+<li><code>--network es-net</code> ：加入一个名为es-net的网络中，与elasticsearch在同一个网络中</li>
+<li><code>-e ELASTICSEARCH_HOSTS=http://es:9200&quot;</code>：设置elasticsearch的地址，因为kibana已经与elasticsearch在一个网络，因此可以用容器名直接访问elasticsearch</li>
+<li><code>-p 5601:5601</code>：端口映射配置</li>
+</ul>
+<h4 id="安装ik"><a href="#安装ik" class="headerlink" title="安装ik"></a>安装ik</h4><blockquote>
+<p>es内置的分词器不支持中文。ik分词器是一个标准的中文分词器</p>
+</blockquote>
+<ul>
+<li><p>在线安装(速度慢)</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 进入容器内部</span><br>docker exec -it elasticsearch <span class="hljs-regexp">/bin/</span>bash<br><br><span class="hljs-comment"># 在线下载并安装</span><br>.<span class="hljs-regexp">/bin/</span>elasticsearch-plugin  install https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/medcl/</span>elasticsearch-analysis-ik<span class="hljs-regexp">/releases/</span>download<span class="hljs-regexp">/v7.12.1/</span>elasticsearch-analysis-ik-<span class="hljs-number">7.12</span>.<span class="hljs-number">1</span>.zip<br><br><span class="hljs-comment">#退出</span><br><span class="hljs-keyword">exit</span><br><span class="hljs-comment">#重启容器</span><br>docker restart elasticsearch<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>离线安装</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># 查看es插件目录挂载的数据卷</span><br>docker <span class="hljs-keyword">volume</span><span class="language-bash"> inspect es-plugins</span><br><br><span class="hljs-comment"># 将ik分词器上传到数据卷内</span><br><br><span class="hljs-comment"># 重启容器</span><br>docker restart es<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">GET</span> /_analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;ik_max_word&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;上海自来水来自上海&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>IK分词器包含两种模式：</p>
+<ul>
+<li><p><code>ik_smart</code>：最少切分</p>
+</li>
+<li><p><code>ik_max_word</code>：最细切分</p>
+</li>
+</ul>
+<h4 id="扩展词词典"><a href="#扩展词词典" class="headerlink" title="扩展词词典"></a>扩展词词典</h4><blockquote>
+<p>IK分词器提供了扩展词汇的功能</p>
+</blockquote>
+<ul>
+<li><p>ik&#x2F;config目录下的IKAnalyzer.cfg.xml配置文件可以添加扩展词典</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">properties</span> <span class="hljs-keyword">SYSTEM</span> <span class="hljs-string">&quot;http://java.sun.com/dtd/properties.dtd&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">comment</span>&gt;</span>IK Analyzer 扩展配置<span class="hljs-tag">&lt;/<span class="hljs-name">comment</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--用户可以在这里配置自己的扩展字典 *** 添加扩展词典--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">entry</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&quot;ext_dict&quot;</span>&gt;</span>ext.dic<span class="hljs-tag">&lt;/<span class="hljs-name">entry</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建ext_dict，在文件中添加词汇，并放到ik&#x2F;config里</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta"># ext_dict文件</span><br>哈哈哈哈哈哈<br>传智播客<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重启es</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">docker restart es</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="ES基本操作"><a href="#ES基本操作" class="headerlink" title="ES基本操作"></a>ES基本操作</h3><h4 id="索引库操作"><a href="#索引库操作" class="headerlink" title="索引库操作"></a>索引库操作</h4><blockquote>
+<p>类似mysql的表</p>
+<p>mapping是对索引库中文档的<strong>约束</strong></p>
+</blockquote>
+<p>常见的mapping属性包括：</p>
+<ul>
+<li>type：字段数据类型，常见的简单类型有：<ul>
+<li>字符串：text（可分词的文本）、keyword（精确值，例如：品牌、国家、ip地址）</li>
+<li>数值：long、integer、short、byte、double、float、</li>
+<li>布尔：boolean</li>
+<li>日期：date</li>
+<li>对象：object</li>
+</ul>
+</li>
+<li>index：是否创建索引，默认为true</li>
+<li>analyzer：使用哪种分词器</li>
+<li>properties：该字段的子字段</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs json"># 新增一个索引库<br>PUT /test<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;mappings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;properties&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;info&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;analyzer&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ik_smart&quot;</span><br>      <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;keyword&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;index&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><br>      <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;properties&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;keyword&quot;</span><br>          <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;keyword&quot;</span><br>          <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br><br># 查询索引库<br>GEt /test<br><br># 给索引库新增字段   (索引库一旦创建，无法修改mapping，只能新增)<br>PUT /test/_mapping<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;properties&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;age&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;integer&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br><br># 删除索引库<br>DELETE /test<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="文档操作"><a href="#文档操作" class="headerlink" title="文档操作"></a>文档操作</h4><blockquote>
+<p>类似mysql的数据</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs json"># 新增文档<br>POST test/_doc/<span class="hljs-number">1</span><br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;info&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;asdasd&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;123@qq.com&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;san&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;zhang&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br><br># 查询文档<br>GET /test/_doc/<span class="hljs-number">1</span><br><br># 删除文档<br>DELETE /test/_doc/<span class="hljs-number">1</span><br><br># 修改文档(全量修改<span class="hljs-punctuation">:</span> 等于DELETE + POST，文档不存在也会新增)<br>PUT test/_doc/<span class="hljs-number">1</span><br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;info&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;asdasd&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;123@qq.com&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;si&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;li&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br><br># 修改文档(增量修改<span class="hljs-punctuation">:</span> 只修改部分)<br>POST test/_update/<span class="hljs-number">1</span><br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;doc&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;456@qq.com&quot;</span>  <br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="RESTAPI"><a href="#RESTAPI" class="headerlink" title="RESTAPI"></a>RESTAPI</h3><blockquote>
+<p>ES官方提供了各种不同语言的客户端，用来操作ES。这些客户端的本质就是组装DSL语句，通过http请求发送给ES。官方文档地址：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/client/index.html">https://www.elastic.co/guide/en/elasticsearch/client/index.html</a></p>
+</blockquote>
+<p>Java Rest Client又包括两种：</p>
+<ul>
+<li>Java Low Level Rest Client</li>
+<li>Java High Level Rest Client</li>
+</ul>
+<p>设计mapping映射要考虑的信息包括：</p>
+<ul>
+<li>字段名</li>
+<li>字段数据类型</li>
+<li>是否参与搜索</li>
+<li>是否需要分词 </li>
+<li>如果分词，分词器是什么？</li>
+</ul>
+<h4 id="创建客户端"><a href="#创建客户端" class="headerlink" title="创建客户端"></a>创建客户端</h4><blockquote>
+<p>通过客户端的api操作es</p>
+</blockquote>
+<ul>
+<li><p>导入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">java.version</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">java.version</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--版本要和es的版本一致--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">elasticsearch.version</span>&gt;</span>7.12.1<span class="hljs-tag">&lt;/<span class="hljs-name">elasticsearch.version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br><br><span class="hljs-comment">&lt;!--RestHighLevelClient依赖--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.elasticsearch.client<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>elasticsearch-rest-high-level-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通过new的方式创建客户端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.hotel;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HotelIndexTest</span> &#123;<br><br>    <span class="hljs-keyword">private</span> RestHighLevelClient client;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(client);<br>    &#125;<br><br>    <span class="hljs-comment">//初始化</span><br>    <span class="hljs-meta">@BeforeEach</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">setup</span><span class="hljs-params">()</span> &#123;<br>        client = <span class="hljs-keyword">new</span> <span class="hljs-title class_">RestHighLevelClient</span>(RestClient.builder(<br>                HttpHost.create(<span class="hljs-string">&quot;http://192.168.229.128:9200&quot;</span>)<br>        ));<br>    &#125;<br><br>    <span class="hljs-comment">//结束后销毁</span><br>    <span class="hljs-meta">@AfterEach</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">tearDown</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-built_in">this</span>.client.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="创建索引库"><a href="#创建索引库" class="headerlink" title="创建索引库"></a>创建索引库</h4><ul>
+<li><p>准备创建语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.hotel.constants;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ESConstants</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-variable">MAPPING_TEMPLATE</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;  \&quot;mappings\&quot;: &#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;    \&quot;properties\&quot;: &#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;id\&quot;: &#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;keyword\&quot;\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;name\&quot;:&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;text\&quot;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;analyzer\&quot;: \&quot;ik_max_word\&quot;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;copy_to\&quot;: \&quot;all\&quot;\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;address\&quot;:&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;keyword\&quot;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;index\&quot;: false\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;price\&quot;:&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;integer\&quot;\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;score\&quot;:&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;integer\&quot;\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;brand\&quot;:&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;keyword\&quot;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;copy_to\&quot;: \&quot;all\&quot;\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;city\&quot;:&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;keyword\&quot;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;copy_to\&quot;: \&quot;all\&quot;\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;starName\&quot;:&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;keyword\&quot;\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;business\&quot;:&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;keyword\&quot;\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;location\&quot;:&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;geo_point\&quot;\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;pic\&quot;:&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;keyword\&quot;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;index\&quot;: false\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;      \&quot;all\&quot;:&#123;\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;type\&quot;: \&quot;text\&quot;,\n&quot;</span> +<br>            <span class="hljs-string">&quot;        \&quot;analyzer\&quot;: \&quot;ik_max_word\&quot;\n&quot;</span> +<br>            <span class="hljs-string">&quot;      &#125;\n&quot;</span> +<br>            <span class="hljs-string">&quot;    &#125;\n&quot;</span> +<br>            <span class="hljs-string">&quot;  &#125;\n&quot;</span> +<br>            <span class="hljs-string">&quot;&#125;&quot;</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通过client发送创建索引库请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 创建索引库</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">createIndex</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">CreateIndexRequest</span> <span class="hljs-variable">createIndexRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CreateIndexRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//设置请求参数</span><br>    createIndexRequest.source(MAPPING_TEMPLATE, XContentType.JSON);<br>    <span class="hljs-comment">//返送请求</span><br>    client.indices().create(createIndexRequest, RequestOptions.DEFAULT);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="删除索引库"><a href="#删除索引库" class="headerlink" title="删除索引库"></a>删除索引库</h4><ul>
+<li><p>通过client发送删除引库请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 删除索引库</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteIndex</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">DeleteIndexRequest</span> <span class="hljs-variable">deleteIndexRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DeleteIndexRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//发送请求</span><br>    client.indices().delete(deleteIndexRequest, RequestOptions.DEFAULT);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="查询索引库"><a href="#查询索引库" class="headerlink" title="查询索引库"></a>查询索引库</h4><ul>
+<li><p>通过client发送查询引库请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 查询索引库</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getIndex</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">GetIndexRequest</span> <span class="hljs-variable">getIndexRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GetIndexRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//发送请求</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">exists</span> <span class="hljs-operator">=</span> client.indices().exists(getIndexRequest, RequestOptions.DEFAULT);<br>    System.out.println(exists ? <span class="hljs-string">&quot;索引库存在&quot;</span> : <span class="hljs-string">&quot;索引库不存在&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="新增文档"><a href="#新增文档" class="headerlink" title="新增文档"></a>新增文档</h4><ul>
+<li><p>通过client发送新增文档请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.hotel;<br><br><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HotelDocumentTest</span> &#123;<br><br>    <span class="hljs-keyword">private</span> RestHighLevelClient client;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> IHotelService iHotelService;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 新增文档</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">createDoc</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-comment">//从数据库中获取hotel对象</span><br>        <span class="hljs-type">Hotel</span> <span class="hljs-variable">hotel</span> <span class="hljs-operator">=</span> iHotelService.getById(<span class="hljs-number">61083L</span>);<br>        <span class="hljs-comment">//数据库中的对象属性和索引库中不一致，要转换一下</span><br>        <span class="hljs-type">HotelDoc</span> <span class="hljs-variable">hotelDoc</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HotelDoc</span>(hotel);<br><br>        <span class="hljs-comment">//创建request请求</span><br>        <span class="hljs-type">IndexRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IndexRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>).id(hotelDoc.getId().toString());<br>        <span class="hljs-comment">//设置请求参数</span><br>        request.source(JSON.toJSONString(hotelDoc), XContentType.JSON);<br>        <span class="hljs-comment">//发送请求</span><br>        client.index(request, RequestOptions.DEFAULT);<br>    &#125;<br><br><br>    <span class="hljs-meta">@BeforeEach</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">setup</span><span class="hljs-params">()</span> &#123;<br>        client = <span class="hljs-keyword">new</span> <span class="hljs-title class_">RestHighLevelClient</span>(RestClient.builder(<br>                HttpHost.create(<span class="hljs-string">&quot;http://192.168.229.128:9200&quot;</span>)<br>        ));<br>    &#125;<br><br>    <span class="hljs-meta">@AfterEach</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">tearDown</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-built_in">this</span>.client.close();<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="查询文档"><a href="#查询文档" class="headerlink" title="查询文档"></a>查询文档</h4><ul>
+<li><p>通过client发送查询文档请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 查询文档</span><br><span class="hljs-comment">* <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">GetDoc</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建请求</span><br>    <span class="hljs-type">GetRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GetRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>, <span class="hljs-string">&quot;61083&quot;</span>);<br>    <span class="hljs-comment">//发送请求,获得响应结果</span><br>    <span class="hljs-type">GetResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.get(request, RequestOptions.DEFAULT);<br><br>    <span class="hljs-comment">//将响应结构转为对象</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">json</span> <span class="hljs-operator">=</span> response.getSourceAsString();<br>    <span class="hljs-type">HotelDoc</span> <span class="hljs-variable">hotelDoc</span> <span class="hljs-operator">=</span> JSON.parseObject(json, HotelDoc.class);<br>    System.out.println(hotelDoc);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="修改文档"><a href="#修改文档" class="headerlink" title="修改文档"></a>修改文档</h4><ul>
+<li><p>通过client发送修改文档请求，全量修改和新增操作一样</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 更新文档(局部修改)</span><br><span class="hljs-comment">* <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">UpdateDoc</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建请求</span><br>    <span class="hljs-type">UpdateRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UpdateRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>, <span class="hljs-string">&quot;61083&quot;</span>);<br>    <span class="hljs-comment">//设置请求参数</span><br>    request.doc(<br>        <span class="hljs-string">&quot;price&quot;</span>, <span class="hljs-string">&quot;999&quot;</span><br>    );<br>    <span class="hljs-comment">//发送请求</span><br>    client.update(request, RequestOptions.DEFAULT);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h4><ul>
+<li><p>通过client发送删除文档请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 删除文档</span><br><span class="hljs-comment">* <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteDoc</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建请求</span><br>    <span class="hljs-type">DeleteRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DeleteRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>, <span class="hljs-string">&quot;61083&quot;</span>);<br>    <span class="hljs-comment">//发送请求</span><br>    client.delete(request, RequestOptions.DEFAULT);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="批量新增文档"><a href="#批量新增文档" class="headerlink" title="批量新增文档"></a>批量新增文档</h4><ul>
+<li><p>通过client发送批量新增文档请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 批量新增文档</span><br><span class="hljs-comment">* <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">bulkCreateDoc</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建请求</span><br>    <span class="hljs-type">BulkRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BulkRequest</span>();<br><br>    <span class="hljs-comment">//查询数据库中所有hotel信息</span><br>    List&lt;Hotel&gt; hotels = iHotelService.list();<br>    <span class="hljs-comment">//将hotel转换为hotelDoc，再封装到请求中</span><br>    <span class="hljs-keyword">for</span> (Hotel hotel : hotels) &#123;<br>        <span class="hljs-type">HotelDoc</span> <span class="hljs-variable">hotelDoc</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HotelDoc</span>(hotel);<br>        request.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">IndexRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>)<br>                    .id(hotel.getId().toString())<br>                    .source(JSON.toJSONString(hotelDoc),XContentType.JSON)<br>                   );<br>    &#125;<br>    <span class="hljs-comment">//发送请求</span><br>    client.bulk(request, RequestOptions.DEFAULT);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在kibana中用<code>GET /hotel/_search</code>可查看所有文档</p>
+</li>
+</ul>
+<h3 id="DSL查询语法"><a href="#DSL查询语法" class="headerlink" title="DSL查询语法"></a>DSL查询语法</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html">Domain Specific Language</a></p>
+</blockquote>
+<p>常见查询类型：</p>
+<ul>
+<li>查询所有</li>
+<li>全文检索查询: 对搜索条件分词得到词条，然后通过词条来查询相关字段</li>
+<li>精准查询：<strong>不会</strong>对搜索条件分词</li>
+<li>地理查询：给定坐标来查询</li>
+<li>复合查询：将其它简单查询组合起来，实现更复杂的搜索逻辑</li>
+</ul>
+<p>通用查询语法</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json">GET /indexName/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;查询类型&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;查询条件&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;条件值&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="查询所有"><a href="#查询所有" class="headerlink" title="查询所有"></a>查询所有</h4><blockquote>
+<p>match_all</p>
+</blockquote>
+<ul>
+<li><p>实例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json"># 查询hotel索引库中所有信息<br>GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;match_all&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span>  <br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="全文检索查询"><a href="#全文检索查询" class="headerlink" title="全文检索查询"></a>全文检索查询</h4><blockquote>
+<p>match: 单字段查询</p>
+<p>multi_match: 多字段查询</p>
+</blockquote>
+<ul>
+<li><p>match实例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"># 对内容进行分词，然后查询<span class="hljs-string">&quot;all&quot;</span>字段<br>GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;match&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;all&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;外滩 如家&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>multi_match实例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json"># 对内容进行分词，然后查询<span class="hljs-string">&quot;brand&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;name&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;business&quot;</span>三个字段<br>GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;multi_match&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;外滩 如家&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;fields&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;brand&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;name&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;business&quot;</span><span class="hljs-punctuation">]</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="精准查询"><a href="#精准查询" class="headerlink" title="精准查询"></a>精准查询</h4><blockquote>
+<p>term：根据词条精确值查询</p>
+<p>range：根据值的范围查询</p>
+</blockquote>
+<ul>
+<li><p>term实例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json"># 查询<span class="hljs-string">&quot;city&quot;</span>字段为<span class="hljs-string">&quot;上海&quot;</span>的信息<br>GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;term&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;city&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;上海&quot;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>range实例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs json"># 查询<span class="hljs-string">&quot;price&quot;</span>字段值为<span class="hljs-punctuation">[</span><span class="hljs-number">200</span><span class="hljs-punctuation">,</span> <span class="hljs-number">300</span><span class="hljs-punctuation">]</span>之间的信息<br># gte<span class="hljs-punctuation">:</span> greater then equals <span class="hljs-punctuation">,</span> lte<span class="hljs-punctuation">:</span> less then equals<br>GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;range&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;price&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;gte&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">200</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;lte&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">300</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="地理查询"><a href="#地理查询" class="headerlink" title="地理查询"></a>地理查询</h4><blockquote>
+<p>geo_distance：指定坐标和半径来查询范围内的数据</p>
+<p>geo_bounding_box：指定两个坐标，查询形成的矩形内的数据</p>
+</blockquote>
+<ul>
+<li><p>geo_distance实例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json"># 以<span class="hljs-string">&quot;31.21,121.5&quot;</span> 为点做半径为<span class="hljs-number">15</span>km的圆<br>GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;geo_distance&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;distance&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;15km&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;location&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;31.21,121.5&quot;</span> <br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>geo_bounding_box实例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs json">GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;geo_bounding_box&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;location&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;top_left&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;lat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">31.1</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;lon&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">121.5</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;bottom_right&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;lat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">30.9</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;lon&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">121.7</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="复合查询"><a href="#复合查询" class="headerlink" title="复合查询"></a>复合查询</h4><blockquote>
+<p>function score：算分函数查询，可以控制文档相关性算分，控制文档排名</p>
+<p>bool query：布尔查询，利用逻辑关系组合多个其它的查询，实现复杂搜索</p>
+</blockquote>
+<p><strong>function score</strong></p>
+<p>elasticsearch会根据词条和文档的相关度做打分，算法由两种：</p>
+<ul>
+<li><p>TF-IDF算法</p>
+<p><img src="/img/weifuwu_img/TF-IDF%E7%AE%97%E6%B3%95.png" srcset="/img/loading.gif" lazyload alt="TF-IDF算法"></p>
+</li>
+<li><p>BM25算法，elasticsearch5.1版本后采用的算法</p>
+<p><img src="/img/weifuwu_img/BM25.png" srcset="/img/loading.gif" lazyload alt="BM25"></p>
+</li>
+<li><p>function score实例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs json"># 复合查询<br>GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>			<br>    <span class="hljs-attr">&quot;function_score&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>				<span class="hljs-comment">//原始查询条件</span><br>        <span class="hljs-attr">&quot;match&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;all&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;外滩&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;functions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;filter&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>			<span class="hljs-comment">//过滤查到的信息</span><br>            <span class="hljs-attr">&quot;term&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>              <span class="hljs-attr">&quot;brand&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;如家&quot;</span><br>            <span class="hljs-punctuation">&#125;</span><br>          <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;weight&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span>	<br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">]</span><br>      <span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;boost_mode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sum&quot;</span>		<span class="hljs-comment">//sum模式为_score = 原始分数 + weight</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>bool query</strong></p>
+<p>布尔查询是一个或多个查询子句的组合，每一个子句就是一个<strong>子查询</strong>。子查询的组合方式有：</p>
+<ul>
+<li>must：必须匹配每个子查询，类似“与”</li>
+<li>should：选择性匹配子查询，类似“或”</li>
+<li>must_not：必须不匹配，<strong>不参与算分</strong>，类似“非”</li>
+<li>filter：必须匹配，<strong>不参与算分</strong></li>
+</ul>
+<ul>
+<li><p>bool query实例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs json"># 名字中包含<span class="hljs-string">&quot;如家&quot;</span><span class="hljs-punctuation">,</span> 价格<span class="hljs-number">400</span>以上，范围<span class="hljs-number">10</span>km之内<br>GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;bool&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;must&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;match&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;如家&quot;</span><br>          <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;must_not&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;range&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;price&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>              <span class="hljs-attr">&quot;gt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">400</span><br>            <span class="hljs-punctuation">&#125;</span><br>          <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;filter&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;geo_distance&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;distance&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;10km&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;location&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>              <span class="hljs-attr">&quot;lat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">31.21</span><span class="hljs-punctuation">,</span><br>              <span class="hljs-attr">&quot;lon&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">121.5</span><br>            <span class="hljs-punctuation">&#125;</span><br>          <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">]</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="搜索结果处理"><a href="#搜索结果处理" class="headerlink" title="搜索结果处理"></a>搜索结果处理</h3><h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><blockquote>
+<p>sort</p>
+</blockquote>
+<ul>
+<li><p>实例1</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"># 按分数降序，价格升序排序<br>GET /hotel/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match_all&quot;</span>: &#123;&#125;<br>  &#125;<br>  , <span class="hljs-string">&quot;sort&quot;</span>: [<br>    &#123;<br>      <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-string">&quot;desc&quot;</span><br>    &#125;,<br>    &#123;<br>      <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-string">&quot;asc&quot;</span><br>    &#125;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>实例2</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs json"># 按距离升序排序，单位<span class="hljs-string">&quot;km&quot;</span><br>GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;match_all&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sort&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;_geo_distance&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;location&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;lat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">31</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;lon&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">121</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;order&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;asc&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;unit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;km&quot;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><blockquote>
+<p>from、size</p>
+</blockquote>
+<p>深度分页问题：</p>
+<blockquote>
+<p>elasticsearch内部分页时，要查990 ~ 1000的这10条，必须先查询 0~1000条，然后截取其中的990 ~ 1000的这10条。当es集群时，若要查前1000的文档，就得先查询所有节点的前1000，再将这些文档重新排名后选出前1000，对于节点有很大压力。</p>
+<p>因此elasticsearch会禁止from+ size 超过10000的请求。</p>
+</blockquote>
+<ul>
+<li><p>实例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs json"># 从<span class="hljs-number">0</span>号开始查询<span class="hljs-number">20</span>条数据<br>GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;match_all&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;from&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>	# 起始值，默认<span class="hljs-number">0</span><br>  <span class="hljs-attr">&quot;size&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20</span><span class="hljs-punctuation">,</span>	# 希望获取的文档总数<br>  <span class="hljs-attr">&quot;sort&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;price&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;asc&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">]</span><br>  <br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="高亮"><a href="#高亮" class="headerlink" title="高亮"></a>高亮</h4><blockquote>
+<p>highlight</p>
+</blockquote>
+<ul>
+<li><p>实例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs json">GET /hotel/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;match&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;all&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;如家&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span> <br>  <span class="hljs-attr">&quot;highlight&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;fields&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;require_field_match&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;false&quot;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注意：</strong></p>
+<ul>
+<li>高亮是对关键字高亮，因此<strong>搜索条件必须带有关键字</strong>，而不能是范围这样的查询。</li>
+<li>默认情况下，<strong>高亮的字段，必须与搜索指定的字段一致</strong>，否则无法高亮</li>
+<li>如果要对非搜索字段高亮，则需要添加一个属性：required_field_match&#x3D;false</li>
+</ul>
+</li>
+</ul>
+<h3 id="RestAPI查询"><a href="#RestAPI查询" class="headerlink" title="RestAPI查询"></a>RestAPI查询</h3><blockquote>
+<p>不一样的地方就QueryBuilders的查询条件</p>
+</blockquote>
+<h4 id="查询所有-1"><a href="#查询所有-1" class="headerlink" title="查询所有"></a>查询所有</h4><ul>
+<li>matchAllQuery实例</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 查询所有</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testMatchAll</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">SearchRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SearchRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//组织DSL参数</span><br>    request.source().query(QueryBuilders.matchAllQuery());<br>    <span class="hljs-comment">//发送查询请求，获取结果</span><br>    <span class="hljs-type">SearchResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.search(request, RequestOptions.DEFAULT);<br><br>    <span class="hljs-comment">//解析结果</span><br>    handResponse(response);<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 解析结果</span><br><span class="hljs-comment">* <span class="hljs-doctag">@param</span> response</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">handResponse</span><span class="hljs-params">(SearchResponse response)</span> &#123;<br>    <span class="hljs-comment">//解析结果</span><br>    <span class="hljs-type">SearchHits</span> <span class="hljs-variable">searchHits</span> <span class="hljs-operator">=</span> response.getHits();<br>    <span class="hljs-type">long</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> searchHits.getTotalHits().value; <span class="hljs-comment">//获取结果总数</span><br>    SearchHit[] hits = searchHits.getHits();    <span class="hljs-comment">//获取结果集</span><br>    System.out.println(<span class="hljs-string">&quot;结果数: &quot;</span> + value);<br>    <span class="hljs-keyword">for</span> (SearchHit hit : hits) &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">json</span> <span class="hljs-operator">=</span> hit.getSourceAsString();<br>        <span class="hljs-type">HotelDoc</span> <span class="hljs-variable">hotelDoc</span> <span class="hljs-operator">=</span> JSON.parseObject(json, HotelDoc.class);<br>        System.out.println(hotelDoc);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/weifuwu_img/%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E7%BB%93%E6%9E%9C.png" srcset="/img/loading.gif" lazyload alt="查询所有结果"></p>
+<p>解析响应结果，就是逐层解析JSON字符串，流程如下：</p>
+<ul>
+<li><code>searchHits</code>：通过response.getHits()获取，就是JSON中的最外层的hits，代表命中的结果<ul>
+<li><code>SearchHits#getTotalHits().value</code>：获取总条数信息</li>
+<li><code>SearchHits#getHits()</code>：获取SearchHit数组，也就是文档数组<ul>
+<li><code>SearchHit#getSourceAsString()</code>：获取文档结果中的_source，也就是原始的json文档数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="全文检索查询-1"><a href="#全文检索查询-1" class="headerlink" title="全文检索查询"></a>全文检索查询</h4><ul>
+<li><p>matchQuery实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testMatch</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">SearchRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SearchRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//组织DSL参数</span><br>    request.source().query(QueryBuilders.matchQuery(<span class="hljs-string">&quot;all&quot;</span>, <span class="hljs-string">&quot;如家&quot;</span>));<br>    <span class="hljs-comment">//发送查询请求，获取结果</span><br>    <span class="hljs-type">SearchResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.search(request, RequestOptions.DEFAULT);<br><br>    <span class="hljs-comment">//解析结果</span><br>    handResponse(response);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>multiMatchQuery实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testMultiMatch</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">SearchRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SearchRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//组织DSL参数</span><br>    request.source().query(QueryBuilders.multiMatchQuery(<span class="hljs-string">&quot;如家&quot;</span>, <br>                                                         <span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;business&quot;</span>));<br>    <span class="hljs-comment">//发送查询请求，获取结果</span><br>    <span class="hljs-type">SearchResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.search(request, RequestOptions.DEFAULT);<br><br>    <span class="hljs-comment">//解析结果</span><br>    handResponse(response);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="精准查询-1"><a href="#精准查询-1" class="headerlink" title="精准查询"></a>精准查询</h4><ul>
+<li><p>termQuery实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testTerm</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">SearchRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SearchRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//组织DSL参数</span><br>    request.source().query(QueryBuilders.termQuery(<span class="hljs-string">&quot;city&quot;</span>, <span class="hljs-string">&quot;上海&quot;</span>));<br>    <span class="hljs-comment">//发送查询请求，获取结果</span><br>    <span class="hljs-type">SearchResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.search(request, RequestOptions.DEFAULT);<br><br>    <span class="hljs-comment">//解析结果</span><br>    handResponse(response);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>rangeQuery实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testTerm</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">SearchRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SearchRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//组织DSL参数</span><br>    request.source().query(QueryBuilders.rangeQuery(<span class="hljs-string">&quot;price&quot;</span>)<br>                           .gte(<span class="hljs-number">100</span>)<br>                           .lte(<span class="hljs-number">150</span>));<br>    <span class="hljs-comment">//发送查询请求，获取结果</span><br>    <span class="hljs-type">SearchResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.search(request, RequestOptions.DEFAULT);<br><br>    <span class="hljs-comment">//解析结果</span><br>    handResponse(response);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="复合查询-1"><a href="#复合查询-1" class="headerlink" title="复合查询"></a>复合查询</h4><ul>
+<li><p>boolQuery实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testBool</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">SearchRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SearchRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//组织DSL参数</span><br>    request.source().query(QueryBuilders.boolQuery()<br>                           .must(QueryBuilders.termQuery(<span class="hljs-string">&quot;city&quot;</span>, <span class="hljs-string">&quot;上海&quot;</span>))<br>                           .filter(QueryBuilders.rangeQuery(<span class="hljs-string">&quot;price&quot;</span>).lte(<span class="hljs-number">200</span>)));<br>    <span class="hljs-comment">//发送查询请求，获取结果</span><br>    <span class="hljs-type">SearchResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.search(request, RequestOptions.DEFAULT);<br><br>    <span class="hljs-comment">//解析结果</span><br>    handResponse(response);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="排序-1"><a href="#排序-1" class="headerlink" title="排序"></a>排序</h4><ul>
+<li><p>sort实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSort</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">SearchRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SearchRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//组织DSL参数</span><br>    request.source().sort(<span class="hljs-string">&quot;price&quot;</span>, SortOrder.DESC);<br>    <span class="hljs-comment">//发送查询请求，获取结果</span><br>    <span class="hljs-type">SearchResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.search(request, RequestOptions.DEFAULT);<br><br>    <span class="hljs-comment">//解析结果</span><br>    handResponse(response);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="分页-1"><a href="#分页-1" class="headerlink" title="分页"></a>分页</h4><ul>
+<li><p>from、size实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testPage</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">page</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>, size = <span class="hljs-number">4</span>;<br><br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">SearchRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SearchRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//组织DSL参数</span><br>    request.source().from((page - <span class="hljs-number">1</span>) * size).size(size);<br>    <span class="hljs-comment">//发送查询请求，获取结果</span><br>    <span class="hljs-type">SearchResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.search(request, RequestOptions.DEFAULT);<br><br>    <span class="hljs-comment">//解析结果</span><br>    handResponse(response);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="高亮-1"><a href="#高亮-1" class="headerlink" title="高亮"></a>高亮</h4><ul>
+<li><p>highlighter实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testHighlight</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">//创建request请求对象</span><br>    <span class="hljs-type">SearchRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SearchRequest</span>(<span class="hljs-string">&quot;hotel&quot;</span>);<br>    <span class="hljs-comment">//组织DSL参数</span><br>    request.source().query(QueryBuilders.matchQuery(<span class="hljs-string">&quot;all&quot;</span>, <span class="hljs-string">&quot;如家&quot;</span>))<br>        .highlighter(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HighlightBuilder</span>().field(<span class="hljs-string">&quot;name&quot;</span>).requireFieldMatch(<span class="hljs-literal">false</span>));<br>    <span class="hljs-comment">//发送查询请求，获取结果</span><br>    <span class="hljs-type">SearchResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.search(request, RequestOptions.DEFAULT);<br><br>    <span class="hljs-comment">//解析结果</span><br>    handleResponse(response);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>结果处理时得获取Highlight里的值</p>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>分布式搜索(1)</div>
+      <div>http://xwww12.github.io/2022/09/13/微服务/分布式搜索/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>xw</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月13日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/18/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E6%8E%A5%E5%8F%A3%E9%99%90%E6%B5%81/" title="接口限流">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">接口限流</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/11/%E5%BE%AE%E6%9C%8D%E5%8A%A1/MQ/" title="消息队列">
+                        <span class="hidden-mobile">消息队列</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 10px"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/snow2.js"></script>
+<script src="/js/pageTitle.js"></script>
+<script src="/js/sakura.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
