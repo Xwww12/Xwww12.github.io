@@ -24,7 +24,7 @@
 <meta property="og:description" content="NginxNginx是一款轻量级Web服务器&#x2F;反向代理服务器，占用内存少，并发能力强 下载和安装源码安装 官网下载 老版本下载  安装依赖包  GCC编译器：Nginx是使用C语言编写的程序，因此想要运行Nginx就需要安装一个编译工具。GCC就是一个开源的编译器集合，用于处理各种各样的语言，其中就包含了C语言。 PCRE：Nginx在编译过程中需要使用到PCRE库（perl Compa">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-20T14:06:41.978Z">
-<meta property="article:modified_time" content="2023-01-08T09:27:00.427Z">
+<meta property="article:modified_time" content="2023-01-09T09:46:31.975Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="中间件">
 <meta property="article:tag" content="后端">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          18k 字
+          19k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          152 分钟
+          163 分钟
         
       </span>
     
@@ -831,8 +831,62 @@
 <li><p>将要被下载的资源放到一个目录下</p>
 </li>
 <li><p>修改nginx配置</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">location</span> /download&#123;<br>	<span class="hljs-comment"># 被下载资源路径</span><br>    <span class="hljs-attribute">root</span> /usr/local;<br>    <span class="hljs-comment"># 开启功能</span><br>    <span class="hljs-attribute">autoindex</span> <span class="hljs-literal">on</span>;<br>    <span class="hljs-comment"># 开启展示文件大小</span><br>    <span class="hljs-attribute">autoindex_exact_size</span> <span class="hljs-literal">on</span>;<br>    <span class="hljs-comment"># 目录列表的格式，可以是html/xml/json/jsonp，默认html</span><br>    <span class="hljs-attribute">autoindex_format</span> html;<br>    <span class="hljs-comment"># 是否在目录列表上显示时间</span><br>    <span class="hljs-attribute">autoindex_localtime</span> <span class="hljs-literal">on</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">location</span> /download&#123;<br>	<span class="hljs-comment"># 被下载资源路径</span><br>    <span class="hljs-attribute">root</span> /usr/local;<br>    <span class="hljs-comment"># 开启功能</span><br>    <span class="hljs-attribute">autoindex</span> <span class="hljs-literal">on</span>;<br>    <span class="hljs-comment"># 是否展示文件大小</span><br>    <span class="hljs-attribute">autoindex_exact_size</span> <span class="hljs-literal">on</span>;<br>    <span class="hljs-comment"># 目录列表的格式，可以是html/xml/json/jsonp，默认html</span><br>    <span class="hljs-attribute">autoindex_format</span> html;<br>    <span class="hljs-comment"># 是否在目录列表上显示时间</span><br>    <span class="hljs-attribute">autoindex_localtime</span> <span class="hljs-literal">on</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ol>
+<h4 id="Lua"><a href="#Lua" class="headerlink" title="Lua"></a>Lua</h4><p>Lua是用标准C语言编写并以源代码形式开发。设计的目的是为了嵌入到其他应用程序中，从而为应用程序提供灵活的扩展和定制功能。应用在游戏开发、独立应用脚本、web应用脚本、扩展和数据库插件、系统安全上。</p>
+<p><a target="_blank" rel="noopener" href="https://www.lua.org/">官网</a></p>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><ol>
+<li><p>下载压缩包到服务器</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget https:<span class="hljs-regexp">//</span>www.lua.org<span class="hljs-regexp">/ftp/</span>lua-<span class="hljs-number">5.4</span>.<span class="hljs-number">4</span>.tar.gz<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>检查环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">make linux <span class="hljs-built_in">test</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编译安装</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">make <span class="hljs-keyword">install</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查看版本</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">lua -v</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="交互方式"><a href="#交互方式" class="headerlink" title="交互方式"></a>交互方式</h5><p><strong>1.交互式</strong></p>
+<p>通过命令<code>lua</code>进入控制台</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># lua</span><br>&gt; <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Hello World&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>2.脚本式</strong></p>
+<p>创建hello.lua文件，编写脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># vim hello.lua</span><br><br><span class="hljs-comment"># 编写脚本</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Hello World&quot;</span>)<br><br><span class="hljs-comment"># 执行</span><br><span class="hljs-built_in">chmod</span> 755 hello.lua<br>lua hello.lua<br><br><span class="hljs-comment"># 也可以在文件开头指定解释器，执行的时候直接用文件名就行了</span><br><span class="hljs-comment">#!/usr/local/bin/lua</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h5><h6 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h6><p><strong>单行注释</strong></p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-comment">-- 注释</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>多行注释</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">--[[</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">--]]</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>多行注释只需要在前面多加一个-就可以取消</p>
+</blockquote>
+<h6 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h6><p><strong>逻辑运算符</strong></p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xl"><span class="hljs-function"><span class="hljs-title">and</span> --&gt;</span> 与<br><span class="hljs-function"><span class="hljs-title">or</span> --&gt;</span> 或<br><span class="hljs-function"><span class="hljs-title">not</span> --&gt;</span> 非<br></code></pre></td></tr></table></figure>
+
+<p>其他运算符</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">..</span> 连接字符串<br><span class="hljs-comment"># 返回字符串或表的长度</span><br></code></pre></td></tr></table></figure>
+
+<h6 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h6><p>默认为全局变量，定义局部变量要在前面加<code>local</code></p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">a</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span><span class="hljs-comment">;</span><br>local b <span class="hljs-operator">=</span> <span class="hljs-number">20</span><span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<h6 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h6><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">nil</span><span class="hljs-params">(空，无效值)</span></span><br><span class="hljs-function"><span class="hljs-title">boolean</span><span class="hljs-params">(布尔，true/false)</span></span><br><span class="hljs-function"><span class="hljs-title">number</span><span class="hljs-params">(数值)</span></span>：只有false和nil为假<br><span class="hljs-function"><span class="hljs-title">string</span><span class="hljs-params">(字符串)</span></span><br><span class="hljs-function"><span class="hljs-title">function</span><span class="hljs-params">(函数)</span></span><br>table（表）<br><span class="hljs-function"><span class="hljs-title">thread</span><span class="hljs-params">(线程)</span></span><br>userdata（用户数据）<br></code></pre></td></tr></table></figure>
+
+<p><strong>表</strong></p>
+<p>可以用来表示数组、字典或混合使用，下标从1开始</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 定义一个表</span><br><span class="hljs-attribute">arr</span> = &#123;&#125;<br><span class="hljs-attribute">arr</span> = &#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>&#125;<br><span class="hljs-attribute">arr</span> = &#123;X = <span class="hljs-number">10</span>, Y = <span class="hljs-number">20</span>, Z = <span class="hljs-number">30</span>&#125;<br><span class="hljs-attribute">arr</span> = &#123;<span class="hljs-string">&quot;a&quot;</span>, X = <span class="hljs-number">10</span>, <span class="hljs-string">&quot;b&quot;</span>&#125;<br><br><span class="hljs-comment"># 获取表里的值</span><br><span class="hljs-attribute">arr</span> = &#123;<span class="hljs-string">&quot;a&quot;</span>, X = <span class="hljs-number">10</span>, <span class="hljs-string">&quot;b&quot;</span>&#125;<br><span class="hljs-attribute">arr</span>[<span class="hljs-number">0</span>]	-- nil<br><span class="hljs-attribute">arr</span>[<span class="hljs-number">1</span>] 	-- <span class="hljs-string">&quot;a&quot;</span><br><span class="hljs-attribute">arr</span>[<span class="hljs-number">2</span>]	-- <span class="hljs-string">&quot;b&quot;</span><br><span class="hljs-attribute">arr</span>[<span class="hljs-string">&quot;X&quot;</span>]	-- <span class="hljs-number">10</span><br><span class="hljs-attribute">arr</span>.X	-- <span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>
+
+<h6 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h6><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs lua"># 定义函数<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span><span class="hljs-params">(params)</span></span><br>	<span class="hljs-comment">-- 方法的内容</span><br><span class="hljs-keyword">end</span><br><br># 方法定义的参数并非都要传入，传入的会按顺序赋值，没赋值的参数为<span class="hljs-literal">nil</span>；如果传入的参数数量大于方法需要的参数数量，则会丢弃多出来的参数<br><br># 可变长参数<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span><span class="hljs-params">(...)</span></span><br>	a, b, c = ...;<br>	<span class="hljs-built_in">print</span>(a, b, c);<br><span class="hljs-keyword">end</span><br><br># 方法返回值数量也是可变的<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>;<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<h6 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h6><p>if</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-keyword">if</span> 条件 <span class="hljs-keyword">then</span><br>    <span class="hljs-comment">-- 代码</span><br><span class="hljs-keyword">elseif</span> 条件 <span class="hljs-keyword">then</span><br>    <span class="hljs-comment">-- 代码</span><br><span class="hljs-keyword">else</span><br>    <span class="hljs-comment">-- 代码</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+
+
 <h4 id="具体应用"><a href="#具体应用" class="headerlink" title="具体应用"></a>具体应用</h4><ul>
 <li><p>部署静态资源</p>
 <p>将静态资源放到html文件夹下</p>
