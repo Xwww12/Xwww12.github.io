@@ -24,10 +24,10 @@
 <meta property="og:description" content="NginxNginx是一款轻量级Web服务器&#x2F;反向代理服务器，占用内存少，并发能力强 下载和安装源码安装 官网下载 老版本下载  安装依赖包  GCC编译器：Nginx是使用C语言编写的程序，因此想要运行Nginx就需要安装一个编译工具。GCC就是一个开源的编译器集合，用于处理各种各样的语言，其中就包含了C语言。 PCRE：Nginx在编译过程中需要使用到PCRE库（perl Compa">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-20T14:06:41.978Z">
-<meta property="article:modified_time" content="2023-01-09T09:46:31.975Z">
+<meta property="article:modified_time" content="2023-01-10T08:47:56.403Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="后端">
 <meta property="article:tag" content="中间件">
+<meta property="article:tag" content="后端">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          23k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          163 分钟
+          192 分钟
         
       </span>
     
@@ -885,6 +885,70 @@
 <h6 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h6><p>if</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-keyword">if</span> 条件 <span class="hljs-keyword">then</span><br>    <span class="hljs-comment">-- 代码</span><br><span class="hljs-keyword">elseif</span> 条件 <span class="hljs-keyword">then</span><br>    <span class="hljs-comment">-- 代码</span><br><span class="hljs-keyword">else</span><br>    <span class="hljs-comment">-- 代码</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 
+<h6 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h6><p>while</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">while</span> 条件 <span class="hljs-keyword">do</span><br>	<span class="hljs-comment">-- 代码</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<p>repeat</p>
+<p>直到满足条件才退出循环</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-keyword">repeat</span><br>	<span class="hljs-comment">-- 代码</span><br><span class="hljs-keyword">until</span> 条件<br></code></pre></td></tr></table></figure>
+
+<p>for</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-comment">-- 循环从start开始到end结束；step为步长，默认为1</span><br><span class="hljs-keyword">for</span> <span class="hljs-built_in">param</span>=<span class="hljs-built_in">start</span>,<span class="hljs-keyword">end</span>,step <span class="hljs-built_in">do</span><br> 循环体<br><span class="hljs-function"><span class="hljs-keyword">end</span></span><br><span class="hljs-function"></span><br><span class="hljs-function">-- 遍历表</span><br><span class="hljs-comment">-- ipairs为迭代器，x为表</span><br><span class="hljs-comment">-- ipairs不能遍历出键值对，要遍历键值对要用pairs</span><br><span class="hljs-keyword">for</span> i,v <span class="hljs-keyword">in</span> ipairs(x) <span class="hljs-built_in">do</span><br>	循环体<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="OpenResty"><a href="#OpenResty" class="headerlink" title="OpenResty"></a>OpenResty</h5><p>OpenResty是一个基于Nginx与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超高并发、扩展性极高的动态 Web 应用、Web 服务和动态网关。OpenResty内部已经集成了Nginx和Lua。</p>
+<h6 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h6><ol>
+<li><p>下载、解压压缩包	<a target="_blank" rel="noopener" href="https://openresty.org/en/download.html">OpenResty - Download</a></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget https:<span class="hljs-regexp">//</span>openresty.org<span class="hljs-regexp">/download/</span>openresty-<span class="hljs-number">1.15</span>.<span class="hljs-number">8.2</span>.tar.gz<br>tar -zxvf openresty-<span class="hljs-number">1.15</span>.<span class="hljs-number">8.2</span>.tar.gz<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>进入openresty目录，编译安装</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gauss">./configure<br><span class="hljs-built_in">make</span> &amp;&amp; <span class="hljs-built_in">make</span> install<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>默认安装位置<code>/usr/local/openresty/nginx/</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/openresty/</span>nginx/<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 修改配置</span><br>location /lua&#123;<br>    default_type <span class="hljs-string">&#x27;text/html&#x27;</span>;<br>    content_by_lua <span class="hljs-string">&#x27;ngx.say(&quot;&lt;h1&gt;HELLO,OpenRestry&lt;/h1&gt;&quot;)&#x27;</span>;<br>&#125;<br><br><span class="hljs-comment"># 测试</span><br>.<span class="hljs-regexp">/sbin/</span>nginx -t<br><span class="hljs-comment"># 启动</span><br>.<span class="hljs-regexp">/sbin/</span>nginx<br><br><span class="hljs-comment"># 浏览器访问</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h6 id="使用ngx-lua指令"><a href="#使用ngx-lua指令" class="headerlink" title="使用ngx_lua指令"></a>使用ngx_lua指令</h6><p><strong>init_by_lua</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">该指令在每次Nginx重新加载配置时执行，可以用来完成一些耗时模块的加载，或者初始化一些全局配置。<br></code></pre></td></tr></table></figure>
+
+<p><strong>init_worker_by_lua</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">该指令用于启动一些定时任务，如心跳检查、定时拉取服务器配置等。<br></code></pre></td></tr></table></figure>
+
+<p><strong>set_by_lua</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">该指令只要用来做变量赋值，这个指令一次只能返回一个值，并将结果赋值给Nginx中指定的变量。<br></code></pre></td></tr></table></figure>
+
+<p><strong>rewrite_by_lua</strong></p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">该指令用于执行内部<span class="hljs-built_in">URL</span>重写或者外部重定向，典型的如伪静态化<span class="hljs-built_in">URL</span>重写，本阶段在rewrite处理阶段的最后默认执行。<br></code></pre></td></tr></table></figure>
+
+<p><strong>access_by_lua</strong></p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm">该指令用于访问控制。例如，如果只允许内网<span class="hljs-built_in">IP</span>访问。<br></code></pre></td></tr></table></figure>
+
+<p><strong>content_by_lua</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">该指令是应用最多的指令，大部分任务是在这个阶段完成的，其他的过程往往为这个阶段准备数据，正式处理基本都在本阶段。<br></code></pre></td></tr></table></figure>
+
+<p><strong>header_filter_by_lua</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">该指令用于设置应答消息的头部信息。<br></code></pre></td></tr></table></figure>
+
+<p><strong>body_filter_by_lua</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">该指令是对响应数据进行过滤，如截断、替换。<br></code></pre></td></tr></table></figure>
+
+<p><strong>log_by_lua</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">该指令用于在<span class="hljs-built_in">log</span>请求处理阶段，用Lua代码处理日志，但并不替换原有<span class="hljs-built_in">log</span>处理。<br></code></pre></td></tr></table></figure>
+
+<p><strong>balancer_by_lua</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">该指令主要的作用是用来实现上游服务器的负载均衡器算法<br></code></pre></td></tr></table></figure>
+
+<p><strong>ssl_certificate_by_lua</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">该指令作用在Nginx和下游服务开始一个SSL握手操作时将允许本配置项的Lua代码。<br></code></pre></td></tr></table></figure>
+
+<p>例</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs 1c">location /getByGender &#123;<br>	default_type &#x27;text/html&#x27;;<br>	set_by_lua $name <span class="hljs-string">&quot;</span><br>		local uri_args = ngx.req.get_uri_args()<br>		gender = uri_args[&#x27;gender&#x27;]<br>		name = uri_args[&#x27;name&#x27;]<br>		if gender==&#x27;1&#x27; then<br>			return name..&#x27;先生&#x27;<br>		elseif gender==&#x27;0&#x27; then<br>			return name..&#x27;女士&#x27;<br>		else<br>			return name<br>		end<br>	<span class="hljs-string">&quot;;</span><br>	header_filter_by_lua <span class="hljs-string">&quot;</span><br>		ngx.header.aaa=&#x27;bbb&#x27;<br>	<span class="hljs-string">&quot;;</span><br>	return <span class="hljs-number">200</span> $name;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h6 id="ngx-lua操作Redis"><a href="#ngx-lua操作Redis" class="headerlink" title="ngx_lua操作Redis"></a>ngx_lua操作Redis</h6> <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">lua</span>-resty-redis提供了访问Redis的详细API，包括创建对接、连接、操作、数据处理等。这些API基本上与Redis的操作一一对应。<br>（<span class="hljs-number">1</span>）redis = require <span class="hljs-string">&quot;resty.redis&quot;</span><br>（<span class="hljs-number">2</span>）<span class="hljs-keyword">new</span><br>	语法: redis,err = <span class="hljs-keyword">redi</span><span class="hljs-variable">s:new</span>(),创建一个Redis对象。<br>（<span class="hljs-number">3</span>）connect<br>	语法:ok,err=<span class="hljs-keyword">redi</span><span class="hljs-variable">s:connect</span>(host,port[,options_table]),设置连接Redis的连接信息。<br>	ok:连接成功返回 <span class="hljs-number">1</span>，连接失败返回nil<br>	err:返回对应的错误信息<br>（<span class="hljs-number">4</span>）set_timeout<br>	语法: <span class="hljs-keyword">redi</span><span class="hljs-variable">s:set_timeout</span>(time) ，设置请求操作Redis的超时时间。<br>（<span class="hljs-number">5</span>）<span class="hljs-keyword">close</span><br>	语法: ok,err = <span class="hljs-keyword">redi</span><span class="hljs-variable">s:close</span>(),关闭当前连接，成功返回<span class="hljs-number">1</span>，失败返回nil和错误信息<br>（<span class="hljs-number">6</span>）redis命令对应的方法<br>	在<span class="hljs-keyword">lua</span>-resty-redis中，所有的Redis命令都有自己的方法，方法名字和命令名字相同，只是全部为小写。<br><br></code></pre></td></tr></table></figure>
+
+<h6 id="ngx-lua操作mysql"><a href="#ngx-lua操作mysql" class="headerlink" title="ngx_lua操作mysql"></a>ngx_lua操作mysql</h6><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">（<span class="hljs-number">1</span>）引入&quot;resty.mysql&quot;模块<br>	<span class="hljs-keyword">local</span> mysql = require &quot;resty.mysql&quot;<br>（<span class="hljs-number">2</span>）<span class="hljs-built_in">new</span><br>	创建一个MySQL连接对象，遇到错误时，db为nil，err为错误描述信息<br>	语法: db,err = mysql:<span class="hljs-built_in">new</span>()<br>（<span class="hljs-number">3</span>）<span class="hljs-keyword">connect</span><br>	尝试连接到一个MySQL服务器<br>	语法:ok,err=db:<span class="hljs-keyword">connect</span>(<span class="hljs-keyword">options</span>),<span class="hljs-keyword">options</span>是一个参数的Lua表结构，里面包含数据库连接的相关信息<br>    host:服务器主机名或IP地址<br>    port:服务器监听端口，默认为<span class="hljs-number">3306</span><br>    <span class="hljs-keyword">user</span>:登录的用户名<br>    <span class="hljs-keyword">password</span>:登录密码<br>    <span class="hljs-keyword">database</span>:使用的数据库名<br>（<span class="hljs-number">4</span>）set_timeout<br>	设置子请求的超时时间(ms)，包括<span class="hljs-keyword">connect</span>方法<br>	语法:db:set_timeout(<span class="hljs-type">time</span>)<br>（<span class="hljs-number">5</span>）<span class="hljs-keyword">close</span><br>	关闭当前MySQL连接并返回状态。如果成功，则返回<span class="hljs-number">1</span>；如果出现任何错误，则将返回nil和错误描述。<br>	语法:db:<span class="hljs-keyword">close</span>()<br>（<span class="hljs-number">6</span>）send_query<br>	异步向远程MySQL发送一个查询。如果成功则返回成功发送的字节数；如果错误，则返回nil和错误描述<br>	语法:bytes,err=db:send_query(<span class="hljs-keyword">sql</span>)<br>（<span class="hljs-number">7</span>）read_result<br>	从MySQL服务器返回结果中读取一行数据。res返回一个描述OK包或结果集包的Lua表,语法:<br>	res, err, errcode, <span class="hljs-built_in">sqlstate</span> = db:read_result() <br>	res, err, errcode, <span class="hljs-built_in">sqlstate</span> = db:read_result(<span class="hljs-keyword">rows</span>) :<span class="hljs-keyword">rows</span>指定返回结果集的最大值，默认为<span class="hljs-number">4</span><br>	如果是查询，则返回一个容纳多行的数组。每行是一个数据列的key-<span class="hljs-keyword">value</span>对，如<br><br>    &#123;<br>      &#123;id=<span class="hljs-number">1</span>,username=&quot;TOM&quot;,birthday=&quot;1988-11-11&quot;,salary=<span class="hljs-number">10000.0</span>&#125;,<br>      &#123;id=<span class="hljs-number">2</span>,username=&quot;JERRY&quot;,birthday=&quot;1989-11-11&quot;,salary=<span class="hljs-number">20000.0</span>&#125;<br>    &#125;<br>	如果是增删改，则返回类上如下数据<br>    &#123;<br>    	insert_id = <span class="hljs-number">0</span>,<br>    	server_status=<span class="hljs-number">2</span>,<br>    	warning_count=<span class="hljs-number">1</span>,<br>    	affected_rows=<span class="hljs-number">2</span>,<br>    	message=nil<br>    &#125;<br>	返回值:<br>		res:操作的结果集<br>		err:错误信息<br>		errcode:MySQL的错误码，比如<span class="hljs-number">1064</span><br>		<span class="hljs-built_in">sqlstate</span>:返回由<span class="hljs-number">5</span>个字符组成的标准<span class="hljs-keyword">SQL</span>错误码，比如<span class="hljs-number">42000</span><br><br></code></pre></td></tr></table></figure>
+
 
 
 <h4 id="具体应用"><a href="#具体应用" class="headerlink" title="具体应用"></a>具体应用</h4><ul>
@@ -986,9 +1050,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-      
         <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">#中间件</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
       
     </div>
   
