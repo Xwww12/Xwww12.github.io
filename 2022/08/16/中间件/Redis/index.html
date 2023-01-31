@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/redis_img/xread.png">
 <meta property="og:image" content="http://xwww12.github.io/img/redis_img/gundongfenye.png">
 <meta property="article:published_time" content="2022-08-16T13:59:52.126Z">
-<meta property="article:modified_time" content="2023-01-30T11:05:18.165Z">
+<meta property="article:modified_time" content="2023-01-31T10:57:04.116Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="中间件">
 <meta property="article:tag" content="后端">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          35k 字
+          39k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          291 分钟
+          321 分钟
         
       </span>
     
@@ -998,6 +998,91 @@
 <p><strong>滚动分页</strong>：从上一次查到的消息开始分页，避免有新消息插入导致又拿到上次已经拿到的消息</p>
 <p><img src="/img/redis_img/gundongfenye.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Result <span class="hljs-title function_">queryBlogOfFollow</span><span class="hljs-params">(Long max, Integer offset)</span> &#123;<br>    <span class="hljs-comment">// 查询收件箱 ZREVRANGEBYSCORE key max min LIMIT offset count</span><br>    <span class="hljs-type">Long</span> <span class="hljs-variable">userId</span> <span class="hljs-operator">=</span> UserHolder.getUser().getId();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;feed:&quot;</span> + userId;<br>    Set&lt;ZSetOperations.TypedTuple&lt;String&gt;&gt; typedTuples = stringRedisTemplate.opsForZSet().reverseRangeByScoreWithScores(<br>        key, <span class="hljs-number">0</span>, max, offset, <span class="hljs-number">2</span><br>    );<br>    <span class="hljs-keyword">if</span> (typedTuples == <span class="hljs-literal">null</span> || typedTuples.isEmpty()) &#123;<br>        <span class="hljs-keyword">return</span> Result.ok();<br>    &#125;<br>    <span class="hljs-comment">// 获取数据(blogId, 最小时间戳，偏移量(查询出来的数据中score为最小时间戳的消息个数))</span><br>    List&lt;Long&gt; ids = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(typedTuples.size());<br>    <span class="hljs-type">long</span> <span class="hljs-variable">minTime</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">os</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; <span class="hljs-comment">// 偏移量offset</span><br>    <span class="hljs-keyword">for</span> (ZSetOperations.TypedTuple&lt;String&gt; typedTuple : typedTuples) &#123;<br>        ids.add(Long.valueOf(typedTuple.getValue()));<br>        <span class="hljs-type">long</span> <span class="hljs-variable">time</span> <span class="hljs-operator">=</span> typedTuple.getScore().longValue();<br>        os = time == minTime ? ++os : <span class="hljs-number">1</span>;<br>        minTime = time;<br>    &#125;<br>    <span class="hljs-comment">// 查询blog</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">idStr</span> <span class="hljs-operator">=</span> StrUtil.join(<span class="hljs-string">&quot;,&quot;</span>, ids);<br>    List&lt;Blog&gt; blogs = query().in(<span class="hljs-string">&quot;id&quot;</span>, ids).last(<span class="hljs-string">&quot;ORDER BY FIELD(id,&quot;</span> + idStr + <span class="hljs-string">&quot;)&quot;</span>).list();<br>    <span class="hljs-keyword">for</span> (Blog blog : blogs) &#123;<br>        queryBlogUser(blog);    <span class="hljs-comment">// 查询博客作者</span><br>        isBlogLiked(blog);  <span class="hljs-comment">// 查询是否被当前用户点赞</span><br>    &#125;<br>    <span class="hljs-comment">// 封装返回</span><br>    <span class="hljs-type">ScrollResult</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScrollResult</span>();<br>    r.setList(blogs);<br>    r.setOffset(os);<br>    r.setMinTime(minTime);<br><br>    <span class="hljs-keyword">return</span> Result.ok(r);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="附近"><a href="#附近" class="headerlink" title="附近"></a>附近</h4><p><strong>GEO数据类型</strong>：GEO就是Geolocation的简写形式，代表地理坐标。Redis在3.2版本中加入了对GEO的支持，允许存储地理坐标信息，帮助我们根据经纬度来检索数据，底层基于SortedSet</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GEOADD</td>
+<td>添加一个地理空间信息，包含：经度（longitude）、纬度（latitude）、值（member）</td>
+</tr>
+<tr>
+<td>GEODIST</td>
+<td>计算指定的两个点之间的距离并返回</td>
+</tr>
+<tr>
+<td>GEOHASH</td>
+<td>将指定member的坐标转为hash字符串形式并返回</td>
+</tr>
+<tr>
+<td>GEOPOS</td>
+<td>返回指定member的坐标</td>
+</tr>
+<tr>
+<td>GEORADIUS</td>
+<td>指定圆心、半径，找到该圆内包含的所有member，并按照与圆心之间的距离排序后返回。<strong>6.以后已废弃</strong></td>
+</tr>
+<tr>
+<td>GEOSEARCH</td>
+<td>在指定范围内搜索member，并按照与指定点之间的距离排序后返回。范围可以是圆形或矩形。6.2.新功能</td>
+</tr>
+<tr>
+<td>GEOSEARCHSTORE</td>
+<td>与GEOSEARCH功能一致，不过可以把结果存储到一个指定的key。 6.2.新功能</td>
+</tr>
+</tbody></table>
+<p><strong>实例</strong></p>
+<p>按分类导入店铺id和坐标到redis</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">loadShopData</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 查询店铺信息</span><br>    List&lt;Shop&gt; list = shopService.list();<br>    <span class="hljs-comment">// 按typeId分组</span><br>    Map&lt;Long, List&lt;Shop&gt;&gt; map = list.stream().collect(Collectors.groupingBy(Shop::getTypeId));<br>    <span class="hljs-comment">// 存到redis</span><br>    <span class="hljs-keyword">for</span> (Map.Entry&lt;Long, List&lt;Shop&gt;&gt; entry : map.entrySet()) &#123;<br>        <span class="hljs-type">Long</span> <span class="hljs-variable">typeId</span> <span class="hljs-operator">=</span> entry.getKey();<br>        List&lt;Shop&gt; value = entry.getValue();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;shop:geo:&quot;</span> + typeId;<br>        ArrayList&lt;RedisGeoCommands.GeoLocation&lt;String&gt;&gt; locations = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (Shop shop : value) &#123;<br>            <span class="hljs-comment">// stringRedisTemplate.opsForGeo().add(key, new Point(shop.getX(), shop.getY()), shop.getId().toString());</span><br>            locations.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">RedisGeoCommands</span>.GeoLocation&lt;&gt;(shop.getId().toString(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Point</span>(shop.getX(), shop.getY())));<br>        &#125;<br>        stringRedisTemplate.opsForGeo().add(key, locations);    <span class="hljs-comment">// 一次存多个</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>查询附近店铺及距离，<strong>注意</strong>：redis版本要在6.2以上，否则使用不了GEOSEARCH指令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Result <span class="hljs-title function_">queryShopByType</span><span class="hljs-params">(Integer typeId, Integer current, Double x, Double y)</span> &#123;<br>    <span class="hljs-comment">// 判断是否需要根据坐标查询</span><br>    <span class="hljs-keyword">if</span> (x == <span class="hljs-literal">null</span> || y == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-comment">// 根据类型分页查询</span><br>        Page&lt;Shop&gt; page = query()<br>            .eq(<span class="hljs-string">&quot;type_id&quot;</span>, typeId)<br>            .page(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Page</span>&lt;&gt;(current, SystemConstants.DEFAULT_PAGE_SIZE));<br>        <span class="hljs-comment">// 返回数据</span><br>        <span class="hljs-keyword">return</span> Result.ok(page.getRecords());<br>    &#125;<br>    <span class="hljs-comment">// 计算分页参数</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">from</span> <span class="hljs-operator">=</span> (current - <span class="hljs-number">1</span>) * SystemConstants.DEFAULT_PAGE_SIZE;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">end</span> <span class="hljs-operator">=</span> current * SystemConstants.DEFAULT_PAGE_SIZE;<br>    <span class="hljs-comment">// 查询redis</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;shop:geo:&quot;</span> + typeId;<br>    GeoResults&lt;RedisGeoCommands.GeoLocation&lt;String&gt;&gt; results = stringRedisTemplate.opsForGeo().search(<br>        key,    <span class="hljs-comment">// 店铺类型</span><br>        GeoReference.fromCoordinate(x, y),  <span class="hljs-comment">// 当前位置</span><br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Distance</span>(<span class="hljs-number">5000</span>),  <span class="hljs-comment">// 半径</span><br>        RedisGeoCommands.GeoSearchCommandArgs.newGeoSearchArgs().includeDistance().limit(end)  <span class="hljs-comment">// 带上距离、查询范围</span><br>    );<br>    <span class="hljs-keyword">if</span> (results == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> Result.ok(Collections.emptyList());<br>    &#125;<br>    <span class="hljs-comment">// 搜集店铺id和距离</span><br>    List&lt;GeoResult&lt;RedisGeoCommands.GeoLocation&lt;String&gt;&gt;&gt; list = results.getContent();<br>    <span class="hljs-keyword">if</span> (list.size() &lt;= from) &#123;<br>        <span class="hljs-keyword">return</span> Result.ok(Collections.emptyList()); <br>    &#125;<br>    List&lt;Long&gt; ids = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(list.size());<br>    Map&lt;String, Distance&gt; distanceMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;(list.size());<br>    list.stream().skip(from).forEach(result -&gt; &#123;<br>        <span class="hljs-comment">// 店铺id和距离</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">shopIdStr</span> <span class="hljs-operator">=</span> result.getContent().getName();<br>        ids.add(Long.valueOf(shopIdStr));<br>        <span class="hljs-type">Distance</span> <span class="hljs-variable">distance</span> <span class="hljs-operator">=</span> result.getDistance();<br>        distanceMap.put(shopIdStr, distance);<br>    &#125;);<br>    <span class="hljs-comment">// 根据店铺id查询shop</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">idStr</span> <span class="hljs-operator">=</span> StrUtil.join(<span class="hljs-string">&quot;,&quot;</span>, ids);<br>    List&lt;Shop&gt; shops = query().in(<span class="hljs-string">&quot;id&quot;</span>, ids).last(<span class="hljs-string">&quot;ORDER BY FIELD(id, &quot;</span> + idStr + <span class="hljs-string">&quot;)&quot;</span>).list();<br>    <span class="hljs-keyword">for</span> (Shop shop : shops) &#123;<br>        shop.setDistance(distanceMap.get(shop.getId().toString()).getValue());<br>    &#125;<br>    <span class="hljs-keyword">return</span> Result.ok(shops);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h4><p>通过二进制位上的0和1表示当天是否有签到</p>
+<p>使用Redis的BitMap数据结构实现，BitMap基于String实现</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SETBIT</td>
+<td>向指定位置（offset）存入一个0或1</td>
+</tr>
+<tr>
+<td>GETBIT</td>
+<td>获取指定位置（offset）的bit值</td>
+</tr>
+<tr>
+<td>BITCOUNT</td>
+<td>统计BitMap中值为1的bit位的数量</td>
+</tr>
+<tr>
+<td>BITFIELD</td>
+<td>操作（查询、修改、自增）BitMap中bit数组中的指定位置（offset）的值</td>
+</tr>
+<tr>
+<td>BITFIELD_RO</td>
+<td>获取BitMap中bit数组，并以十进制形式返回</td>
+</tr>
+<tr>
+<td>BITOP</td>
+<td>将多个BitMap的结果做位运算（与 、或、异或）</td>
+</tr>
+<tr>
+<td>BITPOS</td>
+<td>查找bit数组中指定范围内第一个0或1出现的位置</td>
+</tr>
+</tbody></table>
+<p><strong>实例</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Result <span class="hljs-title function_">sign</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 获取登录用户</span><br>    <span class="hljs-type">Long</span> <span class="hljs-variable">userId</span> <span class="hljs-operator">=</span> UserHolder.getUser().getId();<br>    <span class="hljs-comment">// 获取日期及当天是本月的第几天</span><br>    <span class="hljs-type">LocalDateTime</span> <span class="hljs-variable">now</span> <span class="hljs-operator">=</span> LocalDateTime.now();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">dayOfMonth</span> <span class="hljs-operator">=</span> now.getDayOfMonth();<br>    <span class="hljs-comment">// 写入redis</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">keySuffix</span> <span class="hljs-operator">=</span> now.format(DateTimeFormatter.ofPattern(<span class="hljs-string">&quot;:yyyyMM&quot;</span>));<br>    <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;sign:&quot;</span> + userId + keySuffix;<br>    stringRedisTemplate.opsForValue().setBit(key, dayOfMonth - <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>);    <span class="hljs-comment">// true表示写入1</span><br><br>    <span class="hljs-keyword">return</span> Result.ok();<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
                 
