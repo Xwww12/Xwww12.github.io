@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/redis_img/xread.png">
 <meta property="og:image" content="http://xwww12.github.io/img/redis_img/gundongfenye.png">
 <meta property="article:published_time" content="2022-08-16T13:59:52.126Z">
-<meta property="article:modified_time" content="2023-01-31T10:57:04.116Z">
+<meta property="article:modified_time" content="2023-02-01T08:52:56.905Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="中间件">
 <meta property="article:tag" content="后端">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          39k 字
+          40k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          321 分钟
+          337 分钟
         
       </span>
     
@@ -1082,8 +1082,64 @@
 </tr>
 </tbody></table>
 <p><strong>实例</strong></p>
+<p>签到</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Result <span class="hljs-title function_">sign</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 获取登录用户</span><br>    <span class="hljs-type">Long</span> <span class="hljs-variable">userId</span> <span class="hljs-operator">=</span> UserHolder.getUser().getId();<br>    <span class="hljs-comment">// 获取日期及当天是本月的第几天</span><br>    <span class="hljs-type">LocalDateTime</span> <span class="hljs-variable">now</span> <span class="hljs-operator">=</span> LocalDateTime.now();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">dayOfMonth</span> <span class="hljs-operator">=</span> now.getDayOfMonth();<br>    <span class="hljs-comment">// 写入redis</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">keySuffix</span> <span class="hljs-operator">=</span> now.format(DateTimeFormatter.ofPattern(<span class="hljs-string">&quot;:yyyyMM&quot;</span>));<br>    <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;sign:&quot;</span> + userId + keySuffix;<br>    stringRedisTemplate.opsForValue().setBit(key, dayOfMonth - <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>);    <span class="hljs-comment">// true表示写入1</span><br><br>    <span class="hljs-keyword">return</span> Result.ok();<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<p>统计连续签到次数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Result <span class="hljs-title function_">signCount</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 获取登录用户</span><br>    <span class="hljs-type">Long</span> <span class="hljs-variable">userId</span> <span class="hljs-operator">=</span> UserHolder.getUser().getId();<br>    <span class="hljs-comment">// 获取日期及当天是本月的第几天</span><br>    <span class="hljs-type">LocalDateTime</span> <span class="hljs-variable">now</span> <span class="hljs-operator">=</span> LocalDateTime.now();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">dayOfMonth</span> <span class="hljs-operator">=</span> now.getDayOfMonth();<br>    <span class="hljs-comment">// 获取签到记录</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">keySuffix</span> <span class="hljs-operator">=</span> now.format(DateTimeFormatter.ofPattern(<span class="hljs-string">&quot;:yyyyMM&quot;</span>));<br>    <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;sign:&quot;</span> + userId + keySuffix;<br>    List&lt;Long&gt; result = stringRedisTemplate.opsForValue().bitField(<br>        key,<br>        BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.unsigned(dayOfMonth)).valueAt(<span class="hljs-number">0</span>)<br>    );<br>    <span class="hljs-keyword">if</span> (result == <span class="hljs-literal">null</span> || result.isEmpty()) &#123;<br>        <span class="hljs-keyword">return</span> Result.ok(<span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-comment">// 统计到今天为止的签到数</span><br>    <span class="hljs-type">Long</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> result.get(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">if</span> (num == <span class="hljs-literal">null</span> || num == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">return</span> Result.ok(<span class="hljs-number">0</span>);<br>    &#125;<br><br>    <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> ((num &amp; <span class="hljs-number">1</span>) == <span class="hljs-number">1</span>) &#123;<br>        count++;<br>        num = num &gt;&gt; <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> Result.ok(count);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="UV"><a href="#UV" class="headerlink" title="UV"></a>UV</h4><p>Unique Visitor(独立访客量)：一天同一个人访问网站记录一次</p>
+<p>Page View（点击量）：访问一个页面就记录一次</p>
+<p>Hyperloglog(HLL)：概率算法，用于确定非常大的集合的基数，对集合大小的测量有一定的误差</p>
+<p>Redis中HLL是基于string结构实现的，内存占用很小</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PFADD key ele…</td>
+<td>添加元素</td>
+</tr>
+<tr>
+<td>PFCOUNT key</td>
+<td>获取大小</td>
+</tr>
+</tbody></table>
+<p>java中使用stringRedisTemplate.opsForHyperLogLog()来操作</p>
+<h3 id="分布式缓存"><a href="#分布式缓存" class="headerlink" title="分布式缓存"></a>分布式缓存</h3><h4 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h4><h5 id="RDB持久化"><a href="#RDB持久化" class="headerlink" title="RDB持久化"></a>RDB持久化</h5><p>RDB全称Redis Database Backup file（Redis数据备份文件），备份时是替换整个rdb文件</p>
+<ul>
+<li><p><strong>什么时候会RDB持久化</strong>：</p>
+<ol>
+<li><p>执行save命令，会使用主进程持久化，在此期间其他命令都会阻塞</p>
+</li>
+<li><p>执行bgsave（异步持久化）命令</p>
+</li>
+<li><p>停机时自动save</p>
+</li>
+<li><p>触发RDB条件，执行bgsave(配置文件中设置)</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-comment"># 900秒内，如果至少有1个key被修改，则执行bgsave ， 如果是save &quot;&quot; 则表示禁用RDB</span><br><span class="hljs-attr">save</span> <span class="hljs-string">900 1  </span><br><span class="hljs-attr">save</span> <span class="hljs-string">300 10  </span><br><span class="hljs-attr">save</span> <span class="hljs-string">60 10000 </span><br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>相关配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-comment"># 是否压缩 ,建议不开启，压缩也会消耗cpu，磁盘的话不值钱</span><br><span class="hljs-attr">rdbcompression</span> <span class="hljs-string">yes</span><br><span class="hljs-comment"></span><br><span class="hljs-comment"># RDB文件名称</span><br><span class="hljs-attr">dbfilename</span> <span class="hljs-string">dump.rdb  </span><br><span class="hljs-comment"></span><br><span class="hljs-comment"># 文件保存的路径目录</span><br><span class="hljs-attr">dir</span> <span class="hljs-string">./ </span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="AOF持久化"><a href="#AOF持久化" class="headerlink" title="AOF持久化"></a>AOF持久化</h5><p>AOF全称为Append Only File（追加文件），记录所有写命令到aof中</p>
+<ul>
+<li><p>开启aof</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-comment"># 禁用rdb</span><br><span class="hljs-attr">save</span> <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-comment"># 是否开启AOF功能，默认是no</span><br><span class="hljs-attr">appendonly</span> <span class="hljs-string">yes</span><br><span class="hljs-comment"># AOF文件的名称</span><br><span class="hljs-attr">appendfilename</span> <span class="hljs-string">&quot;appendonly.aof&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>持久化频率</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-comment"># 表示每执行一次写命令，立即记录到AOF文件</span><br><span class="hljs-attr">appendfsync</span> <span class="hljs-string">always </span><br><span class="hljs-comment"># 写命令执行完先放入AOF缓冲区，然后表示每隔1秒将缓冲区数据写到AOF文件，是默认方案</span><br><span class="hljs-attr">appendfsync</span> <span class="hljs-string">everysec </span><br><span class="hljs-comment"># 写命令执行完先放入AOF缓冲区，由操作系统决定何时将缓冲区内容写回磁盘</span><br><span class="hljs-attr">appendfsync</span> <span class="hljs-string">no</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重写命令，AOF文件执行重写功能，用最少的命令达到相同效果，以压缩文件大小。</p>
+<p><code>BGREWRITEAOF</code></p>
+</li>
+<li><p>重写配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-comment"># AOF文件比上次文件 增长超过多少百分比则触发重写</span><br><span class="hljs-attr">auto-aof-rewrite-percentage</span> <span class="hljs-string">100</span><br><span class="hljs-comment"># AOF文件体积最小多大以上才触发重写 </span><br><span class="hljs-attr">auto-aof-rewrite-min-size</span> <span class="hljs-string">64mb </span><br></code></pre></td></tr></table></figure></li>
+</ul>
 
                 
               </div>
