@@ -25,10 +25,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/post_img/6452456.png">
 <meta property="article:published_time" content="2022-08-21T15:42:55.002Z">
-<meta property="article:modified_time" content="2023-02-03T15:38:26.589Z">
+<meta property="article:modified_time" content="2023-02-05T08:40:09.327Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="后端">
 <meta property="article:tag" content="其他">
+<meta property="article:tag" content="后端">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/post_img/6452456.png">
   
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          3.9k 字
         
       </span>
     
@@ -307,10 +307,9 @@
 <li><p>编写配置类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableSwagger2</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Swagger2Config</span> &#123;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Docket <span class="hljs-title function_">createRestApi</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Docket</span>(DocumentationType.SWAGGER_2)<br>            .apiInfo(apiInfo())<br>            .select()<br>            <span class="hljs-comment">//为当前包下controller生成API文档</span><br>            .apis(RequestHandlerSelectors.basePackage(<span class="hljs-string">&quot;com.xw.mallLearning.controller&quot;</span>))<br>            <span class="hljs-comment">//为有@Api注解的Controller生成API文档</span><br>            <span class="hljs-comment">//                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))</span><br>            <span class="hljs-comment">//为有@ApiOperation注解的方法生成API文档</span><br>            <span class="hljs-comment">//                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))</span><br>            .paths(PathSelectors.any())<br>            .build();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> ApiInfo <span class="hljs-title function_">apiInfo</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiInfoBuilder</span>()<br>            .title(<span class="hljs-string">&quot;SwaggerUI&quot;</span>)<br>            .description(<span class="hljs-string">&quot;mall-learning&quot;</span>)<br>            .version(<span class="hljs-string">&quot;1.0&quot;</span>)<br>            .build();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
-<li><p>当swagger版本大于2.6.x且springBoot版本也较高(我测试时是2.7.8)时，需要在配置类中添加以下Bean</p>
+<li><p>当swagger版本大于2.6.x且springBoot版本也较高(我测试时是2.7.8)时，需要在配置类中添加以下Bean和配置</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> BeanPostProcessor <span class="hljs-title function_">springfoxHandlerProviderBeanPostProcessor</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeanPostProcessor</span>() &#123;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">postProcessAfterInitialization</span><span class="hljs-params">(Object bean, String beanName)</span> <span class="hljs-keyword">throws</span> BeansException &#123;<br>            <span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> WebMvcRequestHandlerProvider) &#123;<br>                customizeSpringfoxHandlerMappings(getHandlerMappings(bean));<br>            &#125;<br>            <span class="hljs-keyword">return</span> bean;<br>        &#125;<br><br>        <span class="hljs-keyword">private</span> &lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_">RequestMappingInfoHandlerMapping</span>&gt; <span class="hljs-keyword">void</span> <span class="hljs-title function_">customizeSpringfoxHandlerMappings</span><span class="hljs-params">(List&lt;T&gt; mappings)</span> &#123;<br>            List&lt;T&gt; copy = mappings.stream()<br>                .filter(mapping -&gt; mapping.getPatternParser() == <span class="hljs-literal">null</span>)<br>                .collect(Collectors.toList());<br>            mappings.clear();<br>            mappings.addAll(copy);<br>        &#125;<br><br>        <span class="hljs-meta">@SuppressWarnings(&quot;unchecked&quot;)</span><br>        <span class="hljs-keyword">private</span> List&lt;RequestMappingInfoHandlerMapping&gt; <span class="hljs-title function_">getHandlerMappings</span><span class="hljs-params">(Object bean)</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> ReflectionUtils.findField(bean.getClass(), <span class="hljs-string">&quot;handlerMappings&quot;</span>);<br>                field.setAccessible(<span class="hljs-literal">true</span>);<br>                <span class="hljs-keyword">return</span> (List&lt;RequestMappingInfoHandlerMapping&gt;) field.get(bean);<br>            &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException | IllegalAccessException e) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>(e);<br>            &#125;<br>        &#125;<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>如果springboot版本低，可以试试配置文件中添加以下配置</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">mvc:</span><br>    <span class="hljs-attr">pathmatch:</span><br>      <span class="hljs-attr">matching-strategy:</span> <span class="hljs-string">ant_path_matcher</span><br></code></pre></td></tr></table></figure></li>
 </ol>
 <p><strong>常用注解</strong></p>
@@ -417,9 +416,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-      
         <a href="/tags/%E5%85%B6%E4%BB%96/">#其他</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
       
     </div>
   
