@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>Elasticsearch</title>
+    <link href="/2023/02/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/Elasticsearch/"/>
+    <url>/2023/02/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/Elasticsearch/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h2><p>Elasticsearch 是一个分布式、可扩展、实时的搜索与数据分析引擎</p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="windows安装"><a href="#windows安装" class="headerlink" title="windows安装"></a>windows安装</h4><ol><li><p>官网下载Elasticsearch</p><p><a href="https://www.elastic.co/cn/downloads/past-releases/#elasticsearch">Past Releases of Elastic Stack Software | Elastic</a></p></li><li><p>官网下载kibana(es客户端，版本要和es一致)</p><p><a href="https://www.elastic.co/cn/downloads/past-releases/#kibana">Past Releases of Elastic Stack Software | Elastic</a></p></li><li><p>安装中文分词插件，在es的bin目录下执行以下命令（版本要和es一致）：elasticsearch-plugin install <a href="https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip">https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip</a></p></li><li><p>到es和kibana的bin目录下，点击运行elasticsearch.bat和kibana.bat</p></li><li><p>访问<code>localhost:5601</code>打开kibana界面，点击<code>dev tools</code>来输入es的命令</p></li></ol><h4 id="Linux安装"><a href="#Linux安装" class="headerlink" title="Linux安装"></a>Linux安装</h4><p>见微服务笔记的分布式搜索(1)</p><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="Spring-Data-Elasticsearch"><a href="#Spring-Data-Elasticsearch" class="headerlink" title="Spring Data Elasticsearch"></a>Spring Data Elasticsearch</h4><p>是Spring提供的一种以Spring Data风格来操作数据存储的方式，它可以避免编写大量的样板代码</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>中间件</category>
+      
+      <category>Elasticsearch</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>中间件</tag>
+      
+      <tag>后端</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>SpringSecurity</title>
     <link href="/2023/02/08/spring/springSecurity/SpringSecurity/"/>
     <url>/2023/02/08/spring/springSecurity/SpringSecurity/</url>
@@ -1643,9 +1674,9 @@
     
     <tags>
       
-      <tag>其他</tag>
-      
       <tag>后端</tag>
+      
+      <tag>其他</tag>
       
     </tags>
     
@@ -1674,9 +1705,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1765,9 +1796,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
