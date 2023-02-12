@@ -24,7 +24,7 @@
 <meta property="og:description" content="ElasticsearchElasticsearch 是一个分布式、可扩展、实时的搜索与数据分析引擎 安装windows安装 官网下载Elasticsearch Past Releases of Elastic Stack Software | Elastic  官网下载kibana(es客户端，版本要和es一致) Past Releases of Elastic Stack Software |">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-09T13:46:44.673Z">
-<meta property="article:modified_time" content="2023-02-09T14:04:43.787Z">
+<meta property="article:modified_time" content="2023-02-12T12:23:08.506Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="中间件">
 <meta property="article:tag" content="后端">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          553 字
+          2.9k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          5 分钟
+          25 分钟
         
       </span>
     
@@ -310,6 +310,58 @@
 </ol>
 <h4 id="Linux安装"><a href="#Linux安装" class="headerlink" title="Linux安装"></a>Linux安装</h4><p>见微服务笔记的分布式搜索(1)</p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="Spring-Data-Elasticsearch"><a href="#Spring-Data-Elasticsearch" class="headerlink" title="Spring Data Elasticsearch"></a>Spring Data Elasticsearch</h4><p>是Spring提供的一种以Spring Data风格来操作数据存储的方式，它可以避免编写大量的样板代码</p>
+<p><strong>实例</strong></p>
+<ol>
+<li><p>导入坐标</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--注意这里elasticsearch.version版本一定要和elasticsearch的版本一致--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">java.version</span>&gt;</span>8<span class="hljs-tag">&lt;/<span class="hljs-name">java.version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">elasticsearch.version</span>&gt;</span>7.17.3<span class="hljs-tag">&lt;/<span class="hljs-name">elasticsearch.version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br><br><span class="hljs-comment">&lt;!--Spring Data Elasticsearch--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-elasticsearch<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写配置文件</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># yml配置elasticsearch客户端地址（可配置项有限）</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">elasticsearch:</span><br>    <span class="hljs-attr">uris:</span> <span class="hljs-string">http://127.0.0.1:9200</span> <span class="hljs-comment"># elasticsearch 连接地址</span><br>    <span class="hljs-comment">#username: elastic # 用户名</span><br>    <span class="hljs-comment">#password: 123456 # 密码</span><br>    <span class="hljs-attr">connection-timeout:</span> <span class="hljs-string">10s</span> <span class="hljs-comment"># 连接超时时间（默认1s）</span><br>    <span class="hljs-attr">socket-timeout:</span> <span class="hljs-string">30s</span> <span class="hljs-comment"># 数据读取超时时间（默认30s）</span><br></code></pre></td></tr></table></figure>
+
+</li>
+<li><p>编写保存到es中的实体</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Document(indexName = &quot;user&quot;)</span>	<span class="hljs-comment">// 索引名</span><br><span class="hljs-meta">@Setting(shards = 3, replicas = 0)</span>	<span class="hljs-comment">// 刷新时间和分片数</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> &#123;<br>    <span class="hljs-meta">@Id</span><br>    <span class="hljs-keyword">private</span> Integer id;<br>    <span class="hljs-meta">@Field(type = FieldType.Keyword)</span><br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-meta">@Field(type = FieldType.Integer)</span><br>    <span class="hljs-keyword">private</span> Integer age;<br>    <span class="hljs-meta">@Field(type = FieldType.Text, analyzer = &quot;ik_max_word&quot;)</span><br>    <span class="hljs-keyword">private</span> String address;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">User</span><span class="hljs-params">(Integer id, String name, Integer age, String address)</span> &#123;<br>        <span class="hljs-built_in">this</span>.id = id;<br>        <span class="hljs-built_in">this</span>.name = name;<br>        <span class="hljs-built_in">this</span>.age = age;<br>        <span class="hljs-built_in">this</span>.address = address;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写操作类(类似mysql的mapper)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Repository</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserRepository</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ElasticsearchRepository</span>&lt;User, Integer&gt; &#123;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Autowired</span><br><span class="hljs-keyword">private</span> UserRepository repository;<br><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-number">2</span>, <span class="hljs-string">&quot;张三&quot;</span>, <span class="hljs-number">18</span>, <span class="hljs-string">&quot;上海市闵行区&quot;</span>);<br>    <span class="hljs-type">User</span> <span class="hljs-variable">save</span> <span class="hljs-operator">=</span> repository.save(user);<br><br>    Optional&lt;User&gt; optionalUser = repository.findById(<span class="hljs-number">1</span>);<br>    System.out.println(optionalUser.get());<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h4><table>
+<thead>
+<tr>
+<th>注解</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Document</td>
+<td>标示映射到Elasticsearch文档上的领域对象</td>
+</tr>
+<tr>
+<td>@Id</td>
+<td>表示是文档的id，文档可以认为是mysql中表行的概念</td>
+</tr>
+<tr>
+<td>@Field</td>
+<td>设置字段类型、是否倒排索引等信息</td>
+</tr>
+<tr>
+<td>@Query</td>
+<td>可以直接写DSL语句</td>
+</tr>
+<tr>
+<td>@Setting</td>
+<td>分片数、刷新时间等参数不再在<code>@Docement</code>中声明，而是在@Setting中声明</td>
+</tr>
+</tbody></table>
+<p><strong>@Field</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> Field &#123;<br>  <span class="hljs-comment">//文档中字段的类型</span><br>	FieldType <span class="hljs-title function_">type</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> FieldType.Auto;<br>  <span class="hljs-comment">//是否建立倒排索引</span><br>	<span class="hljs-type">boolean</span> <span class="hljs-title function_">index</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> <span class="hljs-literal">true</span>;<br>  <span class="hljs-comment">//是否进行存储</span><br>	<span class="hljs-type">boolean</span> <span class="hljs-title function_">store</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> <span class="hljs-literal">false</span>;<br>  <span class="hljs-comment">//分词器名次</span><br>	String <span class="hljs-title function_">analyzer</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&quot;&quot;</span>;<br>&#125;<br><br><span class="hljs-comment">//为文档自动指定元数据类型</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">FieldType</span> &#123;<br>	Text,<span class="hljs-comment">//会进行分词并建了索引的字符类型</span><br>	Integer,<br>	Long,<br>	Date,<br>	Float,<br>	Double,<br>	Boolean,<br>	Object,<br>	Auto,<span class="hljs-comment">//自动判断字段类型</span><br>	Nested,<span class="hljs-comment">//嵌套对象类型</span><br>	Ip,<br>	Attachment,<br>	Keyword<span class="hljs-comment">//不会进行分词建立索引的类型</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>@Query</strong></p>
+<p>可以直接写DSL语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Query(&quot;&#123;&quot;bool&quot; : &#123;&quot;must&quot; : &#123;&quot;field&quot; : &#123;&quot;name&quot; : &quot;?0&quot;&#125;&#125;&#125;&#125;&quot;)</span><br>Page&lt;EsProduct&gt; <span class="hljs-title function_">findByName</span><span class="hljs-params">(String name,Pageable pageable)</span>;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
