@@ -24,10 +24,10 @@
 <meta property="og:description" content="ElasticsearchElasticsearch 是一个分布式、可扩展、实时的搜索与数据分析引擎 安装windows安装 官网下载Elasticsearch Past Releases of Elastic Stack Software | Elastic  官网下载kibana(es客户端，版本要和es一致) Past Releases of Elastic Stack Software |">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-09T13:46:44.673Z">
-<meta property="article:modified_time" content="2023-02-12T12:23:08.506Z">
+<meta property="article:modified_time" content="2023-02-13T08:57:45.298Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="中间件">
 <meta property="article:tag" content="后端">
+<meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.9k 字
+          10k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          25 分钟
+          87 分钟
         
       </span>
     
@@ -309,15 +309,15 @@
 </li>
 </ol>
 <h4 id="Linux安装"><a href="#Linux安装" class="headerlink" title="Linux安装"></a>Linux安装</h4><p>见微服务笔记的分布式搜索(1)</p>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="Spring-Data-Elasticsearch"><a href="#Spring-Data-Elasticsearch" class="headerlink" title="Spring Data Elasticsearch"></a>Spring Data Elasticsearch</h4><p>是Spring提供的一种以Spring Data风格来操作数据存储的方式，它可以避免编写大量的样板代码</p>
+<h3 id="Spring-Data-Elasticsearch"><a href="#Spring-Data-Elasticsearch" class="headerlink" title="Spring Data Elasticsearch"></a>Spring Data Elasticsearch</h3><p>是Spring提供的一种以Spring Data风格来操作数据存储的方式，它可以避免编写大量的样板代码</p>
+<p><a target="_blank" rel="noopener" href="https://spring.io/projects/spring-data-elasticsearch#learn">官方文档</a></p>
 <p><strong>实例</strong></p>
 <ol>
 <li><p>导入坐标</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--注意这里elasticsearch.version版本一定要和elasticsearch的版本一致--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">java.version</span>&gt;</span>8<span class="hljs-tag">&lt;/<span class="hljs-name">java.version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">elasticsearch.version</span>&gt;</span>7.17.3<span class="hljs-tag">&lt;/<span class="hljs-name">elasticsearch.version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br><br><span class="hljs-comment">&lt;!--Spring Data Elasticsearch--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-elasticsearch<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--注意这里elasticsearch.version版本一定!!!要和elasticsearch的版本一致--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">java.version</span>&gt;</span>8<span class="hljs-tag">&lt;/<span class="hljs-name">java.version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">elasticsearch.version</span>&gt;</span>7.17.3<span class="hljs-tag">&lt;/<span class="hljs-name">elasticsearch.version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br><br><span class="hljs-comment">&lt;!--Spring Data Elasticsearch--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-elasticsearch<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>编写配置文件</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># yml配置elasticsearch客户端地址（可配置项有限）</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">elasticsearch:</span><br>    <span class="hljs-attr">uris:</span> <span class="hljs-string">http://127.0.0.1:9200</span> <span class="hljs-comment"># elasticsearch 连接地址</span><br>    <span class="hljs-comment">#username: elastic # 用户名</span><br>    <span class="hljs-comment">#password: 123456 # 密码</span><br>    <span class="hljs-attr">connection-timeout:</span> <span class="hljs-string">10s</span> <span class="hljs-comment"># 连接超时时间（默认1s）</span><br>    <span class="hljs-attr">socket-timeout:</span> <span class="hljs-string">30s</span> <span class="hljs-comment"># 数据读取超时时间（默认30s）</span><br></code></pre></td></tr></table></figure>
-
 </li>
 <li><p>编写保存到es中的实体</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Document(indexName = &quot;user&quot;)</span>	<span class="hljs-comment">// 索引名</span><br><span class="hljs-meta">@Setting(shards = 3, replicas = 0)</span>	<span class="hljs-comment">// 刷新时间和分片数</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> &#123;<br>    <span class="hljs-meta">@Id</span><br>    <span class="hljs-keyword">private</span> Integer id;<br>    <span class="hljs-meta">@Field(type = FieldType.Keyword)</span><br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-meta">@Field(type = FieldType.Integer)</span><br>    <span class="hljs-keyword">private</span> Integer age;<br>    <span class="hljs-meta">@Field(type = FieldType.Text, analyzer = &quot;ik_max_word&quot;)</span><br>    <span class="hljs-keyword">private</span> String address;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">User</span><span class="hljs-params">(Integer id, String name, Integer age, String address)</span> &#123;<br>        <span class="hljs-built_in">this</span>.id = id;<br>        <span class="hljs-built_in">this</span>.name = name;<br>        <span class="hljs-built_in">this</span>.age = age;<br>        <span class="hljs-built_in">this</span>.address = address;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -362,6 +362,152 @@
 <p><strong>@Query</strong></p>
 <p>可以直接写DSL语句</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Query(&quot;&#123;&quot;bool&quot; : &#123;&quot;must&quot; : &#123;&quot;field&quot; : &#123;&quot;name&quot; : &quot;?0&quot;&#125;&#125;&#125;&#125;&quot;)</span><br>Page&lt;EsProduct&gt; <span class="hljs-title function_">findByName</span><span class="hljs-params">(String name,Pageable pageable)</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="方法生成机制"><a href="#方法生成机制" class="headerlink" title="方法生成机制"></a>方法生成机制</h4><p>对于操作类接口方法的命名，根据规则可以自动实现	</p>
+<table>
+<thead>
+<tr>
+<th align="left">关键词</th>
+<th align="left">示例</th>
+<th align="left">对应es搜索查询字符串</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>And</code></td>
+<td align="left"><code>findByNameAndPrice</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;?&quot;, &quot;fields&quot; : [ &quot;name&quot; ] &#125; &#125;, &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;?&quot;, &quot;fields&quot; : [ &quot;price&quot; ] &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>Or</code></td>
+<td align="left"><code>findByNameOrPrice</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;should&quot; : [ &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;?&quot;, &quot;fields&quot; : [ &quot;name&quot; ] &#125; &#125;, &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;?&quot;, &quot;fields&quot; : [ &quot;price&quot; ] &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>Is</code></td>
+<td align="left"><code>findByName</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;?&quot;, &quot;fields&quot; : [ &quot;name&quot; ] &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>Not</code></td>
+<td align="left"><code>findByNameNot</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must_not&quot; : [ &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;?&quot;, &quot;fields&quot; : [ &quot;name&quot; ] &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>Between</code></td>
+<td align="left"><code>findByPriceBetween</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123;&quot;range&quot; : &#123;&quot;price&quot; : &#123;&quot;from&quot; : ?, &quot;to&quot; : ?, &quot;include_lower&quot; : true, &quot;include_upper&quot; : true &#125; &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>LessThan</code></td>
+<td align="left"><code>findByPriceLessThan</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123;&quot;range&quot; : &#123;&quot;price&quot; : &#123;&quot;from&quot; : null, &quot;to&quot; : ?, &quot;include_lower&quot; : true, &quot;include_upper&quot; : false &#125; &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>LessThanEqual</code></td>
+<td align="left"><code>findByPriceLessThanEqual</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123;&quot;range&quot; : &#123;&quot;price&quot; : &#123;&quot;from&quot; : null, &quot;to&quot; : ?, &quot;include_lower&quot; : true, &quot;include_upper&quot; : true &#125; &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>GreaterThan</code></td>
+<td align="left"><code>findByPriceGreaterThan</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123;&quot;range&quot; : &#123;&quot;price&quot; : &#123;&quot;from&quot; : ?, &quot;to&quot; : null, &quot;include_lower&quot; : false, &quot;include_upper&quot; : true &#125; &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>GreaterThanEqual</code></td>
+<td align="left"><code>findByPriceGreaterThan</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123;&quot;range&quot; : &#123;&quot;price&quot; : &#123;&quot;from&quot; : ?, &quot;to&quot; : null, &quot;include_lower&quot; : true, &quot;include_upper&quot; : true &#125; &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>Before</code></td>
+<td align="left"><code>findByPriceBefore</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123;&quot;range&quot; : &#123;&quot;price&quot; : &#123;&quot;from&quot; : null, &quot;to&quot; : ?, &quot;include_lower&quot; : true, &quot;include_upper&quot; : true &#125; &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>After</code></td>
+<td align="left"><code>findByPriceAfter</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123;&quot;range&quot; : &#123;&quot;price&quot; : &#123;&quot;from&quot; : ?, &quot;to&quot; : null, &quot;include_lower&quot; : true, &quot;include_upper&quot; : true &#125; &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>Like</code></td>
+<td align="left"><code>findByNameLike</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;?*&quot;, &quot;fields&quot; : [ &quot;name&quot; ] &#125;, &quot;analyze_wildcard&quot;: true &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>StartingWith</code></td>
+<td align="left"><code>findByNameStartingWith</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;?*&quot;, &quot;fields&quot; : [ &quot;name&quot; ] &#125;, &quot;analyze_wildcard&quot;: true &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>EndingWith</code></td>
+<td align="left"><code>findByNameEndingWith</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;*?&quot;, &quot;fields&quot; : [ &quot;name&quot; ] &#125;, &quot;analyze_wildcard&quot;: true &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>Contains/Containing</code></td>
+<td align="left"><code>findByNameContaining</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;*?*&quot;, &quot;fields&quot; : [ &quot;name&quot; ] &#125;, &quot;analyze_wildcard&quot;: true &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>In</code>（当注释为 FieldType.关键字时）</td>
+<td align="left"><code>findByNameIn(Collection&lt;String&gt;names)</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123;&quot;bool&quot; : &#123;&quot;must&quot; : [ &#123;&quot;terms&quot; : &#123;&quot;name&quot; : [&quot;?&quot;,&quot;?&quot;]&#125;&#125; ] &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>In</code></td>
+<td align="left"><code>findByNameIn(Collection&lt;String&gt;names)</code></td>
+<td align="left"><code>&#123; &quot;query&quot;: &#123;&quot;bool&quot;: &#123;&quot;must&quot;: [&#123;&quot;query_string&quot;:&#123;&quot;query&quot;: &quot;\&quot;?\&quot; \&quot;?\&quot;&quot;, &quot;fields&quot;: [&quot;name&quot;]&#125;&#125;]&#125;&#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>NotIn</code>（当注释为 FieldType.关键字时）</td>
+<td align="left"><code>findByNameNotIn(Collection&lt;String&gt;names)</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123;&quot;bool&quot; : &#123;&quot;must_not&quot; : [ &#123;&quot;terms&quot; : &#123;&quot;name&quot; : [&quot;?&quot;,&quot;?&quot;]&#125;&#125; ] &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>NotIn</code></td>
+<td align="left"><code>findByNameNotIn(Collection&lt;String&gt;names)</code></td>
+<td align="left"><code>&#123;&quot;query&quot;: &#123;&quot;bool&quot;: &#123;&quot;must&quot;: [&#123;&quot;query_string&quot;: &#123;&quot;query&quot;: &quot;NOT(\&quot;?\&quot; \&quot;?\&quot;)&quot;, &quot;fields&quot;: [&quot;name&quot;]&#125;&#125;]&#125;&#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>True</code></td>
+<td align="left"><code>findByAvailableTrue</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;true&quot;, &quot;fields&quot; : [ &quot;available&quot; ] &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>False</code></td>
+<td align="left"><code>findByAvailableFalse</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;false&quot;, &quot;fields&quot; : [ &quot;available&quot; ] &#125; &#125; ] &#125; &#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>OrderBy</code></td>
+<td align="left"><code>findByAvailableTrueOrderByNameDesc</code></td>
+<td align="left"><code>&#123; &quot;query&quot; : &#123; &quot;bool&quot; : &#123; &quot;must&quot; : [ &#123; &quot;query_string&quot; : &#123; &quot;query&quot; : &quot;true&quot;, &quot;fields&quot; : [ &quot;available&quot; ] &#125; &#125; ] &#125; &#125;, &quot;sort&quot;:[&#123;&quot;name&quot;:&#123;&quot;order&quot;:&quot;desc&quot;&#125;&#125;] &#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>Exists</code></td>
+<td align="left"><code>findByNameExists</code></td>
+<td align="left"><code>&#123;&quot;query&quot;:&#123;&quot;bool&quot;:&#123;&quot;must&quot;:[&#123;&quot;exists&quot;:&#123;&quot;field&quot;:&quot;name&quot;&#125;&#125;]&#125;&#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>IsNull</code></td>
+<td align="left"><code>findByNameIsNull</code></td>
+<td align="left"><code>&#123;&quot;query&quot;:&#123;&quot;bool&quot;:&#123;&quot;must_not&quot;:[&#123;&quot;exists&quot;:&#123;&quot;field&quot;:&quot;name&quot;&#125;&#125;]&#125;&#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>IsNotNull</code></td>
+<td align="left"><code>findByNameIsNotNull</code></td>
+<td align="left"><code>&#123;&quot;query&quot;:&#123;&quot;bool&quot;:&#123;&quot;must&quot;:[&#123;&quot;exists&quot;:&#123;&quot;field&quot;:&quot;name&quot;&#125;&#125;]&#125;&#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>IsEmpty</code></td>
+<td align="left"><code>findByNameIsEmpty</code></td>
+<td align="left"><code>&#123;&quot;query&quot;:&#123;&quot;bool&quot;:&#123;&quot;must&quot;:[&#123;&quot;bool&quot;:&#123;&quot;must&quot;:[&#123;&quot;exists&quot;:&#123;&quot;field&quot;:&quot;name&quot;&#125;&#125;],&quot;must_not&quot;:[&#123;&quot;wildcard&quot;:&#123;&quot;name&quot;:&#123;&quot;wildcard&quot;:&quot;*&quot;&#125;&#125;&#125;]&#125;&#125;]&#125;&#125;&#125;</code></td>
+</tr>
+<tr>
+<td align="left"><code>IsNotEmpty</code></td>
+<td align="left"><code>findByNameIsNotEmpty</code></td>
+<td align="left"><code>&#123;&quot;query&quot;:&#123;&quot;bool&quot;:&#123;&quot;must&quot;:[&#123;&quot;wildcard&quot;:&#123;&quot;name&quot;:&#123;&quot;wildcard&quot;:&quot;*&quot;&#125;&#125;&#125;]&#125;&#125;&#125;</code></td>
+</tr>
+</tbody></table>
 
                 
               </div>
@@ -409,9 +555,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">#中间件</a>
-      
         <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+      
+        <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">#中间件</a>
       
     </div>
   
