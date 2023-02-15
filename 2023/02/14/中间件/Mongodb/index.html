@@ -16,23 +16,26 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="MongoDB安装 MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。 在高负载的情况下，添加更多的节点，可以保证服务器性能。 MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。 MongoDB 将数据存储为一个文档，数据结构由键值(key&#x3D;&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组">
+    <meta name="description" content="MongoDB MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。 在高负载的情况下，添加更多的节点，可以保证服务器性能。 MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。 MongoDB 将数据存储为一个文档，数据结构由键值(key&#x3D;&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MongoDB安装">
-<meta property="og:url" content="http://xwww12.github.io/2022/10/15/%E6%95%B0%E6%8D%AE%E5%BA%93/mongoDB/MongoDB%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:title" content="MongoDB">
+<meta property="og:url" content="http://xwww12.github.io/2023/02/14/%E4%B8%AD%E9%97%B4%E4%BB%B6/Mongodb/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="MongoDB安装 MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。 在高负载的情况下，添加更多的节点，可以保证服务器性能。 MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。 MongoDB 将数据存储为一个文档，数据结构由键值(key&#x3D;&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组">
+<meta property="og:description" content="MongoDB MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。 在高负载的情况下，添加更多的节点，可以保证服务器性能。 MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。 MongoDB 将数据存储为一个文档，数据结构由键值(key&#x3D;&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-15T14:01:12.137Z">
-<meta property="article:modified_time" content="2022-11-12T06:21:14.930Z">
+<meta property="og:image" content="http://xwww12.github.io/img/mongodb_img/%E7%9B%AE%E5%BD%951.png">
+<meta property="og:image" content="http://xwww12.github.io/img/mongodb_img/%E7%9B%AE%E5%BD%952.png">
+<meta property="article:published_time" content="2023-02-14T13:42:11.189Z">
+<meta property="article:modified_time" content="2023-02-15T02:32:19.561Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="中间件">
 <meta property="article:tag" content="后端">
-<meta property="article:tag" content="MongoDB">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/mongodb_img/%E7%9B%AE%E5%BD%951.png">
   
   
   
-  <title>MongoDB安装 - Hexo</title>
+  <title>MongoDB - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">MongoDB安装</span>
+            <span id="subtitle">MongoDB</span>
           
         </div>
 
@@ -213,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-15 22:01" pubdate>
-          2022年10月15日 晚上
+        <time datetime="2023-02-14 21:42" pubdate>
+          2023年2月14日 晚上
         </time>
       </span>
     
@@ -225,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.3k 字
+          11k 字
         
       </span>
     
@@ -236,7 +239,7 @@
         
         
         
-          62 分钟
+          92 分钟
         
       </span>
     
@@ -288,12 +291,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">MongoDB安装</h1>
+            <h1 style="display: none">MongoDB</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="MongoDB安装"><a href="#MongoDB安装" class="headerlink" title="MongoDB安装"></a>MongoDB安装</h2><blockquote>
+                <h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><blockquote>
 <p>MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。</p>
 <p>在高负载的情况下，添加更多的节点，可以保证服务器性能。</p>
 <p>MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。</p>
@@ -303,6 +306,7 @@
 <p>2、对海量数据的高效率存储和访问。</p>
 <p>3、对数据库的高可扩展性和高可用性</p>
 </blockquote>
+<p> <a target="_blank" rel="noopener" href="https://spring.io/projects/spring-data-mongodb#learn">官方文档</a></p>
 <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p><strong>适用场景</strong></p>
 <p>1、网站数据：Mongo非常适合实时的插入，更新与查询，并具备网站实时数据存储所需的复制及高度伸缩性。</p>
 <p>2、缓存：由于性能很高，Mongo也适合作为信息基础设施的缓存层。在系统重启之后，由M ongo搭建的持久化缓存层可以避免下层的数据源过载。</p>
@@ -312,7 +316,40 @@
 <p><strong>不适用场合</strong></p>
 <p>1、高度事务性的系统：例如银行或会计系统。传统的关系型数据库目前还是更适用于需要大量原子性复杂事务的应用程序。</p>
 <p>2、传统的商业智能应用：针对特定问题的BI数据库会对产生高度优化的查询方式。对于此类应用，数据仓库可能是更合适的选择。</p>
-<h3 id="通过docker安装"><a href="#通过docker安装" class="headerlink" title="通过docker安装"></a>通过docker安装</h3><ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h4><ol>
+<li><p>下载mongodb</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/community">官网下载</a> 选择msi</li>
+<li>进入引导界面，选择Custom自定义安装路径</li>
+<li>之后会默认让安装compass可视化工具，可以不下载之后下第三方的</li>
+<li>一路next</li>
+</ul>
+</li>
+<li><p>安装为服务</p>
+<ul>
+<li>通过msi下载的mongdb会自动生成data和log目录</li>
+</ul>
+<p><img src="/img/mongodb_img/%E7%9B%AE%E5%BD%951.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>还会在bin目录下自动生成mongod.cfg配置文件，里面写了data和log目录的位置</p>
+<p><img src="/img/mongodb_img/%E7%9B%AE%E5%BD%952.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>进入bin目录，执行以下代码，将mongodb注册为服务</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">mongod <span class="hljs-attr">--config</span> mongod<span class="hljs-selector-class">.cfg</span> <span class="hljs-attr">--install</span> <span class="hljs-attr">--serviceName</span> <span class="hljs-string">&quot;MongoDB&quot;</span> <span class="hljs-attr">--journal</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>服务相关命令（管理员身份运行）</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dos">启动服务：<span class="hljs-built_in">net</span> <span class="hljs-built_in">start</span> MongoDB<br>关闭服务：<span class="hljs-built_in">net</span> stop MongoDB<br>移除服务（bin目录下）：mongod.exe --remove<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>下载可视化工具</p>
+<p><a target="_blank" rel="noopener" href="https://studio3t.com/download-studio3t-free">Download Studio 3T for MongoDB | Windows, macOS &amp; Linux</a></p>
+<ul>
+<li>下载完解压，再安装</li>
+<li>测试连接localhost:27017</li>
+</ul>
+</li>
+</ol>
+<h4 id="通过docker安装"><a href="#通过docker安装" class="headerlink" title="通过docker安装"></a>通过docker安装</h4><ul>
 <li><p>拉取镜像</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> pull mongo:latest<br></code></pre></td></tr></table></figure>
 </li>
@@ -322,7 +359,7 @@
 <li><p>测试</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 进入容器</span><br>docker exec -it mymongo <span class="hljs-regexp">/bin/</span>bash<br><span class="hljs-comment"># 使用mongoDB客户端进行操作</span><br>mongo<br><span class="hljs-comment"># 查询所有数据库</span><br>show dbs<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h3><table>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><table>
 <thead>
 <tr>
 <th>SQL术语&#x2F;概念</th>
@@ -385,12 +422,36 @@
 <h3 id="SpringBoot-整合MongoDB"><a href="#SpringBoot-整合MongoDB" class="headerlink" title="SpringBoot 整合MongoDB"></a>SpringBoot 整合MongoDB</h3><blockquote>
 <p>spring-data-mongodb提供了MongoTemplate与MongoRepository两种方式访问mongodb，MongoRepository操作简单，MongoTemplate操作灵活，可以灵活适用这两种方式操作mongodb，MongoRepository的缺点是不够灵活，MongoTemplate正好可以弥补不足。</p>
 </blockquote>
-<h4 id="MongoTemplate"><a href="#MongoTemplate" class="headerlink" title="MongoTemplate"></a>MongoTemplate</h4><ul>
+<h4 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h4><table>
+<thead>
+<tr>
+<th>注解</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Document</td>
+<td>标示映射到Mongodb文档上的领域对象</td>
+</tr>
+<tr>
+<td>@Id</td>
+<td>将相应字段设置为主键</td>
+</tr>
+<tr>
+<td>@Indexed</td>
+<td>标示某个字段为Mongodb的索引字段，提高该字段的检索速度</td>
+</tr>
+<tr>
+<td>@Query</td>
+<td>可以用Mongodb的JSON查询语句进行查询</td>
+</tr>
+</tbody></table>
+<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><h5 id="MongoTemplate"><a href="#MongoTemplate" class="headerlink" title="MongoTemplate"></a>MongoTemplate</h5><ul>
 <li><p>导入依赖</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-mongodb<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>添加配置</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">spring.data.mongodb.uri</span>=<span class="hljs-string">mongodb://192.168.229.128:27017/test</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">data:</span><br>	<span class="hljs-comment"># 连接地址 端口号 连接的数据库</span><br>    <span class="hljs-attr">mongodb:</span><br>      <span class="hljs-attr">uri:</span> <span class="hljs-string">mongodb://127.0.0.1:27017/mall-port</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>添加实体类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@Document(&quot;User&quot;)</span>   <span class="hljs-comment">//对应MongoDb中的表名</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> &#123;<br><br>    <span class="hljs-meta">@Id</span><br>    <span class="hljs-keyword">private</span> String id;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> Integer age;<br>    <span class="hljs-keyword">private</span> String email;<br>    <span class="hljs-keyword">private</span> String createDate;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -402,13 +463,36 @@
 <p>修改、删除</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 修改</span><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">updateUser</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> mongoTemplate.findById(<span class="hljs-string">&quot;634c047f1bda8149e63ff1ee&quot;</span>, User.class);<br>    user.setName(<span class="hljs-string">&quot;asdasdasd&quot;</span>);<br><br>    <span class="hljs-type">Query</span> <span class="hljs-variable">query</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Query</span>(Criteria.where(<span class="hljs-string">&quot;_id&quot;</span>).is(user.getId()));<br>    <span class="hljs-type">Update</span> <span class="hljs-variable">update</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Update</span>();<br>    update.set(<span class="hljs-string">&quot;name&quot;</span>, user.getName());<br>    update.set(<span class="hljs-string">&quot;age&quot;</span>, user.getAge());<br>    update.set(<span class="hljs-string">&quot;email&quot;</span>, user.getEmail());<br><br>    <span class="hljs-comment">// 通过查询条件查询出数据，更新的属性</span><br>    <span class="hljs-type">UpdateResult</span> <span class="hljs-variable">upsert</span> <span class="hljs-operator">=</span> mongoTemplate.upsert(query, update, User.class);<br>    <span class="hljs-comment">// 改变的条数</span><br>    <span class="hljs-type">long</span> <span class="hljs-variable">modifiedCount</span> <span class="hljs-operator">=</span> upsert.getModifiedCount();<br>    System.out.println(modifiedCount);<br>&#125;<br><br><span class="hljs-comment">// 删除</span><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteUser</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">Query</span> <span class="hljs-variable">query</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Query</span>(Criteria.where(<span class="hljs-string">&quot;_id&quot;</span>).is(<span class="hljs-string">&quot;634c047f1bda8149e63ff1ee&quot;</span>));<br><br>    <span class="hljs-type">DeleteResult</span> <span class="hljs-variable">remove</span> <span class="hljs-operator">=</span> mongoTemplate.remove(query, User.class);<br>    <span class="hljs-type">long</span> <span class="hljs-variable">deletedCount</span> <span class="hljs-operator">=</span> remove.getDeletedCount();<br>    System.out.println(deletedCount);<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="MongoRepository"><a href="#MongoRepository" class="headerlink" title="MongoRepository"></a>MongoRepository</h4><ul>
+<h5 id="MongoRepository"><a href="#MongoRepository" class="headerlink" title="MongoRepository"></a>MongoRepository</h5><ul>
 <li><p>添加Repository类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Repository</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserRepository</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">MongoRepository</span>&lt;User, String&gt; &#123;<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>CRUD</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">DemoMongoDBApplicationTest1</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> UserRepository userRepository;<br><br>    <span class="hljs-comment">// save 插入数据</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">create</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>();<br>        user.setAge(<span class="hljs-number">20</span>);<br>        user.setName(<span class="hljs-string">&quot;张三&quot;</span>);<br>        user.setEmail(<span class="hljs-string">&quot;3332200@qq.com&quot;</span>);<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user1</span> <span class="hljs-operator">=</span> userRepository.save(user);<br>    &#125;<br><br>    <span class="hljs-comment">// findAll 查询所有数据</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">findAll</span><span class="hljs-params">()</span> &#123;<br>        List&lt;User&gt; all = userRepository.findAll();<br>        System.out.println(all);<br>    &#125;<br><br>    <span class="hljs-comment">// findById 通过id查询</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">findById</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> userRepository.findById(<span class="hljs-string">&quot;634c06471bda8149e63ff1ef&quot;</span>).get();<br>        System.out.println(user);<br>    &#125;<br><br>    <span class="hljs-comment">// 条件查询</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">findUserList</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 构造查询条件</span><br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>();<br>        user.setAge(<span class="hljs-number">20</span>);<br>        Example&lt;User&gt; userExample = Example.of(user);<br><br>        List&lt;User&gt; users = userRepository.findAll(userExample);<br>        System.out.println(users);<br>    &#125;<br><br>    <span class="hljs-comment">// 模糊条件查询</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">findLikeUserList</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">//创建匹配器，即如何使用查询条件</span><br>        <span class="hljs-type">ExampleMatcher</span> <span class="hljs-variable">matcher</span> <span class="hljs-operator">=</span> ExampleMatcher.matching() <span class="hljs-comment">//构建对象</span><br>                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING) <span class="hljs-comment">//改变默认字符串匹配方式：模糊查询</span><br>                .withIgnoreCase(<span class="hljs-literal">true</span>); <span class="hljs-comment">//改变默认大小写忽略方式：忽略大小写</span><br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>();<br>        user.setName(<span class="hljs-string">&quot;三&quot;</span>);<br>        Example&lt;User&gt; userExample = Example.of(user, matcher);<br>        List&lt;User&gt; userList = userRepository.findAll(userExample);<br>        System.out.println(userList);<br>    &#125;<br><br>    <span class="hljs-comment">// 分页查询</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">findPageUserList</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">Pageable</span> <span class="hljs-variable">page</span> <span class="hljs-operator">=</span> PageRequest.of(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>);<br><br>        Page&lt;User&gt; pages = userRepository.findAll(page);<br>        System.out.println(pages);<br>    &#125;<br><br>    <span class="hljs-comment">// 修改</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">updateUser</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> userRepository.findById(<span class="hljs-string">&quot;635fc9b4d74a3c02b054754a&quot;</span>).get();<br>        user.setName(<span class="hljs-string">&quot;王五&quot;</span>);<br>        userRepository.save(user);  <span class="hljs-comment">// 有相同id时为修改</span><br>    &#125;<br><br>    <span class="hljs-comment">// 删除</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteUser</span><span class="hljs-params">()</span> &#123;<br>        userRepository.deleteById(<span class="hljs-string">&quot;635fc9b4d74a3c02b054754a&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p>springBoot 版本2.7.8</p>
+<ol>
+<li><p>导入坐标</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--Spring Data MongoDB--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-mongodb<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>	<span class="hljs-attr">data:</span><br>    	<span class="hljs-attr">mongodb:</span><br>	      <span class="hljs-comment"># 连接地址 端口号 连接的数据库</span><br>    	  <span class="hljs-attr">uri:</span> <span class="hljs-string">mongodb://127.0.0.1:27017/mall-port</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写映射到mongodb的文档对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 用户商品浏览历史记录</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@Document</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MemberReadHistory</span> &#123;<br>    <span class="hljs-meta">@Id</span><br>    <span class="hljs-keyword">private</span> String id;<br><br>    <span class="hljs-meta">@Indexed</span><br>    <span class="hljs-keyword">private</span> Long memberId;<br><br>    <span class="hljs-keyword">private</span> String memberNickname;<br><br>    <span class="hljs-keyword">private</span> String memberIcon;<br><br>    <span class="hljs-meta">@Indexed</span><br>    <span class="hljs-keyword">private</span> Long productId;<br><br>    <span class="hljs-keyword">private</span> String productName;<br><br>    <span class="hljs-keyword">private</span> String productPic;<br><br>    <span class="hljs-keyword">private</span> String productSubTitle;<br><br>    <span class="hljs-keyword">private</span> String productPrice;<br><br>    <span class="hljs-keyword">private</span> Date createTime;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写操作类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Repository</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">MemberReadHistoryRepository</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">MongoRepository</span>&lt;MemberReadHistory, String&gt; &#123;<br>    List&lt;MemberReadHistory&gt; <span class="hljs-title function_">findByMemberIdOrderByCreateTimeDesc</span><span class="hljs-params">(Long memberId)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写Service接口、实现接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MemberReadHistoryServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">MemberReadHistoryService</span> &#123;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> MemberReadHistoryRepository memberReadHistoryRepository;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">create</span><span class="hljs-params">(MemberReadHistory memberReadHistory)</span> &#123;<br>        memberReadHistory.setId(<span class="hljs-literal">null</span>);<br>        memberReadHistory.setCreateTime(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>());<br>        memberReadHistoryRepository.save(memberReadHistory);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">delete</span><span class="hljs-params">(List&lt;String&gt; ids)</span> &#123;<br>        List&lt;MemberReadHistory&gt; deleteList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span>(String id : ids)&#123;<br>            <span class="hljs-type">MemberReadHistory</span> <span class="hljs-variable">memberReadHistory</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MemberReadHistory</span>();<br>            memberReadHistory.setId(id);<br>            deleteList.add(memberReadHistory);<br>        &#125;<br>        memberReadHistoryRepository.deleteAll(deleteList);<br>        <span class="hljs-keyword">return</span> ids.size();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;MemberReadHistory&gt; <span class="hljs-title function_">list</span><span class="hljs-params">(Long memberId)</span> &#123;<br>        <span class="hljs-keyword">return</span> memberReadHistoryRepository.findByMemberIdOrderByCreateTimeDesc(memberId);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写Controller</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Api(tags = &quot;会员商品浏览记录管理&quot;)</span><br><span class="hljs-meta">@RestController(&quot;/member/readHistory&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MemberReadHistoryController</span> &#123;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> MemberReadHistoryService memberReadHistoryService;<br><br>    <span class="hljs-meta">@ApiOperation(&quot;创建浏览记录&quot;)</span><br>    <span class="hljs-meta">@PostMapping(&quot;/create&quot;)</span><br>    <span class="hljs-keyword">public</span> CommonResult <span class="hljs-title function_">create</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> MemberReadHistory memberReadHistory)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> memberReadHistoryService.create(memberReadHistory);<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> CommonResult.success(count);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> CommonResult.failed();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@ApiOperation(&quot;删除浏览记录&quot;)</span><br>    <span class="hljs-meta">@PostMapping(value = &quot;/delete&quot;)</span><br>    <span class="hljs-keyword">public</span> CommonResult <span class="hljs-title function_">delete</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam(&quot;ids&quot;)</span> List&lt;String&gt; ids)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> memberReadHistoryService.delete(ids);<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> CommonResult.success(count);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> CommonResult.failed();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@ApiOperation(&quot;展示浏览记录&quot;)</span><br>    <span class="hljs-meta">@GetMapping(value = &quot;/list&quot;)</span><br>    <span class="hljs-keyword">public</span> CommonResult&lt;List&lt;MemberReadHistory&gt;&gt; <span class="hljs-title function_">list</span><span class="hljs-params">(Long memberId)</span> &#123;<br>        List&lt;MemberReadHistory&gt; memberReadHistoryList = memberReadHistoryService.list(memberId);<br>        <span class="hljs-keyword">return</span> CommonResult.success(memberReadHistoryList);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+</li>
+</ol>
 
                 
               </div>
@@ -432,12 +516,12 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="category-chain-item">中间件</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/" class="category-chain-item">MongoDB</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%B8%AD%E9%97%B4%E4%BB%B6/MongoDB/" class="category-chain-item">MongoDB</a>
   
   
 
@@ -456,9 +540,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+        <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">#中间件</a>
       
-        <a href="/tags/MongoDB/">#MongoDB</a>
+        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
       
     </div>
   
@@ -470,8 +554,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>MongoDB安装</div>
-      <div>http://xwww12.github.io/2022/10/15/数据库/mongoDB/MongoDB安装/</div>
+      <div>MongoDB</div>
+      <div>http://xwww12.github.io/2023/02/14/中间件/Mongodb/</div>
     </div>
     <div class="license-meta">
       
@@ -483,7 +567,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月15日</div>
+          <div>2023年2月14日</div>
         </div>
       
       
@@ -513,18 +597,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/07/%E5%89%8D%E7%AB%AF/nuxt/nuxt/" title="Nuxt">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Nuxt</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/14/%E5%85%B6%E4%BB%96/easyExcel/" title="easyExcel">
-                        <span class="hidden-mobile">easyExcel</span>
+                      <a href="/2023/02/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/Elasticsearch/" title="Elasticsearch">
+                        <span class="hidden-mobile">Elasticsearch</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
