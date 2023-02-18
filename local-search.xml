@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指Offer</title>
+    <link href="/2023/02/18/%E7%AE%97%E6%B3%95/%E5%89%91%E6%8C%87Offer/"/>
+    <url>/2023/02/18/%E7%AE%97%E6%B3%95/%E5%89%91%E6%8C%87Offer/</url>
+    
+    <content type="html"><![CDATA[<h2 id="剑指Offer"><a href="#剑指Offer" class="headerlink" title="剑指Offer"></a>剑指Offer</h2><p><a href="https://leetcode.cn/problem-list/e8X3pBZi/">剑指 Offer（专项突击版） - 力扣（LeetCode）</a></p><h3 id="15题"><a href="#15题" class="headerlink" title="15题"></a>15题</h3><p>找出所有变位词，用滑动窗口+hash可以解。</p><p>再次基础上，可以用统计每种字母数量之差来优化</p><h3 id="16题"><a href="#16题" class="headerlink" title="16题"></a>16题</h3><p>最长没有重复字母的子串，hash+双指针</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>RabbitMQ</title>
     <link href="/2023/02/15/%E4%B8%AD%E9%97%B4%E4%BB%B6/RabbitMQ/"/>
     <url>/2023/02/15/%E4%B8%AD%E9%97%B4%E4%BB%B6/RabbitMQ/</url>
@@ -24,9 +51,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -55,9 +82,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -86,9 +113,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -1736,9 +1763,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -1827,9 +1854,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
