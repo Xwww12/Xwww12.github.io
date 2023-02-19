@@ -16,22 +16,26 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="剑指Offer剑指 Offer（专项突击版） - 力扣（LeetCode） 15题找出所有变位词，用滑动窗口+hash可以解。 再次基础上，可以用统计每种字母数量之差来优化 16题最长没有重复字母的子串，hash+双指针">
+    <meta name="description" content="Java虚拟机学习自:陈树义的博客 (shuyi.tech) 基础什么是虚拟机​	Java跨平台：Java 语言并不直接将代码编译成与系统有关的机器码，而是编译成一种特定的语言规范，这种语言规范我们称之为字节码。Java 虚拟机会解析字节码文件的内容，并将其翻译为各操作系统能理解的机器码。实际上 Java 虚拟机运行的是字节码文件  ​	 Java 虚拟机就是一个字节码翻译器，它将字节码文件翻译成">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指Offer">
-<meta property="og:url" content="http://xwww12.github.io/2023/02/18/%E7%AE%97%E6%B3%95/%E5%89%91%E6%8C%87Offer/index.html">
+<meta property="og:title" content="Java虚拟机">
+<meta property="og:url" content="http://xwww12.github.io/2023/02/18/java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="剑指Offer剑指 Offer（专项突击版） - 力扣（LeetCode） 15题找出所有变位词，用滑动窗口+hash可以解。 再次基础上，可以用统计每种字母数量之差来优化 16题最长没有重复字母的子串，hash+双指针">
+<meta property="og:description" content="Java虚拟机学习自:陈树义的博客 (shuyi.tech) 基础什么是虚拟机​	Java跨平台：Java 语言并不直接将代码编译成与系统有关的机器码，而是编译成一种特定的语言规范，这种语言规范我们称之为字节码。Java 虚拟机会解析字节码文件的内容，并将其翻译为各操作系统能理解的机器码。实际上 Java 虚拟机运行的是字节码文件  ​	 Java 虚拟机就是一个字节码翻译器，它将字节码文件翻译成">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-02-18T10:41:10.452Z">
-<meta property="article:modified_time" content="2023-02-18T11:36:54.741Z">
+<meta property="og:image" content="http://xwww12.github.io/img/jvm_img/java%E8%B7%A8%E5%B9%B3%E5%8F%B0.png">
+<meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6%E7%BB%84%E6%88%90.png">
+<meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%B8%B8%E9%87%8F%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%AD%97%E8%8A%82%E7%A0%81%E8%AE%BF%E9%97%AE%E6%A0%87%E5%BF%97.png">
+<meta property="article:published_time" content="2023-02-18T13:57:23.608Z">
+<meta property="article:modified_time" content="2023-02-19T14:56:02.228Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/jvm_img/java%E8%B7%A8%E5%B9%B3%E5%8F%B0.png">
   
   
   
-  <title>剑指Offer - Hexo</title>
+  <title>Java虚拟机 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">剑指Offer</span>
+            <span id="subtitle">Java虚拟机</span>
           
         </div>
 
@@ -212,7 +216,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-18 18:41" pubdate>
+        <time datetime="2023-02-18 21:57" pubdate>
           2023年2月18日 晚上
         </time>
       </span>
@@ -224,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          104 字
+          1.6k 字
         
       </span>
     
@@ -235,7 +239,7 @@
         
         
         
-          1 分钟
+          14 分钟
         
       </span>
     
@@ -287,15 +291,55 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">剑指Offer</h1>
+            <h1 style="display: none">Java虚拟机</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="剑指Offer"><a href="#剑指Offer" class="headerlink" title="剑指Offer"></a>剑指Offer</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problem-list/e8X3pBZi/">剑指 Offer（专项突击版） - 力扣（LeetCode）</a></p>
-<h3 id="15题"><a href="#15题" class="headerlink" title="15题"></a>15题</h3><p>找出所有变位词，用滑动窗口+hash可以解。</p>
-<p>再次基础上，可以用统计每种字母数量之差来优化</p>
-<h3 id="16题"><a href="#16题" class="headerlink" title="16题"></a>16题</h3><p>最长没有重复字母的子串，hash+双指针</p>
+                <h1 id="Java虚拟机"><a href="#Java虚拟机" class="headerlink" title="Java虚拟机"></a>Java虚拟机</h1><p>学习自:<a target="_blank" rel="noopener" href="https://shuyi.tech/">陈树义的博客 (shuyi.tech)</a></p>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><h3 id="什么是虚拟机"><a href="#什么是虚拟机" class="headerlink" title="什么是虚拟机"></a>什么是虚拟机</h3><p>​	<strong>Java跨平台</strong>：Java 语言并不直接将代码编译成与系统有关的机器码，而是编译成一种特定的语言规范，这种语言规范我们称之为<strong>字节码</strong>。Java 虚拟机会解析字节码文件的内容，并将其翻译为各操作系统能理解的机器码。<strong>实际上 Java 虚拟机运行的是字节码文件</strong></p>
+<p><img src="/img/jvm_img/java%E8%B7%A8%E5%B9%B3%E5%8F%B0.png" srcset="/img/loading.gif" lazyload alt="一次编译 到处运行"></p>
+<p>​	 Java 虚拟机就是一个字节码翻译器，它将字节码文件翻译成各个系统对应的机器码，确保字节码文件能在各个系统正确运行</p>
+<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p>​	编译器分类：前端编译器、JIT 编译器（Just In Time Compiler，即时编译器）和AOT编译器（Ahead of Time Compiler，静态提前编译器）</p>
+<h4 id="前端编译器"><a href="#前端编译器" class="headerlink" title="前端编译器"></a>前端编译器</h4><p>​	 JDK 的安装目录里有一个 javac 工具，就是它将 Java 代码翻译成字节码，这个工具我们叫做编译器。相对于后面要讲的其他编译器，其因为处于编译的前期，因此又被成为<strong>前端编译器</strong></p>
+<p><strong>作用</strong></p>
+<p>​	源代码 –&gt; 字节码</p>
+<p><strong>过程</strong></p>
+<ol>
+<li>词法分析、语法分析：javac编译器”读懂”源代码，生成语法树</li>
+<li>填充符号表：编译阶段无法知道代码中引用到的其他类的地址，先用一个符号填充，到类加载阶段再替换为真实地址</li>
+<li>分析注解</li>
+<li>生成字节码</li>
+</ol>
+<h4 id="JIT-编译器"><a href="#JIT-编译器" class="headerlink" title="JIT 编译器"></a>JIT 编译器</h4><p>​	生成字节码后，可以选择使用java解释器运行，或者使用JIT编译器先将字节码编译成机器码再运行。前者启动速度快但运行速度慢，而后者启动速度慢但运行速度快。为了运行速度以及效率，我们通常采用<strong>两者相结合</strong>的方式进行 Java 代码的编译执行</p>
+<p><strong>作用</strong></p>
+<p>​	字节码 –&gt; 机器码</p>
+<p><strong>类型</strong>：</p>
+<p>​	HotSpot 虚拟机内置有两种JIT编译器：Client Compiler 和Server Compiler，简称为C1编译模式、C2编译模式。</p>
+<p>​	不同：C1编译模式编译速度快、优化保守；C2编译模式编译较慢、优化相对较好。</p>
+<p><strong>参数</strong>：</p>
+<p>​	默认是混合起来用的(Mixed Mode)，编译时可使用参数<code>-client</code>或<code>-server</code>指定只使用其中一种</p>
+<p>​	<code>-Xint</code>：只解释运行，不编译。</p>
+<p>​	<code>-Xcomp</code>：优先编译</p>
+<h4 id="AOT编译器"><a href="#AOT编译器" class="headerlink" title="AOT编译器"></a>AOT编译器</h4><p>​	AOT 编译器则能将源代码直接编译为本地机器码，速度快于前端编译器，慢于即时编译器。存在的目的在于Java 虚拟机加载已经预编译成二进制库，可以直接执行。不必等待及时编译器的预热，减少 Java 应用给人带来“第一次运行慢” 的不良体验。</p>
+<h3 id="字节码文件结构"><a href="#字节码文件结构" class="headerlink" title="字节码文件结构"></a>字节码文件结构</h3><p>​	《Java 虚拟机规范》规定了 Java 虚拟机结构、Class 类文件结构、字节码指令等内容。</p>
+<p>字节码文件结构是一组以 8 位为最小基础的十六进制数据流。</p>
+<p>字节码由两种基本数据类型组成：</p>
+<ul>
+<li>无符号数：u1、u2、u4、u8 六七分别代表 1 个字节、2 个字节、4 个字节、8 个字节的无符号数</li>
+<li>表：由多个无符号数或其他表组成的数据结构，以<code>_info</code>结尾。字节码文件本质就是一张表</li>
+</ul>
+<p><img src="/img/jvm_img/%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6%E7%BB%84%E6%88%90.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="魔数"><a href="#魔数" class="headerlink" title="魔数"></a>魔数</h4><p>​	Class 文件的第 1 - 4 个字节代表了该文件的魔数（Magic Number），其值固定是：0xCAFEBABE。作用是确定这个文件是否为一个能被虚拟机接受的 Class 文件</p>
+<h4 id="文件版本"><a href="#文件版本" class="headerlink" title="文件版本"></a>文件版本</h4><p>​	Class 文件的第 5 - 6 个字节代表了 Class 文件的次版本号（Minor Version），即编译该 Class 文件的 JDK 次版本号。</p>
+<p>​	Class 文件的第 7 - 8 个字节代表了 Class 文件的主版本号（Major Version），即编译该 Class 文件的 JDK 主版本号。</p>
+<p>​	JDK1.8的十六进制版本号为0000 0034</p>
+<h4 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h4><p>​	占两个字节的constant_pool_count表示常量池中的常量个数</p>
+<p>​	<code>cp_info</code>表示整个常量池，里面的结构为<code>常量类型(u2) + 常量的数据结构(不定长) </code>的组合，常量的数据结构共有14 种 类型</p>
+<p>​	<img src="/img/jvm_img/%E5%B8%B8%E9%87%8F%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="访问标志"><a href="#访问标志" class="headerlink" title="访问标志"></a>访问标志</h4><p>​	access_flags用于识别一些类或者接口层次的访问信息</p>
+<p>​	<img src="/img/jvm_img/%E5%AD%97%E8%8A%82%E7%A0%81%E8%AE%BF%E9%97%AE%E6%A0%87%E5%BF%97.png" srcset="/img/loading.gif" lazyload></p>
+<p>​	访问标志可能是由多个标志名称组成的，如0021是由0x0001 | 0x0020得来的</p>
 
                 
               </div>
@@ -319,7 +363,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/java/" class="category-chain-item">java</a>
   
   
 
@@ -333,13 +377,6 @@
     </div>
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
-      
-    </div>
-  
 </div>
 
 
@@ -348,8 +385,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>剑指Offer</div>
-      <div>http://xwww12.github.io/2023/02/18/算法/剑指Offer/</div>
+      <div>Java虚拟机</div>
+      <div>http://xwww12.github.io/2023/02/18/java/Java虚拟机/</div>
     </div>
     <div class="license-meta">
       
@@ -391,18 +428,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/02/18/java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="Java虚拟机">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java虚拟机</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/02/15/%E4%B8%AD%E9%97%B4%E4%BB%B6/RabbitMQ/" title="RabbitMQ">
-                        <span class="hidden-mobile">RabbitMQ</span>
+                      <a href="/2023/02/18/%E7%AE%97%E6%B3%95/%E5%89%91%E6%8C%87Offer/" title="剑指Offer">
+                        <span class="hidden-mobile">剑指Offer</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
