@@ -27,8 +27,13 @@
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6%E7%BB%84%E6%88%90.png">
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%B8%B8%E9%87%8F%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%AD%97%E8%8A%82%E7%A0%81%E8%AE%BF%E9%97%AE%E6%A0%87%E5%BF%97.png">
+<meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%AD%97%E6%AE%B5%E4%BF%A1%E6%81%AF%E8%A1%A8.png">
+<meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E6%96%B9%E6%B3%95%E4%BF%A1%E6%81%AF%E8%A1%A8.png">
+<meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%8F%8D%E7%BC%96%E8%AF%91.png">
+<meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6%E6%95%B4%E4%BD%93%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
+<meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%A0%86%E7%BB%93%E6%9E%84.png">
 <meta property="article:published_time" content="2023-02-18T13:57:23.608Z">
-<meta property="article:modified_time" content="2023-02-19T14:56:02.228Z">
+<meta property="article:modified_time" content="2023-02-21T14:00:55.747Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/jvm_img/java%E8%B7%A8%E5%B9%B3%E5%8F%B0.png">
@@ -228,7 +233,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          3.1k 字
         
       </span>
     
@@ -239,7 +244,7 @@
         
         
         
-          14 分钟
+          27 分钟
         
       </span>
     
@@ -322,6 +327,8 @@
 <p>​	<code>-Xint</code>：只解释运行，不编译。</p>
 <p>​	<code>-Xcomp</code>：优先编译</p>
 <h4 id="AOT编译器"><a href="#AOT编译器" class="headerlink" title="AOT编译器"></a>AOT编译器</h4><p>​	AOT 编译器则能将源代码直接编译为本地机器码，速度快于前端编译器，慢于即时编译器。存在的目的在于Java 虚拟机加载已经预编译成二进制库，可以直接执行。不必等待及时编译器的预热，减少 Java 应用给人带来“第一次运行慢” 的不良体验。</p>
+<p><strong>作用</strong></p>
+<p>​	源代码 –&gt; 机器码</p>
 <h3 id="字节码文件结构"><a href="#字节码文件结构" class="headerlink" title="字节码文件结构"></a>字节码文件结构</h3><p>​	《Java 虚拟机规范》规定了 Java 虚拟机结构、Class 类文件结构、字节码指令等内容。</p>
 <p>字节码文件结构是一组以 8 位为最小基础的十六进制数据流。</p>
 <p>字节码由两种基本数据类型组成：</p>
@@ -340,6 +347,61 @@
 <h4 id="访问标志"><a href="#访问标志" class="headerlink" title="访问标志"></a>访问标志</h4><p>​	access_flags用于识别一些类或者接口层次的访问信息</p>
 <p>​	<img src="/img/jvm_img/%E5%AD%97%E8%8A%82%E7%A0%81%E8%AE%BF%E9%97%AE%E6%A0%87%E5%BF%97.png" srcset="/img/loading.gif" lazyload></p>
 <p>​	访问标志可能是由多个标志名称组成的，如0021是由0x0001 | 0x0020得来的</p>
+<h4 id="类索引、父类索引、接口索引"><a href="#类索引、父类索引、接口索引" class="headerlink" title="类索引、父类索引、接口索引"></a>类索引、父类索引、接口索引</h4><p>​	<strong>类索引</strong>：用于确定这个类的全限定名，大小为u2，指向常量池中的常量</p>
+<p>​	<strong>父类索引</strong>：引用于确定这个类的父类的全限定名，大小为u2，指向常量池中的常量</p>
+<p>​	<strong>接口索引</strong>：用来描述哪个类实现了哪些接口，u2 记录接口数量，后面interfaces记录所有的接口信息</p>
+<h4 id="字段表"><a href="#字段表" class="headerlink" title="字段表"></a>字段表</h4><p>​	用于描述接口或者类中声明的变量，字段表的每个字段用一个名为 field_info 的表来表示</p>
+<p>​	<img src="/img/jvm_img/%E5%AD%97%E6%AE%B5%E4%BF%A1%E6%81%AF%E8%A1%A8.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="方法表"><a href="#方法表" class="headerlink" title="方法表"></a>方法表</h4><p>​	用于描述类中的方法信息</p>
+<p>​	<img src="/img/jvm_img/%E6%96%B9%E6%B3%95%E4%BF%A1%E6%81%AF%E8%A1%A8.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="属性表"><a href="#属性表" class="headerlink" title="属性表"></a>属性表</h4><p>​	描述<strong>类</strong>的属性信息</p>
+<h4 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h4><p>​	可以通过<code>javap -verbose 文件名.class</code>反编译将字节码文件全部分析出来</p>
+<p>​	<img src="/img/jvm_img/%E5%8F%8D%E7%BC%96%E8%AF%91.png" srcset="/img/loading.gif" lazyload></p>
+<p>​	<img src="/img/jvm_img/%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6%E6%95%B4%E4%BD%93%E7%A4%BA%E6%84%8F%E5%9B%BE.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="虚拟机内存结构"><a href="#虚拟机内存结构" class="headerlink" title="虚拟机内存结构"></a>虚拟机内存结构</h3><p>​	字节码文件会加载进虚拟机内存中，进行一系列初始化后运行得出结果。</p>
+<p>​	Java 虚拟机的内存结构可以分为公有和私有两部分。公有指的是所有线程都共享的部分，指的是 <strong>Java 堆</strong>、<strong>方法区</strong>、<strong>常量池</strong>。私有指的是每个线程的私有数据，包括：<strong>PC寄存器</strong>、<strong>Java 虚拟机栈</strong>、<strong>本地方法栈</strong>。</p>
+<h4 id="公有部分"><a href="#公有部分" class="headerlink" title="公有部分"></a>公有部分</h4><p>​	<strong>java堆</strong>：专门用于 Java 实例对象的内存分配，几乎所有实例对象都在会这里进行内存的分配，有些小对象可能在栈上分配内存</p>
+<p>根据对象存活时间，堆可以分为新生代、老年代、永久代（方法区）</p>
+<p><img src="/img/jvm_img/%E5%A0%86%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li><p><strong>新生代</strong>：</p>
+<ul>
+<li>Eden （伊甸）区：Java新对象的出生地（如果新创建的对象占用内存很大，则直接分配到老年代）。当Eden区内存不够的时候就会触发MinorGC，对新生代区进行一次垃圾回收。</li>
+<li>ServivorTo、ServivorFrom：每次MinorGC都会清理serviorFrom和Eden区的对象，然后将幸存对象<strong>复制到</strong>ServiorTo中（达到老年代指标的对象存到老年代），随后清空Eden和ServicorFrom中的对象，最后交换serviorTo和ServiorFrom。</li>
+</ul>
+<p>三个区域的比例Eden：from ：to &#x3D; 8:1:1 ，通过<code>-XX:MaxTenuringThreshold = </code>设置GC多少次晋升到老年代，默认15。</p>
+</li>
+<li><p><strong>老年代</strong>：</p>
+<p>​	当老年代的空间不足时会触发MajorGC，首先扫描一次所有老年代，标记出存活的对象，然后回收没有标记的对象（<strong>标记清除法</strong>）	</p>
+</li>
+<li><p><strong>方法区</strong>：</p>
+<p>​	指内存的永久保存区域，主要存放Class和Meta（元数据）的信息，在Java8中，永久代已经被移除，被一个称为“元数据区”（元空间）的区域所取代。元空间与永久代之间最大的区别在于：<strong>元空间并不在虚拟机中，而是使用本地内存</strong></p>
+</li>
+</ol>
+<h4 id="私有部分"><a href="#私有部分" class="headerlink" title="私有部分"></a>私有部分</h4><ol>
+<li><strong>PC 寄存器</strong>：保存线程当前正在执行的方法，任意时刻，一条 Java 虚拟机线程只会执行一个方法的代码，其地址被存在 PC 寄存器中。</li>
+<li><strong>Java 虚拟机栈</strong>：用来存储栈帧，栈帧存储了方法的局部变量表、操作数栈、动态连接和方法返回地址等信息</li>
+<li><strong>本地方法栈</strong>：用于管理本地方法（非java代码的接口）的调用</li>
+</ol>
+<h3 id="类加载"><a href="#类加载" class="headerlink" title="类加载"></a>类加载</h3><p>指虚拟机将字节码读取进内存，从而进行解析、运行等整个过程</p>
+<p>类加载过程分为：<strong>加载、验证、准备、解析、初始化、使用、卸载</strong></p>
+<p>加载：</p>
+<p>​	把代码数据加载到内存中</p>
+<p>验证：</p>
+<p>​	校验Class字节码文件格式是否符合JVM规范，加载完字节码后在内存中创建对应的Class对象，之后检查是否有语法错误</p>
+<p><strong>准备</strong>：</p>
+<p>​	给类分配内存，只会先给static修饰的变量分配内存并赋予对应类型的0值(0, “”, false,null)，而修饰了final的话则直接赋予用户希望的值</p>
+<p>解析：</p>
+<p>​	将引用在常量池中的符号引用替换成直接其在内存中的直接引用</p>
+<p><strong>初始化</strong>：</p>
+<p>​	JVM 会根据<strong>语句执行顺序</strong>对类对象进行初始化</p>
+<p>​	类初始化：给静态变量赋值，执行静态代码块，有父类会先类初始化父类，main函数所在类会被类初始化</p>
+<p>​	对象初始化：会先类初始化。给成员变量赋值，执行普通代码块，执行构造函数</p>
+<p>​	整体上就是惰性初始化，只有用到时才进行初始化</p>
+<p>使用：</p>
+<p>​	JVM 开始从入口方法开始执行用户的程序代码</p>
+<p>卸载：</p>
+<p>​	执行完程序，销毁Class对象，最后JVM也退出内存</p>
 
                 
               </div>
