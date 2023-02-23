@@ -32,8 +32,9 @@
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%8F%8D%E7%BC%96%E8%AF%91.png">
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6%E6%95%B4%E4%BD%93%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%A0%86%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://xwww12.github.io/img/jvm_img/G1%E5%9B%9E%E6%94%B6%E5%99%A8.png">
 <meta property="article:published_time" content="2023-02-18T13:57:23.608Z">
-<meta property="article:modified_time" content="2023-02-22T12:11:04.694Z">
+<meta property="article:modified_time" content="2023-02-23T08:19:45.011Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/jvm_img/java%E8%B7%A8%E5%B9%B3%E5%8F%B0.png">
@@ -233,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.6k 字
+          5.2k 字
         
       </span>
     
@@ -244,7 +245,7 @@
         
         
         
-          31 分钟
+          44 分钟
         
       </span>
     
@@ -367,7 +368,7 @@
 <li><p><strong>新生代</strong>：</p>
 <ul>
 <li>Eden （伊甸）区：Java新对象的出生地（如果新创建的对象占用内存很大，则直接分配到老年代）。当Eden区内存不够的时候就会触发MinorGC，对新生代区进行一次垃圾回收。</li>
-<li>ServivorTo、ServivorFrom：每次MinorGC都会清理serviorFrom和Eden区的对象，然后将幸存对象<strong>复制到</strong>ServiorTo中（达到老年代指标的对象存到老年代），随后清空Eden和ServicorFrom中的对象，最后交换serviorTo和ServiorFrom。</li>
+<li>ServivorTo、ServivorFrom：每次MinorGC都会清理serviorFrom和Eden区的对象，然后将幸存对象<strong>复制到</strong>ServiorTo中（达到老年代指标的对象存到老年代），随后清空Eden和ServicorFrom中的对象，最后交换serviorTo和ServiorFrom。（<strong>复制算法</strong>）</li>
 </ul>
 <p>三个区域的比例Eden：from ：to &#x3D; 8:1:1 ，通过<code>-XX:MaxTenuringThreshold = </code>设置GC多少次晋升到老年代，默认15。</p>
 </li>
@@ -406,9 +407,9 @@
 <p>如果一个对象不再被引用，则会被当做垃圾而回收。</p>
 </blockquote>
 <h4 id="如何知道对象是否被引用"><a href="#如何知道对象是否被引用" class="headerlink" title="如何知道对象是否被引用"></a>如何知道对象是否被引用</h4><ol>
-<li><p>计数方法：对象被引用时就+1，不再引用就-1。存在的问题：**循环引用(**A引用B，B引用A，但没有被其它对象引用，两者引用都不为0，无法被回收)</p>
+<li><p>计数方法（已淘汰）：对象被引用时就+1，不再引用就-1。存在的问题：**循环引用(**A引用B，B引用A，但没有被其它对象引用，两者引用都不为0，无法被回收)</p>
 </li>
-<li><p><strong>GC Root Tracing</strong>：从 GC Root 出发，所有可达的对象都是存活的对象，不可达的为垃圾。</p>
+<li><p>可达性算法<strong>GC Root Tracing</strong>：从 GC Root 出发，所有可达的对象都是存活的对象，不可达的为垃圾。</p>
 <p>GC Root 就是一组活跃引用的集合，通常GC Root包括：</p>
 <ul>
 <li>所有当前被加载的 Java 类</li>
@@ -420,11 +421,82 @@
 </li>
 </ol>
 <h4 id="如何进行垃圾回收"><a href="#如何进行垃圾回收" class="headerlink" title="如何进行垃圾回收"></a>如何进行垃圾回收</h4><ol>
-<li>标记清除法：标记所有由 GC Root 触发的可达对象，清除所有未被标记的对象。缺点：会有产生内存碎片的问题。</li>
-<li>复制算法：将原有的内存空间分为两块，每次只使用一块，垃圾回收时将存活的对象复制到另一块，清除当前块内所有对象。缺点：内存没有被完全使用。</li>
-<li>标记压缩算法：上面两种方法的结合。标记存活对象，复制到内存的一边，清空剩余区域。</li>
+<li><strong>标记清除法</strong>：标记所有由 GC Root 触发的可达对象，清除所有未被标记的对象。缺点：会有产生内存碎片的问题。</li>
+<li><strong>复制算法</strong>：将原有的内存空间分为两块，每次只使用一块，垃圾回收时将存活的对象复制到另一块，清除当前块内所有对象。缺点：内存没有被完全使用。</li>
+<li><strong>标记压缩算法</strong>：上面两种方法的结合。标记存活对象，复制到内存的一边，清空剩余区域。</li>
 </ol>
 <p>实际是每种方法结合着用。新生代存活对象较少，适合复制算法；老年代存活对象多，适合标记清除法或标记压缩算法，减少对象的移动。</p>
+<h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><p><strong>Minor GC&#x2F;Young GC</strong>：从年轻代空间回收内存</p>
+<p><strong>Major GC&#x2F;Old GC</strong>：从老年代空间回收内存</p>
+<p><strong>Full GC</strong>：清理年轻代、老年代和永久代，当发现年轻代空间太小或永久代空间不足时会触发</p>
+<p><strong>Stop-The-World</strong>：在进行垃圾回收时因为标记或清理的需要，必须让所有执行任务的线程停止执行任务，从而让垃圾回收线程回收垃圾的时间间隔</p>
+<h3 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h3><h4 id="串行回收器（Serial）"><a href="#串行回收器（Serial）" class="headerlink" title="串行回收器（Serial）"></a><strong>串行回收器（Serial）</strong></h4><p>指使用单线程进行垃圾回收的回收器</p>
+<p><strong>分类</strong></p>
+<ol>
+<li><strong>新生代串行回收器</strong>：采用复制算法，垃圾回收时其他线程需要暂停（<strong>Stop-The-World</strong>）</li>
+<li><strong>老年代串行回收器</strong>：采用标记压缩算法，也会Stop-The-World，可以与多种新生代回收器配合使用</li>
+</ol>
+<p><strong>参数</strong></p>
+<ul>
+<li><p><code>-XX:UseSerialGC</code>：新生代、老年代都使用串行回收器。</p>
+</li>
+<li><p><code>-XX:UseParNewGC</code>：新生代使用 ParNew 回收器（多线程），老年代使用串行回收器。</p>
+</li>
+<li><p><code>-XX:UseParallelGC</code>：新生代使用 ParallelGC 回收器（多线程），老年代使用串行回收器。</p>
+</li>
+</ul>
+<h4 id="并行回收器（Parallel）"><a href="#并行回收器（Parallel）" class="headerlink" title="并行回收器（Parallel）"></a>并行回收器（Parallel）</h4><p>指使用多线程进行垃圾回收，可以有效缩短垃圾回收所使用的时间</p>
+<p><strong>分类</strong></p>
+<ol>
+<li><p><strong>新生代ParNew 回收器</strong>：只是简单地将串行回收器多线程化</p>
+<p><strong>启动参数</strong></p>
+<ul>
+<li><code>-XX:+UseParNewGC</code>：新生代使用 ParNew 回收器，老年代使用串行回收器。</li>
+<li><code>-XX:UseConcMarkSweepGC</code>：新生代使用 ParNew 回收器，老年代使用 CMS。</li>
+<li><code>-XX:ParallelGCThreads</code>：指定 ParNew 回收器的工作线程数量。</li>
+</ul>
+</li>
+<li><p><strong>新生代 Parallel GC 回收器</strong>：相比于ParNew更加<strong>注重系统的吞吐量</strong></p>
+<p><strong>设置参数</strong></p>
+<ul>
+<li><code>-XX:+UseAdaptiveSizePolicy</code>：自动调节新生代的大小、Eden 和 Survivor 的比例、晋升老年代的对象年龄等参数</li>
+<li><code>-XX:MaxGCPauseMillis</code>：设置最大垃圾收集停顿时间</li>
+<li><code>-XX:GCTimeRatio</code>：设置吞吐量大小</li>
+</ul>
+<p><strong>启动参数</strong></p>
+<ul>
+<li><code>-XX:+UseParallelGC</code>：新生代使用 Parallel 回收器，老年代使用串行回收器。</li>
+<li><code>-XX:+UseParallelOldGC</code>：新生代使用 ParallelGC 回收器，老年代使用 ParallelOldGC 回收器。</li>
+</ul>
+</li>
+<li><p><strong>老年代 ParallelOldGC 回收器</strong>：注重吞吐量的老年代的回收器</p>
+<p><strong>启动参数</strong></p>
+<ul>
+<li><code>-XX:UseParallelOldGC</code>：新生代使用 ParallelGC 回收器，老年代使用 ParallelOldGC 回收器。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>jdk1.8 默认垃圾收集器Parallel Scavenge（新生代）+Parallel Old（老年代）</p>
+</blockquote>
+<h4 id="CMS-回收器"><a href="#CMS-回收器" class="headerlink" title="CMS 回收器"></a>CMS 回收器</h4><p>Concurrent Mark Sweep（并发标记扫描），CMS 回收器主要<strong>关注系统停顿时间</strong></p>
+<p><strong>工作流程</strong>：</p>
+<p>​	初始标记：标记GC Root和年轻代中对象的引用，时间短</p>
+<p>​	并发标记：标记所有可达的对象，时间长，可以和用户线程并行</p>
+<p>​	并发预清理：目的是为了让重新标记阶段的STW尽可能短</p>
+<p>​	重新标记：目标是完成老年代中所有存活对象的标记，会触发Stop The World</p>
+<p>​	并发清除和并发重置：用户线程被重新激活，目标是删除不可达的对象，并未下次GC做准备</p>
+<h4 id="G1回收器"><a href="#G1回收器" class="headerlink" title="G1回收器"></a>G1回收器</h4><p> JDK 1.7 中使用的全新垃圾回收器</p>
+<p><img src="/img/jvm_img/G1%E5%9B%9E%E6%94%B6%E5%99%A8.png" srcset="/img/loading.gif" lazyload></p>
+<p>在 G1 回收器中，其将一大块的内存分为许多细小的区块(Region)，从而不要求内存是连续的。Humongous块存储巨型对象</p>
+<p><code>-XX:G1HeapRegionSize</code>可以设置每个Region的大小</p>
+<p><strong>工作流程</strong>：</p>
+<ul>
+<li>新生代 GC</li>
+<li>并发标记周期：所有将要被回收的区域会被 G1 记录在一个称之为 Collection Set 的集合中</li>
+<li>混合收集：首先针对 Collection Set 中的内存进行回收，在混合回收的时候，也会执行多次新生代 GC 和 混合 GC</li>
+<li>如果需要，可能进行 FullGC</li>
+</ul>
 
                 
               </div>

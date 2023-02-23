@@ -23,11 +23,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="面试题java基础二分问题1：128个元素最多二分几次找到目标 答：128 &#x3D; 2^7，最多7次 问题2：100000000000个元素最多二分几次找到目标 答： ​	公式：logb(a) &#x3D; logc(a) &#x2F; logc(b) ​	log2(100000000000) &#x3D; log10(100000000000) &#x2F; log10(2)，向上取整 排">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%8E%92%E5%BA%8F.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-02-22T13:40:37.527Z">
+<meta property="article:modified_time" content="2023-02-23T14:46:20.341Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/else_img/%E6%8E%92%E5%BA%8F.png">
   
   
   
@@ -224,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          984 字
+          2.3k 字
         
       </span>
     
@@ -235,7 +237,7 @@
         
         
         
-          9 分钟
+          19 分钟
         
       </span>
     
@@ -310,6 +312,37 @@
 <p>示例代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">insert</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; arr.length; ++i) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">tmp</span> <span class="hljs-operator">=</span> arr[i];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> i - <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span>; --j) &#123;<br>            <span class="hljs-keyword">if</span> (arr[j] &gt; tmp) &#123;<br>                arr[j + <span class="hljs-number">1</span>] = arr[j];<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        arr[j + <span class="hljs-number">1</span>] = tmp;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<p><strong>希尔排序</strong>：开始选定一个间隙n，每轮排序间隔n的元素，之后减小n再排序，直到n&#x3D;1。这么做大的元素会更快的往右边靠，减少之后的移动次数。</p>
+<p><strong>快速排序</strong>：每轮找一个基准点进行分区，比基准点小的放到基准点左边，大的放到基准点右边。直到分区内元素个数小于等于1。</p>
+<ol>
+<li><p>单边循环快排</p>
+<ol>
+<li><p>以最右边元素作为基准点</p>
+</li>
+<li><p>i，j指针指向左边界的元素</p>
+</li>
+<li><p>j往右移，当找到比基准点小的元素就和i交换，i++</p>
+</li>
+<li><p>当交换完后i和基准点交换，这样基准点左边的元素就比基准点小</p>
+</li>
+</ol>
+<p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> staic <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>    <span class="hljs-type">int</span>[] arr = &#123;<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>&#125;;<br>    quick(arr, <span class="hljs-number">0</span>, arr.length - <span class="hljs-number">1</span>);<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">quickSort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span> &#123;<br>    <span class="hljs-keyword">if</span> (l &gt;= r)<br>        <span class="hljs-keyword">return</span>;<br> 	<span class="hljs-type">int</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> partition(arr, l, r);<br>    partition(arr, l, p - <span class="hljs-number">1</span>);<br>    partition(arr, p + <span class="hljs-number">1</span>, r);<br>&#125;<br><br><span class="hljs-comment">// 分区，返回中间下标</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">partition</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span> &#123;<br>    <span class="hljs-keyword">if</span> (l &gt;= r)<br>        <span class="hljs-keyword">return</span> l;<br>	<span class="hljs-type">int</span> <span class="hljs-variable">pv</span> <span class="hljs-operator">=</span> a[r];	<span class="hljs-comment">// 基准点</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> l;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> l; j &lt; r; ++j) &#123;<br>        <span class="hljs-keyword">if</span> (arr[j] &lt; pv) &#123;<br>            swap(arr, i, j);<br>            ++i;<br>        &#125;<br>    &#125;<br>    swap(arr, r, i);<br>    <span class="hljs-keyword">return</span> i;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>双边循环快排</p>
+<ol>
+<li>以最左边元素作为基准点</li>
+<li>i指向左边界，j指向右边界，两边互找</li>
+<li>当i，j相遇时吧基准点和i交换</li>
+</ol>
+<p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> staic <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>    <span class="hljs-type">int</span>[] arr = &#123;<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>&#125;;<br>    quick(arr, <span class="hljs-number">0</span>, arr.length - <span class="hljs-number">1</span>);<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">quickSort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span> &#123;<br>    <span class="hljs-keyword">if</span> (l &gt;= r)<br>        <span class="hljs-keyword">return</span>;<br> 	<span class="hljs-type">int</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> partition(arr, l, r);<br>    partition(arr, l, p - <span class="hljs-number">1</span>);<br>    partition(arr, p + <span class="hljs-number">1</span>, r);<br>&#125;<br><br><span class="hljs-comment">// 分区，返回中间下标</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">partition</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">pv</span> <span class="hljs-operator">=</span> arr[l];<br>    <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> l, j = r;<br>    <span class="hljs-keyword">while</span> (i &lt; j) &#123;<br>        <span class="hljs-comment">// 这两个while不能交换</span><br>        <span class="hljs-keyword">while</span> (i &lt; j &amp;&amp; arr[j] &gt; pv)<br>            --j;<br>        <span class="hljs-keyword">while</span> (i &lt; j &amp;&amp; arr[i] &lt;= pv)<br>            ++i;<br>        swap(arr, i, j);<br>    &#125;<br>    swap(arr, l, i);<br>    <span class="hljs-keyword">return</span> i;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/else_img/%E6%8E%92%E5%BA%8F.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ol>
 
                 
               </div>
@@ -411,6 +444,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/02/23/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/" title="算法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">算法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
