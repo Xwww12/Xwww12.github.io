@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%8E%92%E5%BA%8F.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-02-23T14:48:07.338Z">
+<meta property="article:modified_time" content="2023-02-24T07:05:33.652Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          3k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          19 分钟
+          26 分钟
         
       </span>
     
@@ -343,6 +343,45 @@
 <p><img src="/img/else_img/%E6%8E%92%E5%BA%8F.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ol>
+<h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><h5 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h5><h6 id="扩容机制"><a href="#扩容机制" class="headerlink" title="扩容机制"></a>扩容机制</h6><p>​	无参构造刚创建出来的时候容量为0，有参则按传入的值或集合的大小作为容量</p>
+<p>​	<strong>add方法</strong>：首次添加元素时会创建一个容量为10的数组，之后每次添加元素容量不足时会按原数组容量的<strong>1.5倍</strong>（向下取整）创建新数组，把原数组的元素复制到新数组中，用新数组替换原数组。</p>
+<p>​	<strong>addAll方法</strong>：没有元素时扩容为Math.max(10, 实际元素个数)，有元素时为Math.max(原容量1.5倍, 实际元素个数)。</p>
+<h6 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h6><p>当在使用迭代器时有其它线程修改数组时有两种<strong>策略</strong>：</p>
+<ol>
+<li><strong>fail-fast</strong>：在使用迭代器的线程立即报错</li>
+<li><strong>fail-safe</strong>：发现有人修改了则采取一些对策，例如牺牲一些一致性来让整个遍历完成</li>
+</ol>
+<p><strong>原理</strong></p>
+<p>​	fail-fast是在创建迭代器时记录数组被修改的次数，每次获取下一个元素时判断现在数组的修改次数是否和之前记录的保持一致，如果不一致则报错（类似乐观锁）。</p>
+<blockquote>
+<p>ArrayList使用的第一种策略，CopyOnWriteArrayList是第二种策略（对策是添加把原集合复制出来，在新集合上进行修改，修改好后指向新集合。创建迭代器时会指向当前集合，遍历的是旧集合不影响（读写分离））；</p>
+</blockquote>
+<h5 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h5><h6 id="与ArrayList的比较"><a href="#与ArrayList的比较" class="headerlink" title="与ArrayList的比较"></a>与ArrayList的比较</h6><ul>
+<li>ArrayList<ol>
+<li>基于数组，需要连续内存</li>
+<li>随机访问快</li>
+<li>尾部插入和插入性能可以，其它部分都会移动元素，性能低</li>
+<li>可以利用cpu缓存，局部性原理</li>
+</ol>
+</li>
+<li>LinkedList<ol>
+<li>基于双向链表，无需连续内存</li>
+<li>随机访问慢</li>
+<li>头尾插入删除性能高</li>
+<li>占用内存多</li>
+</ol>
+</li>
+</ul>
+<h5 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h5><h6 id="链表过长时的解决方法"><a href="#链表过长时的解决方法" class="headerlink" title="链表过长时的解决方法"></a>链表过长时的解决方法</h6><ol>
+<li>数组扩容，但存的元素都一样的时候扩容也不能缩短链表长度</li>
+</ol>
+<h6 id="题"><a href="#题" class="headerlink" title="题"></a>题</h6><ul>
+<li>底层数据结构，1.7和1.8有何不同?<ul>
+<li>1.7为数组+链表，1.8为数组+(链表 | 红黑树)</li>
+</ul>
+</li>
+<li>为何要用红黑树，为何不一上来就树化，树化阈值为何是8，何时会树化，何时会退化成链表</li>
+</ul>
 
                 
               </div>
