@@ -33,8 +33,9 @@
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6%E6%95%B4%E4%BD%93%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%A0%86%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/G1%E5%9B%9E%E6%94%B6%E5%99%A8.png">
+<meta property="og:image" content="http://xwww12.github.io/img/jvm_img/GC%E5%8F%82%E6%95%B01.png">
 <meta property="article:published_time" content="2023-02-18T13:57:23.608Z">
-<meta property="article:modified_time" content="2023-02-24T08:43:05.683Z">
+<meta property="article:modified_time" content="2023-02-25T08:46:34.248Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/jvm_img/java%E8%B7%A8%E5%B9%B3%E5%8F%B0.png">
@@ -234,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.8k 字
+          8.3k 字
         
       </span>
     
@@ -245,7 +246,7 @@
         
         
         
-          57 分钟
+          70 分钟
         
       </span>
     
@@ -590,6 +591,168 @@
 <p><code>java  -XX:+UseSerialGC -XX:+PrintCommandLineFlags</code>: 打印显式和隐式参数（默认参数）</p>
 <p><code>java  -XX:+UseSerialGC -XX:+PrintFlagsFinal 文件名  &gt; jvm_flag_final.txt</code>：打印所有系统参数并重定向到</p>
 <p>jvm_flag_final.txt文件中</p>
+<h4 id="追踪类信息参数"><a href="#追踪类信息参数" class="headerlink" title="追踪类信息参数"></a>追踪类信息参数</h4><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-verbose:class</td>
+<td align="center">跟踪类的加载和卸载</td>
+</tr>
+<tr>
+<td align="center">-XX:+TraceClassLoading</td>
+<td align="center">跟踪类的加载</td>
+</tr>
+<tr>
+<td align="center">-XX:+TraceClassUnloading</td>
+<td align="center">跟踪类的卸载</td>
+</tr>
+<tr>
+<td align="center">-XX:+PrintClassHistogram</td>
+<td align="center">显示类信息柱状图</td>
+</tr>
+</tbody></table>
+<h4 id="GC日志参数"><a href="#GC日志参数" class="headerlink" title="GC日志参数"></a>GC日志参数</h4><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>-XX:PrintGC</strong></td>
+<td align="center">打印GC日志</td>
+</tr>
+<tr>
+<td align="center"><strong>-XX:+PrintGCDetails</strong></td>
+<td align="center">打印详细的GC日志。还会在退出前打印堆的详细信息。</td>
+</tr>
+<tr>
+<td align="center">-XX:+PrintHeapAtGC</td>
+<td align="center">每次GC前后打印堆信息。</td>
+</tr>
+<tr>
+<td align="center">-XX:+PrintGCTimeStamps</td>
+<td align="center">打印GC发生的时间。</td>
+</tr>
+<tr>
+<td align="center">-XX:+PrintGCApplicationConcurrentTime</td>
+<td align="center">打印应用程序的执行时间</td>
+</tr>
+<tr>
+<td align="center">-XX:+PrintGCApplicationStoppedTime</td>
+<td align="center">打印应用由于GC而产生的停顿时间</td>
+</tr>
+<tr>
+<td align="center">-XX:+PrintReferenceGC</td>
+<td align="center">跟踪软引用、弱引用、虚引用和Finallize队列。</td>
+</tr>
+<tr>
+<td align="center">-XLoggc</td>
+<td align="center">将GC日志以文件形式输出。</td>
+</tr>
+</tbody></table>
+<p><strong>实例</strong></p>
+<p><code>java -XX:+UseSerialGC -Xms20M -Xmx20M -Xmn10M -XX:SurvivorRatio=8 -XX:+PrintGC Demo</code>：打印简单日志</p>
+<ul>
+<li>-XX:+UseSerialGC 表示强制使用Serial+SerialOld收集器组合</li>
+<li>-Xms20m 表示堆空间初始大小为 20 M。</li>
+<li>-Xmx20m 表示堆空间最大大小为 20 M。</li>
+<li>-Xmn10m 表示新生代大小为 10M。</li>
+<li>-XX:SurvivorRatio&#x3D;8 表示Eden:Survivor&#x3D;8:1</li>
+<li>-XX:PrintGC 打印GC日志</li>
+</ul>
+<p>​	<img src="/img/jvm_img/GC%E5%8F%82%E6%95%B01.png" srcset="/img/loading.gif" lazyload alt="回收前-&gt;回收后(可用)"></p>
+<h3 id="性能监控"><a href="#性能监控" class="headerlink" title="性能监控"></a>性能监控</h3><h4 id="jps指令"><a href="#jps指令" class="headerlink" title="jps指令"></a>jps指令</h4><p>jps（Java Virtual Machine Process Status Tool）：列出所有的 Java 进程</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-q</td>
+<td align="center">指定jps只输出进程ID</td>
+</tr>
+<tr>
+<td align="center">-m</td>
+<td align="center">输出传递给Java进程的参数</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">输出主函数的完整路径</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">显示传递给Java虚拟机的参数</td>
+</tr>
+</tbody></table>
+<h4 id="jstat指令"><a href="#jstat指令" class="headerlink" title="jstat指令"></a>jstat指令</h4><p>jstate（Java Virtual Machine Statistics Monitoring Tool）：观察 Java 堆信息的详细情况</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-class</td>
+<td align="center">监视类装载、卸载数量、总空间以及类装载所耗费的时间</td>
+</tr>
+<tr>
+<td align="center">-gc</td>
+<td align="center">监视Java堆状况，包括Eden区、两个Survivor区、老年代、永久代等的容量、已用空间、GC时间合计等信息</td>
+</tr>
+<tr>
+<td align="center">-gccapacity</td>
+<td align="center">监视内容与-gc基本相同，但输出主要关注Java堆各个区域使用到的最大、最小空间</td>
+</tr>
+<tr>
+<td align="center">-gcutil</td>
+<td align="center">监视内容与-gc基本相同，但输出主要关注已使用空间占总空间的百分比</td>
+</tr>
+<tr>
+<td align="center">-gccause</td>
+<td align="center">与-gcutil功能一样，但是会额外输出导致上一次GC产生的原因</td>
+</tr>
+<tr>
+<td align="center">-gcnew</td>
+<td align="center">监视新生代GC状况</td>
+</tr>
+<tr>
+<td align="center">-gcnewcapacity</td>
+<td align="center">监视内容与-gcnew基本相同，输出主要关注使用到的最大、最小空间</td>
+</tr>
+<tr>
+<td align="center">-gcold</td>
+<td align="center">监视老年代GC状况</td>
+</tr>
+<tr>
+<td align="center">-gcoldcapacity</td>
+<td align="center">监视内容与-gcold基本相同，输出主要关注使用到的最大、最小空间</td>
+</tr>
+<tr>
+<td align="center">-gcpermcapacity</td>
+<td align="center">输出永久代使用到的最大、最小空间</td>
+</tr>
+<tr>
+<td align="center">-compiler</td>
+<td align="center">输出JIT编译器编译过的方法、耗时信息</td>
+</tr>
+<tr>
+<td align="center">-printcompilation</td>
+<td align="center">输出已经被JIT编译的方法</td>
+</tr>
+</tbody></table>
+<p><strong>实例</strong></p>
+<p><code>jstat -gcutil 2366 </code>：查看java进程2366的堆使用情况</p>
+<h4 id="jinfo指令"><a href="#jinfo指令" class="headerlink" title="jinfo指令"></a>jinfo指令</h4><p>查看正在运行的 Java 应用程序的扩展参数</p>
+<h4 id="jmap-命令"><a href="#jmap-命令" class="headerlink" title="jmap 命令"></a>jmap 命令</h4><p>可以生成 Java 程序的 Dump 文件（当程序产生异常时，用来记录当时的程序状态信息），也可以查看堆内对象实例的统计信息、查看 ClassLoader 的信息以及 finalizer 队列</p>
+<h4 id="jhat-命令"><a href="#jhat-命令" class="headerlink" title="jhat 命令"></a>jhat 命令</h4><p>用于分析 Java 应用的对快照内存，可以用来分析jmap生成dump文件</p>
 
                 
               </div>

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%8E%92%E5%BA%8F.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-02-24T07:05:33.652Z">
+<meta property="article:modified_time" content="2023-02-25T07:54:58.169Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          4k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          26 分钟
+          34 分钟
         
       </span>
     
@@ -373,14 +373,62 @@
 </li>
 </ul>
 <h5 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h5><h6 id="链表过长时的解决方法"><a href="#链表过长时的解决方法" class="headerlink" title="链表过长时的解决方法"></a>链表过长时的解决方法</h6><ol>
-<li>数组扩容，但存的元素都一样的时候扩容也不能缩短链表长度</li>
+<li><p><strong>数组扩容</strong>：put元素后检查，当链表长度大于8或元素总数大于阈值（阈值&#x3D;容量*负载因子）时会发生一次扩容，扩容后链表长度可能还是会大于8。</p>
+<p>​	当存的元素hash值都一样的时候扩容也不能缩短链表长度</p>
+</li>
+<li><p><strong>树化</strong>（jdk1.8）：若数组容量小于64时会先尝试扩容，当数组容量超过64且链表长度大于8（阈值）时会树化</p>
+</li>
 </ol>
-<h6 id="题"><a href="#题" class="headerlink" title="题"></a>题</h6><ul>
-<li>底层数据结构，1.7和1.8有何不同?<ul>
+<h6 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h6><ul>
+<li><p><strong>底层数据结构，1.7和1.8有何不同?</strong></p>
+<ul>
 <li>1.7为数组+链表，1.8为数组+(链表 | 红黑树)</li>
 </ul>
 </li>
-<li>为何要用红黑树，为何不一上来就树化，树化阈值为何是8，何时会树化，何时会退化成链表</li>
+<li><p><strong>为何要用红黑树，为何不一上来就树化，树化阈值为何是8，何时会树化，何时会退化成链表</strong></p>
+<ol>
+<li><p>大部分情况下链表长度是不会超过8的，只有在像Dos攻击时被注入大量key相同的元素时链表才会过长。红黑树用来防止链表过长时的性能下降。</p>
+</li>
+<li><p>hash表查找和更新的时间复杂度为O(1)，红黑树为O(log2(n))，且红黑树的TreeNode比链表的Node占用内存大，所以尽量使用链表</p>
+</li>
+<li><p>选择8是为了让树化几率足够小</p>
+</li>
+<li><p>树化条件：链表长度超过阈值 且 数组容量&gt;&#x3D;64</p>
+</li>
+<li><p>退化情况1：<strong>扩容时</strong>树被拆分，树元素个数&lt;&#x3D;6会退化成链表；</p>
+<p>退化情况2：<strong>remove节点时</strong>，检查若root，root.left，root.right，root.left.left中有一个为null，则退化</p>
+</li>
+</ol>
+</li>
+<li><p><strong>索引是如何计算的？hashCode都有了为何还要hash()方法？数组容量为何是2^n？</strong></p>
+<ol>
+<li>调用对象的hashCode()方法获得原始hash，再调用HashMap的hash()方法二次哈希，最后<code> % capacity</code>（和桶的容量求余，等价于 <code>&amp;(capacity - 1)</code>) ）</li>
+<li>为了提高综合高位数据，让哈希分布更加均匀</li>
+<li>计算索引时，如果是2的n次幂可以使用位与运算代替取模，提高效率；扩容时<code>hash &amp; oldCap == 0</code>的元素留在原处，否则<code>新位置=旧位置 + oldCap</code></li>
+</ol>
+</li>
+<li><p><strong>介绍一下put方法流程，1.7和1.8的有何不同？</strong></p>
+<p>HashMap是懒惰创建数组的，首次使用才创建数组；</p>
+<p>计算索引（hashCode() –&gt; hash() –&gt; 和桶大小求模）</p>
+<p>如果桶下标没人占用，则创建Node占位返回</p>
+<p>如果有人占用了</p>
+<ol>
+<li>如果是TreeNode走红黑树逻辑</li>
+<li>如果是普通Node走链表逻辑，如果需要树化则走树化逻辑</li>
+</ol>
+<p>返回前检查容量是否超过阈值，超过则扩容</p>
+<p>不同：</p>
+<ol>
+<li>1.7是头插法，1.8是尾插法</li>
+<li>1.7是元素数量&gt;&#x3D;阈值且没有空位时才扩容，1.8是&gt;阈值时就扩容</li>
+<li>1.8在扩容计算索引时有优化</li>
+</ol>
+</li>
+<li><p><strong>加载因子为何默认0.75？</strong></p>
+<p>在空间占用和查询时间之间取得较好的平衡</p>
+<p>大于0.75，节省空间，但链表长了影响性能</p>
+<p>小于0.75，冲突减少，但扩容频繁空间占用更多</p>
+</li>
 </ul>
 
                 
