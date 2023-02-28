@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8F%82%E6%95%B0.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-02-27T08:05:02.353Z">
+<meta property="article:modified_time" content="2023-02-28T08:58:27.430Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.6k 字
+          8.2k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          64 分钟
+          69 分钟
         
       </span>
     
@@ -588,20 +588,57 @@
 </ul>
 <h4 id="Lock-amp-synchronized"><a href="#Lock-amp-synchronized" class="headerlink" title="Lock &amp; synchronized"></a>Lock &amp; synchronized</h4><p><strong>语法层面</strong>：</p>
 <ul>
-<li>synchronized是关键字，Lock是接口</li>
+<li>synchronized是关键字（C++实现），Lock是接口</li>
 <li>synchronized退出代码块时会自动释放锁，Lock要手动调用unLock()方法</li>
 </ul>
 <p><strong>功能层面</strong>：</p>
 <ul>
-<li>都是悲观锁，都具备互斥、同步、锁重入功能</li>
-<li>Lock有更多的功能，如获取等待状态、公平锁、可打断、可超时、多条件变量</li>
-<li>Lock有适合不同场景的实现，如ReentrantLock（可重入锁），ReentrantReadWriteLock（适合读多写少锁）</li>
+<li><p>都是悲观锁，都具备互斥、同步、锁重入功能</p>
+</li>
+<li><p>Lock有更多的功能，如获取等待状态、公平锁、可打断、可超时、多条件变量</p>
+<blockquote>
+<p>公平锁：按照入阻塞队顺序获取锁</p>
+<p>非公平锁：还未入队的线程可能先获取到锁（插队）</p>
+<p>条件变量：多个等待队列，调用Condition.await()进入</p>
+</blockquote>
+</li>
+<li><p>Lock有适合不同场景的实现，如ReentrantLock（可重入锁），ReentrantReadWriteLock（适合读多写少锁）</p>
+</li>
 </ul>
 <p><strong>性能层面</strong>：</p>
 <ul>
 <li>在竞争少时synchronized做了很多优化，性能好</li>
 <li>竞争多时Lock性能更好</li>
 </ul>
+<h4 id="volatile能否保证线程安全"><a href="#volatile能否保证线程安全" class="headerlink" title="volatile能否保证线程安全"></a>volatile能否保证线程安全</h4><p>线程安全要考虑三个方法：</p>
+<ol>
+<li>可见性：对共享变量的修改其他线程能看到最新结果</li>
+<li>有序性：代码按编写顺序执行</li>
+<li>原子性：多行代码以一个整体运行，期间不能有其他线程插队</li>
+</ol>
+<blockquote>
+<p>可见性问题：线程<strong>频繁</strong>读取一个同一个值的变量时JIT编译器会对这段代码进行优化，把代码编译成机器码，这时修改内存中的变量对于这个线程来说是不可见的。</p>
+<p>加volatile关键字JIT就不会对其优化</p>
+</blockquote>
+<blockquote>
+<p>有序性：jvm会通过指令重排来进行优化。</p>
+<p>加volatile会使用<strong>写屏障</strong>保证上面的代码不到当前变量的下面，使用<strong>读屏障</strong>保证下面的代码不到上面来</p>
+</blockquote>
+<p>volatile只能保证可见性和有序性</p>
+<h4 id="乐观锁-amp-悲观锁"><a href="#乐观锁-amp-悲观锁" class="headerlink" title="乐观锁 &amp; 悲观锁"></a>乐观锁 &amp; 悲观锁</h4><ol>
+<li><strong>悲观锁</strong>的代表是synchronized和Lock<ol>
+<li>核心是只有占有了锁才能操作共享变量</li>
+<li>线程从运行-&gt;阻塞-&gt;唤醒涉及上下文切换，频繁的话影响性能</li>
+<li>获取锁时判断已被上锁，会尝试重试几次，减少阻塞的机会（自旋）</li>
+</ol>
+</li>
+<li><strong>乐观锁</strong>的代表是AtomicInteger（原子整数），使用cas保证原子性<ol>
+<li>核心是无需加锁，每次只有一个线程成功修改共享变量，其他线程不断重试直至成功</li>
+<li>没有阻塞，不涉及上下文切换</li>
+<li>需要多核cpu支持，且线程数不应超过cpu核数（超过了会出现上下文切换）</li>
+</ol>
+</li>
+</ol>
 
                 
               </div>
