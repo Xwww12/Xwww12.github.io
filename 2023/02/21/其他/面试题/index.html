@@ -32,8 +32,9 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%A0%87%E8%AE%B0%E5%A4%8D%E5%88%B6.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-03-04T07:29:45.442Z">
+<meta property="article:modified_time" content="2023-03-05T08:57:18.512Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -234,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          12k 字
+          13k 字
         
       </span>
     
@@ -245,7 +246,7 @@
         
         
         
-          101 分钟
+          107 分钟
         
       </span>
     
@@ -859,6 +860,7 @@
 <li>验证-验证类是否符合Class规范</li>
 <li>准备-为static变量分配空间，设置默认值（零值）</li>
 <li>解析-将常量池的符号引用解析为直接引用</li>
+<li>给final变量赋值，如果调用final变量不会触发初始化</li>
 </ol>
 </li>
 <li>初始化<ol>
@@ -867,6 +869,50 @@
 </ol>
 </li>
 </ol>
+<p><strong>类初始化方法</strong>：</p>
+<ul>
+<li>把静态变量、final修饰的引用类型和静态代码块合成一个static方法，在类的初始化时调用</li>
+</ul>
+<p><strong>解析过程</strong>：</p>
+<ul>
+<li>方法内还没有使用到类的时候，常量池里的类为符号引用</li>
+<li>当使用到这个类时，这个类被加载到堆中，原先调用这个类的常量池中的符号引用也就被替换为真实的地址</li>
+</ul>
+<p><strong>双亲委派</strong></p>
+<ul>
+<li>指优先委派上级类加载器进行加载</li>
+<li>当上级类加载器找不到要加载的类，下级类加载器才有资格执行加载</li>
+<li>上级类加载器加载的类对下级可见</li>
+<li>目的：让类加载有优先次序，保证核心类优先加载</li>
+</ul>
+<p>​	<img src="/img/else_img/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="对象引用类型"><a href="#对象引用类型" class="headerlink" title="对象引用类型"></a>对象引用类型</h4><ol>
+<li>强引用<ol>
+<li>如<code>A a = new A()</code>就为强引用</li>
+<li>通过GC Root的引用链能找到对象a就不会被回收</li>
+</ol>
+</li>
+<li>软引用<ol>
+<li>如<code>SoftReference a = new SoftReference(new A())</code>就为软引用</li>
+<li>如果只有软引用一个对象，首次垃圾回收不会回收该对象，如果内存仍然不足，再次回收时才会释放对象</li>
+<li>软引用自身需要配合引用队列来释放</li>
+<li>例子：反射获得的数据是软引用</li>
+</ol>
+</li>
+<li>弱引用<ol>
+<li>如<code>WeakReference a = new WeakReference(new A())</code>就为弱引用</li>
+<li>如果只有弱引用一个对象，只要垃圾回收就会回收该对象</li>
+<li>弱引用自身需要配合引用队列来释放</li>
+<li>例子：ThreadLocalMap中的Entry对象使用了弱引用</li>
+</ol>
+</li>
+<li>虚引用<ol>
+<li>如<code>PhantomReference a = new PhatomReference(new A())</code>就为虚引用</li>
+<li>必须配合队列一起使用，当新引用引用的对象被回收时，会将虚引用对象入队，配合Reference Handler线程释放其关联的外部资源（非java的资源）</li>
+</ol>
+</li>
+</ol>
+<h4 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h4><p>对象被垃圾回收时会调用的方法</p>
 
                 
               </div>
