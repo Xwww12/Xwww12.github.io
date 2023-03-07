@@ -36,8 +36,12 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/environment.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/beanFactory.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/prepareBeanFactory.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/messageSource.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/multicaster.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/finishBeanFactoryInitialozation.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/finishRefersh.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-03-06T14:51:59.440Z">
+<meta property="article:modified_time" content="2023-03-07T07:25:07.376Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -238,7 +242,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13k 字
+          15k 字
         
       </span>
     
@@ -249,7 +253,7 @@
         
         
         
-          113 分钟
+          122 分钟
         
       </span>
     
@@ -926,7 +930,11 @@
 </li>
 </ul>
 <h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><h3 id="refresh"><a href="#refresh" class="headerlink" title="refresh"></a>refresh</h3><p>Spring 容器启动时会创建IOC容器,在创建容器时,会调用 refresh()方法,整个容器就是通过该方法,完成所有的 bean 的创建以及初始化</p>
-<h4 id="12个步骤"><a href="#12个步骤" class="headerlink" title="12个步骤"></a>12个步骤</h4><h5 id="1-prepareRefresh-激活开启容器"><a href="#1-prepareRefresh-激活开启容器" class="headerlink" title="1.prepareRefresh()-激活开启容器"></a>1.prepareRefresh()-激活开启容器</h5><ul>
+<h4 id="12个步骤"><a href="#12个步骤" class="headerlink" title="12个步骤"></a>12个步骤</h4><p><strong>概览</strong></p>
+<p>1：准备工作</p>
+<p>2~6：创建准备BeanFactory的各项功能</p>
+<p>7~12：准备ApplicationContext</p>
+<h5 id="1-prepareRefresh-开启容器，加载键值"><a href="#1-prepareRefresh-开启容器，加载键值" class="headerlink" title="1.prepareRefresh()-开启容器，加载键值"></a>1.prepareRefresh()-开启容器，加载键值</h5><ul>
 <li><p>创建和准备了<strong>Environment</strong>对象</p>
 </li>
 <li><p>Environment对象的作用：加载了一些键值信息：</p>
@@ -940,7 +948,7 @@
 <p><img src="/img/else_img/environment.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ul>
-<h5 id="2-obtainFreshBeanFactory-获取Bean工厂"><a href="#2-obtainFreshBeanFactory-获取Bean工厂" class="headerlink" title="2.obtainFreshBeanFactory()-获取Bean工厂"></a>2.obtainFreshBeanFactory()-获取Bean工厂</h5><ul>
+<h5 id="2-obtainFreshBeanFactory-获取或创建Bean工厂"><a href="#2-obtainFreshBeanFactory-获取或创建Bean工厂" class="headerlink" title="2.obtainFreshBeanFactory()-获取或创建Bean工厂"></a>2.obtainFreshBeanFactory()-获取或创建Bean工厂</h5><ul>
 <li><p>创建了<strong>BeanFactory</strong>对象</p>
 </li>
 <li><p>BeanDefinitionMap为BeanFactory的成员对象，存储了BeanDefinition</p>
@@ -963,7 +971,53 @@
 <li><p>扩展bean的创建功能的beanPostProcessors</p>
 <p><img src="/img/else_img/prepareBeanFactory.png" srcset="/img/loading.gif" lazyload></p>
 </li>
+<li><p>StandardBeanExpressionResolver来解析SpEL</p>
+</li>
+<li><p>ResourceEditorRegister会注释类型转换器，并应用ApplicationContext提供的Environment来完成${}解析</p>
+</li>
+<li><p>特殊bean指beanFactory以及ApplicationContext，通过registerResolvableDependency来注册它们</p>
+</li>
 </ul>
+<h5 id="4-postProcessBeanFactory-子类扩展Bean工厂"><a href="#4-postProcessBeanFactory-子类扩展Bean工厂" class="headerlink" title="4.postProcessBeanFactory()-子类扩展Bean工厂"></a>4.postProcessBeanFactory()-子类扩展Bean工厂</h5><ul>
+<li>后处理可以理解为添加功能。</li>
+<li>默认为空实现，留个子类扩展</li>
+<li>一般Web环境的ApplicationContext都要利用它注册新的Scope，完善Web下的BeanFactory</li>
+</ul>
+<h5 id="5-invokeBeanFactoryPostProcessors-后处理器扩展Bean工厂"><a href="#5-invokeBeanFactoryPostProcessors-后处理器扩展Bean工厂" class="headerlink" title="5.invokeBeanFactoryPostProcessors()-后处理器扩展Bean工厂"></a>5.invokeBeanFactoryPostProcessors()-后处理器扩展Bean工厂</h5><ul>
+<li>预先定义好的后处理，通过处理器的方式添加BeanFactory的功能</li>
+<li>后置处理器可以扩展beanFactory的功能，用来补充和修改BeanDefinition</li>
+<li>ConfigurationClassPostProcessor-解析@Configuration、@Bean、@Import等</li>
+</ul>
+<h5 id="6-registerBeanPostProcessors-注册Bean后处理器"><a href="#6-registerBeanPostProcessors-注册Bean后处理器" class="headerlink" title="6.registerBeanPostProcessors()-注册Bean后处理器"></a>6.registerBeanPostProcessors()-注册Bean后处理器</h5><ul>
+<li>bean后后处理器充当bean的扩展点，可以工作在bean的实例化、依赖注入、初始化阶段</li>
+<li>如有解析@Autowired、@Value、@Resource等注解的后处理器</li>
+</ul>
+<h5 id="7-initMessageSource-国际化"><a href="#7-initMessageSource-国际化" class="headerlink" title="7.initMessageSource()-国际化"></a>7.initMessageSource()-国际化</h5><ul>
+<li><p>初始化messageSource，用来做国际化功能</p>
+<p><img src="/img/else_img/messageSource.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<h5 id="8-initApplicationEventMulticaster-初始化事件多播器"><a href="#8-initApplicationEventMulticaster-初始化事件多播器" class="headerlink" title="8.initApplicationEventMulticaster()-初始化事件多播器"></a>8.initApplicationEventMulticaster()-初始化事件多播器</h5><ul>
+<li>发布事件</li>
+</ul>
+<p>​	<img src="/img/else_img/multicaster.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="9-onRefresh-初始化子容器中的bean"><a href="#9-onRefresh-初始化子容器中的bean" class="headerlink" title="9.onRefresh()-初始化子容器中的bean"></a>9.onRefresh()-初始化子容器中的bean</h5><ul>
+<li>默认空实现，提供子类重写这个方法,在容器刷新时,做些其它操作</li>
+</ul>
+<h5 id="10-registerListeners-注册监听器"><a href="#10-registerListeners-注册监听器" class="headerlink" title="10.registerListeners()-注册监听器"></a>10.registerListeners()-注册监听器</h5><ul>
+<li>接收事件</li>
+</ul>
+<h5 id="11-finishBeanFactoryInitialization-初始化所有剩下的单例-bean"><a href="#11-finishBeanFactoryInitialization-初始化所有剩下的单例-bean" class="headerlink" title="11.finishBeanFactoryInitialization()- 初始化所有剩下的单例 bean"></a>11.finishBeanFactoryInitialization()- 初始化所有剩下的单例 bean</h5><ul>
+<li>conversionService也是一套转换机制，作为对PropertyEditor的补充</li>
+<li>内嵌值解析器用来解析@Value中的${}，借用的是Environment的功能</li>
+<li>单例池用来缓存所有单例对象</li>
+<li>对象创建分为三个阶段：创建、依赖注入、初始化，每个阶段都有不同的bean处理器参与扩展</li>
+</ul>
+<p>​	<img src="/img/else_img/finishBeanFactoryInitialozation.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="12-finishRefresh-准备声明周期管理器，发布ContextRefresh事件"><a href="#12-finishRefresh-准备声明周期管理器，发布ContextRefresh事件" class="headerlink" title="12.finishRefresh()-准备声明周期管理器，发布ContextRefresh事件"></a>12.finishRefresh()-准备声明周期管理器，发布ContextRefresh事件</h5><ul>
+<li>lifecycleProcessor用来控制容器内需要生命周期管理的bean</li>
+</ul>
+<p><img src="/img/else_img/finishRefersh.png" srcset="/img/loading.gif" lazyload></p>
 
                 
               </div>
