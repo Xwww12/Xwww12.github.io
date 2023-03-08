@@ -24,7 +24,7 @@
 <meta property="og:description" content="算法回溯回溯模板 1234567891011void dfs(参数) &amp;#123;    if (终止条件) &amp;#123;        存放结果;        return;    &amp;#125;    for (选择元素) &amp;#123;        添加元素;        dfs();        撤销元素    &amp;#125;&amp;#125;  回溯法常用排序来剪枝 二进制枚举通过二进制数的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-23T03:54:32.439Z">
-<meta property="article:modified_time" content="2023-02-23T04:00:02.731Z">
+<meta property="article:modified_time" content="2023-03-08T11:12:03.793Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary_large_image">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          2.4k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          14 分钟
+          20 分钟
         
       </span>
     
@@ -317,6 +317,14 @@
 <p>Gn-1 &#x3D; Bn-1;</p>
 <p>Gi &#x3D; Bi+1 异或 Bi  (0 &lt;&#x3D; i &lt;&#x3D; n - 2)</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title function_">grayCode</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;<br>    List&lt;Integer&gt; res = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; (<span class="hljs-type">int</span>)Math.pow(<span class="hljs-number">2</span>, n); ++i) &#123;<br>        res.add((i &gt;&gt; <span class="hljs-number">1</span>) ^ i);<br>    &#125;<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="树遍历"><a href="#树遍历" class="headerlink" title="树遍历"></a>树遍历</h3><h4 id="递归写法"><a href="#递归写法" class="headerlink" title="递归写法"></a>递归写法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 中序</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">LDR</span><span class="hljs-params">(TreeNode node)</span> &#123;<br>    <span class="hljs-keyword">if</span> (node == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    LDR(node.left);<br>    System.out.println(node.val);<br>    LDR(node.right);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 先序</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">DLR</span><span class="hljs-params">(TreeNode node)</span> &#123;<br>    <span class="hljs-keyword">if</span> (node == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    System.out.println(node.val);<br>    DLR(node.left);<br>    DLR(node.right);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 后序</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">LRD</span><span class="hljs-params">(TreeNode node)</span> &#123;<br>    <span class="hljs-keyword">if</span> (node == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    LRD(node.left);<br>    LRD(node.right);<br>    System.out.println(node.val);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="迭代写法"><a href="#迭代写法" class="headerlink" title="迭代写法"></a>迭代写法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 中序</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">LDR</span><span class="hljs-params">(TreeNode node)</span> &#123;<br>    Deque&lt;TreeNode&gt; stack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayDeque</span>&lt;&gt;();<br>    <span class="hljs-keyword">while</span> (root != <span class="hljs-literal">null</span> || !stack.isEmpty()) &#123;<br>        <span class="hljs-keyword">while</span> (root != <span class="hljs-literal">null</span>) &#123;<br>            stack.push(root);<br>            root = root.left;<br>        &#125;<br>        root = stack.poll();<br>        System.out.println(root.val);<br>        root = root.right;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
                 
