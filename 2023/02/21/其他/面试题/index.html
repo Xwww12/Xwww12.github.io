@@ -40,8 +40,9 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/multicaster.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/finishBeanFactoryInitialozation.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/finishRefersh.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/%E5%88%9B%E5%BB%BAbean.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-03-07T07:25:07.376Z">
+<meta property="article:modified_time" content="2023-03-10T07:57:14.500Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -242,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15k 字
+          16k 字
         
       </span>
     
@@ -253,7 +254,7 @@
         
         
         
-          122 分钟
+          136 分钟
         
       </span>
     
@@ -929,11 +930,16 @@
 <li><p>影响性能：垃圾回收时第一次不能释放内存，要等线程调用完finalize方法后下次垃圾回收才能释放</p>
 </li>
 </ul>
-<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><h3 id="refresh"><a href="#refresh" class="headerlink" title="refresh"></a>refresh</h3><p>Spring 容器启动时会创建IOC容器,在创建容器时,会调用 refresh()方法,整个容器就是通过该方法,完成所有的 bean 的创建以及初始化</p>
+<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><h3 id="refresh创建IOC容器"><a href="#refresh创建IOC容器" class="headerlink" title="refresh创建IOC容器"></a>refresh创建IOC容器</h3><p>Spring 容器启动时会创建IOC容器,在创建容器时,会调用 refresh()方法,整个容器就是通过该方法,完成所有的 bean 的创建以及初始化</p>
 <h4 id="12个步骤"><a href="#12个步骤" class="headerlink" title="12个步骤"></a>12个步骤</h4><p><strong>概览</strong></p>
-<p>1：准备工作</p>
-<p>2~6：创建准备BeanFactory的各项功能</p>
-<p>7~12：准备ApplicationContext</p>
+<ul>
+<li><p>1：准备工作</p>
+</li>
+<li><p>2~6：创建准备BeanFactory的各项功能</p>
+</li>
+<li><p>7~12：准备ApplicationContext</p>
+</li>
+</ul>
 <h5 id="1-prepareRefresh-开启容器，加载键值"><a href="#1-prepareRefresh-开启容器，加载键值" class="headerlink" title="1.prepareRefresh()-开启容器，加载键值"></a>1.prepareRefresh()-开启容器，加载键值</h5><ul>
 <li><p>创建和准备了<strong>Environment</strong>对象</p>
 </li>
@@ -1018,6 +1024,104 @@
 <li>lifecycleProcessor用来控制容器内需要生命周期管理的bean</li>
 </ul>
 <p><img src="/img/else_img/finishRefersh.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h3><h4 id="7个阶段"><a href="#7个阶段" class="headerlink" title="7个阶段"></a>7个阶段</h4><p>Bean为懒惰初始化，生命周期从doGetBean()方法开始</p>
+<p><strong>概览</strong></p>
+<ul>
+<li>阶段1：处理名称，检查缓存</li>
+<li>阶段2：检查父工厂</li>
+<li>阶段3：检查DependsOn</li>
+<li>阶段4：按Scope创建bean</li>
+<li>阶段5：创建bean</li>
+<li>阶段6：类型转换</li>
+<li>阶段7：销毁bean</li>
+</ul>
+<h5 id="阶段1"><a href="#阶段1" class="headerlink" title="阶段1"></a>阶段1</h5><ul>
+<li>先把别名解析为实际名称，再进行后续处理</li>
+<li>若要FactoryBean本身，需要使用&amp;名称获取</li>
+<li>检查缓存里是否有：<ul>
+<li>一级缓存是singletonObjects，放单例成品对象</li>
+<li>二级缓存是earlySingletonObjects，放单例工厂的产品，可称为提前单例对象</li>
+<li>三级缓存是singletonFactories，放单例工厂</li>
+</ul>
+</li>
+</ul>
+<h5 id="阶段2"><a href="#阶段2" class="headerlink" title="阶段2"></a>阶段2</h5><ul>
+<li>缓存中没有bean回去父容器中找</li>
+<li>父容器中的bean和子容器中的bean名称可以重复</li>
+</ul>
+<h5 id="阶段3"><a href="#阶段3" class="headerlink" title="阶段3"></a>阶段3</h5><ul>
+<li>如果A显式依赖于B，则B会被先创建</li>
+<li>DependsOn用在非显式依赖的bean的创建顺序控制</li>
+</ul>
+<h5 id="阶段4"><a href="#阶段4" class="headerlink" title="阶段4"></a>阶段4</h5><ul>
+<li>常见scope：<ul>
+<li>singleton scope表示从单例池范围内获取bean<ul>
+<li>容器创建时创建，容器销毁时销毁</li>
+</ul>
+</li>
+<li>prototype scope表示从不缓存bean，每次创建新的<ul>
+<li>用时创建，不用时手动销毁</li>
+</ul>
+</li>
+<li>request scope表示从request对象范围内获取bean<ul>
+<li>在request域中创建，request销毁时销毁</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="阶段5"><a href="#阶段5" class="headerlink" title="阶段5"></a>阶段5</h5><ul>
+<li>创建阶段：<ul>
+<li>AutowiredAnnotationBeanPostProcessor选择构造：优先使用带@Autowired的构造方法来创建bean，如果只有一个有参构造，则用这个有参构造创建bean</li>
+<li>默认构造：保底使用无参构造来创建</li>
+</ul>
+</li>
+<li>依赖注入阶段：<ul>
+<li>后处理器扩展功能：按注解匹配要注入的bean</li>
+<li>根据名字、类型去容器中找bean</li>
+<li>xml精确指定bean</li>
+</ul>
+</li>
+<li>初始化阶段：<ul>
+<li>处理Aware接口，如BeanNameAware、BeanFactoryAware，BeanFactory会把相应的资源传递进来</li>
+<li>调用初始化方法，初始化方法定义有@PostConstruct、实现InitalizingBean接口等</li>
+<li>创建aop代理</li>
+</ul>
+</li>
+<li>注册可销毁bean<ul>
+<li>将有销毁方法的bean保存起来，销毁时调用方法</li>
+</ul>
+</li>
+</ul>
+<p>​	<img src="/img/else_img/%E5%88%9B%E5%BB%BAbean.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="阶段6"><a href="#阶段6" class="headerlink" title="阶段6"></a>阶段6</h5><ul>
+<li>如果getBean的requiredType参数与实际得到的对象类型不同，会尝试类型转换</li>
+</ul>
+<h5 id="阶段7"><a href="#阶段7" class="headerlink" title="阶段7"></a>阶段7</h5><ul>
+<li>根据scpoe来销毁bean</li>
+</ul>
+<h3 id="事务失效场景"><a href="#事务失效场景" class="headerlink" title="事务失效场景"></a>事务失效场景</h3><h4 id="场景1：检查异常"><a href="#场景1：检查异常" class="headerlink" title="场景1：检查异常"></a>场景1：检查异常</h4><blockquote>
+<p>需要<code>try..catch</code>或<code>throw</code>的异常都是检查异常</p>
+<p>运行时异常是非检查异常</p>
+</blockquote>
+<p>抛出检查异常导致事务不能正常回滚</p>
+<p>原因：spring默认只会回滚非检查异常</p>
+<p>解决方式：在注解上加上<code>@Transactional(rollbackFor=Exception.class)</code>设置需要回滚的异常</p>
+<h4 id="场景2：错误try-catch"><a href="#场景2：错误try-catch" class="headerlink" title="场景2：错误try catch"></a>场景2：错误try catch</h4><p>原因：事务是通过代理实现的，如果在被代理方法内catch了异常，外层调用者是不知道发生了异常的，从而事务失效</p>
+<p>解决方式1：把异常抛出去</p>
+<p>解决方式2：手动设置事务状态<code>TransactionStatus.setRollbackOnly()</code></p>
+<h4 id="场景3：aop切面顺序不对"><a href="#场景3：aop切面顺序不对" class="headerlink" title="场景3：aop切面顺序不对"></a>场景3：aop切面顺序不对</h4><p>原因：在自定义切面里catch了异常，导致更上层的事务切面不知道发生了异常</p>
+<p>解决方式1：同场景2</p>
+<p>解决方式2：使自定义切面优先级比事务的高<code>@Order(Ordered.LOWEST.PRECEDENCE - 1)</code></p>
+<h4 id="场景4：加在非公共方法上"><a href="#场景4：加在非公共方法上" class="headerlink" title="场景4：加在非公共方法上"></a>场景4：加在非公共方法上</h4><p>原因：Spring为方法创建代理、添加事务通知、前提条件都是方法是public的</p>
+<h4 id="场景5：父子容器导致的事务失效"><a href="#场景5：父子容器导致的事务失效" class="headerlink" title="场景5：父子容器导致的事务失效"></a>场景5：父子容器导致的事务失效</h4><p>原因：子容器扫描范围过大，把未加事务配置的service扫描进来</p>
+<p>解决方式1：容器各自扫各自的包</p>
+<p>解决方式2：不用父子容器</p>
+<h4 id="场景6：调用本类方法导致传播行为失效"><a href="#场景6：调用本类方法导致传播行为失效" class="headerlink" title="场景6：调用本类方法导致传播行为失效"></a>场景6：调用本类方法导致传播行为失效</h4><p>原因：本类方法调用没有经过代理增强</p>
+<p>解决方式：依赖注入自身</p>
+<h4 id="场景7：锁失效"><a href="#场景7：锁失效" class="headerlink" title="场景7：锁失效"></a>场景7：锁失效</h4><p>原因：@Transactional没有保证原子行为，在方法上加锁只能保证方法内的原子性，提交事务时锁失效</p>
+<p>解决方式1：synchronized范围扩大至代理方法调用</p>
+<p>解决方式2：sql语句<code>select ... for update</code>替换<code>select</code></p>
 
                 
               </div>
