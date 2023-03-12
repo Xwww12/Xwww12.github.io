@@ -45,7 +45,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/springMVC%E5%8C%B9%E9%85%8D%E9%98%B6%E6%AE%B5.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/SpringMVC%E6%89%A7%E8%A1%8C%E9%98%B6%E6%AE%B5.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-03-11T07:51:37.404Z">
+<meta property="article:modified_time" content="2023-03-12T02:19:31.389Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -1162,8 +1162,8 @@
 <p>@Repository</p>
 <p>@ComponentScan：包扫描路径</p>
 <p>@Conditional：条件装配，只有满足条件的才会加入到spring容器</p>
-<p>@Configuration</p>
-<p>@Bean</p>
+<p>@Configuration：标注的类可以看做工厂，里面@Bean注解的方法看做产品</p>
+<p>@Bean：不支持方法重载，最后只会注入一个，优先参数多的</p>
 <p>@Import：导入其他配置类、selector</p>
 <p>@Lazy：加在类上，懒惰加在bean；加在成员变量上，懒惰加在成员变量，解决循环依赖</p>
 <p>@PropertySource：读取properties文件，将键值信息加在Environment中</p>
