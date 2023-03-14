@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/inter_img/%E9%9B%B6%E6%8B%B7%E8%B4%9D2.png">
 <meta property="og:image" content="http://xwww12.github.io/img/inter_img/%E9%9B%B6%E6%8B%B7%E8%B4%9D3.png">
 <meta property="article:published_time" content="2023-02-26T14:15:57.826Z">
-<meta property="article:modified_time" content="2023-03-12T13:49:20.826Z">
+<meta property="article:modified_time" content="2023-03-14T10:27:30.678Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/inter_img/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%89%88.png">
@@ -246,7 +246,7 @@
         
         
         
-          183 分钟
+          185 分钟
         
       </span>
     
@@ -569,6 +569,19 @@
 <h6 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h6><p>将多块ByteBuf合并成逻辑上的一块，实际上没有发生数据的拷贝 </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestByteBuf</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">ByteBuf</span> <span class="hljs-variable">buf1</span> <span class="hljs-operator">=</span> ByteBufAllocator.DEFAULT.buffer(<span class="hljs-number">10</span>);<br>        buf1.writeBytes(<span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[]&#123;<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-string">&#x27;d&#x27;</span>&#125;);<br><br>        <span class="hljs-type">ByteBuf</span> <span class="hljs-variable">buf2</span> <span class="hljs-operator">=</span> ByteBufAllocator.DEFAULT.buffer(<span class="hljs-number">10</span>);<br>        buf2.writeBytes(<span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[]&#123;<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-string">&#x27;d&#x27;</span>&#125;);<br><br>        <span class="hljs-type">CompositeByteBuf</span> <span class="hljs-variable">buffer</span> <span class="hljs-operator">=</span> ByteBufAllocator.DEFAULT.compositeBuffer();<br>        buffer.addComponent(<span class="hljs-literal">true</span>, buf1);<br>        buffer.addComponent(<span class="hljs-literal">true</span>, buf2);<br><br>        System.out.println(buffer);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h3 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h3><h4 id="粘包-半包"><a href="#粘包-半包" class="headerlink" title="粘包 半包"></a>粘包 半包</h4><p><strong>原因</strong>：用TCP协议传输数据，由于滑动窗口（缓冲区）传送的时候可能把一段数据分成了几份，导致接收方收到的数据不全（半包），或几条数据一起发过来（粘包）；ByteBuf大小也类似</p>
+<p><strong>解决方式</strong>：</p>
+<ol>
+<li>定长解码器：<code>ch.pipline().addLast(new FixedLengthFrameDecode(长度))</code>规定每条消息的长度固定<ul>
+<li>缺点：可能造成带宽的浪费</li>
+</ul>
+</li>
+<li>分隔符：<code>ch.pipline().addLast(new LineBaseFrameDecoder(限定最大长度))</code>，以换行符为分隔符<ul>
+<li>效率低</li>
+</ul>
+</li>
+<li>LTC解码器：类似报头，如有内容长度信息等</li>
+</ol>
 
                 
               </div>
