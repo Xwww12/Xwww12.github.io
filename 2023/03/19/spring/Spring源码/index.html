@@ -16,22 +16,25 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="OSS 对象存储（Object Storage Service，简称 OSS）是海量、安全、低成本、高可靠的云存储服务，具有与平台无关RESTful API，能从互联网任何位置访问。OSS提供标准、低频、归档等类型选择，全面优化存储成本。  阿里云OSS对象存储OSS-阿里云 创建bucket 根据官网文档导入依赖、使用功能 七牛云OSS七牛云 - 产品主页 (qiniu.com) Java SD">
+    <meta name="description" content="Spring源码1.Bean的创建分析过程目标：通过debug来寻找在哪里创建了User对象，根据何时打印构造方法里的打印来寻找  12345&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;spring-boot-starter&lt;&#x2F;artifa">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OSS">
-<meta property="og:url" content="http://xwww12.github.io/2022/11/13/%E5%85%B6%E4%BB%96/OSS/index.html">
+<meta property="og:title" content="Spring源码">
+<meta property="og:url" content="http://xwww12.github.io/2023/03/19/spring/Spring%E6%BA%90%E7%A0%81/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="OSS 对象存储（Object Storage Service，简称 OSS）是海量、安全、低成本、高可靠的云存储服务，具有与平台无关RESTful API，能从互联网任何位置访问。OSS提供标准、低频、归档等类型选择，全面优化存储成本。  阿里云OSS对象存储OSS-阿里云 创建bucket 根据官网文档导入依赖、使用功能 七牛云OSS七牛云 - 产品主页 (qiniu.com) Java SD">
+<meta property="og:description" content="Spring源码1.Bean的创建分析过程目标：通过debug来寻找在哪里创建了User对象，根据何时打印构造方法里的打印来寻找  12345&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;spring-boot-starter&lt;&#x2F;artifa">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-13T11:31:43.689Z">
-<meta property="article:modified_time" content="2023-03-18T08:01:00.181Z">
+<meta property="og:image" content="http://xwww12.github.io/img/spring_img/%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E6%B5%81%E7%A8%8B.png">
+<meta property="article:published_time" content="2023-03-19T12:38:01.077Z">
+<meta property="article:modified_time" content="2023-03-19T15:00:27.439Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="其他">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="spring">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/spring_img/%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E6%B5%81%E7%A8%8B.png">
   
   
   
-  <title>OSS - Hexo</title>
+  <title>Spring源码 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">OSS</span>
+            <span id="subtitle">Spring源码</span>
           
         </div>
 
@@ -212,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-13 19:31" pubdate>
-          2022年11月13日 晚上
+        <time datetime="2023-03-19 20:38" pubdate>
+          2023年3月19日 晚上
         </time>
       </span>
     
@@ -224,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          275 字
+          1.9k 字
         
       </span>
     
@@ -235,7 +238,7 @@
         
         
         
-          3 分钟
+          17 分钟
         
       </span>
     
@@ -287,27 +290,41 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">OSS</h1>
+            <h1 style="display: none">Spring源码</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="OSS"><a href="#OSS" class="headerlink" title="OSS"></a>OSS</h2><blockquote>
-<p>对象存储（Object Storage Service，简称 OSS）是海量、安全、低成本、高可靠的<strong>云存储服务</strong>，具有与平台无关RESTful API，能从互联网任何位置访问。OSS提供标准、低频、归档等类型选择，全面优化存储成本。</p>
-</blockquote>
-<h3 id="阿里云OSS"><a href="#阿里云OSS" class="headerlink" title="阿里云OSS"></a>阿里云OSS</h3><p><a target="_blank" rel="noopener" href="https://www.aliyun.com/product/oss?spm=5176.21213303.J_6704733920.7.19c253c9R6hA1l&scm=20140722.S_product@@%E4%BA%91%E4%BA%A7%E5%93%81@@102633._.ID_product@@%E4%BA%91%E4%BA%A7%E5%93%81@@102633-RL_%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8OSS-LOC_main-OR_ser-V_2-P0_0">对象存储OSS-阿里云</a></p>
-<p>创建bucket</p>
-<p>根据官网文档导入依赖、使用功能</p>
-<h3 id="七牛云OSS"><a href="#七牛云OSS" class="headerlink" title="七牛云OSS"></a>七牛云OSS</h3><p><a target="_blank" rel="noopener" href="https://portal.qiniu.com/home">七牛云 - 产品主页 (qiniu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://developer.qiniu.com/kodo/1239/java#install-by-maven">Java SDK_SDK 下载_对象存储 - 七牛开发者中心 (qiniu.com)</a></p>
-<p>大致步骤：</p>
-<ol>
-<li>找样例代码</li>
-<li>修改<code>accessKey</code>、<code>secretKey</code>和<code>bucket</code>为自己的</li>
-<li>修改要上传的文件所在的本地路径</li>
-<li>测试</li>
-</ol>
+                <h1 id="Spring源码"><a href="#Spring源码" class="headerlink" title="Spring源码"></a>Spring源码</h1><h2 id="1-Bean的创建"><a href="#1-Bean的创建" class="headerlink" title="1.Bean的创建"></a>1.Bean的创建</h2><h3 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h3><p><strong>目标</strong>：通过debug来寻找在哪里创建了User对象，根据何时打印构造方法里的打印来寻找</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.10.RELEASE<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
+<ol>
+<li>通过配置文件方式将bean注入到容器中</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd &quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.xw.domain.User&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;user&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.xw.domain;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> &#123;<br>    <span class="hljs-keyword">private</span> Integer id;<br>    <span class="hljs-keyword">private</span> String name;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">User</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;创建了User&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>创建容器，通过debug发现实在创建容器时创建了user</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.xw;<br><br><span class="hljs-keyword">import</span> com.xw.domain.User;<br><span class="hljs-keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringDemo</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">ClassPathXmlApplicationContext</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassPathXmlApplicationContext</span>(<span class="hljs-string">&quot;applicationContext.xml&quot;</span>);<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> (User) context.getBean(<span class="hljs-string">&quot;user&quot;</span>);<br>        System.out.println(user);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>继续往里看，debug发现执行到refresh()时创建了user</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">ClassPathXmlApplicationContext</span><span class="hljs-params">(</span><br><span class="hljs-params">    String[] configLocations, <span class="hljs-type">boolean</span> refresh, <span class="hljs-meta">@Nullable</span> ApplicationContext parent)</span><br>    <span class="hljs-keyword">throws</span> BeansException &#123;<br><br>    <span class="hljs-built_in">super</span>(parent);<br>    setConfigLocations(configLocations);<br>    <span class="hljs-keyword">if</span> (refresh) &#123;<br>        refresh();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>点入refresh()，<strong>发现创建容器的步骤</strong>，其中执行到第11步<code>finishBeanFactoryInitialization(beanFactory);</code>时创建了user</li>
+</ol>
+<p><img src="/img/spring_img/%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E6%B5%81%E7%A8%8B.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="5">
+<li>点入<code>finishBeanFactoryInitialization()</code>方法，发现调用了<code>beanFactory.preInstantiateSingletons();</code>后创建了user</li>
+<li>继续往下点发现在方法里判断当前类是不是抽象、单例、懒惰，后调用了<code>this.getBean(beanName);</code></li>
+</ol>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​	到这里发现是调用了beanFactory的doGetBean()方法<strong>创建了非懒加载的单例bean</strong>。beanFactory通过反射创建<strong>空参</strong>的单例对象，创建后将对象保存到了一个map集合中（singletonObjects）,key为bean的名字，value为user的单例对象。</p>
+<h2 id="2-Bean的获取"><a href="#2-Bean的获取" class="headerlink" title="2.Bean的获取"></a>2.Bean的获取</h2>
                 
               </div>
             
@@ -330,7 +347,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/" class="category-chain-item">其他</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/spring/" class="category-chain-item">spring</a>
   
   
 
@@ -347,7 +364,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%85%B6%E4%BB%96/">#其他</a>
+        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+      
+        <a href="/tags/spring/">#spring</a>
       
     </div>
   
@@ -359,8 +378,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>OSS</div>
-      <div>http://xwww12.github.io/2022/11/13/其他/OSS/</div>
+      <div>Spring源码</div>
+      <div>http://xwww12.github.io/2023/03/19/spring/Spring源码/</div>
     </div>
     <div class="license-meta">
       
@@ -372,7 +391,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月13日</div>
+          <div>2023年3月19日</div>
         </div>
       
       
@@ -402,18 +421,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/15/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="java并发编程">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">java并发编程</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/12/%E5%85%B6%E4%BB%96/Hutool/" title="Hutool">
-                        <span class="hidden-mobile">Hutool</span>
+                      <a href="/2023/02/26/%E7%BD%91%E7%BB%9C/Netty/" title="Netty">
+                        <span class="hidden-mobile">Netty</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

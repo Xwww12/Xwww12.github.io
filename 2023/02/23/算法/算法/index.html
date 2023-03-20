@@ -23,11 +23,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="算法回溯回溯模板 1234567891011void dfs(参数) &amp;#123;    if (终止条件) &amp;#123;        存放结果;        return;    &amp;#125;    for (选择元素) &amp;#123;        添加元素;        dfs();        撤销元素    &amp;#125;&amp;#125;  回溯法常用排序来剪枝 二进制枚举通过二进制数的">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
 <meta property="article:published_time" content="2023-02-23T03:54:32.439Z">
-<meta property="article:modified_time" content="2023-03-18T02:39:51.411Z">
+<meta property="article:modified_time" content="2023-03-20T03:22:34.404Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
   
   
   
@@ -224,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.8k 字
+          6.6k 字
         
       </span>
     
@@ -235,7 +237,7 @@
         
         
         
-          40 分钟
+          55 分钟
         
       </span>
     
@@ -341,6 +343,30 @@
 <p><strong>适用范围</strong>：k远小于n时，时间复杂度可视为O(n)，优于其他基于比较的排序</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] sortArray(<span class="hljs-type">int</span>[] nums) &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> Integer.MAX_VALUE;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">max</span> <span class="hljs-operator">=</span> Integer.MIN_VALUE;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : nums) &#123;<br>        min = Math.min(min, num);<br>        max = Math.max(max, num);<br>    &#125;<br>    <span class="hljs-type">int</span>[] counts = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[max - min + <span class="hljs-number">1</span>];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : nums) &#123;<br>        counts[num - min]++;<br>    &#125;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">idx</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> min; num &lt;= max; ++num) &#123;<br>        <span class="hljs-keyword">while</span> (counts[num - min] &gt; <span class="hljs-number">0</span>) &#123;<br>            nums[idx] = num;<br>            counts[num - min]--;<br>            idx++;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> nums;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><p>时间复杂度：最好O(nlogn)，最差O(n ^ 2)</p>
+<p>空间复杂度：O(1)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] sortArray(<span class="hljs-type">int</span>[] nums) &#123;<br>    quicksort(nums, <span class="hljs-number">0</span>, nums.length - <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">return</span> nums;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">quicksort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> end)</span> &#123;<br>    <span class="hljs-keyword">if</span> (start &lt; end) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">pivot</span> <span class="hljs-operator">=</span> partition(nums, start, end);<br>        quicksort(nums, start, pivot - <span class="hljs-number">1</span>);<br>        quicksort(nums, pivot + <span class="hljs-number">1</span>, end);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">partition</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> end)</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">random</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Random</span>().nextInt(end - start + <span class="hljs-number">1</span>) + start;<br>    swap(nums, random, end);<br><br>    <span class="hljs-type">int</span> <span class="hljs-variable">small</span> <span class="hljs-operator">=</span> start - <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">big</span> <span class="hljs-operator">=</span> start; big &lt; end; ++big) &#123;<br>        <span class="hljs-keyword">if</span> (nums[big] &lt; nums[end]) &#123;<br>            small++;<br>            swap(nums, small, big);<br>        &#125;<br>    &#125;<br>    small++;<br>    swap(nums, small, end);<br>    <span class="hljs-keyword">return</span> small;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><p>时间复杂度：O(nlogn)</p>
+<p>空间复杂度：O(n)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 递归写法</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] sortArray(<span class="hljs-type">int</span>[] nums) &#123;<br>    <span class="hljs-type">int</span>[] dst = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[nums.length];<br>    dst = Arrays.copyOf(nums, nums.length);<br>    mergeSort(nums, dst, <span class="hljs-number">0</span>, nums.length);<br>    <span class="hljs-keyword">return</span> dst;<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">mergeSort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span>[] dst, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> end)</span> &#123;<br>    <span class="hljs-keyword">if</span> (start + <span class="hljs-number">1</span> &gt;= end) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> start + ((end - start) &gt;&gt; <span class="hljs-number">1</span>);<br>    mergeSort(nums, dst, start, mid);<br>    mergeSort(nums, dst, mid, end);<br>    <br>    <span class="hljs-comment">// 合并两个部分</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> start, j = mid, k = start;<br>    <span class="hljs-keyword">while</span> (i &lt; mid || j &lt; end) &#123;<br>        <span class="hljs-keyword">if</span> (j == end || (i &lt; mid &amp;&amp; nums[i] &lt; nums[j])) &#123;<br>            dst[k++] = nums[i++];<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            dst[k++] = nums[j++];<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="同余"><a href="#同余" class="headerlink" title="同余"></a>同余</h3><p>​	<strong>定义</strong>：两个数x和y，如果<code>(x - y) mod m = 0</code>，则称x与y对模m同余，记作：<code>x = y (mod m)</code></p>
+<p>也就是说两个数模一个数后得到相同的数，例如 <code>42 = 12 （mod 10）</code>、<code>-17 = 3 （mod 10）</code></p>
+<p>​	<strong>处理取模技巧</strong>：如果数x为负数，则 <code>x mod m = y mod m</code> 等同于<code>(x mod m + m) mod m = y mod m</code></p>
+<p>例题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/smallest-missing-non-negative-integer-after-operations/">6321. 执行操作后的最大 MEX - 力扣（LeetCode）</a></p>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><h4 id="数位DP"><a href="#数位DP" class="headerlink" title="数位DP"></a>数位DP</h4><p>数位 DP：用来解决一类特定问题，这种问题比较好辨认，一般具有这几个特征：</p>
+<ol>
+<li>要求统计满足一定条件的数的数量（即，最终目的为计数）；</li>
+<li>这些条件经过转化后可以使用「数位」的思想去理解和判断；</li>
+<li>输入会提供一个数字区间（有时也只提供上界）来作为统计的限制；</li>
+<li>上界很大（比如 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" srcset="/img/loading.gif" lazyload alt="10^{18}">10 ^ 18)，暴力枚举验证会超时。</li>
+</ol>
+<p><strong>基本原理</strong>：</p>
+<p>​	考虑人类计数的方式，最朴素的计数就是从小到大开始依次加一。但我们发现对于位数比较多的数，这样的过程中有许多重复的部分。例如，从 7000 数到 7999、从 8000 数到 8999、和从 9000 数到 9999 的过程非常相似，它们都是后三位从 000 变到 999，不一样的地方只有千位这一位，所以我们可以把这些过程归并起来，将这些过程中产生的计数答案也都存在一个通用的数组里。</p>
+<p>例题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/numbers-with-repeated-digits/">1012. 至少有 1 位重复的数字 - 力扣（LeetCode）</a></p>
 
                 
               </div>
