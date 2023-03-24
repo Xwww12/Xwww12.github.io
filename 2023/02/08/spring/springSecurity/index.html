@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/spring_img/%E9%89%B4%E6%9D%83%E6%B5%81%E7%A8%8B.png">
 <meta property="og:image" content="http://xwww12.github.io/img/spring_img/%E5%A4%A7%E8%87%B4%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B.png">
 <meta property="article:published_time" content="2023-02-08T06:58:31.544Z">
-<meta property="article:modified_time" content="2023-03-16T15:09:46.438Z">
+<meta property="article:modified_time" content="2023-03-23T07:44:57.626Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="spring">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          20k 字
+          22k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          168 分钟
+          181 分钟
         
       </span>
     
@@ -404,7 +404,19 @@
 
 <h5 id="Controller层-1"><a href="#Controller层-1" class="headerlink" title="Controller层"></a>Controller层</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/logout&quot;)</span><br><span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">logout</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">return</span> blogLoginService.logout();<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h4 id="鉴权"><a href="#鉴权" class="headerlink" title="鉴权"></a>鉴权</h4><h5 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h5><p>在启动类上添加注解，开启先&#x2F;后鉴权的注解。开启后可以使用<code>@PreAuthorize()</code>和<code>@PostAuthorize()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableGlobalMethodSecurity(prePostEnabled = true)</span><br></code></pre></td></tr></table></figure>
 
+
+
+<h5 id="查询权限"><a href="#查询权限" class="headerlink" title="查询权限"></a>查询权限</h5><p>在获取时将用户信息和权限包装成UserDetail一起返回</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 获取用户身份信息的方法，替换默认的SpringSecurity的获取身份信息方式</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserDetailServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">UserDetailsService</span> &#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> UserMapper userMapper;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> MenuService menuService;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> UserDetails <span class="hljs-title function_">loadUserByUsername</span><span class="hljs-params">(String username)</span> <span class="hljs-keyword">throws</span> UsernameNotFoundException &#123;<br>        <span class="hljs-comment">// 根据用户名查询用户信息</span><br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> userMapper.selectOne(<span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;User&gt;()<br>                                         .eq(User::getUserName, username));<br>        <span class="hljs-keyword">if</span> (Objects.isNull(user)) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;账号或密码错误&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-comment">// 查询用户权限信息</span><br>        List&lt;String&gt; permissions = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();;<br>        <span class="hljs-keyword">if</span> (user.getType().equals(SystemConstants.ADMIN)) &#123;<br>            <span class="hljs-comment">// 只有后台管理员需要鉴权</span><br>            permissions = menuService.selectPermsByUserId(user.getId());<br>        &#125;<br>        <span class="hljs-comment">// 返回用户信息</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LoginUser</span>(user, permissions);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="鉴权-1"><a href="#鉴权-1" class="headerlink" title="鉴权"></a>鉴权</h5><p>编写鉴权逻辑，并作为Service注入Bean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service(&quot;ps&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PermissionService</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 判断用户是否具有权限</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> permission</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasPermission</span><span class="hljs-params">(String permission)</span> &#123;<br>        <span class="hljs-comment">// 超级管理员</span><br>        <span class="hljs-keyword">if</span> (SecurityUtils.isAdmin()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br><br>        List&lt;String&gt; permissions = SecurityUtils.getLoginUser().getPermissions();<br>        <span class="hljs-keyword">return</span> permissions.contains(permission);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h5><p>在需要鉴权的接口上添加注解，<code>@ps.hasPermission()</code>为自定义的鉴权方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PreAuthorize(&quot;@ps.hasPermission(&#x27;contet:category:export&#x27;)&quot;)</span><br><span class="hljs-meta">@GetMapping(&quot;/export&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">export</span><span class="hljs-params">(HttpServletResponse response)</span> &#123;<br>        ...<br></code></pre></td></tr></table></figure>
 
 
                 
