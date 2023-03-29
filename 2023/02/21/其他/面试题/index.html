@@ -50,7 +50,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%964.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%965.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-03-14T06:57:26.664Z">
+<meta property="article:modified_time" content="2023-03-25T15:20:20.981Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -262,7 +262,7 @@
         
         
         
-          156 分钟
+          157 分钟
         
       </span>
     
@@ -465,6 +465,14 @@
 <li>HashMap的key可以为null。但Map的其它实现则不然</li>
 <li>作为key的对象，必须实现hashCode()（为了key在整个HashMap中有更好的分布性）和equals()（当key相同时判断是否为同一个对象），并且key的内容不可以修改</li>
 </ol>
+</li>
+</ul>
+<h4 id="hashCode和equals"><a href="#hashCode和equals" class="headerlink" title="hashCode和equals"></a>hashCode和equals</h4><p><strong>为什么重写 equals 时必须 重写hashCode 方法？</strong></p>
+<p>hashCode() 的作⽤是获取哈希码，也称为散列码，主要在哈希表这类集合映射的时候用到</p>
+<ul>
+<li><p>如果两个对象相等，则 hashcode ⼀定也是相同的</p>
+</li>
+<li><p>如果两个对象有相同的 hashcode 值，它们也不⼀定是相等的</p>
 </li>
 </ul>
 <h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><h4 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h4><h5 id="5种实现方式"><a href="#5种实现方式" class="headerlink" title="5种实现方式"></a>5种实现方式</h5><h6 id="1-饿汉式"><a href="#1-饿汉式" class="headerlink" title="1.饿汉式"></a>1.饿汉式</h6><blockquote>
