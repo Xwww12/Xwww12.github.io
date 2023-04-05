@@ -16,15 +16,15 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="vue-element-admin简单使用控制面板添加路由 在router&#x2F;index.js文件中添加路由，就会显示到面板上 123456789101112131415161718192021&#x2F;&#x2F; 自己添加的路由  &amp;#123;    path: &amp;#x27;&#x2F;hospSet&amp;#x27;,    component: Layout,    redirect: &amp;#x27;&#x2F;hospSet&#x2F;list">
+    <meta name="description" content="vue-element-admin简单使用 vue-element-admin 是一个后台前端解决方案，它基于 vue 和 element-ui实现。它使用了最新的前端技术栈，内置了 i18 国际化解决方案，动态路由，权限验证，提炼了典型的业务模型，提供了丰富的功能组件，它可以帮助你快速搭建企业级中后台产品原型。  控制面板添加路由 在router&#x2F;index.js文件中添加路由，就会显示到面板上">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue-element-admin简单使用">
 <meta property="og:url" content="http://xwww12.github.io/2022/10/13/%E5%89%8D%E7%AB%AF/vue-element-admin/vue-element-admin%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="vue-element-admin简单使用控制面板添加路由 在router&#x2F;index.js文件中添加路由，就会显示到面板上 123456789101112131415161718192021&#x2F;&#x2F; 自己添加的路由  &amp;#123;    path: &amp;#x27;&#x2F;hospSet&amp;#x27;,    component: Layout,    redirect: &amp;#x27;&#x2F;hospSet&#x2F;list">
+<meta property="og:description" content="vue-element-admin简单使用 vue-element-admin 是一个后台前端解决方案，它基于 vue 和 element-ui实现。它使用了最新的前端技术栈，内置了 i18 国际化解决方案，动态路由，权限验证，提炼了典型的业务模型，提供了丰富的功能组件，它可以帮助你快速搭建企业级中后台产品原型。  控制面板添加路由 在router&#x2F;index.js文件中添加路由，就会显示到面板上">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-13T08:08:53.209Z">
-<meta property="article:modified_time" content="2022-10-14T13:59:03.233Z">
+<meta property="article:modified_time" content="2023-04-01T07:04:27.285Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="Vue">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          946 字
+          1.1k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          8 分钟
+          9 分钟
         
       </span>
     
@@ -293,7 +293,10 @@
             
               <div class="markdown-body">
                 
-                <h2 id="vue-element-admin简单使用"><a href="#vue-element-admin简单使用" class="headerlink" title="vue-element-admin简单使用"></a>vue-element-admin简单使用</h2><h3 id="控制面板添加路由"><a href="#控制面板添加路由" class="headerlink" title="控制面板添加路由"></a>控制面板添加路由</h3><ul>
+                <h2 id="vue-element-admin简单使用"><a href="#vue-element-admin简单使用" class="headerlink" title="vue-element-admin简单使用"></a>vue-element-admin简单使用</h2><blockquote>
+<p><a href="https://link.zhihu.com/?target=https://panjiachen.gitee.io/vue-element-admin-site/zh/">vue-element-admin</a> 是一个后台前端解决方案，它基于 <a href="https://link.zhihu.com/?target=https://github.com/vuejs/vue">vue</a> 和 <a href="https://link.zhihu.com/?target=https://github.com/ElemeFE/element">element-ui</a>实现。它使用了最新的前端技术栈，内置了 i18 国际化解决方案，动态路由，权限验证，提炼了典型的业务模型，提供了丰富的功能组件，它可以帮助你快速搭建企业级中后台产品原型。</p>
+</blockquote>
+<h3 id="控制面板添加路由"><a href="#控制面板添加路由" class="headerlink" title="控制面板添加路由"></a>控制面板添加路由</h3><ul>
 <li><p>在<code>router/index.js</code>文件中添加路由，就会显示到面板上</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 自己添加的路由</span><br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/hospSet&#x27;</span>,<br>    <span class="hljs-attr">component</span>: <span class="hljs-title class_">Layout</span>,<br>    <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;/hospSet/list&#x27;</span>,<br>    <span class="hljs-attr">meta</span>: &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;医院设置管理&#x27;</span>, <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;example&#x27;</span>&#125;,<br>    <span class="hljs-attr">children</span>: [<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/list&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;医院设置列表&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&#x27;@/views/i18n-demo/index&#x27;</span>),<br>        <span class="hljs-attr">meta</span>: &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;医院设置列表&#x27;</span>, <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;table&#x27;</span> &#125;<br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/add&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;医院设置列表添加&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&#x27;@/views/i18n-demo/index&#x27;</span>),<br>        <span class="hljs-attr">meta</span>: &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;医院设置列表添加&#x27;</span>, <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;tree&#x27;</span> &#125;<br>      &#125;<br>    ]<br>  &#125;,<br></code></pre></td></tr></table></figure>
 </li>

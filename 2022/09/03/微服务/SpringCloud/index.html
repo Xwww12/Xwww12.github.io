@@ -19,7 +19,7 @@
     <meta name="description" content="Spring CloudRestTemplate RestTemplate是一个HTTP客户端，使用它我们可以方便的调用HTTP接口，支持GET、POST、PUT、DELETE等方法。  实例1.注册RestTemplate实例 1234@Beanpublic RestTemplate restTemplate() &amp;#123;    return new RestTemplate();&amp;#125">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring Cloud">
-<meta property="og:url" content="http://xwww12.github.io/2022/09/03/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8/index.html">
+<meta property="og:url" content="http://xwww12.github.io/2022/09/03/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringCloud/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Spring CloudRestTemplate RestTemplate是一个HTTP客户端，使用它我们可以方便的调用HTTP接口，支持GET、POST、PUT、DELETE等方法。  实例1.注册RestTemplate实例 1234@Beanpublic RestTemplate restTemplate() &amp;#123;    return new RestTemplate();&amp;#125">
 <meta property="og:locale" content="zh_CN">
@@ -37,7 +37,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E5%AF%BC%E5%85%A5feignApi.png">
 <meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/gateway%E6%A8%A1%E5%9D%97.png">
 <meta property="article:published_time" content="2022-09-03T13:06:02.208Z">
-<meta property="article:modified_time" content="2023-03-29T14:55:21.171Z">
+<meta property="article:modified_time" content="2023-03-30T07:37:44.007Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="微服务">
 <meta name="twitter:card" content="summary_large_image">
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          18k 字
+          19k 字
         
       </span>
     
@@ -423,7 +423,7 @@
 </li>
 <li><p>默认账号密码nacos</p>
 </li>
-<li><p>默认端口: 8848</p>
+<li><p>访问<code>http://localhost:8848/nacos</code></p>
 </li>
 </ul>
 <h5 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h5><ul>
@@ -501,7 +501,7 @@
 <blockquote>
 <p>bootstrap.yml会在application.yml之前被读取，在bootstrap中配置服务名称、环境、nacos地址等信息来读取配置</p>
 </blockquote>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">userservice</span> <span class="hljs-comment"># 服务名称</span><br>  <span class="hljs-attr">profiles:</span><br>    <span class="hljs-attr">active:</span> <span class="hljs-string">dev</span> <span class="hljs-comment">#开发环境，这里是dev</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:8848</span> <span class="hljs-comment"># Nacos地址</span><br>      <span class="hljs-attr">config:</span><br>        <span class="hljs-attr">file-extension:</span> <span class="hljs-string">yaml</span> <span class="hljs-comment"># 文件后缀名</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">userservice</span> <span class="hljs-comment"># 服务名称</span><br>  <span class="hljs-attr">profiles:</span><br>    <span class="hljs-attr">active:</span> <span class="hljs-string">dev</span> <span class="hljs-comment">#开发环境，这里是dev</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:8848</span> <span class="hljs-comment">#Nacos地址</span><br>      <span class="hljs-attr">config:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:8848</span> <span class="hljs-comment">#Nacos地址</span><br>        <span class="hljs-attr">file-extension:</span> <span class="hljs-string">yaml</span> <span class="hljs-comment">#这里我们获取的yaml格式的配置</span><br></code></pre></td></tr></table></figure>
 
 <p>最终会定位到userservice-dev.yaml配置中</p>
 <p>记得把application.yml中相同的配置注释掉</p>
@@ -842,7 +842,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Spring Cloud</div>
-      <div>http://xwww12.github.io/2022/09/03/微服务/远程调用/</div>
+      <div>http://xwww12.github.io/2022/09/03/微服务/SpringCloud/</div>
     </div>
     <div class="license-meta">
       
