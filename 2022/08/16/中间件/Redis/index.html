@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/redis_img/xread.png">
 <meta property="og:image" content="http://xwww12.github.io/img/redis_img/gundongfenye.png">
 <meta property="article:published_time" content="2022-08-16T13:59:52.126Z">
-<meta property="article:modified_time" content="2023-02-01T08:52:56.905Z">
+<meta property="article:modified_time" content="2023-04-07T14:17:22.149Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="中间件">
 <meta property="article:tag" content="后端">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          40k 字
+          41k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          337 分钟
+          344 分钟
         
       </span>
     
@@ -1140,6 +1140,51 @@
 <li><p>重写配置</p>
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-comment"># AOF文件比上次文件 增长超过多少百分比则触发重写</span><br><span class="hljs-attr">auto-aof-rewrite-percentage</span> <span class="hljs-string">100</span><br><span class="hljs-comment"># AOF文件体积最小多大以上才触发重写 </span><br><span class="hljs-attr">auto-aof-rewrite-min-size</span> <span class="hljs-string">64mb </span><br></code></pre></td></tr></table></figure></li>
 </ul>
+<h3 id="分布式锁-1"><a href="#分布式锁-1" class="headerlink" title="分布式锁"></a>分布式锁</h3><p>​	在单体项目下保证原子性可以使用synchronized，在分布式下就无法使用。</p>
+<p>​	可以使用mysql、redis等来实现多线程下的锁。基本原理是根据id的唯一性来控制不同机器中的进程对资源的访问</p>
+<p><strong>实现方式1</strong></p>
+<blockquote>
+<p><code>setnx</code>命令：当不存在时才设置值</p>
+<p><code>expire</code>命令：设置超时时间</p>
+</blockquote>
+<p>获取锁时：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs csharp">setnx <span class="hljs-keyword">lock</span> 表示当前进程的唯一值<br>expire <span class="hljs-keyword">lock</span> <span class="hljs-number">5</span>	<span class="hljs-meta"># 添加超时时间</span><br></code></pre></td></tr></table></figure>
+
+<p>释放锁时：</p>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cos">del <span class="hljs-keyword">lock</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>缺陷</strong>：</p>
+<p>当一个jvm的线程获取锁后、设置超时时间前挂了，就会导致死锁</p>
+<p><strong>实现方式2</strong></p>
+<blockquote>
+<p>使用<code>set key value ex timeout nx OK</code>来让set和expire命令是一个原子操作</p>
+<p>或者也可以使用lua脚本实现</p>
+</blockquote>
+<p>获取锁时：</p>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cos"><span class="hljs-keyword">set</span> <span class="hljs-keyword">lock</span> 表示当前进程的唯一值 EX <span class="hljs-number">4</span> NX ...<br></code></pre></td></tr></table></figure>
+
+<p>释放锁时：</p>
+<p>如果释放锁前判断锁是自己的锁，但判断完锁超时了，此时就有可能会释放掉别人的锁，需要通过lua脚本使判断锁和释放锁是原子操作</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- 示例</span><br><span class="hljs-keyword">local</span> key = KEYS[<span class="hljs-number">1</span>]<br><span class="hljs-keyword">local</span> requestId = KEYS[<span class="hljs-number">2</span>]<br><span class="hljs-keyword">local</span> value = redis.call(<span class="hljs-string">&#x27;get&#x27;</span>, key)<br><span class="hljs-keyword">if</span> value == requestId <span class="hljs-keyword">then</span>	<span class="hljs-comment">-- 判断是不是自己的锁</span><br>    redis.call(<span class="hljs-string">&#x27;del&#x27;</span>, key);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br><span class="hljs-keyword">end</span><br><span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br></code></pre></td></tr></table></figure>
+
+<p>缺陷：</p>
+<p>自己实现太麻烦了</p>
+<p><strong>实现方式3</strong></p>
+<blockquote>
+<p>通过Redisson实现，Redisson帮忙实现了分布式锁</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Resource</span><br><span class="hljs-keyword">private</span> RedissonClient redissonClient;<br><br><span class="hljs-type">RLock</span> <span class="hljs-variable">rLock</span> <span class="hljs-operator">=</span> redissonClient.getLock(lockName);<br><span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">isLocked</span> <span class="hljs-operator">=</span> rLock.tryLock(expireTime, TimeUnit.MILLISECONDS);<br>    <span class="hljs-keyword">if</span> (isLocked) &#123;<br>        <span class="hljs-comment">// TODO</span><br>                &#125;<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            rLock.unlock();<br>    &#125;<br>...<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
 
                 
               </div>
