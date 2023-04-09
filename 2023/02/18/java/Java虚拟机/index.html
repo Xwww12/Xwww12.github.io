@@ -34,8 +34,9 @@
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/%E5%A0%86%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/G1%E5%9B%9E%E6%94%B6%E5%99%A8.png">
 <meta property="og:image" content="http://xwww12.github.io/img/jvm_img/GC%E5%8F%82%E6%95%B01.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B.png">
 <meta property="article:published_time" content="2023-02-18T13:57:23.608Z">
-<meta property="article:modified_time" content="2023-02-25T08:46:34.248Z">
+<meta property="article:modified_time" content="2023-04-09T14:12:28.494Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/jvm_img/java%E8%B7%A8%E5%B9%B3%E5%8F%B0.png">
@@ -235,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.3k 字
+          9.1k 字
         
       </span>
     
@@ -246,7 +247,7 @@
         
         
         
-          70 分钟
+          76 分钟
         
       </span>
     
@@ -753,6 +754,65 @@
 <h4 id="jinfo指令"><a href="#jinfo指令" class="headerlink" title="jinfo指令"></a>jinfo指令</h4><p>查看正在运行的 Java 应用程序的扩展参数</p>
 <h4 id="jmap-命令"><a href="#jmap-命令" class="headerlink" title="jmap 命令"></a>jmap 命令</h4><p>可以生成 Java 程序的 Dump 文件（当程序产生异常时，用来记录当时的程序状态信息），也可以查看堆内对象实例的统计信息、查看 ClassLoader 的信息以及 finalizer 队列</p>
 <h4 id="jhat-命令"><a href="#jhat-命令" class="headerlink" title="jhat 命令"></a>jhat 命令</h4><p>用于分析 Java 应用的对快照内存，可以用来分析jmap生成dump文件</p>
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h3><p><strong>jvm分配内存给对象</strong></p>
+<ul>
+<li><strong>指针碰撞</strong>：</li>
+</ul>
+<p>​		给对象分配内存都在一边，分配内存就把指针移动对象大小的距离</p>
+<ul>
+<li><strong>空间列表</strong>：</li>
+</ul>
+<p>​		类似空间分区表</p>
+<p><strong>内存</strong></p>
+<ul>
+<li><p><strong>内存溢出</strong>（OOM）</p>
+<p>申请的内存超过了可用内存</p>
+</li>
+<li><p><strong>内存泄漏</strong></p>
+<p>内存没有被正确释放</p>
+</li>
+</ul>
+<h3 id="2-对象创建过程"><a href="#2-对象创建过程" class="headerlink" title="2.对象创建过程"></a>2.对象创建过程</h3><p><img src="/img/else_img/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="3-对象内存布局"><a href="#3-对象内存布局" class="headerlink" title="3.对象内存布局"></a>3.对象内存布局</h3><ol>
+<li><p>对象头：</p>
+<ol>
+<li><strong>Mark Word</strong>：哈希码、分代年龄、锁状态标志、线程持有的锁等</li>
+<li>类型指针：指向当前对象是哪个类</li>
+</ol>
+</li>
+<li><p>实例数据：存放字段的信息</p>
+</li>
+<li><p>填充对齐</p>
+</li>
+</ol>
+<h3 id="4-判断对象是否存活"><a href="#4-判断对象是否存活" class="headerlink" title="4.判断对象是否存活"></a>4.判断对象是否存活</h3><ol>
+<li><p>引用计数</p>
+<p>对象中添加引用计数器，记录当前引用的次数。缺陷：循环引用</p>
+</li>
+<li><p><strong>可达性分析</strong></p>
+<p>从GCRoots出发，搜索可以到达的对象并标记，没有标记的对象就是可回收的</p>
+<blockquote>
+<p>主要的GCRoots：</p>
+<p>1.虚拟机栈中引用的对象</p>
+<p>2.类静态属性引用的对象</p>
+<p>3.常量引用的对象</p>
+<p>4.本地方法栈中JNI引用的对象</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="5-引用种类"><a href="#5-引用种类" class="headerlink" title="5.引用种类"></a>5.引用种类</h3><ol>
+<li><p>强引用：一定不会被回收</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Object</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>软引用：内存不足时回收</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Object</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br><span class="hljs-type">ReferenceQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReferenceQueue</span>();<br><span class="hljs-type">SoftReference</span> <span class="hljs-variable">reference</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SoftReference</span>(obj, queue);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>弱引用：垃圾回收时就会被回收</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Object</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br><span class="hljs-type">ReferenceQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReferenceQueue</span>();<br><span class="hljs-type">WeakReference</span> <span class="hljs-variable">reference</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">WeakReference</span>(obj, queue);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>虚引用：为了能在这个对象 被收集器回收时收到一个系统通知</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Object</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br><span class="hljs-type">ReferenceQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReferenceQueue</span>();<br><span class="hljs-type">PhantomReference</span> <span class="hljs-variable">reference</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PhantomReference</span>(obj, queue);<br></code></pre></td></tr></table></figure></li>
+</ol>
 
                 
               </div>
