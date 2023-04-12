@@ -16,23 +16,30 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="vue-admin-template简单使用 vue-admin-template是基于vue-element-admin的一套后台管理系统基础模板（最少精简版），可作为模板进行二次开发。   包含了axios、vue、vue-router、vuex、element-ui等 使用 下载 https:&#x2F;&#x2F;github.com&#x2F;PanJiaChen&#x2F;vue-admin-template  解压、安装依">
+    <meta name="description" content="MySQL概念SQL语言DDL（Data Definition Language）：定义&#x2F;改变表 DML（Data Manipulation Language）：数据的增删改 DQL（Data Query Language）：数据的查询 DCL（Data Control Language）：设置&#x2F;更改用户权限 事务的四大特性ACID原子性：Atomicity  一致性：Cons">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue-admin-template">
-<meta property="og:url" content="http://xwww12.github.io/2023/04/01/%E5%89%8D%E7%AB%AF/vue-element-admin/vue-admin-template/index.html">
+<meta property="og:title" content="MySQL">
+<meta property="og:url" content="http://xwww12.github.io/2023/04/12/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/MySQL/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="vue-admin-template简单使用 vue-admin-template是基于vue-element-admin的一套后台管理系统基础模板（最少精简版），可作为模板进行二次开发。   包含了axios、vue、vue-router、vuex、element-ui等 使用 下载 https:&#x2F;&#x2F;github.com&#x2F;PanJiaChen&#x2F;vue-admin-template  解压、安装依">
+<meta property="og:description" content="MySQL概念SQL语言DDL（Data Definition Language）：定义&#x2F;改变表 DML（Data Manipulation Language）：数据的增删改 DQL（Data Query Language）：数据的查询 DCL（Data Control Language）：设置&#x2F;更改用户权限 事务的四大特性ACID原子性：Atomicity  一致性：Cons">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-01T06:58:09.995Z">
-<meta property="article:modified_time" content="2023-04-01T07:11:59.394Z">
+<meta property="og:image" content="http://xwww12.github.io/img/sql_img/MySQL%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://xwww12.github.io/img/sql_img/InnoDB%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://xwww12.github.io/img/sql_img/B-Tree%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://xwww12.github.io/img/sql_img/B-Tree%E5%88%86%E8%A3%821.png">
+<meta property="og:image" content="http://xwww12.github.io/img/sql_img/B-Tree%E5%88%86%E8%A3%822.png">
+<meta property="og:image" content="http://xwww12.github.io/img/sql_img/B+Tree%E7%BB%93%E6%9E%84.png">
+<meta property="article:published_time" content="2023-04-12T10:13:11.381Z">
+<meta property="article:modified_time" content="2023-04-12T14:36:43.611Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="前端">
-<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/sql_img/MySQL%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png">
   
   
   
-  <title>vue-admin-template - Hexo</title>
+  <title>MySQL - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">vue-admin-template</span>
+            <span id="subtitle">MySQL</span>
           
         </div>
 
@@ -213,8 +220,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-01 14:58" pubdate>
-          2023年4月1日 下午
+        <time datetime="2023-04-12 18:13" pubdate>
+          2023年4月12日 晚上
         </time>
       </span>
     
@@ -225,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          294 字
+          1.4k 字
         
       </span>
     
@@ -236,7 +243,7 @@
         
         
         
-          3 分钟
+          13 分钟
         
       </span>
     
@@ -288,27 +295,140 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">vue-admin-template</h1>
+            <h1 style="display: none">MySQL</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="vue-admin-template简单使用"><a href="#vue-admin-template简单使用" class="headerlink" title="vue-admin-template简单使用"></a>vue-admin-template简单使用</h2><blockquote>
-<p>vue-admin-template是基于vue-element-admin的一套后台管理系统基础模板（最少精简版），可作为模板进行二次开发。</p>
+                <h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="SQL语言"><a href="#SQL语言" class="headerlink" title="SQL语言"></a>SQL语言</h4><p>DDL（Data Definition Language）：定义&#x2F;改变表</p>
+<p>DML（Data Manipulation Language）：数据的增删改</p>
+<p>DQL（Data Query Language）：数据的查询</p>
+<p>DCL（Data Control Language）：设置&#x2F;更改用户权限</p>
+<h4 id="事务的四大特性ACID"><a href="#事务的四大特性ACID" class="headerlink" title="事务的四大特性ACID"></a>事务的四大特性ACID</h4><p>原子性：Atomicity </p>
+<p>一致性：Consistency</p>
+<p>隔离性：Isolation </p>
+<p>持久性：Durability</p>
+<h3 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h3><blockquote>
+<p>存储引擎就是存储数据、建立索引、更新&#x2F;查询数据等技术的实现方式</p>
+<p>不同表可以有不同的存储引擎</p>
 </blockquote>
-<p> 包含了axios、vue、vue-router、vuex、element-ui等</p>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
-<li><p>下载</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PanJiaChen/vue-admin-template">https://github.com/PanJiaChen/vue-admin-template</a></p>
+<h4 id="MySQL体系结构"><a href="#MySQL体系结构" class="headerlink" title="MySQL体系结构"></a>MySQL体系结构</h4><p><img src="/img/sql_img/MySQL%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>连接层：对客户端的连接服务，如连接处理、授权认证等</li>
+<li><strong>服务层</strong>：大多数核心服务功能，如SQL接口、SQL分析和优化、过程、函数等</li>
+<li><strong>引擎层</strong>：负责MySQL中数据的存储和提取，不同的存储引擎具有不同的功能（索引是由存储引擎实现）</li>
+<li>存储层：将数据存储在文件系统之上</li>
+</ul>
+<h4 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h4><ol>
+<li><p>查看数据库支持的存储引擎</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">show engines<br></code></pre></td></tr></table></figure>
 </li>
-<li><p>解压、安装依赖、启动</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> install<br><span class="hljs-built_in">npm</span> run dev<br></code></pre></td></tr></table></figure>
+<li><p>创建表时指定存储引擎（默认InnoDB）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE TABLE my_myisam(<br>	id INT,<br>	NAME VARCHAR(10)<br>) ENGINE = MYISAM;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="存储引擎特点"><a href="#存储引擎特点" class="headerlink" title="存储引擎特点"></a>存储引擎特点</h4><p><strong>InnoDB</strong>：</p>
+<ol>
+<li><strong>支持事务</strong></li>
+<li><strong>行级锁</strong>，提高并发访问度</li>
+<li><strong>支持外键</strong></li>
+<li>每一个innodb引擎数据表都对应着一个xxx.ibd文件</li>
+</ol>
+<p><img src="/img/sql_img/InnoDB%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload alt="InnoDB存储结构"></p>
+<p><strong>MyISAM</strong>：</p>
+<ol>
+<li>早期默认存储引擎</li>
+<li>不支持事务和外键</li>
+<li>只支持表锁，不支持行锁</li>
+<li>访问速度快</li>
+</ol>
+<p><strong>Memory</strong>：</p>
+<ol>
+<li>数据存在内存，访问速度快</li>
+<li>支持hash索引</li>
+</ol>
+<h4 id="选择存储引擎"><a href="#选择存储引擎" class="headerlink" title="选择存储引擎"></a>选择存储引擎</h4><p><strong>InnoDB</strong>：对事务的完整性、并发性要求比较高时</p>
+<p>MyISAM：以读操作和插入操作为主，很少更新和删除，对完整性、并发性要求不高时，如日志、评论 –&gt; (MongoDB)</p>
+<p>MEMORY：缓存 –&gt;（Redis）</p>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><blockquote>
+<p>索引是帮助MySQL<strong>高效获取</strong>数据的<strong>数据结构</strong>（<strong>有序</strong>），这种数据结构以某种方式引用（指向）数据。</p>
+</blockquote>
+<h4 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h4><p>优点：</p>
+<ul>
+<li><p>提高数据检索效率，降低数据库的IO成本</p>
 </li>
-<li><p>访问<code>http://localhost:9528/</code></p>
+<li><p>通过索引列队数据进行排序，降低数据的排序成本</p>
 </li>
 </ul>
-<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ada">router	<span class="hljs-comment">-- 路由信息</span><br>api		<span class="hljs-comment">-- 发送请求的方法</span><br>views	<span class="hljs-comment">-- 具体页面</span><br>main.js	<span class="hljs-comment">-- 项目入口</span><br></code></pre></td></tr></table></figure>
-
+<p>缺点：</p>
+<ul>
+<li>索引需要占用空间</li>
+<li>需要维护索引，降低了增删改的效率</li>
+</ul>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><p>存储引擎主要使用的数据结构有：</p>
+<table>
+<thead>
+<tr>
+<th>索引结构</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>B+Tree索引</strong></td>
+<td>最常见的索引类型</td>
+</tr>
+<tr>
+<td>Hash索引</td>
+<td>用哈希表实现，只能精确匹配</td>
+</tr>
+<tr>
+<td>R-Tree（空间索引）</td>
+<td>MyISAM引擎中的索引类型，用于地理空间查询</td>
+</tr>
+<tr>
+<td>Full-text（全文索引）</td>
+<td>通过倒排索引，快速匹配文档的方式</td>
+</tr>
+</tbody></table>
+<p><strong>索引结构</strong>：</p>
+<ul>
+<li><p>二叉查找树：左小右大，顺序插入时会形成一棵单叉的树，查询性能大大降低</p>
+</li>
+<li><p>红黑树：大数据量的情况下，层级较深，检索速度慢</p>
+</li>
+<li><p><strong>B-Tree</strong>（多路平衡树）：一个节点下可以有多个子节点</p>
+<ul>
+<li><p>节点的度数：节点的子节点个数；树的度数：最大度数</p>
+</li>
+<li><p>一个N阶（度数为N）的B-Tree的节点最多可以有N-1个Key，N个指针</p>
+<p><img src="/img/sql_img/B-Tree%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>构建过程：</p>
+<ul>
+<li><p>插入一个元素，要插入的节点还放的下的时候按顺序放入节点</p>
+</li>
+<li><p>放不下时中间元素往上层移动，左右两边分裂成两个节点</p>
+<p><img src="/img/sql_img/B-Tree%E5%88%86%E8%A3%821.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>上层也放不下时，上层也分裂</p>
+<p><img src="/img/sql_img/B-Tree%E5%88%86%E8%A3%822.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>B+Tree</strong>：和B-Tree类似，但非叶子节点起到索引的作用，数据都存在叶子节点，叶子结点形成一个<strong>单向链表</strong></p>
+<p><img src="/img/sql_img/B+Tree%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>MySQL和在经典B+Tree上进行了优化，叶子节点形成一个<strong>双向循环链表</strong>，提高区间访问的性能</li>
+</ul>
+</li>
+<li><p>Hash：采用一定的hash算法，将键值转换为新的hash值，存储到hash表中</p>
+</li>
+</ul>
+<blockquote>
+<p>InnoDB使用B+Tree的原因：相对二叉树层级更少；相对于B-Tree，非叶子节点不存放数据，能够放的key更多，层级也就更少；相对于Hash，能支持范围匹配和排序。</p>
+</blockquote>
+<p>​      </p>
 
                 
               </div>
@@ -332,8 +452,15 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/" class="category-chain-item">mysql</a>
+  
+  
+
   
 
   
@@ -349,9 +476,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
       
-        <a href="/tags/Vue/">#Vue</a>
+        <a href="/tags/mysql/">#mysql</a>
       
     </div>
   
@@ -363,8 +490,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>vue-admin-template</div>
-      <div>http://xwww12.github.io/2023/04/01/前端/vue-element-admin/vue-admin-template/</div>
+      <div>MySQL</div>
+      <div>http://xwww12.github.io/2023/04/12/数据库/mysql/MySQL/</div>
     </div>
     <div class="license-meta">
       
@@ -376,7 +503,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月1日</div>
+          <div>2023年4月12日</div>
         </div>
       
       
@@ -406,18 +533,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/12/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/MySQL/" title="MySQL">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MySQL</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/19/spring/Spring%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="Spring底层原理">
-                        <span class="hidden-mobile">Spring底层原理</span>
+                      <a href="/2023/04/01/%E5%89%8D%E7%AB%AF/vue-element-admin/vue-admin-template/" title="vue-admin-template">
+                        <span class="hidden-mobile">vue-admin-template</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
