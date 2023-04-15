@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/sql_img/%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%A7%E8%A1%8C%E9%A2%91%E7%8E%87.png">
 <meta property="og:image" content="http://xwww12.github.io/img/sql_img/explain.png">
 <meta property="article:published_time" content="2023-04-12T10:13:11.381Z">
-<meta property="article:modified_time" content="2023-04-14T12:54:42.308Z">
+<meta property="article:modified_time" content="2023-04-15T10:57:03.785Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="mysql">
@@ -234,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          4.8k 字
         
       </span>
     
@@ -245,7 +245,7 @@
         
         
         
-          33 分钟
+          40 分钟
         
       </span>
     
@@ -606,10 +606,50 @@
 <li>尽量不要使用UUID或其他随机的主键，会造成页分裂</li>
 <li>业务操作时，避免对主键的修改</li>
 </ol>
-<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>Using filesort：通过索引或全表扫描查找出满足条件的数据行，在缓冲区里排序</p>
-<p>Using index：通过索引查找出的数据直接就是有序的，效率高</p>
-<p>创建联合索引后，如果都按升序或降序排序都是Using index，如果不一样就会Using filesort</p>
-<p>可以创建联合索引时指定排序方式来优化</p>
+<h4 id="排序-x2F-分组"><a href="#排序-x2F-分组" class="headerlink" title="排序&#x2F;分组"></a>排序&#x2F;分组</h4><p>排序：</p>
+<p>​	Using filesort：通过索引或全表扫描查找出满足条件的数据行，在缓冲区里排序</p>
+<p>​	Using index：通过索引查找出的数据直接就是有序的，效率高</p>
+<p>​	创建联合索引后，如果都按升序或降序排序都是Using index，如果不一样就会Using filesort</p>
+<p>​	可以创建联合索引时指定排序方式来优化</p>
+<p>分组：</p>
+<p>​	分组时可以通过索引来提高效率</p>
+<p>​	分组时索引的1使用也满足最左前缀法则</p>
+<h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><p>问题：</p>
+<p>​	<code>	order by id limit 200000, 10</code>需要查出前200010条数据排序后返回后10条记录，其他数据丢弃，查询排序的代价非常大</p>
+<p>解决方式：</p>
+<p>​	使用延迟关联的方式：例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT <br>	s.* <br>FROM <br>	tb_sku s, (SLECT id FROM tb_sku ORDER BY id LIMIT 200000, 10) a <br>WHERE<br>	s.id = a.id;<br></code></pre></td></tr></table></figure>
+
+<p>​	如果直接分页查询，那么查到id后都要回表查询，效率很低；而子查询里分页的话，因为二级索引里有id了，不需要回表查询，减少了回表查询的次数</p>
+<h4 id="计数"><a href="#计数" class="headerlink" title="计数"></a>计数</h4><p>用法：</p>
+<ol>
+<li>*<em>count(</em>)**：返回数据行数   （性能最高，优化器做了优化，不会把值取出来）</li>
+<li>count(主键)：返回非空的主键数</li>
+<li>count(某个字段)：返回非空的字段数</li>
+<li>count(1)：当做每行都是1，记录数据行数</li>
+</ol>
+<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><p>InnoDB的行锁是针对的索引加的锁，不是针对记录加的锁，并且该索引不能失效，否则从行锁升级为表锁</p>
+<p>所以更新条件有索引为行锁，没有索引为表锁</p>
+<h3 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h3><blockquote>
+<p>视图是张虚表，不保存查询结果，只保存了查询的SQL逻辑</p>
+</blockquote>
+<h4 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h4><ol>
+<li><p>创建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE [OR REPLACE] VIEW 视图名 AS SELECT 列 FROM 基表 [WHERE...];<br><br># 检查选项：对增删改进行约束<br># 后面加 WITH [CASCADED | LOCAL] CHECK OPTION<br># 如果是根据视图创建的视图<br># CASCADED会检查父视图的条件，不管父视图有没有加CHECK OPTION<br># LOCAL只会检查加了CHECK OPTION的父视图的条件<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># 查询创建视图的语句<br>SHOW CREATE VIEW 视图名;<br># 查询视图数据<br>SELECT * FROM 视图名 ...;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER VIEW 视图名 AS SELECT...;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">DROP VIEW 视图名;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>插入、更新数据</p>
+<p>只有视图的列和基表的列相同时才能更新</p>
+</li>
+</ol>
 
                 
               </div>
