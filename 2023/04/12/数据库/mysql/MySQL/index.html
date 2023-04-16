@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/sql_img/%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%A7%E8%A1%8C%E9%A2%91%E7%8E%87.png">
 <meta property="og:image" content="http://xwww12.github.io/img/sql_img/explain.png">
 <meta property="article:published_time" content="2023-04-12T10:13:11.381Z">
-<meta property="article:modified_time" content="2023-04-15T10:57:03.785Z">
+<meta property="article:modified_time" content="2023-04-16T13:45:51.259Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="mysql">
@@ -234,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.8k 字
+          5.9k 字
         
       </span>
     
@@ -245,7 +245,7 @@
         
         
         
-          40 分钟
+          49 分钟
         
       </span>
     
@@ -650,6 +650,40 @@
 <p>只有视图的列和基表的列相同时才能更新</p>
 </li>
 </ol>
+<h3 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h3><blockquote>
+<p>多条sql的集合</p>
+</blockquote>
+<h4 id="语法-2"><a href="#语法-2" class="headerlink" title="语法"></a>语法</h4><ul>
+<li><p>创建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE PROCEDURE 名称(参数)<br>BEGIN<br>	-- SQL语句<br>END;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CALL 名称(参数);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查看存储过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SHOW CREATE PROCEDURE 名称;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">DROP PROCEDURE 名称;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>声明局部变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs mysql">create procedure p1()<br>begin<br>	# 声明变量<br>	declare stu_count int default 0;<br>    # 第一种赋值方式<br>	set stu_count := 10;<br>	# 第二种赋值方式<br>	select count(*) into stu_count from student;<br>	# 查看<br>	select stu_count;<br>end;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>IF</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">IF 条件1 THEN<br>	...<br>ELSEIF 条件2 THEN<br>	...<br>ELSE<br>	...<br>END IF;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 参数类型<br>-- IN 传入的参数（默认）<br>-- OUT 输出的参数<br>-- INOUT 可输入可输出的参数<br>create procedure p(in score int, out res varchar(10))<br>begin<br>	if score &gt;= 85 then<br>		set res := &#x27;优秀&#x27;;<br>	elseif score &gt;= 60 then<br>		set res := &#x27;及格&#x27;;<br>	else<br>		set res := &#x27;不及格&#x27;;<br>	end if;<br>end;<br><br>-- 调用<br>call p(68, @res);<br>select @res;<br><br><br>-- inout<br>create procedure p2(inout score double)<br>begin<br>	set score := score * 0.5;<br>end;<br><br>set @score = 78;<br>call p2(@score);<br>select @score;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>CASE</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CASE<br>	WHEN 条件 THEN:<br>		...<br>	WHEN 条件 THEN:<br>		...<br>	ELSE<br>		...<br>END CASE;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>WHILE</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql">create procedure p(in n int)<br>begin<br>	declare total int default 0;<br>	while n &gt; 0 do<br>		set total := total + n;<br>		set n := n - 1;<br>	end while;<br>	select total;<br>end;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>REPEAT</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 满足条件后退出循环<br>create procedure p(in n int)<br>begin<br>	declare total int default 0;<br>	repeat<br>		set total := total + n;<br>		set n ;= n - 1;<br>	until n &lt;= 0<br>	end repeat;<br>	<br>	select total;<br>end;<br></code></pre></td></tr></table></figure></li>
+</ul>
 
                 
               </div>
@@ -753,6 +787,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/04/15/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="计算机网络">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计算机网络</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
