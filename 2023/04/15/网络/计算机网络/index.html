@@ -16,12 +16,12 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="计算机网络网络体系结构 各层协议 数据各层传输方式从上到下给数据包装，从下到上解包装 传输层：TCP：报文，UDP：用户数据报 网络层：IP数据报 数据链路层：帧 物理层：数据比特流  DNS解析过程域名和IP相互映射 输入域名 –&gt; 浏览器缓存找 –&gt; 本地Host缓存 –&gt; 本地DNS服务器 –&gt;  (根域名服务器（返回顶级域名服务器地址） –&gt; 顶级域名服务器(">
+    <meta name="description" content="计算机网络网络体系结构 应用层：用户访问网络的接口 传输层：进程间通信 网络层：选择合适路由和交换节点，完成任意两台主机间通信 数据链路层：IP数据报封装成帧在相邻节点间传输 物理层：相邻节点比特流的透明传输 各层协议 数据各层传输方式从上到下给数据包装，从下到上解包装 传输层：TCP：报文，UDP：用户数据报 网络层：IP数据报 数据链路层：帧 物理层：数据比特流  DNS解析过程域名和IP相互">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机网络">
 <meta property="og:url" content="http://xwww12.github.io/2023/04/15/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="计算机网络网络体系结构 各层协议 数据各层传输方式从上到下给数据包装，从下到上解包装 传输层：TCP：报文，UDP：用户数据报 网络层：IP数据报 数据链路层：帧 物理层：数据比特流  DNS解析过程域名和IP相互映射 输入域名 –&gt; 浏览器缓存找 –&gt; 本地Host缓存 –&gt; 本地DNS服务器 –&gt;  (根域名服务器（返回顶级域名服务器地址） –&gt; 顶级域名服务器(">
+<meta property="og:description" content="计算机网络网络体系结构 应用层：用户访问网络的接口 传输层：进程间通信 网络层：选择合适路由和交换节点，完成任意两台主机间通信 数据链路层：IP数据报封装成帧在相邻节点间传输 物理层：相邻节点比特流的透明传输 各层协议 数据各层传输方式从上到下给数据包装，从下到上解包装 传输层：TCP：报文，UDP：用户数据报 网络层：IP数据报 数据链路层：帧 物理层：数据比特流  DNS解析过程域名和IP相互">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/inter_img/%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://xwww12.github.io/img/inter_img/%E5%90%84%E5%B1%82%E5%8D%8F%E8%AE%AE.png">
@@ -29,8 +29,11 @@
 <meta property="og:image" content="http://xwww12.github.io/img/inter_img/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png">
 <meta property="og:image" content="http://xwww12.github.io/img/inter_img/%E4%BC%A0%E8%BE%93%E7%A1%AE%E8%AE%A4.png">
 <meta property="og:image" content="http://xwww12.github.io/img/inter_img/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png">
+<meta property="og:image" content="http://xwww12.github.io/img/inter_img/TCP%E6%8A%A5%E5%A4%B4.png">
+<meta property="og:image" content="http://xwww12.github.io/img/inter_img/%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D.png">
+<meta property="og:image" content="http://xwww12.github.io/img/inter_img/%E5%BF%AB%E9%87%8D%E4%BC%A0.png">
 <meta property="article:published_time" content="2023-04-15T12:58:45.455Z">
-<meta property="article:modified_time" content="2023-04-16T14:28:24.339Z">
+<meta property="article:modified_time" content="2023-04-17T12:31:58.615Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/inter_img/%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png">
@@ -230,7 +233,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          764 字
+          1.6k 字
         
       </span>
     
@@ -241,7 +244,7 @@
         
         
         
-          7 分钟
+          14 分钟
         
       </span>
     
@@ -299,6 +302,11 @@
               <div class="markdown-body">
                 
                 <h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><h3 id="网络体系结构"><a href="#网络体系结构" class="headerlink" title="网络体系结构"></a>网络体系结构</h3><p><img src="/img/inter_img/%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload alt="网络体系结构"></p>
+<p>应用层：用户访问网络的接口</p>
+<p>传输层：进程间通信</p>
+<p>网络层：选择合适路由和交换节点，完成任意两台主机间通信</p>
+<p>数据链路层：IP数据报封装成帧在相邻节点间传输</p>
+<p>物理层：相邻节点比特流的透明传输</p>
 <h3 id="各层协议"><a href="#各层协议" class="headerlink" title="各层协议"></a>各层协议</h3><p><img src="/img/inter_img/%E5%90%84%E5%B1%82%E5%8D%8F%E8%AE%AE.png" srcset="/img/loading.gif" lazyload alt="网络体系结构"></p>
 <h3 id="数据各层传输方式"><a href="#数据各层传输方式" class="headerlink" title="数据各层传输方式"></a>数据各层传输方式</h3><p>从上到下给数据包装，从下到上解包装</p>
 <p><strong>传输层</strong>：TCP：报文，UDP：用户数据报</p>
@@ -319,7 +327,7 @@
 </li>
 <li><p>ACK（Acknowledgement Number）：确认编号</p>
 </li>
-<li><p>三次握手是为了解决由于网络阻塞等原因一个请求建立报文没有传送到服务器，客户端又发送一个请求连接的报文给服务端，服务端收到了这次的报文；但之前滞留在网络中的报文又到达了服务端，服务端误以为是客户端发起了新的连接，造成客户端和服务端的状态不一致。（<strong>在不可靠的信道上建立可靠的数据连接</strong>）</p>
+<li><p>三次握手是为了解决由于网络阻塞等原因一个请求建立报文没有传送到服务器，客户端又发送一个请求连接的报文给服务端，服务端收到了这次的报文；但之前滞留在网络中的报文又到达了服务端，服务端误以为是客户端发起了新的连接，造成客户端和服务端的状态不一致，服务端会一直等待客户端发送数据。（<strong>在不可靠的信道上建立可靠的数据连接</strong>）</p>
 </li>
 </ul>
 <p>传输确认：</p>
@@ -330,11 +338,55 @@
 <p><strong>四次挥手</strong>：</p>
 <p>​	<img src="/img/inter_img/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
-<li>第一次、第二次挥手：客户端发送FIN，客户端和服务端进入将要关闭状态，此时还可以发送未发完的数据</li>
-<li>第三次、第四次挥手：服务端发送完消息，发送FIN，客户端收到后回复ACK并等待一段时间后关闭（防止由于网络问题导致服务端没收到，从而服务端没有关闭连接），服务端收到ACK后关闭。</li>
+<li>第一次、第二次挥手：客户端发送FIN，客户端和服务端进入将要关闭状态，此时服务端还可以发送未发完的数据</li>
+<li>第三次、第四次挥手：服务端发送完消息，发送FIN，客户端收到后回复ACK并等待一段时间（报文最长生存时间*2）后关闭（防止由于网络问题导致服务端没收到，从而服务端没有关闭连接），服务端收到ACK后关闭。</li>
+<li>四次挥手是为了把数据传完</li>
 </ul>
-<h3 id="TCP、UDP比较"><a href="#TCP、UDP比较" class="headerlink" title="TCP、UDP比较"></a>TCP、UDP比较</h3><p>TCP：稳定可靠，适用于对网络通讯质量要求较高的场景，如传输文件、浏览网页</p>
-<p>UDP：速度快，适用于对实时性要求高的场景，如语音通话、直播</p>
+<h3 id="TCP、UDP比较"><a href="#TCP、UDP比较" class="headerlink" title="TCP、UDP比较"></a>TCP、UDP比较</h3><p>TCP：</p>
+<ul>
+<li><p>面向连接，点对点，全双工通信，面向字节流，拥塞控制</p>
+</li>
+<li><p>稳定可靠，适用于对网络通讯质量要求较高的场景，如传输文件、浏览网页</p>
+</li>
+<li><p>基于TCP的应用层协议有HTTP、FTP、SMTP、SSH等</p>
+</li>
+</ul>
+<p>UDP：</p>
+<ul>
+<li><p>面向报文，可一对多，头部短(8Byte)</p>
+</li>
+<li><p>速度快，适用于对实时性要求高的场景，如语音通话、直播</p>
+</li>
+<li><p>基于UDP的应用层协议有DNS、TFTP、SNMP等</p>
+</li>
+</ul>
+<h3 id="TCP头部字段"><a href="#TCP头部字段" class="headerlink" title="TCP头部字段"></a>TCP头部字段</h3><p><img src="/img/inter_img/TCP%E6%8A%A5%E5%A4%B4.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><strong>序号</strong>：假设A和B通讯，A发送给B的第一个报文中的序号为一个随机的ISN（初始序号值），后续发送的报文序号为ISN+携带数据的第一个字节在字节流中的偏移量</li>
+<li><strong>确认号</strong>：在收到的报头的序号上+1</li>
+<li><strong>头部长度</strong>：表示TCP头部有多少个32bit的字，TPC头部长度范围为20Byte ~ 15*4Byte &#x3D; 60Byte</li>
+<li><strong>标志位</strong>：<ul>
+<li>ACK：表示确认号是否有效，携带ACK的报文段为<strong>确认报文段</strong></li>
+<li>SYN：表示请求建立连接，携带SYN的报文段为<strong>同步报文段</strong></li>
+<li>FIN：表示通知对方本端要关闭连接，携带FIN的报文段为<strong>结束报文端</strong></li>
+</ul>
+</li>
+<li><strong>窗口大小</strong>：告诉发送端本端的接收缓冲区还剩多少，用来TCP流量控制</li>
+</ul>
+<h3 id="粘包、半包"><a href="#粘包、半包" class="headerlink" title="粘包、半包"></a>粘包、半包</h3><p>粘包：多个包一起发送</p>
+<p>半包：一个包拆成多个发送</p>
+<p>解决方式：</p>
+<ol>
+<li>在数据尾部添加特殊字符进行分割</li>
+<li>发送分为头部和内容，头部里声明了内容的大小</li>
+</ol>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>拥塞窗口：每次发送多少个数据包</p>
+<p><strong>慢开始</strong>：开始时不知道当前网络状况，因此从1开始指数增加拥塞窗口的大小</p>
+<p><strong>拥塞避免</strong>：当拥塞窗口到达阈值后线性增长，当出现超时事件时拥塞窗口变为1并降低阈值（此时的拥塞窗口大小&#x2F;2）</p>
+<p><img src="/img/inter_img/%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>快重传</strong>：如果是因为丢包而不是网络阻塞造成没有收到数据包，接收方若在数据包超时时间内连续收到三个同一个包的确认收到消息，就认为是丢包了，会立即重新传这个包的下一个包，而不是等到超时时间</p>
+<p><img src="/img/inter_img/%E5%BF%AB%E9%87%8D%E4%BC%A0.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>快恢复</strong>：快重传后把阈值降为拥塞窗大小的一般，把拥塞窗口降为阈值而不是1	</p>
 
                 
               </div>
