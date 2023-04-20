@@ -52,7 +52,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%964.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%965.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-03-30T15:24:57.764Z">
+<meta property="article:modified_time" content="2023-04-20T14:40:42.516Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -264,7 +264,7 @@
         
         
         
-          163 分钟
+          167 分钟
         
       </span>
     
@@ -1294,6 +1294,41 @@
 <p><img src="/img/else_img/%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%965.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ul>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>缓存（穿透、击穿、雪崩、双写一致、持久化、数据过期、淘汰策略）、</p>
+<p>分布式锁（setnx、redisson）</p>
+<h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><p><strong>定义</strong>：查询一个不存在的数据时，mysql查询不到数据也不会直接写入缓存，就会导致每次请求都查询数据库</p>
+<p><strong>解决方式</strong>：</p>
+<ol>
+<li><p>缓存空数据（消耗内存，可能发送不一致的问题）</p>
+</li>
+<li><p>布隆过滤器拦截不存在的数据（内存占用小，存在误判的风险，实现复杂）</p>
+<blockquote>
+<p>布隆过滤器：通过位图检索一个元素是否在一个集合中，hash冲突可能造成误判</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><p><strong>定义</strong>：某个key过期的时候，恰好有大量的并发请求在同一时间发过来，所有的请求都打到了数据库上，如果重建缓存时间太长，数据库就有可能崩溃</p>
+<p><strong>解决方式</strong>：</p>
+<ol>
+<li><p>互斥锁（强一致，性能差）</p>
+<blockquote>
+<p>第一个没查到缓存的线程获取锁去重建缓存，其他线程等待</p>
+</blockquote>
+</li>
+<li><p>逻辑过期（弱一致，高可用）</p>
+<blockquote>
+<p>添加逻辑过期字段，第一个发现过期的线程获取互斥锁，新开一个线程去重建缓存，其他线程返回旧数据</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p><strong>定义</strong>：同一时段大量key同时过期或Redis服务宕机，导致大量请求打到数据库</p>
+<p><strong>解决方式</strong>：</p>
+<ol>
+<li>给key设置不同的TTL</li>
+<li>搭建集群</li>
+<li>添加降级限流规则</li>
+<li>添加多级缓存</li>
+</ol>
 
                 
               </div>
