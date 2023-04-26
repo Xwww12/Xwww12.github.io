@@ -47,6 +47,9 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/springMVC%E5%88%9D%E5%A7%8B%E5%8C%96.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/springMVC%E5%8C%B9%E9%85%8D%E9%98%B6%E6%AE%B5.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/SpringMVC%E6%89%A7%E8%A1%8C%E9%98%B6%E6%AE%B5.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/Spring%E5%B8%B8%E8%A7%81%E6%B3%A8%E8%A7%A3.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/SpringMVC%E5%B8%B8%E8%A7%81%E6%B3%A8%E8%A7%A3.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/SpringBoot%E5%B8%B8%E8%A7%81%E6%B3%A8%E8%A7%A3.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/bean%E7%9A%84%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/bean%E7%9A%84%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%961.png">
@@ -61,8 +64,9 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/redis%E5%85%A8%E9%87%8F%E5%90%8C%E6%AD%A5.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/redis%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/redis%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/MyBatis%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-04-25T10:30:14.274Z">
+<meta property="article:modified_time" content="2023-04-26T14:57:18.864Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -274,7 +278,7 @@
         
         
         
-          206 分钟
+          212 分钟
         
       </span>
     
@@ -1201,44 +1205,9 @@
 <p><img src="/img/else_img/SpringMVC%E6%89%A7%E8%A1%8C%E9%98%B6%E6%AE%B5.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ol>
-<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><h4 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h4><p>@EnableTransactionManagement：启用事务</p>
-<p>@Transactional：在方法上开启事务，在类上加则类内部所有方法都开启事务</p>
-<h4 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h4><p>@Order：控制Bean的执行顺序</p>
-<h4 id="切面"><a href="#切面" class="headerlink" title="切面"></a>切面</h4><p>@EnableAspectAutoProxy：启用AOP</p>
-<h4 id="组件扫描与配置类"><a href="#组件扫描与配置类" class="headerlink" title="组件扫描与配置类"></a>组件扫描与配置类</h4><p>@Component</p>
-<p>@Controller</p>
-<p>@Service</p>
-<p>@Repository</p>
-<p>@ComponentScan：包扫描路径</p>
-<p>@Conditional：条件装配，只有满足条件的才会加入到spring容器</p>
-<p>@Configuration：标注的类可以看做工厂，里面@Bean注解的方法看做产品</p>
-<p>@Bean：不支持方法重载，最后只会注入一个，优先参数多的</p>
-<p>@Import：导入其他配置类、selector</p>
-<p>@Lazy：加在类上，懒惰加在bean；加在成员变量上，懒惰加在成员变量，解决循环依赖</p>
-<p>@PropertySource：读取properties文件，将键值信息加在Environment中</p>
-<h4 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h4><p>@Autowired</p>
-<p>@Qualifier：通过bean的名称指定注入bean的类型</p>
-<p>@Value：值注入</p>
-<h4 id="Web相关"><a href="#Web相关" class="headerlink" title="Web相关"></a>Web相关</h4><p>@RequestMapping</p>
-<p>@RequestBody：json转java对象</p>
-<p>@ResponseBody：java对象转json</p>
-<p>@ResponseStatus：控制响应码</p>
-<p>@ControllerAdvice：统一处理</p>
-<p>@ExceptionHandler</p>
-<p>@RequestHeader：获取请求头信息</p>
-<p>@CookieValue：获取cookie值</p>
-<p>@PathVariable：获取路径参数</p>
-<p>@RequestParam：获取表单参数</p>
-<p>@CrossOrigin：处理跨域</p>
-<h4 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h4><p>@EnableConfigurationProperties：开启功能</p>
-<p>@ConfigurationProperties：从properties中读取键值来主bean</p>
-<p>@ConditionOnClass：类路径下要包含某个类</p>
-<p>@ConditionOnMissingBean：容器中不存在某个bean</p>
-<p>@ConditionOnProperty：键值要一致</p>
-<p>@SpringBootApplication</p>
-<p>@EnableAutoConfiguration：找到自动配置类</p>
-<p>@SpringBootConfiguration</p>
-<p>@ComponentScan：包扫描路径，默认启动类所在路径</p>
+<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><h4 id="Spring常见注解"><a href="#Spring常见注解" class="headerlink" title="Spring常见注解"></a>Spring常见注解</h4><p><img src="/img/else_img/Spring%E5%B8%B8%E8%A7%81%E6%B3%A8%E8%A7%A3.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="SpringMVC常见注解"><a href="#SpringMVC常见注解" class="headerlink" title="SpringMVC常见注解"></a>SpringMVC常见注解</h4><p><img src="/img/else_img/SpringMVC%E5%B8%B8%E8%A7%81%E6%B3%A8%E8%A7%A3.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="SpringBoot常见注解"><a href="#SpringBoot常见注解" class="headerlink" title="SpringBoot常见注解"></a>SpringBoot常见注解</h4><p><img src="/img/else_img/SpringBoot%E5%B8%B8%E8%A7%81%E6%B3%A8%E8%A7%A3.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="SpringBoot自动配置"><a href="#SpringBoot自动配置" class="headerlink" title="SpringBoot自动配置"></a>SpringBoot自动配置</h3><p>@SpringBootApplication主要由三个注解构成</p>
 <ul>
 <li>@SpringBootConfiguration<ul>
@@ -1256,7 +1225,7 @@
 </li>
 </ul>
 <h3 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h3><p><img src="/img/else_img/bean%E7%9A%84%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png" srcset="/img/loading.gif" lazyload></p>
-<h4 id="切面-1"><a href="#切面-1" class="headerlink" title="切面"></a>切面</h4><p>通过代理对象来关联ProxyFactory实现切面，SpringBoot通过自动代理后处理器来识别相关注解</p>
+<h4 id="切面"><a href="#切面" class="headerlink" title="切面"></a>切面</h4><p>通过代理对象来关联ProxyFactory实现切面，SpringBoot通过自动代理后处理器来识别相关注解</p>
 <p><strong>术语</strong></p>
 <ul>
 <li><p>Advisor：最基础的切面，把一个Advice和一个Pointcut组合起来</p>
@@ -1326,7 +1295,9 @@
 </blockquote>
 </li>
 </ul>
-<h2 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h2><h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>缓存（穿透、击穿、雪崩、双写一致、持久化、数据过期、淘汰策略）、</p>
+<h3 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h3><p>@SpringBootApplication中包含的@EnableAutoConfiguration中用@Import导入了配置选择器</p>
+<p>内部读取了该项目和引用的Jar包的classpath路径下<code>META-INF/spring.factories</code>文件中的所配置的类的全类名，根据这些配置类中定义的Bean所指定的条件来决定是否注入到Spring容器中</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>缓存（穿透、击穿、雪崩、双写一致、持久化、数据过期、淘汰策略）、</p>
 <p>分布式锁（setnx、redisson）</p>
 <p>计数器（浏览量、点赞数）</p>
 <p>排行榜</p>
@@ -1648,7 +1619,43 @@
 <h3 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h3><p>binLog日志记录主库的DML（数据操作语言）和DDL（数据定义语言）语句，从库去拉主库的binLog到自己的Relay Log中，再通过Relay Log同步数据</p>
 <h3 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h3><p>单表数据量达1000w或20G</p>
 <p>可以通过业务或字段或数据来分库分表</p>
+<h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><h3 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h3><p><img src="/img/else_img/MyBatis%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li>加载配置文件（运行环境，映射文件）</li>
+<li>构建SqlSessionFactory</li>
+<li>通过SqlSessionFactory创建SqlSession对象（提供增删改查API）</li>
+<li>Executor核心作用是处理SQL请求、事务管理、维护缓存以及批处理等</li>
+<li>把映射文件里的信息封装到Exector的MappedStatement中</li>
+<li>把请求参数转化为mysql可以识别的数据类型</li>
+<li>把返回值转化为java对象</li>
+</ol>
+<h3 id="延迟加载"><a href="#延迟加载" class="headerlink" title="延迟加载"></a>延迟加载</h3><blockquote>
+<p>在执行 SQL 查询时，只加载需要立即返回到 Java 对象中的数据，而将其余数据的加载推迟到访问时</p>
+<p>MyBatis 中的延迟加载主要是针对一对多和多对多的关联关系中的关联对象进行的</p>
+</blockquote>
+<p>通过<code>fetchType = true</code>开启延迟加载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs mysql">&lt;!-- 延迟加载一对多关联关系 --&gt;<br>&lt;resultMap id=&quot;userMap&quot; type=&quot;User&quot;&gt;<br>  &lt;id column=&quot;id&quot; property=&quot;id&quot;/&gt;<br>  &lt;result column=&quot;userName&quot; property=&quot;userName&quot;/&gt;<br>  &lt;result column=&quot;password&quot; property=&quot;password&quot;/&gt;<br>  &lt;collection property=&quot;posts&quot; ofType=&quot;Post&quot; column=&quot;id&quot;<br>              select=&quot;selectPostsByUserId&quot; fetchType=&quot;lazy&quot;/&gt;<br>&lt;/resultMap&gt;<br><br>&lt;select id=&quot;selectUserById&quot; resultMap=&quot;userMap&quot;&gt;<br>  SELECT * FROM user WHERE id = #&#123;id&#125;<br>&lt;/select&gt;<br><br>&lt;select id=&quot;selectPostsByUserId&quot; resultType=&quot;Post&quot;&gt;<br>  SELECT * FROM post WHERE userId = #&#123;id&#125;<br>&lt;/select&gt;<br></code></pre></td></tr></table></figure>
 
+<p>开启全局延迟加载</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">mybatis:</span><br>  <span class="hljs-attr">configuration:</span><br>    <span class="hljs-attr">default-lazy-loading-enabled:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><p><strong>一级缓存</strong>：作用域为Session，当Session被flush()或者close()时缓存就会清空</p>
+<p><strong>二级缓存</strong>：作用域为整个MySQL实例，任何客户端都可以使用</p>
+<ul>
+<li><p>二级缓存需要缓存的数据要实现Serializable接口</p>
+</li>
+<li><p>只有Session提交或关闭后，一级缓存中的数据才会转移到二级缓存中</p>
+</li>
+<li><p>当进行了增删改操作后，一、二级缓存都会清空</p>
+</li>
+<li><p>一级缓存默认开启，二级缓存要手动开启：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">mybatis:</span><br>  <span class="hljs-attr">configuration:</span><br>    <span class="hljs-attr">cache-enabled:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 在mapper上加上@CacheNamespace</span><br><span class="hljs-comment">// 在方法上加上 @Options(useCache = true)</span><br><span class="hljs-meta">@CacheNamespace</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> &#123;<br>    <span class="hljs-meta">@Select(value = &quot;select * from user where id = #&#123;id&#125;&quot;)</span><br>    <span class="hljs-meta">@Options(useCache = true)</span><br>    User <span class="hljs-title function_">selectUserById</span><span class="hljs-params">(Integer id)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">// 如果是在xml中定义的sql语句，需要加上<span class="hljs-tag">&lt;<span class="hljs-name">cache</span>/&gt;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2>
                 
               </div>
             
