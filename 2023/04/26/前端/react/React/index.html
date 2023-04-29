@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/qianduan/React%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
 <meta property="og:image" content="http://xwww12.github.io/img/qianduan/%E9%A1%B9%E7%9B%AE%E6%8E%A8%E8%8D%90%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
 <meta property="article:published_time" content="2023-04-26T12:12:39.760Z">
-<meta property="article:modified_time" content="2023-04-26T14:27:11.305Z">
+<meta property="article:modified_time" content="2023-04-27T14:25:53.257Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          5k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          28 分钟
+          42 分钟
         
       </span>
     
@@ -310,9 +310,49 @@
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cmd">npx create-react-app my-app<br><span class="hljs-built_in">cd</span> my-app<br>npm <span class="hljs-built_in">start</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h3><p>JavaScript + XML，js的语法扩展，可以在JavaScript中写XML</p>
+<blockquote>
+<p>使用create-react-app创建的项目中有babel，经过babel编译处理后才能在浏览器环境中使用</p>
+</blockquote>
 <p>例子</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> element = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, &#123;name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>; <span class="hljs-comment">// &#123;&#125;里面可以写 JS 表达式</span><br><br><span class="hljs-comment">// 表示将 element 这个 JSX 渲染到 id 为 root 的元素上</span><br><span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">render</span>(<br>  element,<br>  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>)<br>);<br></code></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactDOM</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span><br><br><span class="hljs-comment">// JSX来创建react元素</span><br><span class="hljs-keyword">const</span> element = (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, JSX<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br>); <br><br><span class="hljs-comment">// 版本17及之前</span><br><span class="hljs-comment">// 表示将 element 这个 JSX 渲染到 id 为 root 的元素上</span><br><span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">render</span>(<br>  element,<br>  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>)<br>);<br><br><span class="hljs-comment">// 18之后的版本用ReactDOM.createRoot()</span><br><span class="hljs-keyword">const</span> root = <span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>));<br>root.<span class="hljs-title function_">render</span>(<br>  element<br>);<br></code></pre></td></tr></table></figure>
 
+<p>注意点：</p>
+<ol>
+<li>React元素的属性名使用驼峰命名法</li>
+<li>特殊属性名要转换成对应写法：class -&gt; className、for -&gt; htmlFor、tabindex -&gt; tablndex</li>
+<li>没有子节点的React元素可以用<code>/&gt;</code>结束</li>
+<li>推荐使用<code>()</code>包裹JSX</li>
+</ol>
+<h4 id="嵌入JS表达式"><a href="#嵌入JS表达式" class="headerlink" title="嵌入JS表达式"></a>嵌入JS表达式</h4><ul>
+<li><p>语法：{JS表达式}</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html">const name = &#x27;Jack&#x27;<br>const dv = (<br><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>我叫: &#123;name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>注意点</p>
+<ul>
+<li>单大括号里可以直接使用js表达式</li>
+<li>JSX自身也是JS表达式</li>
+<li>不能在{}中出现语句(如：if&#x2F;for)</li>
+</ul>
+</li>
+</ul>
+<h4 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs html">const isLoading = false<br>const loadData = () =&gt; &#123;<br>  if (isLoading) &#123;<br>    return <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  &#125;<br>  return <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>数据加载完成<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>&#125;<br><br>const root = ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;));<br>root.render(<br>  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><br>    &#123;loadData()&#125;<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="列表渲染"><a href="#列表渲染" class="headerlink" title="列表渲染"></a>列表渲染</h4><ul>
+<li>使用map()来渲染一组数据</li>
+<li>列表应该添加key</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs html">const songs = [<br>  &#123;id: 1, name: &#x27;a&#x27;&#125;,<br>  &#123;id: 2, name: &#x27;b&#x27;&#125;,<br>  &#123;id: 3, name: &#x27;c&#x27;&#125;,<br>]<br><br>const root = ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;));<br>root.render(<br>  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><br>    &#123;songs.map(item =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item.id&#125;</span>&gt;</span>&#123;item.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>)&#125;<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="样式处理"><a href="#样式处理" class="headerlink" title="样式处理"></a>样式处理</h4><ul>
+<li><p>行内样式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html">// 第一个&#123;&#125;表示嵌入表达式，第二个&#123;&#125;表示对象<br>const root = ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;));<br>root.render(<br>  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span> = <span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">color:</span> &#x27;<span class="hljs-attr">red</span>&#x27;, <span class="hljs-attr">backgroundColor:</span> &#x27;<span class="hljs-attr">skyblue</span>&#x27; &#125;&#125;&gt;</span><br>    样式处理<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>类名</p>
+<p><strong>记得导入</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html">// App.js<br>import &#x27;./index.css&#x27;;<br><br>const root = ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;));<br>root.render(<br>  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&#x27;title&#x27;</span>&gt;</span><br>    样式处理<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">// index<span class="hljs-selector-class">.css</span><br><br><span class="hljs-selector-class">.title</span> &#123;<br>  <span class="hljs-attribute">text-align</span>: center;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
 <h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><p><code>props</code>是父组件传给子组件的属性（只读，单向）</p>
 <p>定义组件方式1：函数式</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComp</span>(<span class="hljs-params">props</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>hello &#123;props.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -458,6 +498,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/04/29/%E5%85%B6%E4%BB%96/python/psutil/" title="psutil">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">psutil</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
