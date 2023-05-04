@@ -24,6 +24,7 @@
 <meta property="og:description" content="面试题java基础二分问题1：128个元素最多二分几次找到目标 答：128 &#x3D; 2^7，最多7次 问题2：100000000000个元素最多二分几次找到目标 答： ​	公式：logb(a) &#x3D; logc(a) &#x2F; logc(b) ​	log2(100000000000) &#x3D; log10(100000000000) &#x2F; log10(2)，向上取整 排">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%8E%92%E5%BA%8F.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/%E9%9B%86%E5%90%88%E5%85%B3%E7%B3%BB%E5%9B%BE.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/hashMap.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/hashMap%E7%9A%84put%E6%B5%81%E7%A8%8B.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/java%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81.png">
@@ -69,7 +70,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%891.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/RabbitMQ%E7%94%9F%E4%BA%A7%E8%80%85%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-04-29T10:49:12.540Z">
+<meta property="article:modified_time" content="2023-05-04T11:12:57.165Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -270,7 +271,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          27k 字
+          29k 字
         
       </span>
     
@@ -281,7 +282,7 @@
         
         
         
-          229 分钟
+          244 分钟
         
       </span>
     
@@ -387,8 +388,62 @@
 <p><img src="/img/else_img/%E6%8E%92%E5%BA%8F.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ol>
-<h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><h5 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h5><h6 id="扩容机制"><a href="#扩容机制" class="headerlink" title="扩容机制"></a>扩容机制</h6><p>​	无参构造刚创建出来的时候容量为0，有参则按传入的值或集合的大小作为容量</p>
-<p>​	<strong>add方法</strong>：首次添加元素时会创建一个容量为10的数组，之后每次添加元素容量不足时会按原数组容量的<strong>1.5倍</strong>（向下取整）创建新数组，把原数组的元素复制到新数组中，用新数组替换原数组。</p>
+<h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><p><img src="/img/else_img/%E9%9B%86%E5%90%88%E5%85%B3%E7%B3%BB%E5%9B%BE.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h5><h6 id="成员变量-x2F-构造函数"><a href="#成员变量-x2F-构造函数" class="headerlink" title="成员变量&#x2F;构造函数"></a>成员变量&#x2F;构造函数</h6><table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Object[] elementData</td>
+<td>存放元素</td>
+</tr>
+<tr>
+<td>int size</td>
+<td>大小</td>
+</tr>
+<tr>
+<td>static final int DEFAULT_CAPACITY &#x3D; 10</td>
+<td>初始容量</td>
+</tr>
+<tr>
+<td>static final Object[] EMPTY_ELEMENTDATA &#x3D; {}</td>
+<td></td>
+</tr>
+<tr>
+<td>static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA &#x3D; {}</td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>构造函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public ArrayList(int initialCapacity)</td>
+<td>若参数合法则根据参数来初始化此容量的集合</td>
+</tr>
+<tr>
+<td>public ArrayList()</td>
+<td>elementData &#x3D; DEFAULTCAPACITY_EMPTY_ELEMENTDATA</td>
+</tr>
+<tr>
+<td>public ArrayList(Collection&lt;? extends E&gt; c)</td>
+<td>将c转换成数组，将数组的地址赋给elementData</td>
+</tr>
+</tbody></table>
+<h6 id="扩容机制"><a href="#扩容机制" class="headerlink" title="扩容机制"></a>扩容机制</h6><p>​	<strong>初始化</strong>：无参构造刚创建出来的时候容量为0，有参则按传入的值或集合的大小作为容量</p>
+<p>​	<strong>add方法</strong>：</p>
+<ol>
+<li>添加元素时会先判断添加元素后的容量是否超过当前容量</li>
+<li>如果是无参构造，首次添加元素时会创建一个容量为<code>DEFAULT_CAPACITY=10</code>的数组，</li>
+<li>之后每次添加元素容量不足时会按原数组容量的<strong>1.5倍</strong>（向下取整）创建新数组，把原数组的元素复制到新数组中，用新数组替换原数组。</li>
+</ol>
 <p>​	<strong>addAll方法</strong>：没有元素时扩容为Math.max(10, 实际元素个数)，有元素时为Math.max(原容量1.5倍, 实际元素个数)。</p>
 <h6 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h6><p>当在使用迭代器时有其它线程修改数组时有两种<strong>策略</strong>：</p>
 <ol>
@@ -400,31 +455,50 @@
 <blockquote>
 <p>ArrayList使用的第一种策略，CopyOnWriteArrayList是第二种策略（对策是添加把原集合复制出来，在新集合上进行修改，修改好后指向新集合。创建迭代器时会指向当前集合，遍历的是旧集合不影响（读写分离））；</p>
 </blockquote>
+<h6 id="数组和List之间的转换"><a href="#数组和List之间的转换" class="headerlink" title="数组和List之间的转换"></a>数组和List之间的转换</h6><p>数组转List（浅拷贝）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">String[] strs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[]&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>&#125;;<br>List&lt;String&gt; list = Arrays.asList(strs);<br></code></pre></td></tr></table></figure>
+
+<p>List转数组（深拷贝）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;String&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>list.add(<span class="hljs-string">&quot;a&quot;</span>); list.add(<span class="hljs-string">&quot;b&quot;</span>);<br>String[] strs = list.toArray(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[list.size()]);<br></code></pre></td></tr></table></figure>
+
 <h5 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h5><h6 id="与ArrayList的比较"><a href="#与ArrayList的比较" class="headerlink" title="与ArrayList的比较"></a>与ArrayList的比较</h6><ul>
-<li>ArrayList<ol>
-<li>基于数组，需要连续内存</li>
-<li>随机访问快</li>
-<li>尾部插入和插入性能可以，其它部分都会移动元素，性能低</li>
-<li>可以利用cpu缓存，局部性原理</li>
-</ol>
+<li><p><strong>底层数据结构</strong></p>
+<p>ArrayList基于动态数组，需要连续内存</p>
+<p>LinkedList基于双向链表，无需连续内存</p>
 </li>
-<li>LinkedList<ol>
-<li>基于双向链表，无需连续内存</li>
-<li>随机访问慢</li>
-<li>头尾插入删除性能高</li>
-<li>占用内存多</li>
-</ol>
+<li><p><strong>效率</strong></p>
+<p>ArrayList随机访问快，尾部插入和插入性能可以，其它部分都会移动元素，性能低</p>
+<p>LinkedList随机访问慢，尾插入删除性能高，其他部分效率低</p>
+</li>
+<li><p><strong>占用空间</strong></p>
+<p>ArrayList可以利用cpu缓存，局部性原理</p>
+<p>LinkedList占用内存多</p>
+</li>
+<li><p><strong>线程安全</strong></p>
+<p>ArrayList和LinkedList都不是线程安全的，可以通过</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Object&gt; list = Collections.synchronizedList(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;());<br>List&lt;Object&gt; list = Collections.synchronizedList(<span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;());<br></code></pre></td></tr></table></figure>
+
+<p>包装一下，变成线程安全的</p>
 </li>
 </ul>
-<h5 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h5><p><img src="/img/else_img/hashMap.png" srcset="/img/loading.gif" lazyload alt="桶数组是用来存储数据元素，链表是用来解决冲突，红黑树是为了提高查询的效率"></p>
-<h6 id="链表过长时的解决方法"><a href="#链表过长时的解决方法" class="headerlink" title="链表过长时的解决方法"></a>链表过长时的解决方法</h6><ol>
-<li><p><strong>数组扩容</strong>：put元素后检查，当链表长度大于8或元素总数大于阈值（阈值&#x3D;容量*负载因子）时会发生一次扩容，扩容后链表长度可能还是会大于8。</p>
-<p>​	当存的元素hash值都一样的时候扩容也不能缩短链表长度</p>
-</li>
-<li><p><strong>树化</strong>（jdk1.8）：若数组容量小于64时会先尝试扩容，当数组容量超过64且链表长度大于8（阈值）时会树化</p>
+<h5 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h5><h6 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h6><ul>
+<li><p><strong>链表过长时的解决方法</strong></p>
+<p><img src="/img/else_img/hashMap.png" srcset="/img/loading.gif" lazyload alt="桶数组是用来存储数据元素，链表是用来解决冲突，红黑树是为了提高查询的效率"></p>
+<ol>
+<li><strong>数组扩容</strong>：<ol>
+<li>put元素后检查，当链表长度大于8或元素总数大于阈值（阈值&#x3D;容量*负载因子）时会发生一次扩容</li>
+<li>每次扩容都是之前容量的2倍</li>
+<li>扩容之后会创建一个新的数组，把老数组中的元素迁移过去<ul>
+<li>没有hash冲突的节点，直接<code>e.hash &amp; (newCap - 1)</code>计算索引下标</li>
+<li>红黑树则走红黑树逻辑</li>
+<li>如果是链表，则需要遍历链表，可能需要拆分链表，判断<code>e.hash &amp; oldCap == 0</code>是否成立，如果成立则仍在这个位置，否则移动到<code>原始位置+oldCap</code>上</li>
+</ul>
 </li>
 </ol>
-<h6 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h6><ul>
+</li>
+<li><strong>树化</strong>（jdk1.8）：若数组容量小于64时会先尝试扩容，当数组容量超过64且链表长度大于8（阈值）时会树化</li>
+</ol>
+</li>
 <li><p><strong>底层数据结构，1.7和1.8有何不同?</strong></p>
 <ul>
 <li>1.7为数组+链表，1.8为数组+(链表 | 红黑树)</li>
@@ -452,21 +526,24 @@
 
 <ul>
 <li>调用对象的hashCode()方法获得原始hash，再调用HashMap的hash()方法二次哈希，最后<code> % capacity</code>（和桶的数量求余，等价于 <code>&amp;(capacity - 1)</code>) ）</li>
-<li>为了提高综合高位数据，让哈希分布更加均匀</li>
+<li>为了提高综合高位数据，让哈希分布更加均匀，减少冲突</li>
 <li>计算索引时，如果是2的n次幂可以使用位与运算代替取模，提高效率；扩容时<code>hash &amp; oldCap == 0</code>的元素留在原处，否则<code>新位置=旧位置 + oldCap</code></li>
 </ul>
 </li>
 <li><p><strong>介绍一下put方法流程，1.7和1.8的有何不同？</strong></p>
 <p><img src="/img/else_img/hashMap%E7%9A%84put%E6%B5%81%E7%A8%8B.png" srcset="/img/loading.gif" lazyload></p>
-<p>HashMap是懒惰创建数组的，首次使用才创建数组；</p>
-<p>计算索引（hashCode() –&gt; hash() –&gt; 和桶大小求模）</p>
-<p>如果桶下标没人占用，则创建Node占位返回</p>
-<p>如果有人占用了</p>
 <ol>
+<li>判断table是否为null，是的话执行resize()扩容（懒惰初始化）</li>
+<li>计算索引（hashCode() –&gt; hash() –&gt; 和桶大小求模）</li>
+<li>如果桶下标没人占用，则创建Node占位返回</li>
+<li>如果有人占用了<ol>
 <li>如果是TreeNode走红黑树逻辑</li>
 <li>如果是普通Node走链表逻辑，如果需要树化则走树化逻辑</li>
+<li>遍历链表或红黑树时发现key已存在则覆盖原先的值</li>
 </ol>
-<p>返回前检查容量是否超过阈值，超过则扩容</p>
+</li>
+<li>返回前检查容量是否超过阈值，超过则扩容</li>
+</ol>
 <p>不同：</p>
 <ol>
 <li>1.7是头插法，1.8是尾插法</li>
@@ -1789,6 +1866,34 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Message</span> <span class="hljs-variable">msg</span> <span class="hljs-operator">=</span> MessageBuilder<br>    			.withBody(message.getBytes())<br>			    .setDelieryMode(MessageDelieryMode.PERSISTENT)	<span class="hljs-comment">// 持久化</span><br>			    .build();<br></code></pre></td></tr></table></figure></li>
 </ol>
 <p><strong>消费者确认</strong>：消费者收到消息返回ack，MQ收到ack后才会删除消息。如果多次获取消息失败，则将消息投递到异常交换机来处理</p>
+<h4 id="死信交换机-x2F-延迟队列"><a href="#死信交换机-x2F-延迟队列" class="headerlink" title="死信交换机&#x2F;延迟队列"></a>死信交换机&#x2F;延迟队列</h4><p><strong>延迟队列</strong>：进入队列的消息会被延迟消费的队列，延迟队列&#x3D;死信交换机+TTL（生存时间）</p>
+<p>使用场景：超时订单取消、限时优惠、定时发布等</p>
+<p><strong>死信</strong>：过期消息、消费失败的消息、消息队列满了时最早的消息</p>
+<p><strong>死信交换机</strong>：接收死信的交换机</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> Queue <span class="hljs-title function_">ttlQueue</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">return</span> QueueBuilder.durable(<span class="hljs-string">&quot;simple.queue&quot;</span>)<br>        .ttl(<span class="hljs-number">10000</span>)<br>        .deadLetterExchange(<span class="hljs-string">&quot;dl.direct&quot;</span>)	<span class="hljs-comment">// 指定死信交换机</span><br>        .build();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="消息堆积"><a href="#消息堆积" class="headerlink" title="消息堆积"></a>消息堆积</h4><p>生产者生产消息的速度大于消费者消费消息的速度时，就会导致堆积</p>
+<p>解决方式：</p>
+<ul>
+<li>增加消费者</li>
+<li>消费者开启线程池加快消息处理速度</li>
+<li>扩大队列容积</li>
+<li><strong>惰性队列</strong>：消息接收后存到磁盘中，时效性低</li>
+</ul>
+<h4 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a>高可用</h4><p><strong>普通集群</strong></p>
+<ul>
+<li>集群中的节点共享交换机、队列信息，不包含队列中的消息</li>
+<li>当访问集群某节点时，如果队列不在该节点，会从数据所在节点传递到当前节点并返回</li>
+<li>队列所在节点宕机，队列中的消息就会丢失</li>
+</ul>
+<p><strong>镜像集群</strong></p>
+<ul>
+<li>主从模式，镜像节点做备份，主节点完成操作，主节点宕机由镜像节点替代</li>
+</ul>
+<p><strong>仲裁队列</strong></p>
+<ul>
+<li>主从模式，主从同步基于Raft协议，解决镜像节点主从同步时主节点宕机的问题</li>
+</ul>
 
                 
               </div>
