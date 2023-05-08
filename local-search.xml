@@ -4,37 +4,6 @@
   
   
   <entry>
-    <title>Vue3</title>
-    <link href="/2023/05/06/%E5%89%8D%E7%AB%AF/vue/Vue3/"/>
-    <url>/2023/05/06/%E5%89%8D%E7%AB%AF/vue/Vue3/</url>
-    
-    <content type="html"><![CDATA[<h1 id="Vue3"><a href="#Vue3" class="headerlink" title="Vue3"></a>Vue3</h1><p><a href="https://cn.vuejs.org/">官网</a></p><h2 id="声明试渲染"><a href="#声明试渲染" class="headerlink" title="声明试渲染"></a>声明试渲染</h2><p>当状态改变时，HTML 会自动更新</p><p><strong>响应式</strong>：能在改变时触发更新的状态</p><h3 id="组合式"><a href="#组合式" class="headerlink" title="组合式"></a>组合式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>import &#123; reactive, ref &#125; from &#x27;vue&#x27;<br><br>const counter = reactive(&#123; count: 0 &#125;)<br>const message = ref(&#x27;Hello World!&#x27;)<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>  &lt;h1&gt;&#123;&#123; message &#125;&#125;&lt;/h1&gt;<br>  &lt;p&gt;Count is: &#123;&#123; counter.count &#125;&#125;&lt;/p&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure><p><strong>reactive和ref的比较</strong>：</p><ul><li><p>reactive只能用于定义对象，ref可以定义任何类型</p></li><li><p>reactive是通过创建代理对象来实现响应式，给一个已经通过reactive创建的代理对象再套一层reactive返回的仍是原来的代理对象，代理对象里的属性也是被代理了；因此reactive对原始类型无效(number、string、boolean)</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vue">const raw = &#123;&#125;<br>const proxy = reactive(raw)<br><br>console.log(proxy === raw) // false<br>console.log(reactive(raw) === proxy) // true<br>console.log(reactive(proxy) === proxy) // true<br></code></pre></td></tr></table></figure></li><li><p>ref是将传入的值包装为一个带<code>.value</code>属性的对象。ref对象作为顶层元素在模板中使用时会自动解包，不需要<code>.value</code>;作为属性时需要<code>.value</code></p></li></ul><p><code>&lt;script setup&gt;</code>中的setup表示里面定义的变量是响应式的</p><h3 id="选项式"><a href="#选项式" class="headerlink" title="选项式"></a>选项式</h3><p>声明变量和对象</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script&gt;<br>export default &#123;<br>  data() &#123;<br>    return &#123;<br>      message: &#x27;Hello World!&#x27;,<br>      counter: &#123;<br>        count: 0<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>  &lt;h1&gt;&#123;&#123; message &#125;&#125;&lt;/h1&gt;<br>  &lt;p&gt;Count is: &#123;&#123; counter.count &#125;&#125;&lt;/p&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure><h2 id="属性绑定"><a href="#属性绑定" class="headerlink" title="属性绑定"></a>属性绑定</h2><p><code>&#123;&#123;&#125;&#125;</code>用于给文本绑定，<code>v-bind:</code>(缩写<code>:</code>)可以用于给标签的属性绑定</p><p>注意：</p><ul><li><p>如果绑定的值为<code>null</code>或者<code>undefined</code>，则属性会被移除</p></li><li><p>如果绑定的值为true或false，则为false时属性会被移除</p></li></ul><h3 id="组合式-1"><a href="#组合式-1" class="headerlink" title="组合式"></a>组合式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>import &#123; ref &#125; from &#x27;vue&#x27;<br><br>const titleClass = ref(&#x27;title&#x27;)<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>  &lt;h1 :class=&quot;titleClass&quot;&gt;Make me red&lt;/h1&gt;<br>&lt;/template&gt;<br><br>&lt;style&gt;<br>.title &#123;<br>  color: red;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure><h3 id="响应式"><a href="#响应式" class="headerlink" title="响应式"></a>响应式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script&gt;<br>export default &#123;<br>  data() &#123;<br>    return &#123;<br>      titleClass: &#x27;title&#x27;<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>  &lt;h1 :class=&#x27;titleClass&#x27;&gt;Make me red&lt;/h1&gt; &lt;!-- 此处添加一个动态 class 绑定 --&gt;<br>&lt;/template&gt;<br><br>&lt;style&gt;<br>.title &#123;<br>  color: red;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure><h2 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h2><p>通过<code>v-on:</code>或<code>@</code>来监听事件</p><p><strong>注意</strong>：</p><ul><li>可以直接写一些简单的表示式</li><li>直接绑定方法名，方法可以有一个原生 DOM 事件参数<code>event</code>；绑定<code>方法名(参数)</code>可以传递参数, 但<code>event</code>没了；绑定<code>方法名(参数, ..., $event)</code>可以传入<code>event</code></li></ul><p><strong>事件修饰符</strong>：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- 单击事件将停止传递 --&gt;<br>&lt;a @click.stop=&quot;doThis&quot;&gt;&lt;/a&gt;<br><br>&lt;!-- 提交事件将不再重新加载页面 --&gt;<br>&lt;form @submit.prevent=&quot;onSubmit&quot;&gt;&lt;/form&gt;<br><br>&lt;!-- 修饰语可以使用链式书写 --&gt;<br>&lt;a @click.stop.prevent=&quot;doThat&quot;&gt;&lt;/a&gt;<br><br>&lt;!-- 也可以只有修饰符 --&gt;<br>&lt;form @submit.prevent&gt;&lt;/form&gt;<br><br>&lt;!-- 仅当 event.target 是元素本身时才会触发事件处理器 --&gt;<br>&lt;!-- 例如：事件处理器不来自子元素 --&gt;<br>&lt;div @click.self=&quot;doThat&quot;&gt;...&lt;/div&gt;<br></code></pre></td></tr></table></figure><p><strong>按键修饰符</strong>：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- 仅在 `key` 为 `Enter` 时调用 `submit` --&gt;<br>&lt;input @keyup.enter=&quot;submit&quot; /&gt;<br><br>&lt;!-- Alt + Enter --&gt;<br>&lt;input @keyup.alt.enter=&quot;clear&quot; /&gt;<br></code></pre></td></tr></table></figure><p>常用的按键的别名：</p><ul><li><code>.enter</code></li><li><code>.tab</code></li><li><code>.delete</code> (捕获“Delete”和“Backspace”两个按键)</li><li><code>.esc</code></li><li><code>.space</code></li><li><code>.up</code></li><li><code>.down</code></li><li><code>.left</code></li><li><code>.right</code></li><li><code>.ctrl</code></li><li><code>.alt</code></li><li><code>.shift</code></li><li><code>.meta</code>（win键）</li><li><code>.left</code>（鼠标左键）</li><li><code>.right</code>（鼠标右键）</li><li><code>.middle</code>（鼠标中键）</li></ul><h3 id="组合式-2"><a href="#组合式-2" class="headerlink" title="组合式"></a>组合式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>import &#123; ref &#125; from &#x27;vue&#x27;<br><br>const count = ref(0)<br>function increment() &#123;<br>  count.value++<br>&#125;<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>  &lt;!-- 使此按钮生效 --&gt;<br>  &lt;button @click=&quot;increment&quot;&gt;count is: &#123;&#123; count &#125;&#125;&lt;/button&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure><h3 id="选项式-1"><a href="#选项式-1" class="headerlink" title="选项式"></a>选项式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script&gt;<br>export default &#123;<br>  data() &#123;<br>    return &#123;<br>      count: 0<br>    &#125;<br>  &#125;,<br>  methods: &#123;<br>    increment() &#123;<br>      this.count++<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>  &lt;!-- 使此按钮生效 --&gt;<br>  &lt;button @click=&quot;increment&quot;&gt;count is: &#123;&#123; count &#125;&#125;&lt;/button&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>学习笔记</category>
-      
-      <category>前端</category>
-      
-      <category>Vue</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>前端</tag>
-      
-      <tag>Vue</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>FreeMarker</title>
     <link href="/2023/05/03/%E6%A1%86%E6%9E%B6/FreeMarker/"/>
     <url>/2023/05/03/%E6%A1%86%E6%9E%B6/FreeMarker/</url>
@@ -342,9 +311,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -373,9 +342,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -404,9 +373,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1971,9 +1940,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -2062,9 +2031,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
