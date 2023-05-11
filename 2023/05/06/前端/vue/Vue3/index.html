@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/qianduan_img/Vue3%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
 <meta property="og:image" content="http://xwww12.github.io/img/qianduan_img/Vue3%E7%9B%AE%E5%BD%95.png">
 <meta property="article:published_time" content="2023-05-06T10:59:28.597Z">
-<meta property="article:modified_time" content="2023-05-10T14:14:54.632Z">
+<meta property="article:modified_time" content="2023-05-11T14:56:15.765Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="Vue">
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15k 字
+          19k 字
         
       </span>
     
@@ -239,7 +239,7 @@
         
         
         
-          128 分钟
+          160 分钟
         
       </span>
     
@@ -497,17 +497,78 @@
 <li><p>主要文件&#x2F;文件夹</p>
 <p><img src="/img/qianduan_img/Vue3%E7%9B%AE%E5%BD%95.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
-<li><p>package.json：用于描述项目所需依赖包、项目的信息、脚本命令等的元数据文件</p>
+<li>package.json：用于描述项目所需依赖包、项目的信息、脚本命令等的元数据文件</li>
+<li>vite.config.js：项目的配置文件，基于Vite的配置</li>
+<li>main.js：项目入口文件</li>
+<li>App.vue：根组件</li>
+</ul>
 </li>
-<li><p>vite.config.js：项目的配置文件，基于Vite的配置</p>
-</li>
-<li><p>main.js：项目入口文件</p>
-</li>
-<li><p>App.vue：根组件</p>
-</li>
+<li><p>常见的自己创建的文件夹</p>
+<ul>
+<li>apis：API接口文件夹</li>
+<li>composables：组合函数文件夹</li>
+<li>directives：全局指令文件夹</li>
+<li>styles：全局样式文件夹</li>
+<li>utils：工具函数文件夹</li>
 </ul>
 </li>
 </ol>
+<h1 id="Element-Plus"><a href="#Element-Plus" class="headerlink" title="Element Plus"></a>Element Plus</h1><blockquote>
+<p>基于 Vue 3的Element UI</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://element-plus.gitee.io/zh-CN/guide/quickstart.html">Element Plue中文文档</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li><p>安装依赖</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">npm install element-plus --save<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>按需导入(只加载使用到的组件)需要额外安装插件</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">npm install -D unplugin-vue-components unplugin-auto-import<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>vite.config.js</code>配置导入插件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// vite.config.ts</span><br><span class="hljs-keyword">import</span> &#123; defineConfig &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">AutoImport</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;unplugin-auto-import/vite&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Components</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;unplugin-vue-components/vite&#x27;</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">ElementPlusResolver</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;unplugin-vue-components/resolvers&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>(&#123;<br>  <span class="hljs-comment">// ...</span><br>  <span class="hljs-attr">plugins</span>: [<br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-title class_">AutoImport</span>(&#123;<br>      <span class="hljs-attr">resolvers</span>: [<span class="hljs-title class_">ElementPlusResolver</span>()],<br>    &#125;),<br>    <span class="hljs-title class_">Components</span>(&#123;<br>      <span class="hljs-attr">resolvers</span>: [<span class="hljs-title class_">ElementPlusResolver</span>()],<br>    &#125;),<br>  ],<br>&#125;)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试组件是否能用</p>
+</li>
+</ol>
+<h2 id="定制ElementPlus主题样式"><a href="#定制ElementPlus主题样式" class="headerlink" title="定制ElementPlus主题样式"></a>定制ElementPlus主题样式</h2><blockquote>
+<p>组件库里的样式没有合适的，需要自己定制</p>
+</blockquote>
+<p><strong>基于sass定制样式</strong></p>
+<ol>
+<li><p>安装sass(css扩展语言)</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">npm i sass -D<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>src/styles/element/index.scss</code>里添加准备好的定制化样式文件</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-comment">// 示例</span><br><span class="hljs-keyword">@forward</span> <span class="hljs-string">&#x27;element-plus/theme-chalk/src/common/var.scss&#x27;</span> with (<br>  <span class="hljs-variable">$colors</span>: (<br>    <span class="hljs-string">&#x27;primary&#x27;</span>: (<br>      // 主色<br>      <span class="hljs-string">&#x27;base&#x27;</span>: <span class="hljs-number">#27ba9b</span>,<br>    ),<br>    <span class="hljs-string">&#x27;success&#x27;</span>: (<br>      // 成功色<br>      <span class="hljs-string">&#x27;base&#x27;</span>: <span class="hljs-number">#1dc779</span>,<br>    ),<br>    <span class="hljs-string">&#x27;warning&#x27;</span>: (<br>      // 警告色<br>      <span class="hljs-string">&#x27;base&#x27;</span>: <span class="hljs-number">#ffb302</span>,<br>    ),<br>    <span class="hljs-string">&#x27;danger&#x27;</span>: (<br>      // 危险色<br>      <span class="hljs-string">&#x27;base&#x27;</span>: <span class="hljs-number">#e26237</span>,<br>    ),<br>    <span class="hljs-string">&#x27;error&#x27;</span>: (<br>      // 错误色<br>      <span class="hljs-string">&#x27;base&#x27;</span>: <span class="hljs-number">#cf4444</span>,<br>    ),<br>  )<br>)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改<code>vite.config.js</code>配置文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 设置elementPlus采用sass样式配色系统</span><br><span class="hljs-title class_">Components</span>(&#123;<br>      <span class="hljs-attr">resolvers</span>: [<span class="hljs-title class_">ElementPlusResolver</span>(&#123; <span class="hljs-attr">importStyle</span>: <span class="hljs-string">&#x27;sass&#x27;</span> &#125;)],<br>    &#125;), <br><br><span class="hljs-comment">// 在plugins同级下设置样式文件位置</span><br><span class="hljs-attr">css</span>: &#123;<br>    <span class="hljs-attr">preprocessorOptions</span>: &#123;<br>      <span class="hljs-attr">scss</span>: &#123;<br>        <span class="hljs-comment">// 自动导入定制化样式文件进行样式覆盖</span><br>        <span class="hljs-attr">additionalData</span>: <span class="hljs-string">`</span><br><span class="hljs-string">          @use &quot;@/styles/element/index.scss&quot; as *;</span><br><span class="hljs-string">        `</span>,<br>      &#125;<br>    &#125;<br>  &#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h1><h2 id="安装-amp-基础配置"><a href="#安装-amp-基础配置" class="headerlink" title="安装&amp;基础配置"></a>安装&amp;基础配置</h2><ol>
+<li><p>安装依赖</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">npm install axios<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>基础配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// src/utils/http.js</span><br><br><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;axios&quot;</span><br><br><span class="hljs-comment">// 创建axios实例</span><br><span class="hljs-keyword">const</span> httpInstance = axios.<span class="hljs-title function_">create</span>(&#123;<br>    <span class="hljs-comment">// 基地址</span><br>    <span class="hljs-attr">baseURL</span>: <span class="hljs-string">&#x27;http://pcapi-xiaotuxian-front-devtest.itheima.net&#x27;</span>,<br>    <span class="hljs-comment">// 超时时间</span><br>    <span class="hljs-attr">timeout</span>: <span class="hljs-number">5000</span><br>&#125;)<br><br><span class="hljs-comment">// axios请求拦截器</span><br>httpInstance.<span class="hljs-property">interceptors</span>.<span class="hljs-property">request</span>.<span class="hljs-title function_">use</span>(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> config<br>&#125;, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(e))<br><br><span class="hljs-comment">// axios响应式拦截器</span><br>httpInstance.<span class="hljs-property">interceptors</span>.<span class="hljs-property">response</span>.<span class="hljs-title function_">use</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.<span class="hljs-property">data</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(e)<br>&#125;)<br><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> httpInstance<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建api请求</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// src/apis/testAPI.js</span><br><br><span class="hljs-keyword">import</span> httpInstance <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@/utils/http&quot;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getCategory</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_">httpInstance</span>(&#123;<br>        <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;home/category/head&#x27;</span><br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; getCategory &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/apis/testAPI&#x27;</span><br><span class="hljs-title function_">getCategory</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res)<br>&#125;)<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h1><h2 id="一级路由"><a href="#一级路由" class="headerlink" title="一级路由"></a>一级路由</h2><p>在<code>src/router/index.js</code>文件里添加修改路由信息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; createRouter, createWebHistory &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue-router&#x27;</span><br><span class="hljs-comment">// 导入自定义的组件</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Login</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/views/Login/index.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Layout</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/views/Layout/index.vue&#x27;</span><br><br><br><span class="hljs-keyword">const</span> router = <span class="hljs-title function_">createRouter</span>(&#123;<br>  <span class="hljs-attr">history</span>: <span class="hljs-title function_">createWebHistory</span>(<span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">env</span>.<span class="hljs-property">BASE_URL</span>),<br>  <span class="hljs-comment">// 配置路由</span><br>  <span class="hljs-attr">routes</span>: [<br>    &#123;<br>      <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,<br>      <span class="hljs-attr">component</span>: <span class="hljs-title class_">Layout</span><br>    &#125;,<br>    &#123;<br>      <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/login&#x27;</span>,<br>      <span class="hljs-attr">component</span>: <span class="hljs-title class_">Login</span><br>    &#125;<br>  ]<br>&#125;)<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> router<br><br></code></pre></td></tr></table></figure>
+
+<p>根组件<code>App.vue</code>里记得添加一级<strong>路由出口</strong>(一级路由的组件会被渲染到这个位置)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;!-- 一级路由出口组件 --&gt;<br>  &lt;RouterView /&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="二级路由"><a href="#二级路由" class="headerlink" title="二级路由"></a>二级路由</h2><p>通过<code>children</code>来配置子路由</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; createRouter, createWebHistory &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue-router&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Login</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/views/Login/index.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Layout</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/views/Layout/index.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Home</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/views/Home/index.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Category</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/views/Category/index.vue&#x27;</span><br><br><br><span class="hljs-keyword">const</span> router = <span class="hljs-title function_">createRouter</span>(&#123;<br>  <span class="hljs-attr">history</span>: <span class="hljs-title function_">createWebHistory</span>(<span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">env</span>.<span class="hljs-property">BASE_URL</span>),<br>  <span class="hljs-attr">routes</span>: [<br>    &#123;<br>      <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <br>      <span class="hljs-attr">component</span>: <span class="hljs-title class_">Layout</span>,<br>      <span class="hljs-attr">children</span>: [<br>        <span class="hljs-comment">// path为空则为默认路由</span><br>        &#123;<br>          <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>          <span class="hljs-attr">component</span>: <span class="hljs-title class_">Home</span><br>        &#125;,<br>        &#123;<br>          <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;category&#x27;</span>,<br>          <span class="hljs-attr">component</span>: <span class="hljs-title class_">Category</span><br>        &#125;,<br>      ]<br>    &#125;,<br><br>    &#123;<br>      <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/login&#x27;</span>,<br>      <span class="hljs-attr">component</span>: <span class="hljs-title class_">Login</span><br>    &#125;<br>  ]<br>&#125;)<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> router<br><br></code></pre></td></tr></table></figure>
+
+<p>在父组件里添加路由出口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>    &lt;div&gt;<br>        首页<br>        &lt;RouterView/&gt;<br>    &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
