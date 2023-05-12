@@ -24,7 +24,7 @@
 <meta property="og:description" content="Pinia Pinia是Vue的专属的最新状态管理库，是Vuex状态管理工具的替代品，用于组件之间共享数据  Pinia中文文档 安装 下载依赖 1npm install pinia  导入 12345678&#x2F;&#x2F; main.js&#x2F;&#x2F; 导入Piniaimport &amp;#123; createPinia &amp;#125; from &amp;#x27;pinia&amp;#x27;&#x2F;&#x2F; 创建const pinia &#x3D; cr">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-10T14:15:41.572Z">
-<meta property="article:modified_time" content="2023-05-11T12:11:04.986Z">
+<meta property="article:modified_time" content="2023-05-12T14:36:14.916Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="Vue">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          4.1k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          24 分钟
+          34 分钟
         
       </span>
     
@@ -328,6 +328,12 @@
 
 <h2 id="解构"><a href="#解构" class="headerlink" title="解构"></a>解构</h2><p>可以通过storeToRefs把store解构</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>import &#123; useCounterStore &#125; from &#x27;@/stores/counter&#x27;<br>import &#123; onMounted &#125; from &#x27;vue&#x27;;<br>import &#123; storeToRefs &#125; from &#x27;pinia&#x27;<br><br>const counter = useCounterStore()<br>// 只能解构出数据(state, getter)，方法(action)解构不出来<br>const &#123; list &#125; = storeToRefs(counter)<br><br>onMounted(() =&gt; &#123;<br>    counter.getList()<br>&#125;)<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>    &lt;ul&gt;<br>        &lt;li v-for=&quot;item in list&quot; :key=&quot;item.id&quot;&gt;<br>            &#123;&#123; item.name &#125;&#125;<br>        &lt;/li&gt;<br>    &lt;/ul&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>通过pinia优化请求</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// src/store/category.js</span><br><br><span class="hljs-keyword">import</span> &#123; ref &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue&quot;</span><br><span class="hljs-keyword">import</span> &#123; defineStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;pinia&quot;</span><br><span class="hljs-keyword">import</span> &#123; getCategoryAPI &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/apis/layout&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> useCategoryStore = <span class="hljs-title function_">defineStore</span>(<span class="hljs-string">&#x27;categoryStore&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-comment">// 导航列表</span><br>    <span class="hljs-keyword">const</span> categoryList = <span class="hljs-title function_">ref</span>([])<br>    <span class="hljs-comment">// 获取导航列表</span><br>    <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getCategoryList</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getCategoryAPI</span>()<br>        categoryList.<span class="hljs-property">value</span> = res.<span class="hljs-property">result</span><br>    &#125;<br><br>    <span class="hljs-keyword">return</span> &#123;<br>        categoryList,<br>        getCategoryList<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>在父组件里发送请求，把数据保存在store中，之后子组件通过store获取数据，不需要再去重新请求数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs vue">// src/views/Layout/index.vue<br><br>&lt;script setup&gt;<br>import LayoutNav from &#x27;./components/LayoutNav.vue&#x27;;<br>import LayoutHeader from &#x27;./components/LayoutHeader.vue&#x27;;<br>import LayoutFooter from &#x27;./components/LayoutFooter.vue&#x27;;<br>import LayoutFixed from &#x27;./components/LayoutFixed.vue&#x27;;<br>import &#123; useCategoryStore &#125; from &#x27;@/stores/category&#x27;;<br>import &#123; onMounted &#125; from &#x27;vue&#x27;;<br><br>// 加载导航列表，让吸顶导航条和导航条只需要一次请求<br>const categoryStore = useCategoryStore()<br>onMounted(() =&gt; &#123;<br>    categoryStore.getCategoryList()<br>&#125;)<br><br>&lt;/script&gt;<br><br>&lt;template&gt;<br>    &lt;LayoutFixed/&gt;<br>    &lt;LayoutNav/&gt;<br>    &lt;LayoutHeader/&gt;<br>    &lt;RouterView/&gt;<br>    &lt;LayoutFooter/&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
 
 
 
