@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/qianduan_img/Vue3%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
 <meta property="og:image" content="http://xwww12.github.io/img/qianduan_img/Vue3%E7%9B%AE%E5%BD%95.png">
 <meta property="article:published_time" content="2023-05-06T10:59:28.597Z">
-<meta property="article:modified_time" content="2023-05-12T12:12:11.909Z">
+<meta property="article:modified_time" content="2023-05-14T12:07:25.938Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="Vue">
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          21k 字
         
       </span>
     
@@ -239,7 +239,7 @@
         
         
         
-          161 分钟
+          178 分钟
         
       </span>
     
@@ -483,6 +483,12 @@
 <p>第三层</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>import &#123; inject &#125; from &#x27;vue&#x27;;<br><br>const roomData = inject(&#x27;data-key&#x27;)<br>const countData = inject(&#x27;count-key&#x27;)<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>    &lt;div&gt;<br>        底层组件<br>    &lt;/div&gt;<br>    &lt;div&gt;<br>        来自顶层组件中的数据为: &#123;&#123; roomData &#125;&#125;<br>    &lt;/div&gt;<br>    &lt;div&gt;<br>        来自顶层组件的响应式数据为: &#123;&#123; countData &#125;&#125;<br>    &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
 
+<h2 id="自定义全局指令"><a href="#自定义全局指令" class="headerlink" title="自定义全局指令"></a>自定义全局指令</h2><p>标签里使用时<code>v-自定义指令名=&#39;&#39;</code></p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// src/directives/index.js</span><br><br><span class="hljs-keyword">import</span> &#123; useIntersectionObserver &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@vueuse/core&#x27;</span><br><br><span class="hljs-comment">// 自定义全局指令</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> layzPlugin = &#123;<br>    <span class="hljs-title function_">install</span>(<span class="hljs-params">app</span>) &#123;<br>        app.<span class="hljs-title function_">directive</span>(<span class="hljs-string">&#x27;img-lazy&#x27;</span>, &#123;<br>            <span class="hljs-comment">// el: 指令绑定的元素</span><br>            <span class="hljs-comment">// binding: 指令后面的值</span><br>            <span class="hljs-title function_">mounted</span>(<span class="hljs-params">el, binding</span>) &#123;<br><br>                <span class="hljs-comment">// 监听元素是否进入屏幕</span><br>                <span class="hljs-keyword">const</span> &#123;stop&#125; = <span class="hljs-title function_">useIntersectionObserver</span>(<br>                    el,<br>                    <span class="hljs-function">(<span class="hljs-params">[&#123; isIntersecting &#125;]</span>) =&gt;</span> &#123;<br>                        <span class="hljs-keyword">if</span> (isIntersecting) &#123;<br>                            <span class="hljs-comment">// 加载图片</span><br>                            el.<span class="hljs-property">src</span> = binding.<span class="hljs-property">value</span><br>                            <span class="hljs-title function_">stop</span>()  <span class="hljs-comment">// 关闭监听</span><br>                        &#125;<br>                    &#125;,  <br>                )<br>            &#125;<br>        &#125;)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>导入自定义指令</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// src/main.js</span><br><br><span class="hljs-keyword">import</span> &#123; createApp &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> &#123; createPinia &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;pinia&#x27;</span><br><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App.vue&#x27;</span><br><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./router&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./styles/common.scss&#x27;</span><br><span class="hljs-comment">// 自定义懒加载指令</span><br><span class="hljs-keyword">import</span> &#123; layzPlugin &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./directives&#x27;</span><br><br><span class="hljs-title function_">createApp</span>(<span class="hljs-title class_">App</span>)<br>    .<span class="hljs-title function_">use</span>(<span class="hljs-title function_">createPinia</span>())<br>    .<span class="hljs-title function_">use</span>(router)<br>    .<span class="hljs-title function_">use</span>(layzPlugin)<br>    .<span class="hljs-title function_">mount</span>(<span class="hljs-string">&#x27;#app&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
 
 
 <h2 id="项目搭建"><a href="#项目搭建" class="headerlink" title="项目搭建"></a>项目搭建</h2><p><code>create-vue</code>是Vue官方新的脚手架工具，底层使用<code>vite</code></p>
@@ -506,7 +512,7 @@
 <li><p>常见的自己创建的文件夹</p>
 <ul>
 <li>apis：API接口文件夹</li>
-<li>composables：组合函数文件夹</li>
+<li>composables：组合函数文件夹，放一些从组件中封装出来的函数</li>
 <li>directives：全局指令文件夹</li>
 <li>styles：全局样式文件夹</li>
 <li>utils：工具函数文件夹</li>
@@ -569,6 +575,17 @@
 <p>在父组件里添加路由出口</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>    &lt;div&gt;<br>        首页<br>        &lt;RouterView/&gt;<br>    &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
 
+<h2 id="路由缓存问题"><a href="#路由缓存问题" class="headerlink" title="路由缓存问题"></a>路由缓存问题</h2><p>例如路由为<code>/users/a</code>导航到<code>/users/b</code>时，组件将被重复使用。两个路由中相同的组件会被复用，更加高效。</p>
+<p>但是复用的组件的生命周期钩子函数不会再被调用，导致数据无法更新</p>
+<p><strong>解决方式</strong>：</p>
+<ol>
+<li><p>不让组件复用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- 给RouterView添加:key来避免复用 --&gt;<br>&lt;RouterView :key=&quot;$route.fullPath&quot;/&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>监听路由变化，变化后更新数据</p>
+<p>在组件里使用<code>router</code>的<code>onBeforeRouteUpdate()</code>函数来监听路由变化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>import &#123; getCategoryAPI &#125; from &#x27;@/apis/category&#x27;;<br>import &#123; ref, onMounted &#125; from &#x27;vue&#x27;;<br>import &#123; onBeforeRouteUpdate, useRoute &#125; from &#x27;vue-router&#x27;;<br>import &#123; getBannerAPI &#125; from &#x27;@/apis/home&#x27;;<br>import GoodsItem from &#x27;../Home/components/GoodsItem.vue&#x27;;<br><br>// 获取商品分类数据<br>const router = useRoute()<br>const categoryData = ref(&#123;&#125;)<br>async function getCategory(id = router.params.id) &#123;<br>    const res = await getCategoryAPI(id)<br>    categoryData.value = res.result<br>&#125;<br>// 获取轮播图数据<br>const bannerList = ref([])<br>async function getBanner() &#123;<br>  const res = await getBannerAPI(&#123;distributionSite: &#x27;2&#x27;&#125;)<br>  bannerList.value = res.result<br>&#125;<br><br>onMounted(() =&gt; &#123;<br>  getCategory()<br>  getBanner()<br>&#125;)<br><br>// 监听路由变化来更新数据<br>onBeforeRouteUpdate((to) =&gt; &#123;<br>  getCategory(to.params.id)<br>&#125;)<br><br>&lt;/script&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
 <h1 id="VueUse"><a href="#VueUse" class="headerlink" title="VueUse"></a>VueUse</h1><blockquote>
 <p>基于组合式API的工具集，可以用于如跟踪ref更改，检测元素可见性，简化常见 Vue 模式，键盘&#x2F;鼠标输入等</p>
 </blockquote>
