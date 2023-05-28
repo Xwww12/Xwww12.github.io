@@ -16,25 +16,23 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="SpringMVC MVC（Model-View-Controller）  作用SpringMVC底层就是Servlet，SpringMVC就是对Servlet进行深层次的封装 MVC模式：  Model表示数据和应用逻辑，可能包括数据库操作等。View是用户所看到的界面，它展示Model中的数据并让用户与其进行交互。Controller负责处理用户请求，从View中接收输入并在Model里面读取">
+    <meta name="description" content="MyBatis 对于JDBC的封装  JDBC执行步骤 JDBC（Java Data Base Connectivity）   注册驱动 建立连接 创建SQL 执行SQL 封装结果集 释放资源  123456789101112&#x2F;&#x2F; 注册驱动Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);&#x2F;&#x2F; 建立连接Connection connection">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringMVC">
-<meta property="og:url" content="http://xwww12.github.io/2023/05/24/spring/SpringMVC/index.html">
+<meta property="og:title" content="MyBatis">
+<meta property="og:url" content="http://xwww12.github.io/2023/05/24/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/mybatis/mybatis/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="SpringMVC MVC（Model-View-Controller）  作用SpringMVC底层就是Servlet，SpringMVC就是对Servlet进行深层次的封装 MVC模式：  Model表示数据和应用逻辑，可能包括数据库操作等。View是用户所看到的界面，它展示Model中的数据并让用户与其进行交互。Controller负责处理用户请求，从View中接收输入并在Model里面读取">
+<meta property="og:description" content="MyBatis 对于JDBC的封装  JDBC执行步骤 JDBC（Java Data Base Connectivity）   注册驱动 建立连接 创建SQL 执行SQL 封装结果集 释放资源  123456789101112&#x2F;&#x2F; 注册驱动Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);&#x2F;&#x2F; 建立连接Connection connection">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://xwww12.github.io/img/spring_img/SpringMVC%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
-<meta property="article:published_time" content="2023-05-24T12:00:10.587Z">
-<meta property="article:modified_time" content="2023-05-24T13:59:17.687Z">
+<meta property="article:published_time" content="2023-05-24T13:57:33.436Z">
+<meta property="article:modified_time" content="2023-05-24T14:13:59.068Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="后端">
-<meta property="article:tag" content="spring">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://xwww12.github.io/img/spring_img/SpringMVC%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
   
   
   
-  <title>SpringMVC - Hexo</title>
+  <title>MyBatis - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">SpringMVC</span>
+            <span id="subtitle">MyBatis</span>
           
         </div>
 
@@ -215,7 +213,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-05-24 20:00" pubdate>
+        <time datetime="2023-05-24 21:57" pubdate>
           2023年5月24日 晚上
         </time>
       </span>
@@ -227,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          360 字
         
       </span>
     
@@ -238,7 +236,7 @@
         
         
         
-          10 分钟
+          4 分钟
         
       </span>
     
@@ -290,51 +288,27 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">SpringMVC</h1>
+            <h1 style="display: none">MyBatis</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h1><blockquote>
-<p>MVC（Model-View-Controller）</p>
+                <h1 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h1><blockquote>
+<p>对于JDBC的封装</p>
 </blockquote>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>SpringMVC底层就是Servlet，SpringMVC就是对Servlet进行深层次的封装</p>
-<p><strong>MVC模式</strong>：</p>
-<ul>
-<li>Model表示数据和应用逻辑，可能包括数据库操作等。View是用户所看到的界面，它展示Model中的数据并让用户与其进行交互。Controller负责处理用户请求，从View中接收输入并在Model里面读取或修改数据。</li>
-<li>控制器负责把模块和视图结合起来</li>
-</ul>
-<h2 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h2><p><img src="/img/spring_img/SpringMVC%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" srcset="/img/loading.gif" lazyload alt="SpringMVC执行流程"></p>
+<h2 id="JDBC执行步骤"><a href="#JDBC执行步骤" class="headerlink" title="JDBC执行步骤"></a>JDBC执行步骤</h2><blockquote>
+<p>JDBC（Java Data Base Connectivity）</p>
+</blockquote>
 <ol>
-<li>用户发送请求到<strong>前端调度器</strong>（DispatcherServlet）</li>
-<li>调度器收到请求后调用<strong>处理器映射器</strong>（HandlerMapping）</li>
-<li>处理器映射器根据url找到具体的处理器和拦截器，生成执行链，返回给调度器</li>
-<li>调度器通过<strong>处理器适配器</strong>（HandlerAdapter）调用具体的<strong>处理器</strong>（Handler），返回<strong>ModelAndView</strong></li>
-<li>调度器将ModelAndView传给<strong>视图解析器</strong>（ViewReslover）解析，返回<strong>视图对象</strong>（View）</li>
-<li>调度器渲染视图，把视图和数据结合，响应给用户</li>
+<li>注册驱动</li>
+<li>建立连接</li>
+<li>创建SQL</li>
+<li>执行SQL</li>
+<li>封装结果集</li>
+<li>释放资源</li>
 </ol>
-<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><ul>
-<li><strong>前端调度器</strong>（DispatcherServlet）：接收请求，响应数据，需要程序员配置</li>
-<li>处理器映射器（HandlerMapping）：通过url查找Handler</li>
-<li>处理器适配器（Handler Adapter）：执行Handler中的方法</li>
-<li><strong>处理器</strong>（Handler）：业务方法，需要程序员编写</li>
-<li>视图解析器（ViewResolver）：把ModelAndView解析出给用户看的视图</li>
-<li><strong>视图</strong>（View）：展示给用户看的，需要程序员编写</li>
-</ul>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
-<li><p>调度器（DispatcherServlet）如何获取处理器（Handler）？</p>
-<p>调度器里有一个doDispatch()方法，里面调用了getHandler()方法；在getHandler()里面调用了处理器映射器（HandlerMapping）的getHandler()方法来获取处理器</p>
-</li>
-<li><p>调度器如何执行处理器？</p>
-<p>调度器里的doDispatch()方法里，首先通过getHandlerAdapter()方法获取当前处理器的处理器适配器（HandlerAdapter）来做适配，然后执行适配器的handler()方法</p>
-</li>
-<li><p>调度器如何解析视图对象（ModelAndView）的？</p>
-<p>调度器里的doDispatch()方法里，调用processDispatcherResult()方法，方法里调用render()方法，render()方法调用resolveViewName()，通过遍历的方式来找和viewName相同的View</p>
-</li>
-<li><p>三大组件（HandlerMapping、HandlerAdapter、ViewResolver）是谁初始化的？</p>
-<p>SpringMVC中通过DispatcherServlet中的initStrategies()方法，通过默认配置来找到类所在位置，来初始化组件</p>
-</li>
-</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 注册驱动</span><br>Class.forName(<span class="hljs-string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);<br><span class="hljs-comment">// 建立连接</span><br><span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> DriverManager.getConnection(数据库地址, 用户名, 密码);<br><span class="hljs-comment">// 创建SQL</span><br><span class="hljs-type">Statement</span> <span class="hljs-variable">statement</span> <span class="hljs-operator">=</span> connection.createStatement();<br><span class="hljs-comment">// 执行SQL</span><br><span class="hljs-type">ResultSet</span> <span class="hljs-variable">resultSet</span> <span class="hljs-operator">=</span> statement.executeQueue(sql);<br><span class="hljs-comment">// 处理结果集</span><br>...<br><span class="hljs-comment">// 释放资源</span><br>.....close()<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -358,8 +332,15 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/spring/" class="category-chain-item">spring</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/" class="category-chain-item">mysql</a>
+  
+  
+
   
 
   
@@ -377,7 +358,7 @@
       
         <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
       
-        <a href="/tags/spring/">#spring</a>
+        <a href="/tags/mysql/">#mysql</a>
       
     </div>
   
@@ -389,8 +370,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>SpringMVC</div>
-      <div>http://xwww12.github.io/2023/05/24/spring/SpringMVC/</div>
+      <div>MyBatis</div>
+      <div>http://xwww12.github.io/2023/05/24/数据库/mysql/mybatis/mybatis/</div>
     </div>
     <div class="license-meta">
       
@@ -432,18 +413,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/05/24/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/mybatis/mybatis/" title="MyBatis">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MyBatis</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/05/10/%E5%89%8D%E7%AB%AF/vue/Pinia/" title="Pinia">
-                        <span class="hidden-mobile">Pinia</span>
+                      <a href="/2023/05/24/spring/SpringMVC/" title="SpringMVC">
+                        <span class="hidden-mobile">SpringMVC</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
