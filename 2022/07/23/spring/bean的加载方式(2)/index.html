@@ -23,12 +23,18 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="bean的加载方式(2)5.容器初始化完成后手动加载bean通过AnnotationConfigApplicationContext的register方法，可以在容器初始化完成后手动加载bean 1234567public class App5 &amp;#123;    public static void main(String[] args) &amp;#123;        AnnotationConf">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/spring_img/%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E8%BF%87%E7%A8%8BfinishBeanFactoryInitialization.png">
+<meta property="og:image" content="http://xwww12.github.io/img/spring_img/preInstantiateSingletons.png">
+<meta property="og:image" content="http://xwww12.github.io/img/spring_img/getObjectForBeanInstance.png">
+<meta property="og:image" content="http://xwww12.github.io/img/spring_img/getObjectFromFactoryBean.png">
+<meta property="og:image" content="http://xwww12.github.io/img/spring_img/doGetObjectFromFactoryBean.png">
 <meta property="article:published_time" content="2022-07-23T06:22:36.061Z">
-<meta property="article:modified_time" content="2022-08-05T08:48:04.413Z">
+<meta property="article:modified_time" content="2023-05-29T08:40:29.854Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="后端">
 <meta property="article:tag" content="spring">
+<meta property="article:tag" content="后端">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/spring_img/%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E8%BF%87%E7%A8%8BfinishBeanFactoryInitialization.png">
   
   
   
@@ -225,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k 字
+          6.5k 字
         
       </span>
     
@@ -236,7 +242,7 @@
         
         
         
-          33 分钟
+          55 分钟
         
       </span>
     
@@ -333,8 +339,66 @@
 <p>获取bean</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bean">public class App6 &#123;<br>    public static void main(String[] args) &#123;<br>        AnnotationConfigApplicationContext app = new AnnotationConfigApplicationContext(SpringConfig6.class);<br><br>        String[] names = app.getBeanDefinitionNames();<br>        for (String name : names) &#123;<br>            System.out.println(name);<br>        &#125;<br>        /*<br>            结果<br>            cat<br>        */<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h2 id="FactoryBean"><a href="#FactoryBean" class="headerlink" title="FactoryBean"></a>FactoryBean</h2><blockquote>
+<p><strong>BeanFactory</strong>的作用是完成了Bean的初始化、自动装配、存储单例Bean等功能</p>
+<p><strong>FactoryBean</strong>本身是一个Bean，的作用是会将自身和getObject()方法的返回值作为Bean注入到容器中</p>
+</blockquote>
+<p>读原文<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903954615107597">FactoryBean——Spring的扩展点之一 - 掘金 (juejin.cn)</a>做的笔记</p>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><ol>
+<li>实现FactoryBean接口，将自定义的FactoryBean注入容器</li>
+<li>从容器中获取</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// service类，将通过FactoryBean注入容器</span><br><br><span class="hljs-keyword">package</span> com.xw.service;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserService</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">UserService</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;userService construct&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 自定义的FactoryBean</span><br><br><span class="hljs-keyword">package</span> com.xw.component;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomFactoryBean</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">FactoryBean</span>&lt;UserService&gt; &#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> UserService <span class="hljs-title function_">getObject</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserService</span>();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Class&lt;?&gt; getObjectType() &#123;<br>        <span class="hljs-keyword">return</span> UserService.class;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 配置类，用于扫描组件</span><br><br><span class="hljs-keyword">package</span> com.xw.config;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@ComponentScan(&quot;com.xw.component&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AppConfig</span> &#123;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 容器，获取Bean</span><br><br><span class="hljs-keyword">package</span> com.xw;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MainApplication</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">AnnotationConfigApplicationContext</span> <span class="hljs-variable">applicationContext</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AnnotationConfigApplicationContext</span>(AppConfig.class);<br>        System.out.println(<span class="hljs-string">&quot;容器初始化完成&quot;</span>);<br>        <span class="hljs-type">UserService</span> <span class="hljs-variable">userService</span> <span class="hljs-operator">=</span> applicationContext.getBean(UserService.class);<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">customFactoryBean</span> <span class="hljs-operator">=</span> applicationContext.getBean(<span class="hljs-string">&quot;customFactoryBean&quot;</span>);<br>        <br>        <span class="hljs-comment">// 通过Class类和BeanName获取的Bean竟然是同一个Bean</span><br>        System.out.println(userService);<br>        System.out.println(customFactoryBean);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">    容器初始化完成</span><br><span class="hljs-comment">    userService construct</span><br><span class="hljs-comment">    com.xw.service.UserService@59d016c9</span><br><span class="hljs-comment">    com.xw.service.UserService@59d016c9</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li><p>自定义的FactoryBean会向容器中注入两个Bean，一个是自身，一个是getObject()方法的返回值；</p>
+</li>
+<li><p>要想获取自定义的FactoryBean本身，需要在BeanName前面加上<code>&amp;</code>符号，<code>applicationContext.getBean(&quot;&amp;customFactoryBean&quot;)</code></p>
+</li>
+</ol>
+<h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><ol>
+<li><p>refresh()</p>
+<p>创建容器的<code>finishBeanFactoryInitialization</code>步骤，会调用到<code>beanFactory.preInstantiateSingletons()</code>来实例化单例Bean</p>
+<p><img src="/img/spring_img/%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E8%BF%87%E7%A8%8BfinishBeanFactoryInitialization.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>preInstantiateSingletons()</p>
+<p>如果是FactoryBean的实例，就通过<code>getBean()</code>来获取或创建Bean，且在BeanName前加了个<code>&amp;</code></p>
+<p>之后会判断<code>isEagerInit</code>来创建<code>getObject()</code>里的Bean</p>
+<p><img src="/img/spring_img/preInstantiateSingletons.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>getObjectForBeanInstance()</p>
+<p>在<code>getBean()</code>中会调用<code>doGetBean()</code>，然后调用<code>getObjectForBeanInstance()</code></p>
+<p>在这个方法中，会判断Bean是否是<code>FactoryBean</code>的实例，如果是则判断缓存中是否有对应的实例，如果没有才会调用<code>getObjectFromFactoryBean()</code></p>
+<p><img src="/img/spring_img/getObjectForBeanInstance.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>getObjectFromFactoryBean()</p>
+<p>通过<code>doGetObjectFromFactoryBean()</code>来调用FactoryBean的<code>getObject()</code>方法，并且判断是否为单例来决定要不要放到缓存中</p>
+<p><img src="/img/spring_img/getObjectFromFactoryBean.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>doGetObjectFromFactoryBean()</p>
+<p>最终在这个方法中调用了<code>getObject()</code></p>
+<p><img src="/img/spring_img/doGetObjectFromFactoryBean.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>总结</p>
+<p>通过判断<code>FactoryBean</code>、<code>getObject()里返回的对象</code>是否被创建过，只有都没有创建过才会最终创建Bean，保证单例性</p>
+</li>
+</ol>
+<h3 id="在Mybatis里的使用场景"><a href="#在Mybatis里的使用场景" class="headerlink" title="在Mybatis里的使用场景"></a>在Mybatis里的使用场景</h3><p><strong>Spring中使用Mybatis</strong></p>
+<ol>
+<li>mybatis中，通过<code>sqlSessionFactoryBean</code>来创建<code>sqlSessionFactory</code></li>
+<li><code>MapperScannerRegistrar</code>会将Mapper文件扫描出来生成<code>BeanDefinition</code>，然后会生成一个<code>MapperFactoryBean</code>，通过<code>MapperFactoryBean</code>最终会生成一个Mapper文件对应的代理对象</li>
+</ol>
+<p>SpringBoot整合Mybatis</p>
+<ol>
+<li>在SpringBoot中Mybatis的自动装配由<code>MybatisAutoConfiguration</code>这个类完成，里面调用了<code>SqlSessionFactoryBean</code>的getObject()方法来注入了<code>sqlSessionFactory</code></li>
+</ol>
 
                 
               </div>
@@ -375,9 +439,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-      
         <a href="/tags/spring/">#spring</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
       
     </div>
   
