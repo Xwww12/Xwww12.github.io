@@ -35,7 +35,10 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%A0%87%E8%AE%B0%E5%A4%8D%E5%88%B6.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/BeanFactory%E5%88%9D%E5%A7%8B%E5%8C%96.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/%E5%87%86%E5%A4%87%E4%B8%8A%E4%B8%8B%E6%96%87.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/environment.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/beanFactory.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/prepareBeanFactory.png">
@@ -43,7 +46,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/multicaster.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/finishBeanFactoryInitialozation.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/finishRefersh.png">
-<meta property="og:image" content="http://xwww12.github.io/img/else_img/spring%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E5%88%9B%E5%BB%BAbean.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/springMVC%E5%88%9D%E5%A7%8B%E5%8C%96.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/springMVC%E5%8C%B9%E9%85%8D%E9%98%B6%E6%AE%B5.png">
@@ -71,7 +74,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/RabbitMQ%E7%94%9F%E4%BA%A7%E8%80%85%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/JMM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2023-05-21T13:30:45.203Z">
+<meta property="article:modified_time" content="2023-05-31T04:36:29.903Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -272,7 +275,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          31k 字
+          33k 字
         
       </span>
     
@@ -283,7 +286,7 @@
         
         
         
-          263 分钟
+          272 分钟
         
       </span>
     
@@ -1003,7 +1006,19 @@
 <li>不断加载新的Class到方法区，把方法区挤爆了</li>
 <li>解决方式：降低类的声明周期，如不使用static等</li>
 </ul>
-<h4 id="类加载过程，双亲委派机制"><a href="#类加载过程，双亲委派机制" class="headerlink" title="类加载过程，双亲委派机制"></a>类加载过程，双亲委派机制</h4><p><strong>类加载过程</strong>：</p>
+<h4 id="类加载过程，双亲委派机制"><a href="#类加载过程，双亲委派机制" class="headerlink" title="类加载过程，双亲委派机制"></a>类加载过程，双亲委派机制</h4><p><strong>类加载方式</strong>：</p>
+<ol>
+<li>隐式装载：通过new等方式生成对象时，隐式调用类加载器加载对应的类到JVM中</li>
+<li>显示装载：<code>Class.forName(className)</code>或<code>ClassLoad.loadClass(className)</code></li>
+</ol>
+<p><strong>类加载器种类</strong>：</p>
+<ol>
+<li>BootStrap Loader（引导类加载器），加载系统类</li>
+<li>ExtClass Loader（扩展类加载器），加载扩展类</li>
+<li>AppClass Loader（应用类加载器），加载应用类</li>
+</ol>
+<p><strong>类加载过程</strong>：</p>
+<p><img src="/img/else_img/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B.png" srcset="/img/loading.gif" lazyload></p>
 <ol>
 <li>加载<ol>
 <li>类的字节码载入方法区，并创建.class对象(堆内)</li>
@@ -1078,14 +1093,29 @@
 </li>
 </ul>
 <h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><h3 id="refresh创建IOC容器"><a href="#refresh创建IOC容器" class="headerlink" title="refresh创建IOC容器"></a>refresh创建IOC容器</h3><p>Spring 容器启动时会创建IOC容器,在创建容器时,会调用 refresh()方法,整个容器就是通过该方法,完成所有的 bean 的创建以及初始化</p>
+<h4 id="重要的类-x2F-对象"><a href="#重要的类-x2F-对象" class="headerlink" title="重要的类&#x2F;对象"></a>重要的类&#x2F;对象</h4><ul>
+<li>ClassPathXmlApplicationContext：使用配置文件的容器</li>
+<li>AnnotationConfigApplicationContext：使用配置类的容器</li>
+<li>BeanDefinition：Bean的相关信息。如是否是单例的，Bean的类型，是否是懒加载，依赖哪些类，自动装配的模型</li>
+<li>beanDefinitionMap：存放bean对应的BeanDefinition</li>
+<li>beanDefinitionNames：存放所有bean的名字</li>
+<li>BeanFactoryPostProcessor：BeanFactory的后置处理器</li>
+<li>BeanPostProcessor：Bean的后置处理器，通过它可以实现AOP、Bean的创建</li>
+</ul>
+<h4 id="重要步骤"><a href="#重要步骤" class="headerlink" title="重要步骤"></a>重要步骤</h4><p><img src="/img/else_img/BeanFactory%E5%88%9D%E5%A7%8B%E5%8C%96.png" srcset="/img/loading.gif" lazyload alt="BeanFactory初始化"></p>
+<p><code>invokeBeanFactoryPostProcessors()</code>会执行所有<code>BeanFactoryPostProcessor</code></p>
+<ul>
+<li>Spring内置的BeanFactory后处理器：<code>ConfigurationClassPostProcessor</code>，会解析出所有交由Spring管理的Bean并解析成<code>BeanDefinition</code></li>
+<li>自定义的BeanFactory后处理器：实现了<code>BeanFactoryPostProcessor</code>接口或<code>BeanDefinitionRegistryPostProcessor</code>接口。会先执行后者的实现类</li>
+</ul>
+<p><img src="/img/else_img/%E5%87%86%E5%A4%87%E4%B8%8A%E4%B8%8B%E6%96%87.png" srcset="/img/loading.gif" lazyload alt="准备上下文"></p>
+<p> <code>registerBeanPostProcessors()</code>会找到并实例化所有的<code>BeanPostProcessor</code>，并放到<code>beanPostProcessors</code>集合中</p>
+<p><code>finishBeanFactoryInitialization()</code>完成了所有非懒加载的单例<code>Bean</code>的实例化和初始化，属性的填充以及解决了循环依赖等问题</p>
 <h4 id="12个步骤"><a href="#12个步骤" class="headerlink" title="12个步骤"></a>12个步骤</h4><p><strong>概览</strong></p>
 <ul>
-<li><p>1：准备工作</p>
-</li>
-<li><p>2~6：创建准备BeanFactory的各项功能</p>
-</li>
-<li><p>7~12：准备ApplicationContext</p>
-</li>
+<li>1：准备工作</li>
+<li>2~6：创建准备BeanFactory的各项功能</li>
+<li>7~12：准备ApplicationContext</li>
 </ul>
 <h5 id="1-prepareRefresh-开启容器，加载键值"><a href="#1-prepareRefresh-开启容器，加载键值" class="headerlink" title="1.prepareRefresh()-开启容器，加载键值"></a>1.prepareRefresh()-开启容器，加载键值</h5><ul>
 <li><p>创建和准备了<strong>Environment</strong>对象</p>
@@ -1151,11 +1181,11 @@
 </li>
 </ul>
 <h5 id="8-initApplicationEventMulticaster-初始化事件多播器"><a href="#8-initApplicationEventMulticaster-初始化事件多播器" class="headerlink" title="8.initApplicationEventMulticaster()-初始化事件多播器"></a>8.initApplicationEventMulticaster()-初始化事件多播器</h5><ul>
-<li>发布事件</li>
+<li>这个类会持有所有的事件监听器(<code>ApplicationListener</code>)，当有<code>ApplicationEvent</code>事件发布时，该事件监听器能根据事件类型，检索到对该事件感兴趣的<code>ApplicationListener</code></li>
 </ul>
 <p>​	<img src="/img/else_img/multicaster.png" srcset="/img/loading.gif" lazyload></p>
 <h5 id="9-onRefresh-初始化子容器中的bean"><a href="#9-onRefresh-初始化子容器中的bean" class="headerlink" title="9.onRefresh()-初始化子容器中的bean"></a>9.onRefresh()-初始化子容器中的bean</h5><ul>
-<li>默认空实现，提供子类重写这个方法,在容器刷新时,做些其它操作</li>
+<li>执行其他的初始化操作，例如和<code>SpringMVC</code>整合时，需要初始化一些其他的<code>bean</code>，但是对于纯<code>Spring</code>工程来说，<code>onRefresh()</code>方法是一个空方法。</li>
 </ul>
 <h5 id="10-registerListeners-注册监听器"><a href="#10-registerListeners-注册监听器" class="headerlink" title="10.registerListeners()-注册监听器"></a>10.registerListeners()-注册监听器</h5><ul>
 <li>接收事件</li>
@@ -1171,7 +1201,7 @@
 <li>lifecycleProcessor用来控制容器内需要生命周期管理的bean</li>
 </ul>
 <p><img src="/img/else_img/finishRefersh.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h3><p><img src="/img/else_img/spring%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h3><p><img src="/img/else_img/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="7个阶段"><a href="#7个阶段" class="headerlink" title="7个阶段"></a>7个阶段</h4><p>Bean为懒惰初始化，生命周期从doGetBean()方法开始</p>
 <p><strong>概览</strong></p>
 <ul>
