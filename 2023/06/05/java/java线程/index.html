@@ -25,8 +25,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/java_img/%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
 <meta property="og:image" content="http://xwww12.github.io/img/java_img/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB.png">
+<meta property="og:image" content="http://xwww12.github.io/img/java_img/%E7%BA%BF%E7%A8%8B%E6%B1%A0.png">
+<meta property="og:image" content="http://xwww12.github.io/img/java_img/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%8A%B6%E6%80%81.png">
 <meta property="article:published_time" content="2023-06-05T13:06:34.374Z">
-<meta property="article:modified_time" content="2023-06-05T15:01:21.000Z">
+<meta property="article:modified_time" content="2023-06-08T14:13:21.853Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/java_img/%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
@@ -226,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.3k 字
+          5.5k 字
         
       </span>
     
@@ -237,7 +239,7 @@
         
         
         
-          36 分钟
+          47 分钟
         
       </span>
     
@@ -394,7 +396,74 @@
 <p>对线程进行统一分配，调优和监控</p>
 </blockquote>
 <p><img src="/img/java_img/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h3><h3 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h3><blockquote>
+<h3 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h3><p>​	一个线程集合workerSet和一个阻塞队列workQueue。当用户向线程池提交一个任务(也就是线程)时，线程池会先将任务放入workQueue中。workerSet中的线程会不断的从workQueue中获取线程然后执行。当workQueue中没有任务的时候，worker就会阻塞，直到队列中有任务了就取出来继续执行。</p>
+<p><img src="/img/java_img/%E7%BA%BF%E7%A8%8B%E6%B1%A0.png" srcset="/img/loading.gif" lazyload></p>
+<p>获取线程池状态api</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>threadPoolExecutor.getPoolSize()</td>
+<td>当前线程池中的线程数</td>
+</tr>
+<tr>
+<td>threadPoolExecutor.getCorePoolSize()</td>
+<td>当前线程池中核心线程的数量</td>
+</tr>
+<tr>
+<td>threadPoolExecutor.getActiveCount()</td>
+<td>正在执行任务的线程数</td>
+</tr>
+<tr>
+<td>threadPoolExecutor.getCompletedTaskCount()</td>
+<td>已经完成的任务数</td>
+</tr>
+<tr>
+<td>threadPoolExecutor.getTaskCount()</td>
+<td>线程池中已经提交的任务总数</td>
+</tr>
+<tr>
+<td>threadPoolExecutor.isShutdown()</td>
+<td>线程是否已经调用了<code>shutdown</code>方法</td>
+</tr>
+<tr>
+<td>threadPoolExecutor.isTerminated()</td>
+<td>线程是否已经执行完任务并关闭</td>
+</tr>
+</tbody></table>
+<p>创建线程池的参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">ThreadPoolExecutor</span><span class="hljs-params">(<span class="hljs-type">int</span> corePoolSize,		// 核心线程数</span><br><span class="hljs-params">                          <span class="hljs-type">int</span> maximumPoolSize,	// 允许的最大线程数=核心+非核心</span><br><span class="hljs-params">                          <span class="hljs-type">long</span> keepAliveTime,	// 非核心存活时间</span><br><span class="hljs-params">                          TimeUnit unit,		// 存活时间单位</span><br><span class="hljs-params">                          BlockingQueue&lt;Runnable&gt; workQueue,	// 任务阻塞队列</span><br><span class="hljs-params">                          RejectedExecutionHandler handler	// 拒绝策略</span><br><span class="hljs-params">                         )</span><br></code></pre></td></tr></table></figure>
+
+<p>任务阻塞队列种类：</p>
+<ul>
+<li><p><code>ArrayBlockingQueue</code>: 基于数组结构的有界阻塞队列，按FIFO排序任</p>
+</li>
+<li><p><code>LinkedBlockingQueue</code>: 基于链表结构的阻塞队列，按FIFO排序任务，吞吐量通常要高于ArrayBlockingQueue；</p>
+</li>
+<li><p><code>SynchronousQueue</code>: 一个不存储元素的阻塞队列，每个插入操作必须等到另一个线程调用移除操作，否则插入操作一直处于阻塞状态，吞吐量通常要高于LinkedBlockingQueue；</p>
+</li>
+<li><p><code>PriorityBlockingQueue</code>: 具有优先级的无界阻塞队列；</p>
+</li>
+</ul>
+<p>拒绝策略种类：</p>
+<ul>
+<li><p><code>AbortPolicy</code>: 直接抛出异常，默认策略；</p>
+</li>
+<li><p><code>CallerRunsPolicy</code>: 用调用者所在的线程来执行任务；</p>
+</li>
+<li><p><code>DiscardOldestPolicy</code>: 丢弃阻塞队列中靠最前的任务，并执行当前任务；</p>
+</li>
+<li><p><code>DiscardPolicy</code>: 直接丢弃任务</p>
+</li>
+</ul>
+<p>线程池状态</p>
+<p>​	线程池中通过原子整数<code>ctl</code>的前3位来记录线程池状态，后29位记录当前线程数</p>
+<p><img src="/img/java_img/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%8A%B6%E6%80%81.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h3><blockquote>
 <p>Executors把工作单元(Runnable)与执行机制分离开</p>
 </blockquote>
 <p>通过Executors可以创建预设好参数的线程池，如固定大小线程池、只有救急线程的线程池等</p>
@@ -425,6 +494,8 @@
 <td align="center">执行没有返回值的任务</td>
 </tr>
 </tbody></table>
+<p>为什么不建议使用Executor创建线程？</p>
+<p>​	使用了无界队列，任务可以无限提交，会导致内存溢出；<code>newCachedThreadPool</code>如果频繁创建销毁线程会导致大量的系统开销和内存溢出</p>
 <h3 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h3><blockquote>
 <p>相当于等待队列</p>
 </blockquote>
