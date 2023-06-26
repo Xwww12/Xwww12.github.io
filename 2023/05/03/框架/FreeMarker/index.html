@@ -24,7 +24,7 @@
 <meta property="og:description" content="FreeMarker 模板引擎，视图的模板是固定的，将模板中的数据修改后返回 模板 + 数据模型 &#x3D; 输出  Hello WorldSpringBoot整合FreeMarker 导包 123456789&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;    &lt;artifactI">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-03T13:05:02.579Z">
-<meta property="article:modified_time" content="2023-05-05T08:41:46.333Z">
+<meta property="article:modified_time" content="2023-06-21T08:21:43.670Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13k 字
+          14k 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          108 分钟
+          119 分钟
         
       </span>
     
@@ -482,6 +482,16 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;!DOCTYPE html&gt;<br>&lt;html lang=<span class="hljs-string">&quot;en&quot;</span>&gt;<br>&lt;head&gt;<br>    &lt;meta charset=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;<br>    &lt;title&gt;Title&lt;/title&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;table border=<span class="hljs-string">&quot;1&quot;</span>&gt;<br>    &lt;tr&gt;<br>        &lt;td&gt;用户编号&lt;/td&gt;<br>        &lt;td&gt;用户名称&lt;/td&gt;<br>        &lt;td&gt;用户地址&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;#list users as user&gt;<br>        &lt;tr&gt;<br>            &lt;td&gt;$&#123;user.id&#125;&lt;/td&gt;<br>            &lt;td&gt;$&#123;user.username&#125;&lt;/td&gt;<br>            &lt;td&gt;$&#123;user.address&#125;&lt;/td&gt;<br>        &lt;/tr&gt;<br>    &lt;/#list&gt;<br>&lt;/table&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
 
 <p>运行，访问<code>localhost:8080/index</code></p>
+<h2 id="静态输出文件"><a href="#静态输出文件" class="headerlink" title="静态输出文件"></a>静态输出文件</h2><p>步骤：</p>
+<ol>
+<li>指定模板文件</li>
+<li>准备数据</li>
+<li>将数据和模板结合，输出</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs ftl">&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>    &lt;meta charset=&quot;utf-8&quot;&gt;<br>    &lt;title&gt;Hello World!&lt;/title&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;b&gt;普通文本 String 展示：&lt;/b&gt;&lt;br&gt;&lt;br&gt;<br>Hello $&#123;name!&#x27;&#x27;&#125; &lt;br&gt;<br>&lt;hr&gt;<br>&lt;b&gt;对象Student中的数据展示：&lt;/b&gt;&lt;br/&gt;<br>姓名：$&#123;stu.name&#125;&lt;br/&gt;<br>年龄：$&#123;stu.age&#125;<br>&lt;hr&gt;<br><br>$&#123;date?string(&#x27;yyyy年MM月dd日&#x27;)&#125;<br><br>&lt;#assign text=&quot;&#123;&#x27;bank&#x27;:&#x27;工商银行&#x27;,&#x27;account&#x27;:&#x27;10101920201920212&#x27;&#125;&quot; /&gt;<br>&lt;#assign data=text?eval /&gt;<br>开户行：$&#123;data.bank&#125;  账号：$&#123;data.account&#125;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FreeMarkerTest</span> &#123;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> Configuration configuration;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException, TemplateException &#123;<br>        <span class="hljs-type">Template</span> <span class="hljs-variable">template</span> <span class="hljs-operator">=</span> configuration.getTemplate(<span class="hljs-string">&quot;01-basic.ftl&quot;</span>);<br>		<span class="hljs-comment">// 输出静态文件</span><br>        template.process(getData(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileWriter</span>(<span class="hljs-string">&quot;d:/list.html&quot;</span>));<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> Map <span class="hljs-title function_">getData</span><span class="hljs-params">()</span> &#123;<br>        HashMap&lt;String, Object&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        map.put(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;freemarker&quot;</span>);<br>        map.put(<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>());<br>        <span class="hljs-type">Student</span> <span class="hljs-variable">student</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>();<br>        student.setName(<span class="hljs-string">&quot;zs&quot;</span>);<br>        student.setAge(<span class="hljs-number">18</span>);<br>        map.put(<span class="hljs-string">&quot;stu&quot;</span>, student);<br>        <span class="hljs-keyword">return</span> map;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
