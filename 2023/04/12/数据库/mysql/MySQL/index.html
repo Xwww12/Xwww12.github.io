@@ -39,7 +39,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/sql_img/mysql%E6%9F%A5%E8%AF%A2%E6%B5%81%E7%A8%8B.png">
 <meta property="og:image" content="http://xwww12.github.io/img/sql_img/%E8%A1%8C%E6%A0%BC%E5%BC%8F.png">
 <meta property="article:published_time" content="2023-04-12T10:13:11.381Z">
-<meta property="article:modified_time" content="2023-06-27T07:04:27.235Z">
+<meta property="article:modified_time" content="2023-07-10T09:08:22.578Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="mysql">
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          10k 字
+          11k 字
         
       </span>
     
@@ -252,7 +252,7 @@
         
         
         
-          84 分钟
+          89 分钟
         
       </span>
     
@@ -441,7 +441,8 @@
 <blockquote>
 <p>InnoDB使用B+Tree的原因：相对二叉树层级更少；相对于B-Tree，非叶子节点不存放数据，能够放的key更多，层级也就更少；相对于Hash，能支持范围匹配和排序。</p>
 </blockquote>
-<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><table>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>根据字段特性分类</p>
+<table>
 <thead>
 <tr>
 <th>分类</th>
@@ -503,7 +504,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE [UNIQUE|FULLTEXT] INDEX index_name ON table_name(index_col_name, ...);<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>查看索引</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SHOW INDeX FROM table_name;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SHOW INDEX FROM table_name;<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>删除索引</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">DROP INDEX index_name ON table_name;<br></code></pre></td></tr></table></figure></li>
@@ -548,8 +549,21 @@
 <p>字段含义：</p>
 <ol>
 <li>id：表示执行顺序，相同的从上到下，不同的值大的先执行</li>
-<li>type:表示连接类型，性能上NULL &gt; system &gt; const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; all</li>
+<li>type:表示连接类型，性能上从高到低<ul>
+<li>NULL </li>
+<li>system </li>
+<li>const：结果只有一条</li>
+<li>eq_ref：唯一索引扫描</li>
+<li>ref：非唯一索引扫描</li>
+<li>range：索引范围扫描</li>
+<li>index：全索引扫描</li>
+<li>all：全表扫描</li>
+</ul>
+</li>
+<li>possible_keys：字段表示可能用到的索引；</li>
 <li>key：实际用到的索引</li>
+<li>key_len：索引长度</li>
+<li>rows：扫描的数据行数</li>
 <li>filtered：返回结果的行数占读取行数的百分比，越大越好</li>
 </ol>
 <h4 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h4><ul>
@@ -559,6 +573,7 @@
 </li>
 <li><p><strong>索引失效情况</strong>：</p>
 <ol>
+<li>使用<code>&gt;</code>&#x2F;<code>&lt;</code>范围查询（<code>&gt;=</code>、<code>&lt;=</code>、<code>BETWEEN AND</code>仍可以使用到索引）</li>
 <li>在索引列上进行运算操作</li>
 <li>字符串不加引号，存在隐式类型转换</li>
 <li>在头部进行模糊匹配</li>
@@ -594,8 +609,8 @@
 </ul>
 <h4 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h4><ol>
 <li>数据量大（&gt;100w）</li>
-<li>针对常作为查询条件、排序、分组的字段</li>
-<li>区分度高的字段</li>
+<li>针对常作为查询条件(Where)、排序(Order By)、分组(Group By)的字段</li>
+<li>索引把区分度高的字段排在前面</li>
 <li>较长的字符串字段建立联合索引</li>
 <li>尽量建立联合索引</li>
 <li>要控制索引的数量</li>
@@ -766,8 +781,30 @@
 <p>SELECT 不加锁</p>
 <p>SELECT … LOCK IN SHARE MODE 加共享锁</p>
 <p>SELECT … FOR UPDATE 加排他锁</p>
-<h5 id="间隙锁-x2F-临键锁"><a href="#间隙锁-x2F-临键锁" class="headerlink" title="间隙锁&#x2F;临键锁"></a>间隙锁&#x2F;临键锁</h5><p><strong>间隙锁</strong>：把两个索引之间不存在的索引锁住，<strong>防止幻读</strong></p>
-<p>临键锁：和间隙锁类似，不同的是临键锁会把当前的数据数据也锁上</p>
+<h5 id="记录锁-x2F-间隙锁-x2F-临键锁"><a href="#记录锁-x2F-间隙锁-x2F-临键锁" class="headerlink" title="记录锁&#x2F;间隙锁&#x2F;临键锁"></a>记录锁&#x2F;间隙锁&#x2F;临键锁</h5><p>记录锁：锁住当前记录</p>
+<p><strong>间隙锁</strong>：把两个索引之间不存在的索引锁住，锁住后插入语句会被阻塞，<strong>防止幻读</strong></p>
+<p>临键锁：记录锁+间隙锁，左开右闭</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ol>
+<li><p>在 MySQL 的可重复读隔离级别下，针对当前读的语句会对<strong>索引</strong>加记录锁+间隙锁，这样可以避免其他事务执行增、删、改时导致幻读的问题</p>
+</li>
+<li><p>锁退化的情况</p>
+</li>
+</ol>
+<ul>
+<li>等值查询<ul>
+<li>唯一索引：记录存在时退化成记录锁，不存在时退化成间隙锁</li>
+<li>非唯一索引：对第一个不符合要求的记录退化成间隙锁</li>
+</ul>
+</li>
+<li>范围查询<ul>
+<li>唯一索引在满足一些条件的时候，索引的 next-key lock 退化为间隙锁或者记录锁。</li>
+<li>非唯一索引范围查询，索引的 next-key lock 不会退化为间隙锁和记录锁。</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>在执行 update、delete、select … for update 等具有加锁性质的语句，一定要检查语句是否走了索引，如果是全表扫描的话，会对每一个索引加 next-key 锁，相当于把整个表锁住了</li>
+</ol>
 <h3 id="InnoDB引擎"><a href="#InnoDB引擎" class="headerlink" title="InnoDB引擎"></a>InnoDB引擎</h3><h4 id="逻辑存储结构"><a href="#逻辑存储结构" class="headerlink" title="逻辑存储结构"></a>逻辑存储结构</h4><p><img src="/img/sql_img/%E9%80%BB%E8%BE%91%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li>表空间(ibd文件)：一个mysql实例(database)对应多个表空间，用于存储记录、索引等数据</li>
@@ -914,8 +951,13 @@
 </ul>
 <p><strong>表空间结构</strong></p>
 <p>行：一条记录</p>
-<p>页：16KB，每次读取磁盘里的记录都是以页为单位</p>
-<p>区：1MB，B+树中以区为单位分配索引的空间</p>
+<p><strong>页</strong>：16KB，每次读取磁盘里的记录都是以页为单位</p>
+<ul>
+<li>页中的记录通过指针形成双向链表</li>
+<li>记录分成了一个个组</li>
+<li>页中包含页目录，目录中有多个槽，执行各个分组的最后一个记录。通过二分来定位到分组</li>
+</ul>
+<p>区：1MB，由页构成</p>
 <p>段：由多个区组成，分为索引段、数据段、回滚段等</p>
 <p><strong>行格式</strong></p>
 <p><img src="/img/sql_img/%E8%A1%8C%E6%A0%BC%E5%BC%8F.png" srcset="/img/loading.gif" lazyload></p>
