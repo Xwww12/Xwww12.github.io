@@ -24,7 +24,7 @@
 <meta property="og:description" content="手写web框架7天用Go从零实现Web框架Gee教程 | 极客兔兔 (geektutu.com) ↑的笔记 😀day1-net&#x2F;http基础http的API123456789101112&#x2F;*	http.HandleFunc(&quot;请求路径&quot;, 处理方法)	http.ListenAndServe(&quot;:绑定端口&quot;, 处理器)*&#x2F;&#x2F;&#x2F; 通过HandleFu">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-28T16:33:20.222Z">
-<meta property="article:modified_time" content="2023-10-31T10:00:05.310Z">
+<meta property="article:modified_time" content="2023-11-02T06:51:01.281Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.9k 字
+          10k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          83 分钟
+          84 分钟
         
       </span>
     
@@ -333,26 +333,8 @@
 <p>gee</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// RouterGroup 路由组</span><br><span class="hljs-keyword">type</span> RouterGroup <span class="hljs-keyword">struct</span> &#123;<br>    prefix      <span class="hljs-type">string</span><br>    middlewares []HandlerFunc <span class="hljs-comment">// 中间件总用于当前组及子组</span><br>    engine      *Engine<br>&#125;<br><br><span class="hljs-keyword">type</span> Engine <span class="hljs-keyword">struct</span> &#123;<br>    *RouterGroup<br>    router *router<br>    groups []*RouterGroup<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">New</span><span class="hljs-params">()</span></span> *Engine &#123;<br>    engine := &amp;Engine&#123;router: newRouter()&#125;<br>    engine.RouterGroup = &amp;RouterGroup&#123;engine: engine&#125;<br>    engine.groups = []*RouterGroup&#123;engine.RouterGroup&#125;<br>    <span class="hljs-keyword">return</span> engine<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(group *RouterGroup)</span></span> Group(prefix <span class="hljs-type">string</span>) *RouterGroup &#123;<br>    engine := group.engine<br>    newGroup := &amp;RouterGroup&#123;<br>        prefix: group.prefix + prefix,<br>        engine: engine,<br>    &#125;<br>    engine.groups = <span class="hljs-built_in">append</span>(engine.groups, newGroup)<br>    <span class="hljs-keyword">return</span> newGroup<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(group *RouterGroup)</span></span> addRoute(method <span class="hljs-type">string</span>, comp <span class="hljs-type">string</span>, handler HandlerFunc) &#123;<br>    pattern := group.prefix + comp<br>    log.Printf(<span class="hljs-string">&quot;Route %4s - %s&quot;</span>, method, pattern)<br>    group.engine.router.addRoute(method, pattern, handler)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(group *RouterGroup)</span></span> GET(pattern <span class="hljs-type">string</span>, handler HandlerFunc) &#123;<br>    group.addRoute(<span class="hljs-string">&quot;GET&quot;</span>, pattern, handler)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(group *RouterGroup)</span></span> POST(pattern <span class="hljs-type">string</span>, handler HandlerFunc) &#123;<br>    group.addRoute(<span class="hljs-string">&quot;POST&quot;</span>, pattern, handler)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(engine *Engine)</span></span> RUN(addr <span class="hljs-type">string</span>) (err <span class="hljs-type">error</span>) &#123;<br>    <span class="hljs-keyword">return</span> http.ListenAndServe(addr, engine)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(engine *Engine)</span></span> ServeHTTP(w http.ResponseWriter, req *http.Request) &#123;<br>    c := newContext(w, req)<br>    engine.router.handle(c)<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<h2 id="day5-中间件"><a href="#day5-中间件" class="headerlink" title="day5-中间件"></a>day5-中间件</h2><p>中间件：非业务的技术类组件，如日志组件等，可以在Context初始化完后或Handler执行完后被调用，来执行一些操作</p>
+<p>把中间件保存在Context的[]handlers中，假设处理请求方法为handler，中间件有midA、midB，存储顺序为[midA、handler、midB]，则可实现中间件操作</p>
 
                 
               </div>
