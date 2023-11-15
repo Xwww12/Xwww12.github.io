@@ -8,7 +8,7 @@
     <link href="/2023/11/12/%E8%8B%B1%E8%AF%AD/%E5%9F%BA%E6%9C%AC%E6%97%B6%E6%80%81/"/>
     <url>/2023/11/12/%E8%8B%B1%E8%AF%AD/%E5%9F%BA%E6%9C%AC%E6%97%B6%E6%80%81/</url>
     
-    <content type="html"><![CDATA[<h2 id="基本时态"><a href="#基本时态" class="headerlink" title="基本时态"></a>基本时态</h2><blockquote><p>正在 &#x2F; 何时完成 + 动作是否完成</p></blockquote><ol><li><p>现在进行时</p> <figure class="highlight mizar"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mizar">强调动作正在进行<br>构成：<span class="hljs-keyword">be</span>动词 + 动词ing<br>例句：<br>Your dog <span class="hljs-keyword">is</span> sleeping <span class="hljs-keyword">now</span><br></code></pre></td></tr></table></figure></li><li><p>现在完成时</p> <figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">表示动作已经完成<br>构成：hava/<span class="hljs-keyword">has</span> + 过去分词<br>例句：<br>I hava opened the door<br>She <span class="hljs-keyword">has</span> eaten much bread<br></code></pre></td></tr></table></figure> <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arcade">部分不规则变换<br>go =&gt; gone; <span class="hljs-function"><span class="hljs-params">read</span> =&gt;</span> read; <span class="hljs-function"><span class="hljs-params">eat</span> =&gt;</span> eaten; <br><span class="hljs-function"><span class="hljs-params">drink</span> =&gt;</span> drunk; <span class="hljs-function"><span class="hljs-params">buy</span> =&gt;</span>bougth<br></code></pre></td></tr></table></figure></li><li><p>现在完成进行时</p> <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">表示做了动作但还没做完<br>构成：hava/has + been + 动词ing<br>例句：<br>I hava been working <span class="hljs-keyword">for</span> <span class="hljs-literal">three</span> hours （持续<span class="hljs-number">3</span>小时）<br>He has been woring since <span class="hljs-literal">five</span> o`clock (<span class="hljs-number">5</span>点到现在)<br></code></pre></td></tr></table></figure></li><li><p>一般过去时</p> <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">过去完成的动作<br>构成：动词过去式<br>例句：<br>He went <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> zoo <span class="hljs-literal">three</span> days age<br>Did he run <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> forest yesterday<br></code></pre></td></tr></table></figure> <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arcade">部分不规则变换<br>go =&gt; went; am/<span class="hljs-function"><span class="hljs-params">is</span> =&gt;</span> was; <span class="hljs-function"><span class="hljs-params">are</span> =&gt;</span> were; <br><span class="hljs-keyword">do</span>/<span class="hljs-function"><span class="hljs-params">dose</span> =&gt;</span> did<br></code></pre></td></tr></table></figure></li><li><p>过去进行时</p> <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">过去的时间里，动作正在进行<br>构成：was/were + 动词ing + 过去时间<br>例句：<br>He was sleeping <span class="hljs-keyword">at</span> <span class="hljs-literal">three</span> o`clock yesterday afternoon<br></code></pre></td></tr></table></figure></li><li><p>过去完成时</p> <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">过去的时间里，动作已经完成<br>构成：had + 动词ed + 过去时间<br>例句：<br>He had washed the car yesterday<br>My <span class="hljs-keyword">brother </span>had <span class="hljs-keyword">been </span>sick <span class="hljs-keyword">before </span>I came home<br></code></pre></td></tr></table></figure></li><li><p>过去完成进行时</p> <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">强调当时在做什么<br>构成：had + <span class="hljs-keyword">been </span>+ 动词ing + 过去时间<br>例句：<br>When you saw me this moring, I had <span class="hljs-keyword">been </span>working for three hours<br><span class="hljs-keyword">Before </span>you came here, it had <span class="hljs-keyword">been </span>raining since two o`<span class="hljs-keyword">clock </span>yesterday afternoon<br></code></pre></td></tr></table></figure></li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="基本时态"><a href="#基本时态" class="headerlink" title="基本时态"></a>基本时态</h2><blockquote><p>正在 &#x2F; 何时完成 + 动作是否完成</p></blockquote><ol><li><p>现在进行时</p> <figure class="highlight mizar"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mizar">强调动作正在进行<br>构成：<span class="hljs-keyword">be</span>动词 + 动词ing<br>例句：<br>Your dog <span class="hljs-keyword">is</span> sleeping <span class="hljs-keyword">now</span><br></code></pre></td></tr></table></figure></li><li><p>现在完成时</p> <figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">表示动作已经完成<br>构成：hava/<span class="hljs-keyword">has</span> + 过去分词<br>例句：<br>I hava opened the door<br>She <span class="hljs-keyword">has</span> eaten much bread<br></code></pre></td></tr></table></figure> <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arcade">部分不规则变换<br>go =&gt; gone; <span class="hljs-function"><span class="hljs-params">read</span> =&gt;</span> read; <span class="hljs-function"><span class="hljs-params">eat</span> =&gt;</span> eaten; <br><span class="hljs-function"><span class="hljs-params">drink</span> =&gt;</span> drunk; <span class="hljs-function"><span class="hljs-params">buy</span> =&gt;</span>bougth<br></code></pre></td></tr></table></figure></li><li><p>现在完成进行时</p> <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">表示做了动作但还没做完<br>构成：hava/has + been + 动词ing<br>例句：<br>I hava been working <span class="hljs-keyword">for</span> <span class="hljs-literal">three</span> hours （持续<span class="hljs-number">3</span>小时）<br>He has been woring since <span class="hljs-literal">five</span> o`clock (<span class="hljs-number">5</span>点到现在)<br></code></pre></td></tr></table></figure></li><li><p>一般过去时</p> <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">过去完成的动作<br>构成：动词过去式<br>例句：<br>He went <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> zoo <span class="hljs-literal">three</span> days age<br>Did he run <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> forest yesterday<br></code></pre></td></tr></table></figure> <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arcade">部分不规则变换<br>go =&gt; went; am/<span class="hljs-function"><span class="hljs-params">is</span> =&gt;</span> was; <span class="hljs-function"><span class="hljs-params">are</span> =&gt;</span> were; <br><span class="hljs-keyword">do</span>/<span class="hljs-function"><span class="hljs-params">dose</span> =&gt;</span> did<br></code></pre></td></tr></table></figure></li><li><p>过去进行时</p> <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">过去的时间里，动作正在进行<br>构成：was/were + 动词ing + 过去时间<br>例句：<br>He was sleeping <span class="hljs-keyword">at</span> <span class="hljs-literal">three</span> o`clock yesterday afternoon<br></code></pre></td></tr></table></figure></li><li><p>过去完成时</p> <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">过去的时间里，动作已经完成<br>构成：had + 动词ed + 过去时间<br>例句：<br>He had washed the car yesterday<br>My <span class="hljs-keyword">brother </span>had <span class="hljs-keyword">been </span>sick <span class="hljs-keyword">before </span>I came home<br></code></pre></td></tr></table></figure></li><li><p>过去完成进行时</p> <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">强调当时在做什么<br>构成：had + <span class="hljs-keyword">been </span>+ 动词ing + 过去时间<br>例句：<br>When you saw me this moring, I had <span class="hljs-keyword">been </span>working for three hours<br><span class="hljs-keyword">Before </span>you came here, it had <span class="hljs-keyword">been </span>raining since two o`<span class="hljs-keyword">clock </span>yesterday afternoon<br></code></pre></td></tr></table></figure></li><li><p>一般将来时</p> <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs armasm">将来发生的动作<br>构成：will + 动词原型<br>例句：<br><span class="hljs-keyword">It</span> will rain tomorrow afternoon<br></code></pre></td></tr></table></figure></li><li><p>将来进行时</p> <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">将来将正在做的动作<br>构成：will + <span class="hljs-keyword">be </span>+ 动词ing<br>例句：<br>I will <span class="hljs-keyword">be </span>watching TV tomorrow afternoon<br></code></pre></td></tr></table></figure></li><li><p>将来完成时</p><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs coq">将来已经完成的状态<br>构成：will + hava + 动词ed<br>例句：<br>That train will have <span class="hljs-built_in">left</span> <span class="hljs-built_in">by</span> five o&#x27;clock<br></code></pre></td></tr></table></figure><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-keyword">by</span> <span class="hljs-literal">five</span> o`clock: 不包含<span class="hljs-number">5</span>点<br><span class="hljs-keyword">before</span> <span class="hljs-literal">five</span> o`clock: 包含<span class="hljs-number">5</span>点<br></code></pre></td></tr></table></figure></li><li><p>将来完成进行时</p> <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">强调事情持续进行状态<br>构成: will + have <span class="hljs-keyword">been </span>+ 动词ing<br>例句:<br>He will have <span class="hljs-keyword">been </span><span class="hljs-keyword">waiting </span>for you for three hours <span class="hljs-keyword">by </span>five o<span class="hljs-string">&#x27;clock</span><br></code></pre></td></tr></table></figure></li></ol>]]></content>
     
     
     <categories>
@@ -274,9 +274,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -303,9 +303,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -432,9 +432,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -492,9 +492,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -745,9 +745,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -874,9 +874,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -905,9 +905,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -936,9 +936,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -965,9 +965,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -1517,9 +1517,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -1548,9 +1548,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -2472,9 +2472,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -2532,9 +2532,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -2563,9 +2563,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -2756,9 +2756,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -3035,9 +3035,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -3064,9 +3064,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -3120,9 +3120,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
@@ -3149,9 +3149,9 @@
     
     <tags>
       
-      <tag>spring</tag>
-      
       <tag>后端</tag>
+      
+      <tag>spring</tag>
       
     </tags>
     
