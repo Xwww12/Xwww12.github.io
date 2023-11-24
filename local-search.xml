@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>go反射</title>
+    <link href="/2023/11/24/go/go%E5%8F%8D%E5%B0%84/"/>
+    <url>/2023/11/24/go/go%E5%8F%8D%E5%B0%84/</url>
+    
+    <content type="html"><![CDATA[<h2 id="go反射"><a href="#go反射" class="headerlink" title="go反射"></a>go反射</h2><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul><li>在运行时动态创建对象 </li><li>在运行时动态修改对象的属性 </li><li>在运行时动态调用对象的方法 </li><li>在运行时动态判断对象的类型 </li><li>在运行时动态序列化和反序列化对象</li></ul><h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><ul><li>reflect.TypeOf() ：获取变量的类型。 </li><li>reflect.ValueOf() ：获取变量的值。 </li><li>reflect.Value.Type()：获取reflect.Value的类型</li><li>reflect.Value.Interface()：将reflect.Value转换为接口类型</li><li>reflect.Value.Elem()：获取指向变量的指针的reflect.Value</li><li>reflect.Value.SetInt()&#x2F;setFlout()&#x2F;setString()：设置值</li><li>reflect.New()：返回一个指向类型的新实例的</li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 示例</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestReflect</span><span class="hljs-params">(a *testing.T)</span></span> &#123;<br>i := <span class="hljs-number">10</span><br><br>t := reflect.TypeOf(i)<br>fmt.Println(t) <span class="hljs-comment">// int</span><br><br>v := reflect.ValueOf(i)<br>fmt.Println(v) <span class="hljs-comment">// 10</span><br><br>value := reflect.ValueOf(&amp;i)<br>fmt.Println(value.Type())             <span class="hljs-comment">// *int</span><br>fmt.Println(value.Interface().(*<span class="hljs-type">int</span>)) <span class="hljs-comment">// i的地址</span><br>fmt.Println(value.Elem())             <span class="hljs-comment">// 10</span><br>value.Elem().SetInt(<span class="hljs-number">20</span>)<br>fmt.Println(i) <span class="hljs-comment">// 20</span><br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>go</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>其他</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ProtocolBuffers</title>
+    <link href="/2023/11/16/go/ProtocolBuffers/"/>
+    <url>/2023/11/16/go/ProtocolBuffers/</url>
+    
+    <content type="html"><![CDATA[<h2 id="ProtocolBuffers"><a href="#ProtocolBuffers" class="headerlink" title="ProtocolBuffers"></a>ProtocolBuffers</h2><p><a href="https://blog.csdn.net/m0_45971439/article/details/129351032">windows下go安装并使用protobuf</a></p><p>结构化数据存储格式，性能和效率优于Json和Xml，是以二进制方式存储，占用空间小</p><p>Protobuf 在 <code>.proto</code> 定义需要处理的结构化数据，可以通过 <code>protoc</code> 工具，将 <code>.proto</code> 文件转换为 C、C++、Golang、Java、Python 等多种语言的代码，兼容性好，易于使用</p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><strong>protoc</strong>：</p><p> <a href="https://github.com/protocolbuffers/protobuf/releases">protoc下载地址</a>, windows下载-win64结尾的那个</p><p>下载完后将<code>protoc.exe</code>放到<code>%GOPATH%/bin</code>目录下</p><p><strong>protoc-gen-go</strong>：</p><p>protoc本身不能将proto编译成go语言，需要安装插件</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">go install google.golang.org/protobuf/<span class="hljs-built_in">cmd</span>/protoc-gen-go@latest<br></code></pre></td></tr></table></figure><p>下载完后可以在<code>%GOPATH%/bin</code>找到</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cmd"># 检查是否安装成功<br>protoc --version<br>protoc-gen-go --version<br></code></pre></td></tr></table></figure><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol><li>创建<code>test.proto</code>文件，<code>.proto</code>文件：用于定义需要传输的message格式</li></ol><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs protobuf">syntax = <span class="hljs-string">&quot;proto3&quot;</span>; <span class="hljs-comment">//版本号</span><br><span class="hljs-keyword">package</span> protobuf;  <span class="hljs-comment">//包名</span><br><span class="hljs-keyword">option</span> go_package = <span class="hljs-string">&quot;./protobuf&quot;</span>;<span class="hljs-comment">// 生成在当前文件下的目录</span><br><br><span class="hljs-keyword">enum </span><span class="hljs-title class_">ClassName</span>&#123;<span class="hljs-comment">//枚举</span><br>  class1 = <span class="hljs-number">0</span>;  <span class="hljs-comment">//标号 必须从 0开始</span><br>  class2 = <span class="hljs-number">1</span>;<br>  class3 = <span class="hljs-number">2</span>;<br>&#125;<br><br><span class="hljs-keyword">message </span><span class="hljs-title class_">Student</span>&#123;<span class="hljs-comment">//消息，对应于Go的结构体</span><br>  <span class="hljs-type">string</span> name = <span class="hljs-number">1</span>; <span class="hljs-comment">//1:标号，唯一 即可（相当于数据库中的Id，不一定要从1 ，2的顺序依次排列。）</span><br>  <span class="hljs-type">int32</span> age = <span class="hljs-number">2</span>;  <span class="hljs-comment">//必须指定整型的范围，如int32，int64</span><br>  <span class="hljs-type">string</span> address = <span class="hljs-number">3</span>;<br>  ClassName cn = <span class="hljs-number">4</span>;<br>&#125;<br><span class="hljs-keyword">message </span><span class="hljs-title class_">Students</span>&#123;<br>  <span class="hljs-keyword">repeated</span> Student person = <span class="hljs-number">1</span>;  <span class="hljs-comment">// repeated 修饰，相当于Go中切片</span><br>  <span class="hljs-type">string</span> school = <span class="hljs-number">2</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure><ol start="2"><li><p>命令<code>protoc --go_out=. test.proto</code>生成对应go文件，会看到生成&#x2F;protobuf&#x2F;student.pb.go文件</p></li><li><p>测试</p> <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    student := &amp;protobuf.Student&#123;<br>        Name:    <span class="hljs-string">&quot;Huzhen&quot;</span>,<br>        Age:     <span class="hljs-number">27</span>,<br>        Address: <span class="hljs-string">&quot;aaa&quot;</span>,<br>        Cn:      protobuf.ClassName_class1,<br>    &#125;<br><br>    fmt.Println(<span class="hljs-string">&quot;student: &quot;</span>, student)<br>    <span class="hljs-comment">// 编码: 将person对象进行序列化，得到二进制文件</span><br>    data, err := proto.Marshal(student)<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        fmt.Println(<span class="hljs-string">&quot;encode err: &quot;</span>, err)<br>        <span class="hljs-keyword">return</span><br>    &#125;<br><br>    fmt.Println(<span class="hljs-string">&quot;data: &quot;</span>, data)<br><br>    <span class="hljs-comment">// 解码(反序列化)</span><br>    person2 := &amp;protobuf.Student&#123;&#125;<br>    err = proto.Unmarshal(data, person2)<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        fmt.Println(<span class="hljs-string">&quot;decode err: &quot;</span>, err)<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    fmt.Println(<span class="hljs-string">&quot;person2: &quot;</span>, person2)<br>&#125;<br><br></code></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>go</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>其他</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>基本时态</title>
     <link href="/2023/11/12/%E8%8B%B1%E8%AF%AD/%E5%9F%BA%E6%9C%AC%E6%97%B6%E6%80%81/"/>
     <url>/2023/11/12/%E8%8B%B1%E8%AF%AD/%E5%9F%BA%E6%9C%AC%E6%97%B6%E6%80%81/</url>
