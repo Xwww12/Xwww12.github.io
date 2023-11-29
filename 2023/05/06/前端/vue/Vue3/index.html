@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/qianduan_img/Vue3%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
 <meta property="og:image" content="http://xwww12.github.io/img/qianduan_img/Vue3%E7%9B%AE%E5%BD%95.png">
 <meta property="article:published_time" content="2023-05-06T10:59:28.597Z">
-<meta property="article:modified_time" content="2023-05-20T07:17:19.203Z">
+<meta property="article:modified_time" content="2023-11-29T14:17:41.162Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="Vue">
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          22k 字
+          25k 字
         
       </span>
     
@@ -239,7 +239,7 @@
         
         
         
-          185 分钟
+          212 分钟
         
       </span>
     
@@ -596,6 +596,21 @@
 </blockquote>
 <p><a target="_blank" rel="noopener" href="http://www.vueusejs.com/">中文文档</a></p>
 <p><a target="_blank" rel="noopener" href="https://vueuse.org/">英文文档</a></p>
+<h1 id="Swiper"><a href="#Swiper" class="headerlink" title="Swiper"></a>Swiper</h1><p>Swiper是纯javascript打造的滑动特效插件，面向手机、平板电脑等移动终端；Swiper能实现触屏焦点图、触屏Tab切换、触屏<strong>轮播图</strong>切换等常用效果。</p>
+<p><a target="_blank" rel="noopener" href="https://swiperjs.com/">官网</a></p>
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><p>安装依赖(以10.1.0为例)</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">npm install swiper@<span class="hljs-number">10</span>.<span class="hljs-number">1</span>.<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<p>测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>    import &#123; Swiper, SwiperSlide &#125; from &#x27;swiper/vue&#x27;;<br><br>    // 仅包含核心样式<br>    import &#x27;swiper/css&#x27;;<br>    // 所有样式<br>    // import &#x27;swiper/css/bundle&#x27;<br><br>    const onSwiper = (swiper) =&gt; &#123;<br>        console.log(swiper);<br>    &#125;;<br>    const onSlideChange = () =&gt; &#123;<br>        console.log(&#x27;slide change&#x27;);<br>    &#125;;<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>	&lt;swiper <br>        :slides-per-view=&quot;2&quot;<br>        :space-between=&quot;50&quot;<br>        @swiper=&quot;onSwiper&quot;<br>        @slideChange=&quot;onSlideChange&quot;<br>        &gt;<br>    &lt;swiper-slide&gt;Slide 1&lt;/swiper-slide&gt;<br>    &lt;swiper-slide&gt;Slide 2&lt;/swiper-slide&gt;<br>    &lt;swiper-slide&gt;Slide 3&lt;/swiper-slide&gt;<br>    &lt;/swiper&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><blockquote>
+<p>官网找demo, 然后看API里的属性来设置</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>    // 图片切换淡入淡出效果<br>    import &#123; Swiper, SwiperSlide &#125; from &#x27;swiper/vue&#x27;;<br>    import &#123; EffectFade, Autoplay &#125; from &#x27;swiper/modules&#x27;;<br><br>    import &#x27;swiper/css&#x27;;<br>    import &#x27;swiper/css/effect-fade&#x27;;<br>    import &#x27;swiper/css/autoplay&#x27;;<br><br>    // 淡入淡出, 自动播放<br>    const modules = [EffectFade, Autoplay]<br><br>    const sectionOneData = &#123;<br>        swipeItems: [<br>            &#x27;https://ts1.cn.mm.bing.net/th/id/R-C.3428ce0dc9ffcb71b43de5e4de53c3be?rik=oWeInFhSbuc8ew&amp;riu=http%3a%2f%2fwww.nitutu.com%2fuploads%2fallimg%2f170808%2f2039463303-20.jpg&amp;ehk=lpq14%2bXdQdGE9HANkVnv4hVNUxLwGvK%2bev1nGJ%2fuGAY%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0&#x27;,<br>            &#x27;https://ts1.cn.mm.bing.net/th/id/R-C.e76fb1e2661ae7a2f33ce54a3b192d6a?rik=DzfFM6%2fW%2bBpHGQ&amp;riu=http%3a%2f%2fpic.newface.cn%2farticle%2f2016%2f01%2f20160130095735_9675.jpg&amp;ehk=c00UX3veD414tlKaUbYIW8QsXgKzwfTUATYAU30SQqY%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0&#x27;,<br>            &#x27;https://ts1.cn.mm.bing.net/th/id/R-C.a139d5e3ce46969368baaf05ba1c70e7?rik=83nAr%2bmixceprg&amp;riu=http%3a%2f%2fimgboys1.yohobuy.com%2fcontentimg%2f2019%2f10%2f10%2f22%2f0185fd68a7d869c5e79dfec8609a8e8593.jpg&amp;ehk=TGV5OB8lBfPprp0KFFdZdaIgh%2bJmcGB93KQHZHWVMwk%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0&#x27;,<br>            &#x27;https://ts1.cn.mm.bing.net/th/id/R-C.c86ee2951bf2f3c55e8f13fdc152d561?rik=Biz9aDUCRPU4tA&amp;riu=http%3a%2f%2fimgboys2.yohobuy.com%2fcontentimg%2f2019%2f10%2f10%2f22%2f021bd574784425d516b08715b49d40eb26.jpg&amp;ehk=QRmm0m1XUPBIQXJD%2f9Q4KeKv6d4n4%2fRuFMLc%2fl3B%2fUg%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0&#x27;<br>        ]<br>    &#125;<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>&lt;div class=&quot;swipe-warp&quot;&gt;<br>    &lt;!-- 淡入淡出, 循环播放, 播放间隔3s, 用户拖动图片后不禁用自动播放 --&gt;<br>    &lt;swiper class=&quot;swipe&quot; <br>            :modules=&quot;modules&quot; <br>            :effect=&quot;&#x27;fade&#x27;&quot; <br>            :loop=&quot;true&quot; <br>            :autoplay=&quot;&#123; delay: 3000, disableOnInteraction: false &#125;&quot;&gt; <br>        &lt;swiper-slide v-for=&quot;item in sectionOneData.swipeItems&quot; :key=&quot;item&quot;&gt;<br>            &lt;img :src=&quot;item&quot;/&gt;<br>    &lt;/swiper-slide&gt;<br>    &lt;/swiper&gt;<br>    &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;style&gt;<br>    .swipe-warp &#123;<br>        .swipe  &#123;<br>            color: #fff;<br>            width: 375px;<br>            height: 375px;<br>            overflow: hidden;   /* 溢出内容隐藏 */<br>            background-color: #39a9ed;<br>            .swiper-slide &gt; img &#123;<br>                width: 100%;<br>                object-fit: cover;  /* 等比例缩放，以填充容器，并保持其宽高比 */<br>            &#125;<br>        &#125;<br>    &#125;<br>&lt;/style&gt;<br><br></code></pre></td></tr></table></figure>
+
+
+
 
                 
               </div>
