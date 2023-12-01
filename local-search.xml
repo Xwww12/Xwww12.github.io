@@ -410,37 +410,6 @@
   
   
   <entry>
-    <title>零碎</title>
-    <link href="/2023/05/30/%E5%89%8D%E7%AB%AF/vue/%E9%9B%B6%E7%A2%8E/"/>
-    <url>/2023/05/30/%E5%89%8D%E7%AB%AF/vue/%E9%9B%B6%E7%A2%8E/</url>
-    
-    <content type="html"><![CDATA[<h1 id="Vue3"><a href="#Vue3" class="headerlink" title="Vue3"></a>Vue3</h1><h2 id="用url记录页面状态"><a href="#用url记录页面状态" class="headerlink" title="用url记录页面状态"></a>用url记录页面状态</h2><blockquote><p>如保存当前所在页、搜索的内容等，刷新页面后仍然会保持当前状态</p></blockquote><p>实现方式：</p><ol><li><p>用户点击按钮等方式先改变url</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs vue">// 点击搜索按钮，改变路由参数<br>const searchParams = ref(&#123; text: &#x27;&#x27; &#125;);<br>const onSearch = (value: string) =&gt; &#123;<br>  searchParams.value.text = value<br>  router.push(&#123;<br>    query: &#123;<br>      text: searchParams.value.text<br>    &#125;<br>  &#125;)<br>&#125;;<br></code></pre></td></tr></table></figure></li><li><p>再通过监听的方式监听url的变化</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vue">// 非惰性的监听，当url改变时也改变searchParams的值<br>watchEffect(() =&gt; &#123;<br>  searchParams.value.text = route.query.text as string;<br>&#125;)<br></code></pre></td></tr></table></figure></li></ol><h2 id="ts-Vue3给defineProps设置默认值"><a href="#ts-Vue3给defineProps设置默认值" class="headerlink" title="ts+Vue3给defineProps设置默认值"></a>ts+Vue3给defineProps设置默认值</h2><ol><li><p>创建接口，设置参数的类型</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">interface Props &#123;<br>    userList: any[];<br>&#125;<br></code></pre></td></tr></table></figure></li><li><p>通过<code>withDefaults</code>给<code>props</code>设置默认值</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">const props = withDefaults(defineProps&lt;Props&gt;(), &#123;<br>    userList: () =&gt; [],<br>&#125;)<br></code></pre></td></tr></table></figure></li><li><p>父组件传参</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;UserList :user-list=&quot;userList&quot;/&gt;<br></code></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>学习笔记</category>
-      
-      <category>前端</category>
-      
-      <category>Vue</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>前端</tag>
-      
-      <tag>Vue</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>SpringAOP</title>
     <link href="/2023/05/28/spring/SpringAOP/"/>
     <url>/2023/05/28/spring/SpringAOP/</url>
@@ -901,9 +870,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -932,9 +901,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -963,9 +932,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -2468,9 +2437,9 @@
     
     <tags>
       
-      <tag>其他</tag>
-      
       <tag>后端</tag>
+      
+      <tag>其他</tag>
       
     </tags>
     
@@ -2499,9 +2468,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -2590,9 +2559,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
