@@ -4,9 +4,36 @@
   
   
   <entry>
+    <title>操作系统</title>
+    <link href="/2024/04/11/%E8%80%83%E7%A0%94/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/"/>
+    <url>/2024/04/11/%E8%80%83%E7%A0%94/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/</url>
+    
+    <content type="html"><![CDATA[<h1 id="操作系统基础"><a href="#操作系统基础" class="headerlink" title="操作系统基础"></a>操作系统基础</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>什么是操作系统</strong>：</p><p>​操作系统（Operating System， OS）是指控制和<strong>管理</strong>整个计算机系统的<strong>硬件和软件资源</strong>，并合理地组织调度计算机的工作和资源的分配；以提供给用户和其他软件方便的接口和环境；它是计算机系统中最基本的系统<strong>软件</strong></p><p><strong>操作系统提供的功能</strong>：</p><ul><li>处理机（CPU）管理</li><li>存储器管理</li><li>文件管理</li><li>设备管理</li></ul><p><strong>操作系统的目标</strong>：</p><ul><li>作为系统资源的管理者</li><li>向上提供方便易用的服务<ul><li>图形界面GUI</li><li>命令接口<ul><li>联机命令接口：交互式，用户一句，系统一句，如cmd</li><li>脱机命令接口：批处理，如bat</li><li>程序接口：在代码中通过<strong>系统调用</strong>（广义接口）来使用</li></ul></li></ul></li></ul><p><strong>操作系统的特征</strong>：</p><ul><li><p><strong>并发</strong></p><p>  并发：同一时间交替运行多个程序</p><p>  并行：同一时间同时运行多个程序（多核CPU）</p></li><li><p><strong>共享</strong></p><p>  互斥共享：一个时间段内只允许一个进程访问该资源（临界资源）</p><p>  同时访问：同一时间段内多个进程”同时“访问</p><p>  <strong>并发和共享是操作系统两个最基本的特征</strong></p></li><li><p><strong>虚拟</strong></p><p>  空分复用：内存分给多个进程使用，让用户觉得能使用的内存大于物理内存（虚拟内存）</p><p>  时分复用：处理机在各个微小的时间段内交替为各个进程服务</p></li><li><p><strong>异步</strong></p><p>  进程以不可预知的速度执行</p><p>  只有系统拥有并发性，才有可能导致异步</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>考研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>考研</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>高数基础</title>
-    <link href="/2024/04/01/%E6%95%B0%E5%AD%A6/%E9%AB%98%E6%95%B0%E5%9F%BA%E7%A1%80/"/>
-    <url>/2024/04/01/%E6%95%B0%E5%AD%A6/%E9%AB%98%E6%95%B0%E5%9F%BA%E7%A1%80/</url>
+    <link href="/2024/04/01/%E8%80%83%E7%A0%94/%E9%AB%98%E6%95%B0%E5%9F%BA%E7%A1%80/"/>
+    <url>/2024/04/01/%E8%80%83%E7%A0%94/%E9%AB%98%E6%95%B0%E5%9F%BA%E7%A1%80/</url>
     
     <content type="html"><![CDATA[<h1 id="高数基础"><a href="#高数基础" class="headerlink" title="高数基础"></a>高数基础</h1><h2 id="极限"><a href="#极限" class="headerlink" title="极限"></a>极限</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><img src="/img/math_img/%E4%B8%80/%E6%9E%81%E9%99%90%E5%AE%9A%E4%B9%89.png"></p><h3 id="极限运算"><a href="#极限运算" class="headerlink" title="极限运算"></a>极限运算</h3><ol><li>有限个无穷小的和为无穷小</li><li><strong>有界函数 x 无穷小 &#x3D; 无穷小</strong></li></ol><h3 id="夹逼定理"><a href="#夹逼定理" class="headerlink" title="夹逼定理"></a>夹逼定理</h3><p><img src="/img/math_img/%E4%B8%80/%E5%A4%B9%E9%80%BC%E5%AE%9A%E7%90%86.png"></p><h3 id="重要极限"><a href="#重要极限" class="headerlink" title="重要极限"></a>重要极限</h3><ol><li><p><img src="/img/math_img/%E4%B8%80/%E9%87%8D%E8%A6%81%E6%9E%81%E9%99%901.png"></p><p> 根据夹逼定理证明</p></li><li><p><img src="/img/math_img/%E4%B8%80/%E9%87%8D%E8%A6%81%E6%9E%81%E9%99%902.png"></p><p> 单调函数必有界证明</p></li></ol><h3 id="无穷小比较"><a href="#无穷小比较" class="headerlink" title="无穷小比较"></a>无穷小比较</h3><p>α和β存在极限且都是无穷小时：</p><p><img src="/img/math_img/%E4%B8%80/%E6%97%A0%E7%A9%B7%E5%B0%8F%E7%9A%84%E6%AF%94%E8%BE%83.png"></p><p><strong>常见等价无穷小</strong>：</p><p><strong>求两个无穷小之比的极限时，分子及分母都可用等价无穷小来替代</strong></p><p>x ~ sinx ~ tanx ~ arcsinx ~ arctanx</p><p>(1 - cosx) ~ (1&#x2F;2) x²（因为1 - cosx &#x3D; 2sin²(x&#x2F;2)）</p><p><img src="/img/math_img/%E4%B8%80/%E5%B8%B8%E8%A7%81%E7%AD%89%E4%BB%B7%E6%97%A0%E7%A9%B7%E5%B0%8F1.png"></p><h2 id="向量代数与空间几何"><a href="#向量代数与空间几何" class="headerlink" title="向量代数与空间几何"></a>向量代数与空间几何</h2><h3 id="数量积和向量积"><a href="#数量积和向量积" class="headerlink" title="数量积和向量积"></a>数量积和向量积</h3><ol><li><p>数量积（点乘、是数）</p><p> 公式：</p><p> <img src="/img/math_img/%E5%85%AB/%E6%95%B0%E9%87%8F%E7%A7%AF%E5%85%AC%E5%BC%8F1.png"></p><p> <img src="/img/math_img/%E5%85%AB/%E6%95%B0%E9%87%8F%E7%A7%AF%E5%85%AC%E5%BC%8F2.png"></p><p> 注意点：</p><ol><li>数量积<strong>满足</strong>分配律和交换律</li><li>点乘为0表示a⊥b</li></ol></li><li><p>向量积（叉乘、是向量）</p><p> 公式：</p><p> <img src="/img/math_img/%E5%85%AB/%E5%90%91%E9%87%8F%E7%A7%AF%E5%85%AC%E5%BC%8F1.png"></p><p> <img src="/img/math_img/%E5%85%AB/%E5%90%91%E9%87%8F%E7%A7%AF%E5%85%AC%E5%BC%8F2.png"></p><p> 注意点：</p><ol><li>向量积<strong>不满足</strong>交换律</li><li>叉乘为0表示a∥b</li><li>向量积方向垂直于两个向量所在平面</li></ol></li><li><p>混合积</p><p> 公式：(a x b) · c，绝对值可表示为六面体的体积</p></li></ol><h3 id="平面"><a href="#平面" class="headerlink" title="平面"></a>平面</h3><ol><li><p>表示平面的方程</p><ol><li><p><strong>点法式</strong>：法向量+平面内一点</p><p> <img src="/img/math_img/%E5%85%AB/%E5%B9%B3%E9%9D%A2%E7%82%B9%E6%B3%95%E5%BC%8F.png"></p></li><li><p><strong>一般方程</strong></p><p> Ax + By + Cz + D &#x3D; 0 </p><p> <img src="/img/math_img/%E5%85%AB/%E5%B9%B3%E9%9D%A2%E4%B8%80%E8%88%AC%E6%96%B9%E7%A8%8B.png"></p></li><li><p><strong>截距式</strong></p><p> <img src="/img/math_img/%E5%85%AB/%E5%B9%B3%E9%9D%A2%E6%88%AA%E8%B7%9D%E5%BC%8F.png"></p></li></ol></li><li><p>平面夹角</p><p> <img src="/img/math_img/%E5%85%AB/%E5%B9%B3%E9%9D%A2%E5%A4%B9%E8%A7%92.png"></p></li><li><p>点到平面的距离</p><p> <img src="/img/math_img/%E5%85%AB/%E7%82%B9%E5%88%B0%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB.png"></p></li></ol><h3 id="直线"><a href="#直线" class="headerlink" title="直线"></a>直线</h3><ol><li><p>表示直线的方程</p><ol><li><p>一般方程：两个平面的交线</p><p> <img src="/img/math_img/%E5%85%AB/%E7%9B%B4%E7%BA%BF%E4%B8%80%E8%88%AC%E6%96%B9%E7%A8%8B.png"></p></li><li><p>对称式：和方向向量成比例</p><p> <img src="/img/math_img/%E5%85%AB/%E7%9B%B4%E7%BA%BF%E5%AF%B9%E7%A7%B0%E5%BC%8F.png"></p></li><li><p>参数方程</p><p> <img src="/img/math_img/%E5%85%AB/%E7%9B%B4%E7%BA%BF%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B.png"></p></li></ol></li><li><p>直线夹角</p><p> <img src="/img/math_img/%E5%85%AB/%E7%9B%B4%E7%BA%BF%E5%A4%B9%E8%A7%92.png"></p></li><li><p>直线与平面的夹角</p><p> <strong>注意</strong>：是直线与平面的夹角，不是直线与法线的夹角</p><p> <img src="/img/math_img/%E5%85%AB/%E7%9B%B4%E7%BA%BF%E4%B8%8E%E5%B9%B3%E9%9D%A2%E7%9A%84%E5%A4%B9%E8%A7%92.png"></p></li></ol><h3 id="平面束"><a href="#平面束" class="headerlink" title="平面束"></a>平面束</h3><p>通过一条直线的所有平面的集合称为平面束</p><p><img src="/img/math_img/%E5%85%AB/%E5%B9%B3%E9%9D%A2%E6%9D%9F.png"></p><h3 id="曲面"><a href="#曲面" class="headerlink" title="曲面"></a>曲面</h3><p><strong>常见曲面方程</strong></p><ol><li><p>球面</p><p> <img src="/img/math_img/%E5%85%AB/%E7%90%83%E9%9D%A2.png"></p></li><li><p>旋转曲面</p><p> 如一个曲线绕f(0, y, z) &#x3D; 0绕z轴旋转，则到z轴的距离为 根号(x²+y²) ，方程为f(±根号(x²+y²), z)</p><p> <strong>绕谁转谁不变</strong></p></li><li><p>单叶双曲线</p><p> xOz面上的双曲线(x²&#x2F;a² - y²&#x2F;c²) &#x3D; 1 绕z轴旋转得到 </p><p> <img src="/img/math_img/%E5%85%AB/%E5%8D%95%E5%8F%B6%E5%8F%8C%E6%9B%B2%E7%BA%BF.png"></p></li><li><p>双叶双曲线</p><p> xOz面上的双曲线(x²&#x2F;a² - y²&#x2F;c²) &#x3D; 1 绕x轴旋转得到 </p><p> <img src="/img/math_img/%E5%85%AB/%E5%8F%8C%E5%8F%B6%E5%8F%8C%E6%9B%B2%E7%BA%BF.png"></p></li><li><p>柱面</p><p> 方程：x² + y² &#x3D; R²，没有规定z轴，所以z轴为母线，x² + y² &#x3D; R²为基准线</p></li><li><p>二次曲面</p><p> 三元<strong>二次</strong>方程表示的曲面</p><ol><li><p>椭圆锥面：<img src="/img/math_img/%E5%85%AB/%E6%A4%AD%E5%9C%86%E9%94%A5%E9%9D%A2.png"></p><p> <img src="/img/math_img/%E5%85%AB/%E6%A4%AD%E5%9C%86%E9%94%A5%E9%9D%A2%E5%9B%BE%E5%83%8F.png"></p></li><li><p>椭球面 ：</p><p> <img src="/img/math_img/%E5%85%AB/%E6%A4%AD%E7%90%83%E9%9D%A2.png"></p></li></ol></li></ol><h2 id="多元函数微分"><a href="#多元函数微分" class="headerlink" title="多元函数微分"></a>多元函数微分</h2><h3 id="偏导数"><a href="#偏导数" class="headerlink" title="偏导数"></a>偏导数</h3><p>求偏导时将其他变量看做常数</p><p>偏导存在，不能保证函数在该点连续</p><h3 id="全微分"><a href="#全微分" class="headerlink" title="全微分"></a>全微分</h3><p>全增量：各个 变量 都取得增量时 因变量 所获得的增量</p><p><img src="/img/math_img/%E4%B9%9D/%E5%85%A8%E5%A2%9E%E9%87%8F.png"></p><p>全微分：全增量的近似，全增量 &#x3D; 全微分 + 高阶无穷小</p><p>偏导存在是全微分的 必要不充分条件</p><p><img src="/img/math_img/%E4%B9%9D/%E5%85%A8%E5%BE%AE%E5%88%86.png"></p><p>全微分等于偏微分之和</p><p><img src="/img/math_img/%E4%B9%9D/%E5%85%A8%E5%BE%AE%E5%88%862.png"></p><h3 id="多元复合函数求导"><a href="#多元复合函数求导" class="headerlink" title="多元复合函数求导"></a>多元复合函数求导</h3><p>原函数先对复合函数求偏导，复合函数再求偏导</p><p><img src="/img/math_img/%E4%B9%9D/%E5%A4%9A%E5%85%83%E5%A4%8D%E5%90%88%E5%87%BD%E6%95%B0%E6%B1%82%E5%AF%BC.png"></p><h3 id="隐函数求导"><a href="#隐函数求导" class="headerlink" title="隐函数求导"></a>隐函数求导</h3><p>隐函数：如F(x, f(x))的f(x)，F(x,y,f(x,y))的f(x,y)</p><p><img src="/img/math_img/%E4%B9%9D/%E9%9A%90%E5%87%BD%E6%95%B0%E5%AD%98%E5%9C%A8%E5%AE%9A%E7%90%861.png"></p><p><strong>雅可比式</strong></p><p>在<strong>方程组</strong>的情况下用</p><p><img src="/img/math_img/%E4%B9%9D/%E9%9B%85%E5%8F%AF%E6%AF%94.png"></p><p><img src="/img/math_img/%E4%B9%9D/%E9%9B%85%E5%8F%AF%E6%AF%942.png"></p><h3 id="几何应用"><a href="#几何应用" class="headerlink" title="几何应用"></a>几何应用</h3><p><strong>空间曲线</strong></p><p>切向量：</p><ol><li>参数方程时：求导</li><li>y、z为关于x的方程：x&#x3D;1，y、z求导</li><li>两个平面的交线形式：雅可比求出y、z导数，x设为1</li></ol><p><img src="/img/math_img/%E4%B9%9D/%E7%A9%BA%E9%97%B4%E6%9B%B2%E7%BA%BF%E5%88%87%E7%BA%BF%E6%96%B9%E7%A8%8B.png"></p><p><img src="/img/math_img/%E4%B9%9D/%E7%A9%BA%E9%97%B4%E6%9B%B2%E7%BA%BF%E6%B3%95%E5%B9%B3%E9%9D%A2.png"></p><p><strong>曲面</strong></p><p>法向量n：</p><ol><li>F(x,y,z)&#x3D;0：n&#x3D;(Fx, Fy, Fz)</li><li>z是关于x，y的方程：z移到x、y一边然后求偏导</li></ol><p><img src="/img/math_img/%E4%B9%9D/%E6%9B%B2%E9%9D%A2.png"></p><h3 id="方向导数与梯度"><a href="#方向导数与梯度" class="headerlink" title="方向导数与梯度"></a>方向导数与梯度</h3><p><strong>方向导数</strong>：自变量变化时，给定方向的变化率。方向导数是数</p><p><img src="/img/math_img/%E4%B9%9D/%E6%96%B9%E5%90%91%E5%AF%BC%E6%95%B0.png"></p><p><strong>梯度</strong>：F(x,y)的梯度是(Fx,Fy)。梯度是向量。方向导数&#x3D;梯度 x 单位向量。二元以上的函数才有梯度</p><p><strong>梯度的方向</strong>：自变量变化的方向中，使因变量变化率最快的方向</p><h3 id="多元函数极值"><a href="#多元函数极值" class="headerlink" title="多元函数极值"></a>多元函数极值</h3><p>驻点：一阶偏导为0的点，不一定为极值点</p><p>极值点：在某个范围内的极大(极小)值</p><p>判断驻点是不是极值点：</p><p><img src="/img/math_img/%E4%B9%9D/%E5%88%A4%E6%96%AD%E6%9E%81%E5%80%BC.png"></p><p><strong>偏导不存在的点也有可能是极值点，需要加以判断</strong></p><p><strong>条件极值</strong>：对自变量有附加条件的极值</p><p>求解方法：</p><ol><li>将条件极值化为无条件极值</li><li>拉格朗日数乘法</li></ol><p><img src="/img/math_img/%E4%B9%9D/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%95%B0%E4%B9%98%E6%B3%95.png"></p><h2 id="重积分"><a href="#重积分" class="headerlink" title="重积分"></a>重积分</h2><h3 id="二重积分定义"><a href="#二重积分定义" class="headerlink" title="二重积分定义"></a>二重积分定义</h3><p>常用于算体积</p><p><img src="/img/math_img/%E5%8D%81/%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86%E5%AE%9A%E4%B9%89.png"></p><h3 id="二重积分估值"><a href="#二重积分估值" class="headerlink" title="二重积分估值"></a>二重积分估值</h3><p>用于估计二重积分的值的范围</p><p><img src="/img/math_img/%E5%8D%81/%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86%E4%BC%B0%E5%80%BC.png"></p><h3 id="二重积分中值定义"><a href="#二重积分中值定义" class="headerlink" title="二重积分中值定义"></a>二重积分中值定义</h3><p><img src="/img/math_img/%E5%8D%81/%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86.png"></p><h3 id="二重积分计算"><a href="#二重积分计算" class="headerlink" title="二重积分计算"></a>二重积分计算</h3><p>将二重积分转化为二次积分来计算</p><p>要选择合适的坐标系来计算</p><p><strong>直角坐标</strong></p><p>X型：x轴的积分范围为两个常数</p><p>Y型：y轴的积分范围为两个常数</p><p><strong>极坐标</strong></p><p>适用范围</p><ol><li>积分区域为圆、圆环、扇形</li><li>f(x²+y²)、f(y&#x2F;x)、f(x&#x2F;y)这种不好积分的函数</li></ol><p><img src="/img/math_img/%E5%8D%81/%E6%9E%81%E5%9D%90%E6%A0%87%E8%AE%A1%E7%AE%97%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86.png"></p><p><strong>换元法</strong></p><p>适用范围</p><ol><li>被积函数不好积</li><li>积分区域不好表示</li></ol><p><img src="/img/math_img/%E5%8D%81/%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86%E6%8D%A2%E5%85%83%E6%B3%95.png"></p><h3 id="三重积分计算"><a href="#三重积分计算" class="headerlink" title="三重积分计算"></a>三重积分计算</h3><p><strong>直角坐标</strong></p><p>计算三重积分时，可以先计算一个定积分，再计算一个二重积分</p><p><strong>柱面坐标</strong></p><p><img src="/img/math_img/%E5%8D%81/%E6%9F%B1%E9%9D%A2%E5%9D%90%E6%A0%87%E8%AE%A1%E7%AE%97%E4%B8%89%E9%87%8D%E7%A7%AF%E5%88%86.png"></p><p><strong>球面坐标</strong></p><p><img src="/img/math_img/%E5%8D%81/%E7%90%83%E9%9D%A2%E5%9D%90%E6%A0%87%E8%AE%A1%E7%AE%97%E4%B8%89%E9%87%8D%E7%A7%AF%E5%88%86.png"></p>]]></content>
     
@@ -15,14 +42,14 @@
       
       <category>学习笔记</category>
       
-      <category>数学</category>
+      <category>考研</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>数学</tag>
+      <tag>考研</tag>
       
     </tags>
     
@@ -2514,9 +2541,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>其他</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
