@@ -23,14 +23,16 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="操作系统基础概述什么是操作系统： ​	操作系统（Operating System， OS）是指控制和管理整个计算机系统的硬件和软件资源，并合理地组织调度计算机的工作和资源的分配；以提供给用户和其他软件方便的接口和环境；它是计算机系统中最基本的系统软件 操作系统提供的功能：  处理机（CPU）管理 存储器管理 文件管理 设备管理  操作系统的目标：  作为系统资源的管理者 向上提供方便易用的服务 图">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2.png">
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.png">
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E7%94%98%E7%89%B9%E5%9B%BE%E4%BE%8B%E9%A2%98.png">
 <meta property="article:published_time" content="2024-04-11T12:45:50.435Z">
-<meta property="article:modified_time" content="2024-04-12T12:08:31.195Z">
+<meta property="article:modified_time" content="2024-04-12T12:53:58.732Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://xwww12.github.io/img/os_img/%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.png">
+<meta name="twitter:image" content="http://xwww12.github.io/img/os_img/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2.png">
   
   
   
@@ -227,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          721 字
+          825 字
         
       </span>
     
@@ -339,23 +341,35 @@
 </li>
 </ul>
 <p><strong>操作系统的发展和分类</strong>：</p>
+<p><img src="/img/os_img/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
-<li><p>手工操作阶段：用户独占，资源利用率底，（无操作系统）</p>
+<li><p><strong>手工操作阶段</strong>：用户独占，资源利用率底，（无操作系统）</p>
 </li>
-<li><p>批处理阶段</p>
+<li><p><strong>批处理阶段</strong></p>
 <ul>
-<li><p>单道批处理系统：将一批作业放入磁带执行，一次只能执行一道程序，<strong>监督系统负责作业的输入输出</strong>，CPU有大量时间在等待IO完成</p>
+<li><p><strong>单道批处理系统</strong>：</p>
+<p>  将一批作业放入磁带执行，一次只能执行一道程序，<strong>监督系统负责作业的输入输出</strong>，CPU有大量时间在等待IO完成</p>
 <p>  <img src="/img/os_img/%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.png" srcset="/img/loading.gif" lazyload></p>
 </li>
-<li><p>多道批处理系统：在输入和输出程序的时候也能进行计算</p>
+<li><p><strong>多道批处理系统</strong>：</p>
+<ul>
+<li><p>优点：</p>
+<p>  在输入和输出程序的时候也能进行计算；</p>
+<p>  当某道程序因为请求IO操作而暂停运行时，CPU变去运行另一道程序；</p>
+<p>  多道、宏观并行、微观串行（轮流使用CPU）；</p>
+</li>
+<li><p>缺点：</p>
+<p>  响应时间较长，不提供人机交互；</p>
+</li>
+</ul>
 <p>  <img src="/img/os_img/%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ul>
 </li>
-<li><p>分时操作系统</p>
-<p>  以<strong>时间片</strong>为单位轮流为各个用户&#x2F;作业服务，请求能被及时响应，但不能优先处理一些紧急任务</p>
+<li><p><strong>分时操作系统</strong></p>
+<p>  以<strong>时间片</strong>为单位轮流为各个用户&#x2F;作业服务，请求能被及时响应，主要用于<strong>交互式作业</strong>。但不能优先处理一些紧急任务</p>
 </li>
-<li><p>实时操作系统</p>
+<li><p><strong>实时操作系统</strong></p>
 <ul>
 <li>硬实时系统：必须在觉得严格的规定时间内完成</li>
 <li>软实时系统：能接收偶尔超时</li>
@@ -364,6 +378,10 @@
 <li><p>个人计算操作系统、网络操作系统、分布式操作系统。。。</p>
 </li>
 </ul>
+<blockquote>
+<p>求CPU使用率的题用甘特图比较好求</p>
+<p><img src="/img/os_img/%E7%94%98%E7%89%B9%E5%9B%BE%E4%BE%8B%E9%A2%98.png" srcset="/img/loading.gif" lazyload></p>
+</blockquote>
 
                 
               </div>
