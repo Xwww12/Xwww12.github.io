@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.png">
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E7%94%98%E7%89%B9%E5%9B%BE%E4%BE%8B%E9%A2%98.png">
 <meta property="article:published_time" content="2024-04-11T12:45:50.435Z">
-<meta property="article:modified_time" content="2024-04-12T12:53:58.732Z">
+<meta property="article:modified_time" content="2024-04-13T14:26:04.940Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          825 字
+          1.7k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          7 分钟
+          15 分钟
         
       </span>
     
@@ -382,6 +382,78 @@
 <p>求CPU使用率的题用甘特图比较好求</p>
 <p><img src="/img/os_img/%E7%94%98%E7%89%B9%E5%9B%BE%E4%BE%8B%E9%A2%98.png" srcset="/img/loading.gif" lazyload></p>
 </blockquote>
+<p><strong>操作系统运行环境</strong></p>
+<p><strong>指令</strong>：</p>
+<ul>
+<li>特权指令：不允许用户直接用的指令，如IO指令、关中断指令等</li>
+<li>非特权指令：仅限于访问用户的地址空间</li>
+</ul>
+<p><strong>CPU的运行模式</strong>：</p>
+<ul>
+<li>用户态（目态）：应用程序运行在用户态</li>
+<li>内核态（管态）：操作系统内核运行在内核态</li>
+<li>内核态 –&gt; 用户态：执行特权指令，修改<strong>PSW（程序状态字寄存器）</strong>标志位</li>
+<li>用户态 –&gt; 内核态：<strong>中断</strong>，硬件自动完成切换</li>
+</ul>
+<p><strong>操作系统的内核组成</strong>：</p>
+<ul>
+<li>与硬件关联较紧密的模块<ol>
+<li>时钟管理：给用户提供系统时间、分时操作系统的时钟中断来切换进程、实时操作系统的截止时间</li>
+<li>中断处理：保护和回复中断现场的信息，转移控制权到相关处理程序</li>
+<li>原语：原子性，最接近硬件的部分，调用频繁</li>
+<li>管理：进程管理、存储器管理、设备管理</li>
+</ol>
+</li>
+<li>运行频率较高的模块</li>
+</ul>
+<p><strong>中断和异常</strong></p>
+<ul>
+<li><p>作用<br>  中断是让操作系统内核夺回CPU使用权的<strong>唯一手段</strong>，发生中断时会立即切换回核心态</p>
+</li>
+<li><p>中断的类型</p>
+<ul>
+<li><p><strong>内中断</strong>（异常、例外）：<br>  中断信号来源于CPU内部</p>
+<ol>
+<li>陷阱、陷入指令（trap指令、访管指令）：程序请求内核的服务时使用</li>
+<li>故障：错误条件引发，如缺页故障、地址越界</li>
+<li>终止：使得CPU无法继续执行的硬件故障</li>
+</ol>
+</li>
+<li><p><strong>外中断</strong>（中断）：<br>  中断信号<strong>来源于CPU外部</strong>，如时钟中断</p>
+<ol>
+<li>可屏蔽中断：通过INTR线（Interrupt Request line）发出中断请求，可多重中断</li>
+<li>不可屏蔽中断：通过INM线（Non-Maskable Interrupt line）发出请求，多为硬件故障</li>
+</ol>
+<ul>
+<li>时钟中断：表示一个固定的时间片已到</li>
+<li>IO中断请求：表示输入输出处理已经完成</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>中断基本原理<br>  CPU根据中断的类型去查询<strong>中断向量表</strong>，找到对应<strong>中断处理程序</strong>的入口地址</p>
+<p>  如果处理程序能够解决问题，则通过<strong>中断返回指令</strong>返回用户程序继续执行</p>
+<p>  如果是不可恢复的致命错误，则终止用户程序</p>
+</li>
+</ul>
+<p><strong>系统调用</strong></p>
+<ul>
+<li><p>作用</p>
+<p>  应用程序通过系统调用来请求操作系统内核提供的服务，</p>
+<p>  主要有设备管理、文件管理、进程管理、进程通信和内存管理，</p>
+<p>  这些对系统影响非常大的指令必须由操作系统执行，以保证稳定性和安全性</p>
+</li>
+<li><p>何时会用到系统调用</p>
+<p>  与<strong>共享资源</strong>有关的操作（存储分配、IO操作、文件管理等）</p>
+</li>
+<li><p>系统调用过程</p>
+<ol>
+<li>先通过传参指令将参数传到寄存器中</li>
+<li>再通过陷入指令转入中断处理程序、*<em>硬件自动保护中断现场</em>***（程序计数器PC、PSW、通用寄存器）</li>
+<li>处理完后<strong>恢复现场</strong>、返回用户程序</li>
+</ol>
+</li>
+</ul>
 
                 
               </div>
