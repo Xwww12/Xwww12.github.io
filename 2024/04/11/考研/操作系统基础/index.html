@@ -36,8 +36,13 @@
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E5%85%B3%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%80%E4%B8%AD%E6%96%AD.png">
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8.png">
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/TCB.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E7%BB%84%E5%90%88%E6%96%B9%E5%BC%8F.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.png">
 <meta property="article:published_time" content="2024-04-11T12:45:50.435Z">
-<meta property="article:modified_time" content="2024-04-17T13:22:52.121Z">
+<meta property="article:modified_time" content="2024-04-18T13:35:55.149Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -238,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          3.4k 字
         
       </span>
     
@@ -249,7 +254,7 @@
         
         
         
-          26 分钟
+          29 分钟
         
       </span>
     
@@ -599,6 +604,47 @@
 <li><p>管道通信</p>
 <p> 半双工通信，固定大小，先进先出</p>
 <p> 满时写进程堵塞，空时读进程堵塞</p>
+</li>
+</ol>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>引入线程的目的是减小程序在并发执行时所付出的时空开销</p>
+<p>TCB由线程ID、PC、寄存器集合、运行状态、优先级和堆栈指针等组成</p>
+<p><img src="/img/os_img/TCB.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>线程是调度的最小单位</strong></p>
+<h3 id="线程特点"><a href="#线程特点" class="headerlink" title="线程特点"></a>线程特点</h3><ul>
+<li>不同线程可以执行相同程序</li>
+<li>同一进程的线程共享进程资源</li>
+<li>各个CPU可为一个进程内的各线程服务，缩短进程的处理时间</li>
+<li>被终止但尚未释放资源的线程被其他线程调用时，从终止态重新开始运行</li>
+</ul>
+<h3 id="线程实现方式"><a href="#线程实现方式" class="headerlink" title="线程实现方式"></a>线程实现方式</h3><ol>
+<li><p>用户级线程（UTL）</p>
+<p> 用代码模拟线程，内核感知不到线程的存在</p>
+<p> 优点：</p>
+<pre><code class="hljs">  1. 节省了模式切换的开销
+</code></pre>
+<p> 缺点：</p>
+<ol>
+<li>一个线程阻塞，所有线程都阻塞</li>
+<li>每次只能运行一个线程</li>
+</ol>
+<p> <img src="/img/os_img/%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>内核级线程（KTL）</p>
+<p> 在内核的支持下运行的</p>
+<p> 优点：</p>
+<ol>
+<li>发挥多核CPU的优势</li>
+<li>一个线程阻塞，其他线程不会跟着阻塞</li>
+</ol>
+<p> 缺点：</p>
+<ol>
+<li>线程切换需要切换到核心态，开销较大</li>
+</ol>
+<p> <img src="/img/os_img/%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>组合方式</p>
+<p> <img src="/img/os_img/%E7%BB%84%E5%90%88%E6%96%B9%E5%BC%8F.png" srcset="/img/loading.gif" lazyload></p>
+<p> <img src="/img/os_img/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ol>
 
