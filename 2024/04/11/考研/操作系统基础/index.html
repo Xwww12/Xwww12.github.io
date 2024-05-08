@@ -75,8 +75,16 @@
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E6%9C%80%E8%BF%91%E6%9C%80%E4%B9%85%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%E4%BE%8B%E9%A2%98.png">
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E6%94%B9%E8%BF%9B%E5%9E%8B%E6%97%B6%E9%92%9F%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%E4%BE%8B%E9%A2%98.png">
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E6%9D%A5%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E7%B4%A2%E5%BC%95%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E9%A1%BA%E5%BA%8F%E7%B4%A2%E5%BC%95%E8%A1%A8.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%88%86%E9%85%8D.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E6%B7%B7%E5%90%88%E7%B4%A2%E5%BC%95%E6%96%B9%E5%BC%8F.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E5%8D%95%E7%BA%A7%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E4%B8%A4%E7%BA%A7%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E6%A0%91%E5%BD%A2%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E6%97%A0%E7%8E%AF%E5%9B%BE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
 <meta property="article:published_time" content="2024-04-11T12:45:50.435Z">
-<meta property="article:modified_time" content="2024-05-05T15:01:06.393Z">
+<meta property="article:modified_time" content="2024-05-08T14:46:33.820Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -277,7 +285,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          12k 字
+          13k 字
         
       </span>
     
@@ -288,7 +296,7 @@
         
         
         
-          98 分钟
+          108 分钟
         
       </span>
     
@@ -1436,6 +1444,106 @@
 <p>在磁盘文件与进程的虚拟地址空间之间建立映射关系，将一个文件当做内存中的一个大字符数组来访问，而不通过文件IO操作来访问</p>
 <p>内存映射还能用来共享内存</p>
 <p><img src="/img/os_img/%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E6%9D%A5%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98.png" srcset="/img/loading.gif" lazyload alt="改进型时钟置换算法例题"></p>
+<h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>文件(File)：以硬盘为载体的存储在计算机上的信息集合。用户输入输出以文件为基本单位</p>
+<p>文件的构成：存储空间、分类、索引和访问权限等</p>
+<p>文件的属性：名称、类型、创建者、所有者、位置、大小、保护、创建&#x2F;修改&#x2F;存取时间</p>
+<p>数据项：文件系统中最低级的数据组织形式</p>
+<p>记录：一组相关的数据项的集合</p>
+<h3 id="文件逻辑结构"><a href="#文件逻辑结构" class="headerlink" title="文件逻辑结构"></a>文件逻辑结构</h3><p>指从用户角度出发看到的文件的组织形式</p>
+<p><strong>无结构文件</strong></p>
+<p>由字符流构成，又称流式文件，如txt文件</p>
+<p><strong>有结构文件</strong></p>
+<p>由一个及以上的记录构成的文件，又称记录式文件。</p>
+<p>根据记录的长度，分为：</p>
+<ol>
+<li>定长记录：所有记录长度相同</li>
+<li>变长记录：各个记录长度不一定相同</li>
+</ol>
+<p>根据记录的组织形式，分为：</p>
+<ol>
+<li><p>顺序文件：记录按顺序排列，定长的<strong>可随机存取</strong></p>
+</li>
+<li><p>索引文件：为<strong>每个记录</strong>在索引表中设置一个索引表项，包含记录的指针和长度。索引表是定长的顺序文件</p>
+<p> <img src="/img/os_img/%E7%B4%A2%E5%BC%95%E6%96%87%E4%BB%B6.png" srcset="/img/loading.gif" lazyload></p>
+<p> 需要额外的索引表，增加了存储开销</p>
+</li>
+<li><p>索引顺序文件</p>
+<p> 顺序文件和索引文件的结合，<strong>一组记录</strong>对应一个索引表项提高了查找效率</p>
+<p> <img src="/img/os_img/%E9%A1%BA%E5%BA%8F%E7%B4%A2%E5%BC%95%E8%A1%A8.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>散列文件：</p>
+<p> 通过记录的hash值直接计算出物理地址。具有很高的存取速度，但存在hash冲突</p>
+</li>
+</ol>
+<h3 id="文件物理结构"><a href="#文件物理结构" class="headerlink" title="文件物理结构"></a>文件物理结构</h3><p>指将文件存储在外存上的存储组织形式，<strong>磁盘块</strong>的大小通常与内存的页面大小相同</p>
+<p>文件分配方式：</p>
+<ul>
+<li><p>连续分配</p>
+<p>  要求每个文件在磁盘上占有一组连续的块，进程访问磁盘时的寻道数和寻道时间最小</p>
+<p>  优点：支持顺序访问和直接访问，速度快</p>
+<p>  缺点：要连续的存储空间，可能产生外部碎片；要事先知道文件的长度，无法动态增长</p>
+</li>
+<li><p>链接分配</p>
+<p>  离散分配</p>
+<ul>
+<li><p>隐式分配：指向下一个的指针在磁盘块中</p>
+<p>  只支持顺序访问，访问磁盘次数多，效率低</p>
+</li>
+<li><p>显式分配：将指针都存放在一张内存中的<strong>文件分配表</strong>（File Allocation Table）里（一个磁盘对应一张，开机时调入内存）</p>
+<p>  支持顺序和直接访问，减少了访问磁盘的次数，但FAT需要占用一定内存</p>
+</li>
+</ul>
+</li>
+<li><p>索引分配</p>
+<p>  打开文件时，没必要将整个FAT都读入内存，因此将文件的盘块号集中成一个索引表（块）读入内存</p>
+<ul>
+<li><p>单级索引分配方式</p>
+<p>  优点：支持直接访问</p>
+<p>  缺点：索引表占用内存太大</p>
+</li>
+<li><p>多级索引分配方式</p>
+<p>  <img src="/img/os_img/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%88%86%E9%85%8D.png" srcset="/img/loading.gif" lazyload></p>
+<p>  优点：加快了对大型文件的查找效率</p>
+<p>  缺点：对于小文件来说，访问磁盘的次数增加了</p>
+</li>
+<li><p>混合索引分配方式</p>
+<p>  为了照顾小、中、大文件而采用混合索引</p>
+<p>  小文件采用直接索引，大文件采用间接索引</p>
+<p>  <img src="/img/os_img/%E6%B7%B7%E5%90%88%E7%B4%A2%E5%BC%95%E6%96%B9%E5%BC%8F.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="文件控制块"><a href="#文件控制块" class="headerlink" title="文件控制块"></a>文件控制块</h3><p>File Control Block，存放控制文件需要的各种信息，以实现<strong>按名存取</strong></p>
+<p>FCB的有序集合称为<strong>文件目录</strong></p>
+<p>文件目录也是文件，称为<strong>目录文件</strong></p>
+<p>为了减小FCB的体积，将除了文件名的其他信息放到<strong>索引节点</strong>中，FCB只存文件名和索引节点的指针</p>
+<p>存放在磁盘上的索引节点称为<strong>磁盘索引节点</strong></p>
+<p>存放在内存中的索引节点称为<strong>内存索引节点</strong>，相比磁盘索引节点新增了索引节点号、状态、访问计数等</p>
+<h3 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h3><p>目录管理要实现按名存取</p>
+<p>目录结构：</p>
+<ul>
+<li><p>单级目录结构</p>
+<p>  只建立一张目录表，每个文件占一个目录项</p>
+<p>  缺点：查找速度慢，文件不允许重名，不便于共享文件</p>
+<p>  <img src="/img/os_img/%E5%8D%95%E7%BA%A7%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>二级目录结构</p>
+<p>  分为主文件目录和用户文件目录</p>
+<p>  解决了多用户间的文件重名问题，可以实现访问限制</p>
+<p>  缺点：缺乏灵活性，不能文件分类</p>
+<p>  <img src="/img/os_img/%E4%B8%A4%E7%BA%A7%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>树形目录结构</p>
+<p>  缺点：不便于文件共享</p>
+<p>  <img src="/img/os_img/%E6%A0%91%E5%BD%A2%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>无环图目录结构</p>
+<p>  在树形目录结构的基础上增加了一些指向同一节点的有向边，使整个目录成为一个有向无环图</p>
+<p>  便于共享文件</p>
+<p>  <img src="/img/os_img/%E6%97%A0%E7%8E%AF%E5%9B%BE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
 
                 
               </div>
