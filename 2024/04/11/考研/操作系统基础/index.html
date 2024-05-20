@@ -91,8 +91,10 @@
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.png">
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/vnode.png">
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E7%A3%81%E7%9B%98%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E9%94%99%E4%BD%8D%E5%91%BD%E5%90%8D.png">
+<meta property="og:image" content="http://xwww12.github.io/img/os_img/%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98.png">
 <meta property="article:published_time" content="2024-04-11T12:45:50.435Z">
-<meta property="article:modified_time" content="2024-05-18T16:12:14.195Z">
+<meta property="article:modified_time" content="2024-05-20T15:21:30.869Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -304,7 +306,7 @@
         
         
         
-          122 分钟
+          126 分钟
         
       </span>
     
@@ -1688,7 +1690,7 @@
 <p>现代磁盘：盘面划分若干环带，同一环带内的所有磁道具有相同的扇区数。越外层扇区越多</p>
 <h3 id="磁盘调度算法"><a href="#磁盘调度算法" class="headerlink" title="磁盘调度算法"></a>磁盘调度算法</h3><p>一次操作的时间：</p>
 <p>​	寻道时间（启动磁头臂+移动磁头（<strong>调度算法决定</strong>））+ </p>
-<p>​	延迟时间（找到目标扇区所需的时间）+</p>
+<p>​	旋转延迟时间（找到目标扇区所需的时间）+</p>
 <p>​	传输时间（读写速度）</p>
 <table>
 <thead>
@@ -1735,13 +1737,26 @@
 <td></td>
 <td></td>
 </tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
+<p><strong>减少延迟时间的方法</strong></p>
+<p>交替编号（同一盘面内）：磁头读入一个扇区后需要短暂的处理时间。逻辑上相邻的块物理上保持一定间隔，在间隔的时间里处理数据</p>
+<p>错位命名（不同盘面间）：</p>
+<p><img src="/img/os_img/%E9%94%99%E4%BD%8D%E5%91%BD%E5%90%8D.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h3><p>低级格式化（物理格式化）：划分扇区</p>
+<p>高级格式化（逻辑格式化）：将若干柱面分区，如C盘、D盘</p>
+<p>初始化程序（自举程序）：初始化CPU、寄存器、内存等</p>
+<p>自举装入程序：方便修改自举程序，将自举程序放在磁盘，自举装入程序负责将自举程序读入内存</p>
+<p>坏块：损坏的扇区</p>
+<h3 id="固态硬盘"><a href="#固态硬盘" class="headerlink" title="固态硬盘"></a>固态硬盘</h3><p>固态硬盘（SSD，Solid State Disk），基于闪存</p>
+<p>闪存翻译层：将CPU的逻辑读写请求翻译成对物理设备的读写控制信号</p>
+<p><img src="/img/os_img/%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98.png" srcset="/img/loading.gif" lazyload></p>
+<p>读写：数据以页来读写，一个页可写一次读多次。只有整个块被擦除后才能再写。访问任何地址速度是一样的</p>
+<p>读快写慢：要修改一页，需要将整块复制到一个新块上再对页进行修改（以块为单位擦除）</p>
+<p>磨损均衡：</p>
+<ol>
+<li>动态磨损均衡：写入时自动选择较新的闪存块</li>
+<li>静态磨损均衡：读多写少的数据挪到老块，腾出较新的闪存块</li>
+</ol>
 
                 
               </div>
