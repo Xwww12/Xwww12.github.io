@@ -89,8 +89,10 @@
 <meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E5%9F%BA%E7%A1%80%E8%A7%A3%E7%B3%BB%E4%BE%8B%E9%A2%984.png">
 <meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E5%9F%BA%E7%A1%80%E8%A7%A3%E7%B3%BB%E4%BE%8B%E9%A2%985.png">
 <meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E5%9F%BA%E7%A1%80%E8%A7%A3%E7%B3%BB%E4%BE%8B%E9%A2%986.png">
+<meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E8%BF%87%E6%B8%A1%E7%9F%A9%E9%98%B5.png">
+<meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E6%96%B0%E6%97%A7%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2.png">
 <meta property="article:published_time" content="2024-05-09T06:51:27.345Z">
-<meta property="article:modified_time" content="2024-05-30T15:45:20.847Z">
+<meta property="article:modified_time" content="2024-06-02T14:49:36.505Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -291,7 +293,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.6k 字
+          4.2k 字
         
       </span>
     
@@ -302,7 +304,7 @@
         
         
         
-          31 分钟
+          35 分钟
         
       </span>
     
@@ -545,6 +547,7 @@
 <li>R（A B）≤ min｛R（A），R（B）｝</li>
 <li>R(A ^ T) &#x3D; R(A)</li>
 <li>若A~B，则R(A) &#x3D; R(B)</li>
+<li>R(A+B) &lt;&#x3D; R(A)+R(B)</li>
 <li>若P、Q可逆，则R（PAQ）&#x3D;R（A）</li>
 <li>若 A m×n Bn×l &#x3D; O，则 R（A）+R（B） ≤　n</li>
 <li>矩阵乘法的消去律： A B &#x3D; O，若 A 为列满秩矩阵，则 B &#x3D; O</li>
@@ -646,12 +649,44 @@
 <p>Ax &#x3D; b有唯一解 &lt;&#x3D;&#x3D;&gt; r(A) &#x3D; r(A的增广) &#x3D; n</p>
 <p>Ax &#x3D; b有无穷多解 &lt;&#x3D;&#x3D;&gt; r(A) &#x3D; r(A的增广) &lt; n</p>
 <p><img src="/img/xiandai_img/%E6%98%AF%E5%90%A6%E6%9C%89%E8%A7%A3%E5%88%A4%E6%96%AD%E4%BE%8B%E9%A2%982.png" srcset="/img/loading.gif" lazyload alt="例题"></p>
+<h3 id="公共解"><a href="#公共解" class="headerlink" title="公共解"></a>公共解</h3><p><strong>定义</strong></p>
+<p>若a即为线性方程组I的解也为线性方程组II的解，则a为I与II的公共解</p>
+<p><strong>求法</strong></p>
+<ol>
+<li>知道两个方程组，联立</li>
+<li>知道一个方程组和一个方程组的通解，则将通解带入方程组确定参数</li>
+<li>知道两个通解，令其相等来确认参数</li>
+</ol>
 <h3 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h3><p><img src="/img/xiandai_img/%E5%9F%BA%E7%A1%80%E8%A7%A3%E7%B3%BB%E4%BE%8B%E9%A2%981.png" srcset="/img/loading.gif" lazyload alt="基础解系表示其他解"></p>
 <p><img src="/img/xiandai_img/%E5%9F%BA%E7%A1%80%E8%A7%A3%E7%B3%BB%E4%BE%8B%E9%A2%982.png" srcset="/img/loading.gif" lazyload alt="基础解系秩的个数"></p>
 <p><img src="/img/xiandai_img/%E5%9F%BA%E7%A1%80%E8%A7%A3%E7%B3%BB%E4%BE%8B%E9%A2%983.png" srcset="/img/loading.gif" lazyload alt="根据A的秩求基础解系"></p>
 <p><img src="/img/xiandai_img/%E5%9F%BA%E7%A1%80%E8%A7%A3%E7%B3%BB%E4%BE%8B%E9%A2%984.png" srcset="/img/loading.gif" lazyload alt="齐次方程通解"></p>
 <p><img src="/img/xiandai_img/%E5%9F%BA%E7%A1%80%E8%A7%A3%E7%B3%BB%E4%BE%8B%E9%A2%985.png" srcset="/img/loading.gif" lazyload alt="齐次方程通解"></p>
 <p><img src="/img/xiandai_img/%E5%9F%BA%E7%A1%80%E8%A7%A3%E7%B3%BB%E4%BE%8B%E9%A2%986.png" srcset="/img/loading.gif" lazyload alt="非齐次方程通解"></p>
+<h2 id="向量空间"><a href="#向量空间" class="headerlink" title="向量空间"></a>向量空间</h2><h3 id="概念-5"><a href="#概念-5" class="headerlink" title="概念"></a>概念</h3><p><strong>向量空间</strong>：</p>
+<p>设 V 为 n 维向量的集合，如果集合 V非空，且集合 V 对于向量的加 法及数乘两种运算封闭，那么就称集合 V为<strong>向量空间</strong></p>
+<blockquote>
+<p>封闭，是指在集合 V 中可以进行向量的加法及数乘两种运算.具体地说，就是：若 a∈V，b∈V，则 a+b∈V；若 a ∈V， λ∈R，则λa∈V</p>
+</blockquote>
+<p><strong>子空间</strong>：</p>
+<p>设有向量空间 V1 及 V2，若V1被包含于V2 ，就称 V1 是 V2 的子空间</p>
+<p><strong>r维向量空间</strong>：</p>
+<p>向量组 a1 ，a2 ，…， ar 线性无关，V中向量可由这个向量组表示</p>
+<p>就称为向量空间 V 的一个<strong>基</strong>（极大无关组），r称为向量空间V的<strong>维数</strong>（秩），并称V为<strong>r维向量空间</strong></p>
+<blockquote>
+<p>0维向量只含一个零向量</p>
+<p>单位坐标向量组e1,e2,e3…组成的基称为自然基</p>
+</blockquote>
+<p><strong>坐标</strong>：</p>
+<p>在向量空间 V 中取定一个基 a1，a2，… ，ar，那么 V 中任一向量 x 可惟一地表示为</p>
+<p>x &#x3D;λ1 a1 +λ2 a2 + … +λr ar</p>
+<p>数组λ1，λ2， …，λr 称为向量量x在基a1，a2 ，… ，ar 中的<strong>坐标</strong></p>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ol>
+<li>n元齐次方程的解集是一个向量空间</li>
+<li>n元<strong>非</strong>齐次方程的解集<strong>不是</strong>一个向量空间</li>
+</ol>
+<h3 id="过渡矩阵"><a href="#过渡矩阵" class="headerlink" title="过渡矩阵"></a>过渡矩阵</h3><p><img src="/img/xiandai_img/%E8%BF%87%E6%B8%A1%E7%9F%A9%E9%98%B5.png" srcset="/img/loading.gif" lazyload alt="新旧基转换"></p>
+<p><img src="/img/xiandai_img/%E6%96%B0%E6%97%A7%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2.png" srcset="/img/loading.gif" lazyload alt="新旧坐标转换"></p>
 
                 
               </div>
