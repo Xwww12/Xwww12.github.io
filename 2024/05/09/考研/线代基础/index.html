@@ -91,8 +91,13 @@
 <meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E5%9F%BA%E7%A1%80%E8%A7%A3%E7%B3%BB%E4%BE%8B%E9%A2%986.png">
 <meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E8%BF%87%E6%B8%A1%E7%9F%A9%E9%98%B5.png">
 <meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E6%96%B0%E6%97%A7%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2.png">
+<meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E6%96%BD%E5%AF%86%E7%89%B9%E6%AD%A3%E4%BA%A4%E5%8C%96.png">
+<meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E7%89%B9%E5%BE%81%E6%96%B9%E7%A8%8B%E5%92%8C%E7%89%B9%E5%BE%81%E5%A4%9A%E9%A1%B9%E5%BC%8F.png">
+<meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E6%B1%82%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E4%BE%8B%E9%A2%981.png">
+<meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E6%B1%82%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E7%9A%84%E4%BE%8B%E9%A2%982.png">
+<meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E7%89%B9%E5%BE%81%E5%80%BC%E6%80%A7%E8%B4%A85%E7%9A%84%E4%BE%8B%E9%A2%98.png">
 <meta property="article:published_time" content="2024-05-09T06:51:27.345Z">
-<meta property="article:modified_time" content="2024-06-03T15:02:35.790Z">
+<meta property="article:modified_time" content="2024-06-04T15:57:21.849Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -293,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          5.2k 字
         
       </span>
     
@@ -304,7 +309,7 @@
         
         
         
-          39 分钟
+          44 分钟
         
       </span>
     
@@ -708,10 +713,40 @@
 <h3 id="正交向量组"><a href="#正交向量组" class="headerlink" title="正交向量组"></a>正交向量组</h3><p><strong>定义</strong></p>
 <p>正交向量组：一组两两正交的非零向量</p>
 <p>标准正交基：一个基e1，…，er 两两正交，且都是单位向量</p>
+<p>单位向量：||x|| &#x3D; 1</p>
+<p>单位化：x &#x3D; a &#x2F; ||a||</p>
 <p><strong>性质</strong></p>
 <ul>
 <li>若 n 维向量 a1，a2， … ，ar 是一组两两正交的非零向量，则 a1， a2，…，ar线性无关</li>
 </ul>
+<h3 id="施密特正交化"><a href="#施密特正交化" class="headerlink" title="施密特正交化"></a>施密特正交化</h3><p><img src="/img/xiandai_img/%E6%96%BD%E5%AF%86%E7%89%B9%E6%AD%A3%E4%BA%A4%E5%8C%96.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="正交矩阵-1"><a href="#正交矩阵-1" class="headerlink" title="正交矩阵"></a>正交矩阵</h3><p><strong>定义</strong></p>
+<p>正交矩阵：A^T A &#x3D; E （即 A ^(-1) &#x3D; A^T）</p>
+<p>正交变换：若P为正交矩阵，则线性变换y&#x3D;Px称为正交变换</p>
+<p><strong>性质</strong></p>
+<ul>
+<li>A 的列向量都是<strong>单位向量</strong>，且<strong>两两正交</strong></li>
+<li>若 A 为正交矩阵，则 A^(-1) &#x3D; A^T 也是正交矩阵，且|A| &#x3D; 1 或（-1）</li>
+<li>若 A 和 B 都是正交矩阵，则 A B 也是正交矩阵</li>
+<li>正交变换后线段长度不变：||y|| &#x3D; √(y^T y) &#x3D; √(x^T p^T p x) &#x3D; √(x^T x) &#x3D; ||x||</li>
+<li>|A+E| &#x3D; 0</li>
+</ul>
+<h2 id="特征值、特征向量"><a href="#特征值、特征向量" class="headerlink" title="特征值、特征向量"></a>特征值、特征向量</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><strong>特征值</strong>：设A是<strong>n阶矩阵</strong>，如果数λ和 n 维非零列向量 x 使关系式 A x &#x3D;λx成立，那么数λ称为矩阵A的特征值</p>
+<p><strong>特征向量</strong>：<strong>非零向量</strong>x称为A的对应于特征值λ的特征向量</p>
+<p><strong>特征方程和特征多项式</strong>：</p>
+<p><img src="/img/xiandai_img/%E7%89%B9%E5%BE%81%E6%96%B9%E7%A8%8B%E5%92%8C%E7%89%B9%E5%BE%81%E5%A4%9A%E9%A1%B9%E5%BC%8F.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="性质-1"><a href="#性质-1" class="headerlink" title="性质"></a>性质</h3><ol>
+<li>λ1 +λ2 +…+λn &#x3D; a11 +a22 +…+ann</li>
+<li>λ1 λ2 … λn &#x3D; |A|，若特征值不全为0，则A可逆</li>
+<li>n阶矩阵有n个特征值</li>
+<li>若λ是 A 的特征值，则λ^k 是 A^k 的特征值</li>
+<li>若λ是 A 的特征值，则φ（λ）是 φ（A）的特征值（其中φ（λ）&#x3D; a0 +a1λ+…+am λ^m 是λ的多项式，φ（A）&#x3D; a0 E + a1 A +…+am A^m 是矩阵 A 的多项式）</li>
+<li>特征值各不相同，对应的特征向量线性无关</li>
+<li>两个特征值不同，对应的向量组线性无关</li>
+</ol>
+<h3 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h3><p><img src="/img/xiandai_img/%E6%B1%82%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E4%BE%8B%E9%A2%981.png" srcset="/img/loading.gif" lazyload alt="求2阶矩阵的特征值和特征向量"></p>
+<p><img src="/img/xiandai_img/%E6%B1%82%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E7%9A%84%E4%BE%8B%E9%A2%982.png" srcset="/img/loading.gif" lazyload alt="求3阶矩阵的特征值和特征向量"></p>
+<p><img src="/img/xiandai_img/%E7%89%B9%E5%BE%81%E5%80%BC%E6%80%A7%E8%B4%A85%E7%9A%84%E4%BE%8B%E9%A2%98.png" srcset="/img/loading.gif" lazyload alt="特征值性质5的例题"></p>
 
                 
               </div>
