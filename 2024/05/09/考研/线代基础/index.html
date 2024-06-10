@@ -102,8 +102,12 @@
 <meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E7%89%B9%E5%BE%81%E5%80%BC%E6%80%A7%E8%B4%A85%E7%9A%84%E4%BE%8B%E9%A2%98.png">
 <meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E7%9F%A5%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E6%B1%82%E7%9F%A9%E9%98%B5.png">
 <meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E5%AF%B9%E8%A7%92%E5%8C%96%E4%BE%8B%E9%A2%981.png">
+<meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E4%BA%8C%E6%AC%A1%E5%9E%8B%E5%AE%9A%E4%B9%89.png">
+<meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%BE%8B%E9%A2%981.png">
+<meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E9%A1%BA%E5%BA%8F%E4%B8%BB%E5%AD%90%E5%BC%8F.png">
+<meta property="og:image" content="http://xwww12.github.io/img/xiandai_img/%E6%AD%A3%E5%AE%9A%E4%BA%8C%E9%A1%B9%E5%BC%8F%E4%BE%8B%E9%A2%981.png">
 <meta property="article:published_time" content="2024-05-09T06:51:27.345Z">
-<meta property="article:modified_time" content="2024-06-08T13:13:04.108Z">
+<meta property="article:modified_time" content="2024-06-09T16:05:41.402Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -304,7 +308,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.9k 字
+          6.6k 字
         
       </span>
     
@@ -315,7 +319,7 @@
         
         
         
-          50 分钟
+          55 分钟
         
       </span>
     
@@ -794,6 +798,46 @@
 </ol>
 <h3 id="知特征值和特征向量求原矩阵"><a href="#知特征值和特征向量求原矩阵" class="headerlink" title="知特征值和特征向量求原矩阵"></a>知特征值和特征向量求原矩阵</h3><p><img src="/img/xiandai_img/%E7%9F%A5%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E6%B1%82%E7%9F%A9%E9%98%B5.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="例题-3"><a href="#例题-3" class="headerlink" title="例题"></a>例题</h3><p><img src="/img/xiandai_img/%E5%AF%B9%E8%A7%92%E5%8C%96%E4%BE%8B%E9%A2%981.png" srcset="/img/loading.gif" lazyload alt="求正交矩阵"></p>
+<h2 id="二次型"><a href="#二次型" class="headerlink" title="二次型"></a>二次型</h2><h3 id="二次型-1"><a href="#二次型-1" class="headerlink" title="二次型"></a>二次型</h3><p><strong>定义</strong></p>
+<p>含有 n 个变量 x1， x 2 ，… ， xn 的二次齐次函数</p>
+<p>f(x1, x2, …, xn) &#x3D; (a11 x1^2) + (a22 x2^2) + … + (ann xn^2) + (2a12 x1 x2) + (2a13 x1 x3) + … + (2an-1,n xn-1 xn)，称为二次型</p>
+<p>二次型可以用矩阵记作<strong>f &#x3D; x^T A x</strong>，<strong>A为实对称矩阵</strong></p>
+<p><img src="/img/xiandai_img/%E4%BA%8C%E6%AC%A1%E5%9E%8B%E5%AE%9A%E4%B9%89.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="二次型例题"><a href="#二次型例题" class="headerlink" title="二次型例题"></a>二次型例题</h3><p><img src="/img/xiandai_img/%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%BE%8B%E9%A2%981.png" srcset="/img/loading.gif" lazyload alt="求二次型的秩"></p>
+<h3 id="标准型、规范型"><a href="#标准型、规范型" class="headerlink" title="标准型、规范型"></a>标准型、规范型</h3><p>标准型：只含平方项的二次型</p>
+<p>规范型：系数都为1、-1、0的<strong>标准型</strong></p>
+<h3 id="惯性指数"><a href="#惯性指数" class="headerlink" title="惯性指数"></a>惯性指数</h3><p>正惯性指数p：标准型中系数为正的个数</p>
+<p>负惯性指数q：标准型中系数为负的个数</p>
+<h3 id="标准型求法"><a href="#标准型求法" class="headerlink" title="标准型求法"></a>标准型求法</h3><ul>
+<li><strong>正交变换法</strong></li>
+</ul>
+<ol>
+<li>求A的n个特征值</li>
+<li>求A的n个线性无关的特征向量</li>
+<li>将特征向量正交化得正交矩阵Q，x &#x3D; Qy，二次型化为标准型f &#x3D; (λ1 y1^2) + (λ2 y2^2) + … + (λn yn^2)</li>
+</ol>
+<ul>
+<li><strong>拉格朗日配方法</strong></li>
+</ul>
+<h3 id="合同矩阵"><a href="#合同矩阵" class="headerlink" title="合同矩阵"></a>合同矩阵</h3><p>A、B为n阶实对称矩阵，若存在n阶可逆矩阵C，使得B &#x3D; C^T A C，则称A与B合同</p>
+<p><strong>充要条件</strong></p>
+<p>A、B合同 &lt;&#x3D;&#x3D;&gt;</p>
+<p>二次型x^T A x 和x^T B x有相同的正、负惯性指数 &lt;&#x3D;&#x3D;&gt;</p>
+<p>A、B有相同的正、负特征值的个数</p>
+<h3 id="正定二次型"><a href="#正定二次型" class="headerlink" title="正定二次型"></a>正定二次型</h3><p><strong>定义</strong></p>
+<p>二次型f &#x3D; x^T A x，对任意的x ≠ 0，有X^T A x &gt; 0，则f为正定二次型，A为正定矩阵</p>
+<p><strong>充要条件</strong></p>
+<p>f &#x3D; x^T A x正定 &lt;&#x3D;&#x3D;&gt;</p>
+<ul>
+<li>正惯性指数为n</li>
+<li>A与E合同，则存在可逆矩阵C，使得C^T A C &#x3D; E</li>
+<li>A的特征值均大于0</li>
+<li>A的顺序主子式均大于0</li>
+</ul>
+<blockquote>
+<p><img src="/img/xiandai_img/%E9%A1%BA%E5%BA%8F%E4%B8%BB%E5%AD%90%E5%BC%8F.png" srcset="/img/loading.gif" lazyload alt="顺序主子式"></p>
+</blockquote>
+<h3 id="正定二次型例题"><a href="#正定二次型例题" class="headerlink" title="正定二次型例题"></a>正定二次型例题</h3><p><img src="/img/xiandai_img/%E6%AD%A3%E5%AE%9A%E4%BA%8C%E9%A1%B9%E5%BC%8F%E4%BE%8B%E9%A2%981.png" srcset="/img/loading.gif" lazyload alt="正定二次型性质"></p>
 
                 
               </div>
