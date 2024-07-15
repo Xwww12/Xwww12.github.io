@@ -58,7 +58,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"xwww12.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"xwww12.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -102,9 +102,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -114,9 +114,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -126,9 +126,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -138,9 +138,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/tags/">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -150,9 +150,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/about/">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
@@ -160,15 +160,16 @@
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -227,12 +228,12 @@
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/10/14/%E5%85%B6%E4%BB%96/easyExcel/" target="_self">
           easyExcel
         </a>
-      </h1>
+      </h2>
 
       
       <a class="index-excerpt " href="/2022/10/14/%E5%85%B6%E4%BB%96/easyExcel/" target="_self">
@@ -301,12 +302,12 @@
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/10/13/%E5%89%8D%E7%AB%AF/vue-element-admin/vue-element-admin%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
           vue-element-admin简单使用
         </a>
-      </h1>
+      </h2>
 
       
       <a class="index-excerpt " href="/2022/10/13/%E5%89%8D%E7%AB%AF/vue-element-admin/vue-element-admin%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
@@ -384,12 +385,12 @@
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/%E5%AE%89%E8%A3%85vue-element-admin/" target="_self">
           安装vue-element-admin
         </a>
-      </h1>
+      </h2>
 
       
       <a class="index-excerpt " href="/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/%E5%AE%89%E8%A3%85vue-element-admin/" target="_self">
@@ -465,12 +466,12 @@
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/WebPack%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/" target="_self">
           WebPack打包工具
         </a>
-      </h1>
+      </h2>
 
       
       <a class="index-excerpt " href="/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/WebPack%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/" target="_self">
@@ -546,12 +547,12 @@
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/%E6%90%AD%E5%BB%BA%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE/" target="_self">
           搭建前端项目
         </a>
-      </h1>
+      </h2>
 
       
       <a class="index-excerpt " href="/2022/10/12/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83/%E6%90%AD%E5%BB%BA%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE/" target="_self">
@@ -627,12 +628,12 @@
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/10/11/spring/springboot/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/" target="_self">
           自定义异常处理器
         </a>
-      </h1>
+      </h2>
 
       
       <a class="index-excerpt " href="/2022/10/11/spring/springboot/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/" target="_self">
@@ -710,12 +711,12 @@
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/10/11/spring/springboot/SpringBoot%E8%BE%93%E5%87%BA%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6/" target="_self">
           SpringBoot输出日志到文件
         </a>
-      </h1>
+      </h2>
 
       
       <a class="index-excerpt " href="/2022/10/11/spring/springboot/SpringBoot%E8%BE%93%E5%87%BA%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6/" target="_self">
