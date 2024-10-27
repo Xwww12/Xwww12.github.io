@@ -8,7 +8,7 @@
     <link href="/2024/10/26/%E8%80%83%E7%A0%94/%E7%BA%BF%E4%BB%A3%E5%BC%BA%E5%8C%96/"/>
     <url>/2024/10/26/%E8%80%83%E7%A0%94/%E7%BA%BF%E4%BB%A3%E5%BC%BA%E5%8C%96/</url>
     
-    <content type="html"><![CDATA[<h1 id="线代强化"><a href="#线代强化" class="headerlink" title="线代强化"></a>线代强化</h1><h2 id="行列式的定义、性质与计算"><a href="#行列式的定义、性质与计算" class="headerlink" title="行列式的定义、性质与计算"></a>行列式的定义、性质与计算</h2><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%981.png"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%982.png"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%983.png" alt="行列式函数的导数"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%984.png" alt="爪形行列式"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%985.png" alt="行相等加列 列相等加行"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%986.png" alt="展开定理"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%987.png"></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="线代强化"><a href="#线代强化" class="headerlink" title="线代强化"></a>线代强化</h1><h2 id="行列式的定义、性质与计算"><a href="#行列式的定义、性质与计算" class="headerlink" title="行列式的定义、性质与计算"></a>行列式的定义、性质与计算</h2><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%981.png"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%982.png"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%983.png" alt="行列式函数的导数"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%984.png" alt="爪形行列式"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%985.png" alt="行相等加列 列相等加行"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%986.png" alt="展开定理"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%987.png"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%988.png" alt="么形行列式"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%989.png" alt="补边"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%9810.png" alt="三对角行列式"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%9811.png" alt="所有代数余子式之和"></p><blockquote><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%9812.png" alt="求所有代数余子式之和的另一种方法"></p></blockquote><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%9813.png" alt="带特殊值"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%9814.png" alt="范德蒙行列式"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%9815.png" alt="补行 范德蒙行列式"></p><p><img src="/img/xiandai_qianghua_img/%E8%A1%8C%E5%88%97%E5%BC%8F%E4%BE%8B%E9%A2%9816.png" alt="补行 范德蒙行列式"></p>]]></content>
     
     
     <categories>
@@ -1188,9 +1188,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -1219,9 +1219,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -1250,9 +1250,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -2786,9 +2786,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -2877,9 +2877,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
