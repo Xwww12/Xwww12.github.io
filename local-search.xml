@@ -8,7 +8,7 @@
     <link href="/2025/01/01/%E8%80%83%E7%A0%94/%E8%AE%A1%E7%BD%91/"/>
     <url>/2025/01/01/%E8%80%83%E7%A0%94/%E8%AE%A1%E7%BD%91/</url>
     
-    <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h2><ol><li><p>速率：数据的传输速率，也称为比特率或数据率</p></li><li><p>带宽：信号具有的频率成分范围，信道的频带宽度</p></li><li><p>吞吐量：单位时间通过信道、接口等的数据量</p></li><li><p><strong>时延</strong>：传输所需时间</p><ol><li>发送时延</li><li>传播时延（传播速度看做是固定的，<strong>200m&#x2F;us</strong>）</li><li>处理时延（分析首部、提取数据、差错检验、查找路由等）</li><li>排队时延（在输入输出队列中排毒的时间）</li></ol><blockquote><p>时延带宽积：以比特为单位的链路长度</p><p>时延带宽积 &#x3D; 传播时延 * 带宽</p></blockquote></li><li><p>利用率：有数据通过时间 &#x2F; 总时间，利用率并非越高越好</p></li></ol><h2 id="五层协议"><a href="#五层协议" class="headerlink" title="五层协议"></a>五层协议</h2><p>结合了 OSI七层结构 和 TCP四层结构</p><p><img src="/img/internet_img/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png" alt="体系结构"></p><p><img src="/img/internet_img/%E5%90%84%E5%B1%82%E4%BD%9C%E7%94%A8.png" alt="各层作用"></p><blockquote><p>PDU(Protocol Data Unit)：</p></blockquote><h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><blockquote><p>编码：数据 –&gt; 数字信号</p><p>调制：数据 –&gt; 模拟信号</p></blockquote><h2 id="编码方式"><a href="#编码方式" class="headerlink" title="编码方式"></a>编码方式</h2><ol><li>非归零编码：正电平1，负电平0</li><li>归零编码：正脉冲1，负脉冲0</li><li>曼彻斯特编码：高到低跳变1，低到高跳变0（也可以反过来）</li><li>差分曼彻斯特编码：每一位的中心始终都有跳变。开始边界有跳变为0，没有为1</li></ol><p><img src="/img/internet_img/%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F.png"></p><h2 id="信道"><a href="#信道" class="headerlink" title="信道"></a>信道</h2><p><strong>信道带宽</strong>：信道能通过的频率范围</p><p><strong>奈氏准则</strong>（奈奎斯特定理）：</p><p>​为了避免码间串扰，码元的传输速率上限为2W<strong>波特</strong>（W是信道的带宽，单位Hz）</p><p>​理想低通道下的极限数据传输率为<strong>2Wlog2(v)</strong> (<strong>比特</strong>&#x2F;秒)（v为每个码元能表示的比特数）</p><blockquote><p>波特：码元传输速率单位，他说明单位时间传输了多少个码元</p><p>比特：每秒传输 二进制代码 位数</p></blockquote><p><strong>信噪比</strong>：S &#x2F; N（信号的平均功率 &#x2F; 噪声的平均功率），用分贝作为度量单位，dB &#x3D; 10 * log10(S&#x2F;N)</p><p>​如S&#x2F;N &#x3D; 1000，信噪比为10 * log10(30) &#x3D; 30 dB</p><p><strong>香农定理</strong>：</p><p>​在带宽受限及有高斯白噪声干扰下，信道的极限、无差错的信息传输速率</p><p>​<strong>C &#x3D; W log2(1 + S&#x2F;N)</strong>  (bit &#x2F; s)</p><blockquote><p>当两个定理算出来的值不相等时，以小的为准</p></blockquote><h2 id="信道复用"><a href="#信道复用" class="headerlink" title="信道复用"></a>信道复用</h2><ul><li><p><strong>频分复用</strong>（FDM）</p><p>  使用调制的方法，把各路信号分别搬移到适当的频率位置，各路信号在同样的时间占用不同的带宽资源</p></li><li><p><strong>时分复用</strong>（TDM）</p><p>  将时间划分为一段段等长的时分复用帧，每一路信号在每一个 TDM帧中占用固定序号的时隙</p></li></ul><p><img src="/img/internet_img/%E4%BF%A1%E9%81%93%E5%A4%8D%E7%94%A81.png"></p><ul><li><p><strong>波分复用</strong>（WDM）</p><p>  光的频分复用</p></li><li><p><strong>码分复用</strong>（CDM）</p><p>  各用户使用经过特殊挑选的不同码型，彼此之间不会干扰</p><p>  <img src="/img/internet_img/%E7%A0%81%E5%88%86%E5%A4%8D%E7%94%A8.png"></p></li></ul><blockquote><p>码分复用例题</p><p><img src="/img/internet_img/%E7%A0%81%E5%88%86%E5%A4%8D%E7%94%A8%E4%BE%8B%E9%A2%98.png"></p></blockquote><h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><ul><li>链路：节点之间的物理通道</li><li>数据链路：节点间的逻辑通道，既数据链路 &#x3D; 链路 + 协议</li><li>帧：链路层的协议数据单元，封装网络层的数据报</li></ul><h2 id="三个基本功能"><a href="#三个基本功能" class="headerlink" title="三个基本功能"></a>三个基本功能</h2><ol><li><p>封装成帧</p><p> 把若干比特打包成帧，便于检错和判断帧开始与帧结束</p><ul><li>帧的数据部分不能超过<strong>MTU</strong>（最大传输单元）</li><li>帧定界符：<strong>SOH</strong>（Start Of Header）、<strong>EOT</strong>（End Of Transmission）</li></ul></li><li><p>透明传输</p><p> 成帧的标识可作为数据传输</p><ul><li>数据部分出现定界符时前插<strong>ESC</strong>（转义字符），传给网络层时删除</li></ul></li><li><p>差错检测</p><p> 检测帧的传输是否有比特错误</p><ul><li><p>检错</p><ol><li><p>奇偶校验</p></li><li><p>循环冗余校验CRC</p><p> <img src="/img/internet_img/CRC%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C%E7%A0%81.png"></p><p> 只要信息位不要太长，余数不为0时表示第几位出现了错误，因此循环冗余校验有一定的纠错能力</p></li></ol></li><li><p>纠错</p><ol><li><p>海明校验码</p><p> 将信息位分为k组进行偶校验。</p><p> 注意：2^k ≥ n + k + 1；校验位Pi放在2^(i - 1)位置上</p><p> 1位纠错能力、2位检错能力</p><p> <img src="/img/internet_img/%E6%B5%B7%E6%98%8E%E7%A0%81%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4.png"></p></li></ol></li></ul></li></ol><h2 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2><ol><li><p><strong>停止-等待协议</strong></p><p> 发送窗口 &#x3D; 1；接收窗口 &#x3D; 1</p><p> 用多少bit给帧编号：2^n &gt;&#x3D; WT + WR（n为bit数，WT为发送窗口，WR为接收窗口）</p></li><li><p><strong>后退N帧协议</strong></p><p> 发送窗口 &gt; 1；接收窗口 &#x3D; 1</p><p> 发送帧丢失：若发送方对于某一个帧迟迟未收到ack，则这个帧之后所有已发送的帧都要重传</p><p> 确认帧丢失：因为是只对最后一个收到的帧发送ack，故发送方没收到ack就要重传整个发送窗口的帧</p></li><li><p><strong>选择重传协议</strong></p><p> 发送窗口 &gt; 1；接收窗口 &gt; 1，接收窗口不能比发送窗口大</p><p> 每个帧都需要返回ack</p></li></ol><h2 id="PPP协议"><a href="#PPP协议" class="headerlink" title="PPP协议"></a>PPP协议</h2><p>点对点协议（Point to Point Protocol）</p><p><img src="/img/internet_img/PPP%E5%8D%8F%E8%AE%AE1.png"></p><p><strong>格式</strong></p><p><img src="/img/internet_img/PPP%E5%B8%A7%E6%A0%BC%E5%BC%8F.png"></p><p>同步（面向比特）时零比特填充，异步（面向字符）时字符填充</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h2><ol><li><p>速率：数据的传输速率，也称为比特率或数据率</p></li><li><p>带宽：信号具有的频率成分范围，信道的频带宽度</p></li><li><p>吞吐量：单位时间通过信道、接口等的数据量</p></li><li><p><strong>时延</strong>：传输所需时间</p><ol><li>发送时延</li><li>传播时延（传播速度看做是固定的，<strong>200m&#x2F;us</strong>）</li><li>处理时延（分析首部、提取数据、差错检验、查找路由等）</li><li>排队时延（在输入输出队列中排毒的时间）</li></ol><blockquote><p>时延带宽积：以比特为单位的链路长度</p><p>时延带宽积 &#x3D; 传播时延 * 带宽</p></blockquote></li><li><p>利用率：有数据通过时间 &#x2F; 总时间，利用率并非越高越好</p></li></ol><h2 id="五层协议"><a href="#五层协议" class="headerlink" title="五层协议"></a>五层协议</h2><p>结合了 OSI七层结构 和 TCP四层结构</p><p><img src="/img/internet_img/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png" alt="体系结构"></p><p><img src="/img/internet_img/%E5%90%84%E5%B1%82%E4%BD%9C%E7%94%A8.png" alt="各层作用"></p><blockquote><p>PDU(Protocol Data Unit)：</p></blockquote><h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><blockquote><p>编码：数据 –&gt; 数字信号</p><p>调制：数据 –&gt; 模拟信号</p></blockquote><h2 id="编码方式"><a href="#编码方式" class="headerlink" title="编码方式"></a>编码方式</h2><ol><li>非归零编码：正电平1，负电平0</li><li>归零编码：正脉冲1，负脉冲0</li><li>曼彻斯特编码：高到低跳变1，低到高跳变0（也可以反过来）</li><li>差分曼彻斯特编码：每一位的中心始终都有跳变。开始边界有跳变为0，没有为1</li></ol><p><img src="/img/internet_img/%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F.png"></p><h2 id="信道"><a href="#信道" class="headerlink" title="信道"></a>信道</h2><p><strong>信道带宽</strong>：信道能通过的频率范围</p><p><strong>奈氏准则</strong>（奈奎斯特定理）：</p><p>​为了避免码间串扰，码元的传输速率上限为2W<strong>波特</strong>（W是信道的带宽，单位Hz）</p><p>​理想低通道下的极限数据传输率为<strong>2Wlog2(v)</strong> (<strong>比特</strong>&#x2F;秒)（v为每个码元能表示的比特数）</p><blockquote><p>波特：码元传输速率单位，他说明单位时间传输了多少个码元</p><p>比特：每秒传输 二进制代码 位数</p></blockquote><p><strong>信噪比</strong>：S &#x2F; N（信号的平均功率 &#x2F; 噪声的平均功率），用分贝作为度量单位，dB &#x3D; 10 * log10(S&#x2F;N)</p><p>​如S&#x2F;N &#x3D; 1000，信噪比为10 * log10(30) &#x3D; 30 dB</p><p><strong>香农定理</strong>：</p><p>​在带宽受限及有高斯白噪声干扰下，信道的极限、无差错的信息传输速率</p><p>​<strong>C &#x3D; W log2(1 + S&#x2F;N)</strong>  (bit &#x2F; s)</p><blockquote><p>当两个定理算出来的值不相等时，以小的为准</p></blockquote><h2 id="信道复用"><a href="#信道复用" class="headerlink" title="信道复用"></a>信道复用</h2><ul><li><p><strong>频分复用</strong>（FDM）</p><p>  使用调制的方法，把各路信号分别搬移到适当的频率位置，各路信号在同样的时间占用不同的带宽资源</p></li><li><p><strong>时分复用</strong>（TDM）</p><p>  将时间划分为一段段等长的时分复用帧，每一路信号在每一个 TDM帧中占用固定序号的时隙</p></li></ul><p><img src="/img/internet_img/%E4%BF%A1%E9%81%93%E5%A4%8D%E7%94%A81.png"></p><ul><li><p><strong>波分复用</strong>（WDM）</p><p>  光的频分复用</p></li><li><p><strong>码分复用</strong>（CDM）</p><p>  各用户使用经过特殊挑选的不同码型，彼此之间不会干扰</p><p>  <img src="/img/internet_img/%E7%A0%81%E5%88%86%E5%A4%8D%E7%94%A8.png"></p></li></ul><blockquote><p>码分复用例题</p><p><img src="/img/internet_img/%E7%A0%81%E5%88%86%E5%A4%8D%E7%94%A8%E4%BE%8B%E9%A2%98.png"></p></blockquote><h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><ul><li>链路：节点之间的物理通道</li><li>数据链路：节点间的逻辑通道，既数据链路 &#x3D; 链路 + 协议</li><li>帧：链路层的协议数据单元，封装网络层的数据报</li></ul><h2 id="三个基本功能"><a href="#三个基本功能" class="headerlink" title="三个基本功能"></a>三个基本功能</h2><ol><li><p>封装成帧</p><p> 把若干比特打包成帧，便于检错和判断帧开始与帧结束</p><ul><li>帧的数据部分不能超过<strong>MTU</strong>（最大传输单元）</li><li>帧定界符：<strong>SOH</strong>（Start Of Header）、<strong>EOT</strong>（End Of Transmission）</li></ul></li><li><p>透明传输</p><p> 成帧的标识可作为数据传输</p><ul><li>数据部分出现定界符时前插<strong>ESC</strong>（转义字符），传给网络层时删除</li></ul></li><li><p>差错检测</p><p> 检测帧的传输是否有比特错误</p><ul><li><p>检错</p><ol><li><p>奇偶校验</p></li><li><p>循环冗余校验CRC</p><p> <img src="/img/internet_img/CRC%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C%E7%A0%81.png"></p><p> 只要信息位不要太长，余数不为0时表示第几位出现了错误，因此循环冗余校验有一定的纠错能力</p></li></ol></li><li><p>纠错</p><ol><li><p>海明校验码</p><p> 将信息位分为k组进行偶校验。</p><p> 注意：2^k ≥ n + k + 1；校验位Pi放在2^(i - 1)位置上</p><p> 1位纠错能力、2位检错能力</p><p> <img src="/img/internet_img/%E6%B5%B7%E6%98%8E%E7%A0%81%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4.png"></p></li></ol></li></ul></li></ol><h2 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2><ol><li><p><strong>停止-等待协议（SW）</strong></p><p> 发送窗口 &#x3D; 1；接收窗口 &#x3D; 1</p><p> 用多少bit给帧编号：2^n &gt;&#x3D; WT + WR（n为bit数，WT为发送窗口，WR为接收窗口）</p></li><li><p><strong>后退N帧协议（GBN）</strong></p><p> 发送窗口 &gt; 1；接收窗口 &#x3D; 1</p><p> 发送帧丢失：若发送方对于某一个帧迟迟未收到ack，则这个帧之后所有已发送的帧都要重传</p><p> 确认帧丢失：因为是只对最后一个收到的帧发送ack，故发送方没收到ack就要重传整个发送窗口的帧</p></li><li><p><strong>选择重传协议（SR）</strong></p><p> 发送窗口 &gt; 1；接收窗口 &gt; 1，接收窗口不能比发送窗口大</p><p> <strong>每个帧都需要返回ack</strong></p><p> 数据帧丢失：一组里面哪个丢了，超时后就重传哪个帧</p><p> 数据帧出错：发送出错的帧的编号nak（主动请求），发送方重传</p><p> 确认帧丢失：超时重传，接收方收到重复帧也返回对应的ack</p></li></ol><h2 id="介质访问控制"><a href="#介质访问控制" class="headerlink" title="介质访问控制"></a>介质访问控制</h2><ol><li><p>信道换分：</p><ul><li><p><strong>时分复用</strong>（TDM）</p><p>  将时间分成等长的TDM帧，每个帧又分为m个等长的时隙，并分配给m个用户使用</p><p>  缺点：信道利用率低</p></li><li><p><strong>统计时分复用</strong>（STDM）</p><p>  又称异步时分复用，动态按需分配时隙</p></li><li><p><strong>频分复用</strong>（FDM）</p><p>  将信道的总频带划分为多个子频带</p><p>  优点：各个节点可同时发送信号</p><p>  缺点：只能用于模拟信号</p></li><li><p><strong>波分复用</strong>（WDM）</p><p>  光的频分复用，将各节点发出的不同波长的光信号复合到光纤上</p></li><li><p><strong>码分复用</strong>（CDM）</p><p>  给每个节点赋予专属的码片序列，节点发送1时发送码片，0时发送码片的反码。码片序列需要相互正交（内积为0）</p><p>  收到数据后，用节点的码片乘之，再除以码片的维度，就能得到这个节点发送的信号（因为正交，乘其他节点的码片得到的都是0）</p></li></ul></li><li><p>随机访问：</p><ul><li><p><strong>ALOHA协议</strong></p><p>  帧准备好后<strong>直接</strong>发送到信道上，等到收到ack后再传下个帧。如果因为冲突传送失败了，在等待随机一段时间后会重传</p></li><li><p><strong>时隙ALOHA协议</strong></p><p>  只有在每个时隙开始时才能发送到信道上，降低冲突发生的概率</p></li><li><p><strong>CSMA协议</strong>（载波监听多路访问协议）</p><p>  在ALOHA协议基础上，发送数据前先监听信道是否空闲，只有空闲时才会尝试发送</p><ul><li><p><strong>1-坚持CSMA协议</strong></p><p>  一直监听</p></li><li><p><strong>非坚持CSMA协议</strong></p><p>  监听到信道不空闲后放弃监听，随机一段时间后再监听</p><p>  当多个节点准备好数据时，这么做可以错开发送数据的时间，降低冲突概率</p></li><li><p><strong>p-坚持CSMA协议</strong></p><p>  监听到信道<strong>空闲</strong>后有p概率直接发送，1-p概率推迟一段时间再发送。监听到信道<strong>不空闲</strong>坚持监听</p><p>  降低先到空闲时一起发送数据产生的冲突概率</p></li></ul></li><li><p>✨<strong>CSMA&#x2F;CD协议</strong>（CD: 冲突检测）</p><p>  用于早期的有线以太网（总线型）；<br>  最短帧长：2 * 最大单向传播时延 * 信道带宽（为了当数据传到最远时仍没有发完，此时检测到冲突可停止发送。如果发完了但产生了冲突，就不会检测到冲突，但实际产生冲突了）；</p><p>  最长帧长：防止某些节点一直占用信道；</p><p>  CSMA没有ack机制，发完了就当成功了；</p><p>  以太网规定：最短帧长64B，最长帧长1518B；</p><p>  <img src="/img/internet_img/CSMACD%E5%8D%8F%E8%AE%AE.png"></p><p>  <img src="/img/internet_img/CSMACD%E5%8D%8F%E8%AE%AE%E6%80%BB%E7%BB%93.png" alt="总结"></p></li></ul></li><li><p>轮询访问：</p></li></ol><h2 id="PPP协议"><a href="#PPP协议" class="headerlink" title="PPP协议"></a>PPP协议</h2><p>点对点协议（Point to Point Protocol）</p><p><img src="/img/internet_img/PPP%E5%8D%8F%E8%AE%AE1.png"></p><p><strong>格式</strong></p><p><img src="/img/internet_img/PPP%E5%B8%A7%E6%A0%BC%E5%BC%8F.png"></p><p>同步（面向比特）时零比特填充，异步（面向字符）时字符填充</p>]]></content>
     
     
     <categories>
@@ -1215,9 +1215,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -1246,9 +1246,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -1277,9 +1277,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -2782,9 +2782,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>其他</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -2813,9 +2813,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
@@ -2904,9 +2904,9 @@
     
     <tags>
       
-      <tag>中间件</tag>
-      
       <tag>后端</tag>
+      
+      <tag>中间件</tag>
       
     </tags>
     
