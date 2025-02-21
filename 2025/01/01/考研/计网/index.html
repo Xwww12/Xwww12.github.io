@@ -60,8 +60,13 @@
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E7%86%9F%E7%9F%A5%E7%AB%AF%E5%8F%A3%E5%8F%B7.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/UDP%E9%A6%96%E9%83%A8.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/UDP%E6%A0%A1%E9%AA%8C.png">
+<meta property="og:image" content="http://xwww12.github.io/img/internet_img/TCP%E6%8A%A5%E6%96%87%E6%AE%B5.png">
+<meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png">
+<meta property="og:image" content="http://xwww12.github.io/img/internet_img/TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A21.png">
+<meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png">
+<meta property="og:image" content="http://xwww12.github.io/img/internet_img/TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A22.png">
 <meta property="article:published_time" content="2025-01-01T05:57:24.140Z">
-<meta property="article:modified_time" content="2025-02-20T08:00:02.900Z">
+<meta property="article:modified_time" content="2025-02-21T08:32:18.740Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -263,7 +268,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          4.4k 字
         
       </span>
     
@@ -274,7 +279,7 @@
         
         
         
-          34 分钟
+          37 分钟
         
       </span>
     
@@ -815,9 +820,40 @@
 <li>添加伪首部，将收到的数据每16bit为一组进行二进制加法</li>
 <li>再加上校验和，结果全1就通过校验</li>
 </ol>
-<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p><strong>建立连接</strong></p>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h3 id="TCP报文段"><a href="#TCP报文段" class="headerlink" title="TCP报文段"></a>TCP报文段</h3><p><img src="/img/internet_img/TCP%E6%8A%A5%E6%96%87%E6%AE%B5.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>序号（sequence）：数据部分在原始字节流中的偏移量，起始序号不一定是0，由发送方自己定</li>
+<li>确认号（ack、ack_seq）：表示这个序号之前的字节都已收到</li>
+<li>标志位<ul>
+<li>URG：紧急位，1为应尽快插队发送</li>
+<li>✨ACK：0表示ack_seq无效，1表示ack_seq有效。只在第一次握手时是0</li>
+<li>PSH：推送位，1为希望接收方尽快回复</li>
+<li>RST：复位位：1为出现严重差错，必须释放连接</li>
+<li>✨SYN：同步位，1为连接请求或连接接收报文，在第一、二次握手时为1</li>
+<li>✨FIN：终止位，在第一、三次挥手时为1</li>
+</ul>
+</li>
+<li>数据偏移：TCP首部长度，单位为4B，取值范围为0~15</li>
+<li>紧急指针：表示紧急数据的序号，和序号是独立的</li>
+<li>窗口（rwnd、rcvwnd）：receive window，接收缓冲区剩余大小</li>
+<li>校验和：同UDP，伪首部里的17改为6</li>
+</ul>
+<h3 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h3><p><strong>建立连接</strong></p>
+<p><img src="/img/internet_img/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png" srcset="/img/loading.gif" lazyload alt="三次握手"></p>
+<ul>
+<li>第一、二次握手虽然没有数据，但序号要+1</li>
+<li>第三次握手可以携带数据，若携带数据则会消耗序号，没有则不会</li>
+</ul>
+<p><img src="/img/internet_img/TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A21.png" srcset="/img/loading.gif" lazyload alt="TCP状态转换"></p>
 <p><strong>数据传输</strong></p>
 <p><strong>释放连接</strong></p>
+<p><img src="/img/internet_img/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png" srcset="/img/loading.gif" lazyload alt="四次挥手"></p>
+<ul>
+<li>第一、三次挥手需要序号+1</li>
+<li>第二次挥手可以携带数据</li>
+<li>第四次挥手之后会等待2 MSL（最长报文寿命），防止服务器端没有收到第四次挥手；如果服务器在时间段内没有收到第四次挥手，则会再发第三次挥手，客户端会重置等待时间</li>
+</ul>
+<p><img src="/img/internet_img/TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A22.png" srcset="/img/loading.gif" lazyload alt="TCP状态转换"></p>
 
                 
               </div>
