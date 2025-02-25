@@ -69,8 +69,9 @@
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E6%85%A2%E5%BC%80%E5%A7%8B%E7%AE%97%E6%B3%951.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E6%85%A2%E5%BC%80%E5%A7%8B%E7%AE%97%E6%B3%952.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%BF%AB%E6%81%A2%E5%A4%8D%E7%AE%97%E6%B3%95.png">
+<meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%9F%9F%E5%90%8D%E6%A0%91.png">
 <meta property="article:published_time" content="2025-01-01T05:57:24.140Z">
-<meta property="article:modified_time" content="2025-02-23T10:26:57.160Z">
+<meta property="article:modified_time" content="2025-02-25T11:02:16.292Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -272,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.8k 字
+          5.1k 字
         
       </span>
     
@@ -283,7 +284,7 @@
         
         
         
-          40 分钟
+          43 分钟
         
       </span>
     
@@ -888,6 +889,38 @@
 <li>快重传：当收到三个确认号相同的冗余ACK时，立即重传对应报文段</li>
 <li>快恢复算法：发生快重传时，将阈值和发送窗口都设为当前发送窗口的一半，然后切换为拥塞避免算法</li>
 </ul>
+<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><h2 id="网络应用模型"><a href="#网络应用模型" class="headerlink" title="网络应用模型"></a>网络应用模型</h2><p><strong>C&#x2F;S</strong></p>
+<p>服务器：</p>
+<ol>
+<li>永久提供服务</li>
+<li>永久性地址&#x2F;域名</li>
+</ol>
+<p>客户端：</p>
+<ol>
+<li>间歇性接入网络</li>
+<li>可能使用动态IP地址</li>
+<li>不与其他客户机直接通信</li>
+</ol>
+<p>应用：Web、FTP、远程登录、电子邮件等</p>
+<p><strong>P2P</strong></p>
+<ol>
+<li>不存在永远在线的服务器</li>
+<li>每个主机都可以提供和请求服务</li>
+<li>节点间可以直接通信</li>
+<li>可扩展性好，健壮性强</li>
+</ol>
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><p><strong>作用</strong>：域名 –&gt; ip地址</p>
+<p><img src="/img/internet_img/%E5%9F%9F%E5%90%8D%E6%A0%91.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>查询顺序</strong>：本地域名服务器  –&gt; 根域名服务器 –&gt; 顶级域名服务器 –&gt; </p>
+<p>权限域名服务器</p>
+<p><strong>查询方式</strong>：递归查询（别人帮查）、迭代查询（自己查）</p>
+<h2 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h2><p>使用TCP实现可靠传输</p>
+<p>21为TCP控制连接端口，用于发送请求</p>
+<p>20为TCP数据连接端口，用于发送文件</p>
+<p>主动模式：客户端向21端口发送请求并监听20端口收文件</p>
+<p>被动模式：客户端向21端口发送请求，服务器随机一个&gt;1024的端口发送给客户端，客户端连接这个端口来收数据</p>
+<h2 id="电子邮件"><a href="#电子邮件" class="headerlink" title="电子邮件"></a>电子邮件</h2><p>发邮件协议：SMTP（端口号25）、MIME（对SMTP的扩充）</p>
+<p>收邮件协议：POP3（端口号110）、IMAP、HTTP（基于万维网时）</p>
 
                 
               </div>
