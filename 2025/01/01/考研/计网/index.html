@@ -44,6 +44,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/PPP%E5%8D%8F%E8%AE%AE%E5%B8%A7%E6%A0%BC%E5%BC%8F.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E7%9B%B4%E9%80%9A%E4%BA%A4%E6%8D%A2.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%AD%98%E5%82%A8%E8%BD%AC%E5%8F%91%E4%BA%A4%E6%8D%A2.png">
+<meta property="og:image" content="http://xwww12.github.io/img/internet_img/HDLC%E5%B8%A7%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%90%84%E7%A7%8D%E5%8D%8F%E8%AE%AE%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/ip%E6%95%B0%E6%8D%AE%E6%8A%A5%E6%A0%BC%E5%BC%8F.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%B8%A7%E5%88%86%E7%89%87.png">
@@ -77,7 +78,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%BF%AB%E6%81%A2%E5%A4%8D%E7%AE%97%E6%B3%95.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%9F%9F%E5%90%8D%E6%A0%91.png">
 <meta property="article:published_time" content="2025-01-01T05:57:24.140Z">
-<meta property="article:modified_time" content="2025-02-28T16:07:28.543Z">
+<meta property="article:modified_time" content="2025-03-01T06:34:24.638Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -279,7 +280,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.7k 字
+          5.9k 字
         
       </span>
     
@@ -290,7 +291,7 @@
         
         
         
-          48 分钟
+          50 分钟
         
       </span>
     
@@ -645,6 +646,40 @@
 <p>  <img src="/img/internet_img/%E5%AD%98%E5%82%A8%E8%BD%AC%E5%8F%91%E4%BA%A4%E6%8D%A2.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ul>
+<h2 id="HDLC"><a href="#HDLC" class="headerlink" title="HDLC"></a>HDLC</h2><p>High-Leve Data Link Control，高级数据链路控制协议</p>
+<p><strong>面向比特传输</strong>，使用<strong>零比特插入法</strong>，属于数据链路层协议</p>
+<p><strong>HDLC帧结构</strong></p>
+<p><img src="/img/internet_img/HDLC%E5%B8%A7%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>HDLC帧类型</strong></p>
+<ol>
+<li>信息帧（I-frame）<ul>
+<li>用于<strong>传输用户数据</strong>。</li>
+<li>包含序列号（N(S) 和 N(R)），用于流量控制和确认。</li>
+</ul>
+</li>
+<li>监控帧（S-frame）<ul>
+<li>用于<strong>流量控制和错误控制</strong>。</li>
+<li>包含确认号（N(R)），但不携带用户数据。</li>
+<li>常见的监控帧类型：<ul>
+<li>RR（Receive Ready）：准备接收下一帧。</li>
+<li>RNR（Receive Not Ready）：暂时无法接收数据。</li>
+<li>REJ（Reject）：请求重传指定帧。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>无编号帧（U-frame）<ul>
+<li>用于<strong>链路管理</strong>（如建立和释放连接）。</li>
+<li>不包含序列号。</li>
+<li>常见的无编号帧类型：<ul>
+<li>SABM（Set Asynchronous Balanced Mode）：设置异步平衡模式。</li>
+<li>DISC（Disconnect）：断开连接。</li>
+<li>UA（Unnumbered Acknowledgment）：确认无编号帧。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 <h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><p>主机与主机之间传输</p>
 <h2 id="网络层的功能"><a href="#网络层的功能" class="headerlink" title="网络层的功能"></a>网络层的功能</h2><ol>
 <li>异构网络互联</li>
