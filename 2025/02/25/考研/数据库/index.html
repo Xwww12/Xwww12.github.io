@@ -32,8 +32,11 @@
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E7%AD%89%E5%80%BC%E8%BF%9E%E6%8E%A5%E8%BF%90%E7%AE%97.png">
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5%E8%BF%90%E7%AE%97.png">
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E9%99%A4%E8%BF%90%E7%AE%97.png">
+<meta property="og:image" content="http://xwww12.github.io/img/db_img/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png">
+<meta property="og:image" content="http://xwww12.github.io/img/db_img/%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2.png">
+<meta property="og:image" content="http://xwww12.github.io/img/db_img/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0.png">
 <meta property="article:published_time" content="2025-02-25T14:07:05.600Z">
-<meta property="article:modified_time" content="2025-02-28T03:43:28.633Z">
+<meta property="article:modified_time" content="2025-03-01T15:41:14.925Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -235,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          738 字
+          1.2k 字
         
       </span>
     
@@ -246,7 +249,7 @@
         
         
         
-          7 分钟
+          11 分钟
         
       </span>
     
@@ -363,11 +366,12 @@
 <p>基数：笛卡尔积里包含的组合的数量</p>
 <p>码：</p>
 <ul>
-<li>候选码：某一属性组的值都能唯一地标识一个元祖，这个属性组为候选码</li>
+<li><strong>候选码</strong>：能够唯一标识关系中每一行（元组）的最小属性集合</li>
 <li>全码：需要所有的属性才能唯一确定一条记录</li>
 <li>主码：从候选码中选出来的一个</li>
-<li>主属性：能作为候选码的属性</li>
-<li>非主属性：除了主属性外的属性</li>
+<li><strong>主属性</strong>：包含在任何一个候选码中的属性</li>
+<li>非主属性：不属于任何候选码</li>
+<li><strong>关键字</strong>：唯一标识行的属性集合，包括超键、候选码、主键、外键等</li>
 </ul>
 <h2 id="✨基本操作"><a href="#✨基本操作" class="headerlink" title="✨基本操作"></a>✨基本操作</h2><p><img src="/img/db_img/%E8%BF%90%E7%AE%97%E7%AC%A6.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>对行运算</strong></p>
@@ -413,6 +417,37 @@
 <p>  a1的像集把S中的B、C都包括了</p>
 </li>
 </ul>
+<h1 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h1><h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><p>一个模式下可以包含多张表，视图和索引等数据库对象</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"># 定义模式给某个用户<br><span class="hljs-keyword">create</span> schema <span class="hljs-operator">&lt;</span>模式名<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">authorization</span> <span class="hljs-operator">&lt;</span>用户名<span class="hljs-operator">&gt;</span>;<br><br># 删除模式<br><span class="hljs-keyword">drop</span> schema <span class="hljs-operator">&lt;</span>模式名<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>cascade <span class="hljs-operator">|</span> restrict<span class="hljs-operator">&gt;</span>;<br>	cascade: 把数据库对象也一起删了<br>	restrict: 如果模式下有表、视图等，则不执行删除<br></code></pre></td></tr></table></figure>
+
+<h2 id="表"><a href="#表" class="headerlink" title="表"></a>表</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs sql"># 创建表<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-operator">&lt;</span>表名<span class="hljs-operator">&gt;</span> (<br>    <span class="hljs-operator">&lt;</span>列名<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>数据类型<span class="hljs-operator">&gt;</span> [完整性约束],<br>    ...<br>);<br><br># 修改表<br><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> <span class="hljs-operator">&lt;</span>表名<span class="hljs-operator">&gt;</span><br>[<span class="hljs-keyword">add</span> <span class="hljs-keyword">column</span> <span class="hljs-operator">&lt;</span>列名<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>数据类型<span class="hljs-operator">&gt;</span> [完整性约束]]<br>[<span class="hljs-keyword">drop</span> <span class="hljs-keyword">column</span> <span class="hljs-operator">&lt;</span>列名<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>cascade <span class="hljs-operator">|</span> restrict<span class="hljs-operator">&gt;</span>]<br>[<span class="hljs-keyword">alter</span> <span class="hljs-keyword">column</span> <span class="hljs-operator">&lt;</span>列名<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>数据类型<span class="hljs-operator">&gt;</span>];<br><br># 删除表<br><span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-operator">&lt;</span>表名<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>cascade <span class="hljs-operator">|</span> restrict<span class="hljs-operator">&gt;</span>;<br>	cascade: 直接删<br>	restrict: 有被其他表约束所引用、有视图、有触发器等就不能删<br></code></pre></td></tr></table></figure>
+
+<p><strong>数据类型</strong></p>
+<p><img src="/img/db_img/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>数据查询</strong></p>
+<p><img src="/img/db_img/%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>distance: 消除查询出来的重复行</li>
+</ul>
+<p><strong>聚合函数</strong></p>
+<p><img src="/img/db_img/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>除了count(*)，其他聚合函数都会跳过空值</li>
+<li>聚合函数只能用于select子句和group by中的having子句</li>
+<li>having用于分组后按要求对这些组进行筛选</li>
+<li>order by不能在子查询的select中使用</li>
+</ul>
+<p><strong>集合查询</strong></p>
+<ul>
+<li>union：并</li>
+<li>intersect：交</li>
+<li>except：差</li>
+</ul>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"># 创建索引<br><span class="hljs-keyword">create</span> [<span class="hljs-keyword">unique</span>] [cluster] index <span class="hljs-operator">&lt;</span>索引名<span class="hljs-operator">&gt;</span><br><span class="hljs-keyword">on</span> <span class="hljs-operator">&lt;</span>表名<span class="hljs-operator">&gt;</span>(<span class="hljs-operator">&lt;</span>列名<span class="hljs-operator">&gt;</span> [<span class="hljs-keyword">asc</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">desc</span>], ...);<br>	<span class="hljs-keyword">unique</span>: 表明此索引的每一个索引值只对应唯一的数据记录<br>	cluster: 聚簇索引<br># 修改索引名<br><span class="hljs-keyword">alter</span> index <span class="hljs-operator">&lt;</span>旧索引名<span class="hljs-operator">&gt;</span> rename <span class="hljs-keyword">to</span> <span class="hljs-operator">&lt;</span>新索引名<span class="hljs-operator">&gt;</span>;<br># 删除索引<br><span class="hljs-keyword">drop</span> index <span class="hljs-operator">&lt;</span>索引名<span class="hljs-operator">&gt;</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>从一个或几个基本表中导出的表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"># 建立视图<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">view</span> <span class="hljs-operator">&lt;</span>视图名<span class="hljs-operator">&gt;</span>(列名, ...)<br><span class="hljs-keyword">as</span> <span class="hljs-operator">&lt;</span>子查询<span class="hljs-operator">&gt;</span><br>[<span class="hljs-keyword">with</span> <span class="hljs-keyword">check</span> option];<br>	<span class="hljs-keyword">with</span> <span class="hljs-keyword">check</span> option: 对视图的增删改也要满足子查询的条件<br># 删除视图<br><span class="hljs-keyword">drop</span> <span class="hljs-keyword">view</span> <span class="hljs-operator">&lt;</span>视图名<span class="hljs-operator">&gt;</span>[cascade]<br>	cascade: 即使有视图上的视图也能删除<br># 删改查视图<br># 同表操作一样<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
