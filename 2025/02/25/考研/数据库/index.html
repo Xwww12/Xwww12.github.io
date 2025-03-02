@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2.png">
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0.png">
 <meta property="article:published_time" content="2025-02-25T14:07:05.600Z">
-<meta property="article:modified_time" content="2025-03-01T15:41:14.925Z">
+<meta property="article:modified_time" content="2025-03-02T07:45:27.603Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.4k 字
         
       </span>
     
@@ -249,7 +249,7 @@
         
         
         
-          11 分钟
+          12 分钟
         
       </span>
     
@@ -447,6 +447,26 @@
 
 <h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>从一个或几个基本表中导出的表</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"># 建立视图<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">view</span> <span class="hljs-operator">&lt;</span>视图名<span class="hljs-operator">&gt;</span>(列名, ...)<br><span class="hljs-keyword">as</span> <span class="hljs-operator">&lt;</span>子查询<span class="hljs-operator">&gt;</span><br>[<span class="hljs-keyword">with</span> <span class="hljs-keyword">check</span> option];<br>	<span class="hljs-keyword">with</span> <span class="hljs-keyword">check</span> option: 对视图的增删改也要满足子查询的条件<br># 删除视图<br><span class="hljs-keyword">drop</span> <span class="hljs-keyword">view</span> <span class="hljs-operator">&lt;</span>视图名<span class="hljs-operator">&gt;</span>[cascade]<br>	cascade: 即使有视图上的视图也能删除<br># 删改查视图<br># 同表操作一样<br></code></pre></td></tr></table></figure>
+
+<h1 id="数据库安全性"><a href="#数据库安全性" class="headerlink" title="数据库安全性"></a>数据库安全性</h1><p><strong>用户身份鉴别</strong>：</p>
+<ol>
+<li>静态口令（密码）</li>
+<li>动态口令（短信验证）</li>
+<li>生物特征（指纹）</li>
+<li>智能卡</li>
+</ol>
+<p><strong>存取控制</strong>：</p>
+<ol>
+<li><p>自主存取控制（DAC）</p>
+<p> 用户对于不同的数据库有不同的权限</p>
+<p> 不同的用户对同一对象也有不同的权限</p>
+</li>
+<li><p>强制存取控制（MAC）</p>
+<p> 每一个数据库对象都被标以一定的密级</p>
+<p> 只有有相应级别的用户才能访问</p>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs sql"># 自主存取控制方式<br># 赋予权限<br><span class="hljs-keyword">grant</span> <span class="hljs-operator">&lt;</span><span class="hljs-keyword">select</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">update</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">insert</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">delete</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">all</span> privileges<span class="hljs-operator">&gt;</span>, ...<br><span class="hljs-keyword">on</span> <span class="hljs-operator">&lt;</span><span class="hljs-keyword">table</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">view</span> <span class="hljs-operator">|</span> ...<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>表名<span class="hljs-operator">&gt;</span><br><span class="hljs-keyword">to</span> <span class="hljs-operator">&lt;</span>用户名<span class="hljs-operator">&gt;</span><br># 收回权限<br><span class="hljs-keyword">revoke</span> <span class="hljs-operator">&lt;</span><span class="hljs-keyword">select</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">update</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">insert</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">delete</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">all</span> privileges<span class="hljs-operator">&gt;</span>, ...<br><span class="hljs-keyword">on</span> <span class="hljs-operator">&lt;</span><span class="hljs-keyword">table</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">view</span> <span class="hljs-operator">|</span> ...<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>表名<span class="hljs-operator">&gt;</span><br><span class="hljs-keyword">from</span> <span class="hljs-operator">&lt;</span>用户名<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>cascade <span class="hljs-operator">|</span> restrict<span class="hljs-operator">&gt;</span><br>	cascade: 把这个用户赋给其他用户的权限也回收<br>	restrict: 只回收这个用户的权限<br></code></pre></td></tr></table></figure>
 
 
                 
