@@ -78,7 +78,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%BF%AB%E6%81%A2%E5%A4%8D%E7%AE%97%E6%B3%95.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%9F%9F%E5%90%8D%E6%A0%91.png">
 <meta property="article:published_time" content="2025-01-01T05:57:24.140Z">
-<meta property="article:modified_time" content="2025-03-02T08:38:11.830Z">
+<meta property="article:modified_time" content="2025-03-04T02:26:29.307Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -280,7 +280,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.4k 字
+          6.7k 字
         
       </span>
     
@@ -291,7 +291,7 @@
         
         
         
-          54 分钟
+          56 分钟
         
       </span>
     
@@ -396,6 +396,7 @@
 <blockquote>
 <p>波特：码元传输速率单位，他说明单位时间传输了多少个码元</p>
 <p>比特：每秒传输 二进制代码 位数</p>
+<p>码元：数字通信中用来承载信息的基本单位，一个码元可以表示一个或多个比特</p>
 </blockquote>
 <p><strong>信噪比</strong>：S &#x2F; N（信号的平均功率 &#x2F; 噪声的平均功率），用分贝作为度量单位，dB &#x3D; 10 * log10(S&#x2F;N)</p>
 <p>​	如S&#x2F;N &#x3D; 1000，信噪比为10 * log10(30) &#x3D; 30 dB</p>
@@ -805,6 +806,43 @@
 </ul>
 </li>
 </ol>
+<h2 id="IEEE-局域网模型"><a href="#IEEE-局域网模型" class="headerlink" title="IEEE 局域网模型"></a>IEEE 局域网模型</h2><h3 id="1-物理层（Physical-Layer）"><a href="#1-物理层（Physical-Layer）" class="headerlink" title="1. 物理层（Physical Layer）"></a>1. <strong>物理层（Physical Layer）</strong></h3><ul>
+<li><strong>功能</strong>：<ul>
+<li>负责在物理介质上传输原始的比特流。</li>
+<li>定义电气、机械、功能和规程特性（如电缆类型、信号编码、传输速率）。</li>
+</ul>
+</li>
+<li><strong>主要任务</strong>：<ul>
+<li>比特流的传输和同步。</li>
+<li>物理介质的连接和管理。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-介质访问控制子层（MAC-Medium-Access-Control）"><a href="#2-介质访问控制子层（MAC-Medium-Access-Control）" class="headerlink" title="2. 介质访问控制子层（MAC, Medium Access Control）"></a>2. <strong>介质访问控制子层（MAC, Medium Access Control）</strong></h3><ul>
+<li><strong>功能</strong>：<ul>
+<li>控制设备对共享传输介质的访问。</li>
+<li>负责帧的封装和解封装，以及错误检测。</li>
+</ul>
+</li>
+<li><strong>主要任务</strong>：<ul>
+<li>MAC 地址的寻址和管理。</li>
+<li>介质访问控制（如 CSMA&#x2F;CD、CSMA&#x2F;CA）。</li>
+<li>帧的发送和接收。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-逻辑链路控制子层（LLC-Logical-Link-Control）"><a href="#3-逻辑链路控制子层（LLC-Logical-Link-Control）" class="headerlink" title="3. 逻辑链路控制子层（LLC, Logical Link Control）"></a>3. <strong>逻辑链路控制子层（LLC, Logical Link Control）</strong></h3><ul>
+<li><strong>功能</strong>：<ul>
+<li>提供与上层（网络层）的接口，实现可靠的数据传输。</li>
+<li>负责流量控制、错误控制和帧的复用。</li>
+</ul>
+</li>
+<li><strong>主要任务</strong>：<ul>
+<li>建立和维护逻辑链路。</li>
+<li>提供不同的服务类型（如无确认无连接、面向连接）。</li>
+</ul>
+</li>
+</ul>
 <h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><p>主机与主机之间传输</p>
 <h2 id="网络层的功能"><a href="#网络层的功能" class="headerlink" title="网络层的功能"></a>网络层的功能</h2><ol>
 <li>异构网络互联</li>

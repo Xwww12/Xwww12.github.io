@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2.png">
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0.png">
 <meta property="article:published_time" content="2025-02-25T14:07:05.600Z">
-<meta property="article:modified_time" content="2025-03-02T07:45:27.603Z">
+<meta property="article:modified_time" content="2025-03-04T12:17:58.430Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          2.5k 字
         
       </span>
     
@@ -249,7 +249,7 @@
         
         
         
-          12 分钟
+          21 分钟
         
       </span>
     
@@ -364,7 +364,7 @@
 <p>笛卡尔积：不同域之间所有排列组合的集合</p>
 <p>元组（Tuple）：表里的一条数据</p>
 <p>基数：笛卡尔积里包含的组合的数量</p>
-<p>码：</p>
+<p>码（键）：</p>
 <ul>
 <li><strong>候选码</strong>：能够唯一标识关系中每一行（元组）的最小属性集合</li>
 <li>全码：需要所有的属性才能唯一确定一条记录</li>
@@ -468,6 +468,135 @@
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs sql"># 自主存取控制方式<br># 赋予权限<br><span class="hljs-keyword">grant</span> <span class="hljs-operator">&lt;</span><span class="hljs-keyword">select</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">update</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">insert</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">delete</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">all</span> privileges<span class="hljs-operator">&gt;</span>, ...<br><span class="hljs-keyword">on</span> <span class="hljs-operator">&lt;</span><span class="hljs-keyword">table</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">view</span> <span class="hljs-operator">|</span> ...<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>表名<span class="hljs-operator">&gt;</span><br><span class="hljs-keyword">to</span> <span class="hljs-operator">&lt;</span>用户名<span class="hljs-operator">&gt;</span><br># 收回权限<br><span class="hljs-keyword">revoke</span> <span class="hljs-operator">&lt;</span><span class="hljs-keyword">select</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">update</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">insert</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">delete</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">all</span> privileges<span class="hljs-operator">&gt;</span>, ...<br><span class="hljs-keyword">on</span> <span class="hljs-operator">&lt;</span><span class="hljs-keyword">table</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">view</span> <span class="hljs-operator">|</span> ...<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>表名<span class="hljs-operator">&gt;</span><br><span class="hljs-keyword">from</span> <span class="hljs-operator">&lt;</span>用户名<span class="hljs-operator">&gt;</span> <span class="hljs-operator">&lt;</span>cascade <span class="hljs-operator">|</span> restrict<span class="hljs-operator">&gt;</span><br>	cascade: 把这个用户赋给其他用户的权限也回收<br>	restrict: 只回收这个用户的权限<br></code></pre></td></tr></table></figure>
 
+<h1 id="数据库完整性"><a href="#数据库完整性" class="headerlink" title="数据库完整性"></a>数据库完整性</h1><p>是指数据的正确性和相容性</p>
+<ul>
+<li>正确性：反映现实的实际状况</li>
+<li>相容性：同一对象在不同关系表中的数据是符合逻辑的</li>
+</ul>
+<h2 id="实体完整性"><a href="#实体完整性" class="headerlink" title="实体完整性"></a>实体完整性</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">primary</span> key: 定义主键<br></code></pre></td></tr></table></figure>
+
+<h2 id="参照完整性"><a href="#参照完整性" class="headerlink" title="参照完整性"></a>参照完整性</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">foreing key(外键名) <span class="hljs-keyword">references</span> 表名(列名): 定义外键<br></code></pre></td></tr></table></figure>
+
+<h2 id="用户定义完整性"><a href="#用户定义完整性" class="headerlink" title="用户定义完整性"></a>用户定义完整性</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>: 非空<br><span class="hljs-keyword">unique</span>: 唯一<br><span class="hljs-keyword">check</span>(条件): 检查值是否符合条件<br></code></pre></td></tr></table></figure>
+
+<h1 id="关系数据理论"><a href="#关系数据理论" class="headerlink" title="关系数据理论"></a>关系数据理论</h1><h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2><table>
+<thead>
+<tr>
+<th>范式</th>
+<th>说明</th>
+<th>解决的异常</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一范式（1NF）</td>
+<td>每一个分量必须是不看再分的数据项</td>
+<td></td>
+</tr>
+<tr>
+<td>第二范式（2NF）</td>
+<td>非主属性没有部分依赖</td>
+<td>消除了更新异常</td>
+</tr>
+<tr>
+<td>第三范式（3NF）</td>
+<td>非主属性没有传递依赖</td>
+<td>消除了<strong>部分的</strong>插入和删除异常</td>
+</tr>
+<tr>
+<td>BCNF</td>
+<td>所有主属性对每一个不包含它的码也是完全函数依赖</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><ul>
+<li>函数依赖：x值确认后，能够唯一的确认出y。记作x -&gt; y</li>
+<li>非平凡依赖：x -&gt; y, 但y ∉ x</li>
+<li>平凡依赖：x -&gt; y, 但y ∈ x</li>
+<li>完全函数依赖：x -&gt; y，且x的真子集都推不出y</li>
+<li>传递依赖：x -&gt; y, y -&gt; z, y 推不出 x, 则x -&gt; z</li>
+</ul>
+<h2 id="规范化"><a href="#规范化" class="headerlink" title="规范化"></a>规范化</h2><p>模式可能存在的问题：</p>
+<ol>
+<li>数据冗余</li>
+<li>更新异常：没更新全部数据导致数据不一致</li>
+<li>插入异常</li>
+<li>删除异常</li>
+</ol>
+<h1 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h1><h2 id="数据库设计6个阶段"><a href="#数据库设计6个阶段" class="headerlink" title="数据库设计6个阶段"></a>数据库设计6个阶段</h2><ol>
+<li><p><strong>需求分析</strong></p>
+<p> 最困难，最耗时，数据字典</p>
+</li>
+<li><p><strong>概念结构设计</strong></p>
+<p> E-R图</p>
+</li>
+<li><p><strong>逻辑结构设计</strong></p>
+<p> 关系模式设计、表、规范化处理</p>
+</li>
+<li><p><strong>物理结构设计</strong></p>
+<p> 设置索引</p>
+</li>
+<li><p><strong>数据库实施</strong></p>
+</li>
+<li><p><strong>数据库运行和维护</strong></p>
+</li>
+</ol>
+<h2 id="各子系统的E-R图间的冲突"><a href="#各子系统的E-R图间的冲突" class="headerlink" title="各子系统的E-R图间的冲突"></a>各子系统的E-R图间的冲突</h2><ol>
+<li><p>属性冲突</p>
+<p> 取值范围、单位不一致</p>
+</li>
+<li><p>命名冲突</p>
+<p> 同一意思在不同的表里名字不一样，或者意思不一样但名字一样</p>
+</li>
+<li><p>结构冲突</p>
+<p> 一个对象在有的表里是属性，有的表里是对象；同一个对象在不同表里属性不同；实体间联系在不同的E-R图为不同类型</p>
+</li>
+</ol>
+<h1 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h1><h2 id="ACID"><a href="#ACID" class="headerlink" title="ACID"></a>ACID</h2><ol>
+<li>原子性</li>
+<li>隔离性</li>
+<li>一致性</li>
+<li>持久性</li>
+</ol>
+<h2 id="数据不一致问题"><a href="#数据不一致问题" class="headerlink" title="数据不一致问题"></a>数据不一致问题</h2><ol>
+<li><p>丢失数据</p>
+<p> 事务一起提交，其中一个被覆盖</p>
+</li>
+<li><p>读“脏”数据</p>
+<p> 事务1修改数据后，事务2读取，事务1回滚，导致事务2读取的是脏数据</p>
+</li>
+<li><p>不可重复读</p>
+<p> 事务1读取某一行后，事务2进行了修改，事务1再次读取与前一次的结果不一致</p>
+</li>
+<li><p>幻读</p>
+<p> 事务1读取一些数据，事务2添加&#x2F;删除了一部分数据，事务1再次读取与前一次的结果不一致</p>
+</li>
+</ol>
+<h2 id="封锁"><a href="#封锁" class="headerlink" title="封锁"></a>封锁</h2><p>排它锁（写锁、X锁）；共享锁（读锁、S锁）</p>
+<ol>
+<li>一级封锁协议（解决丢失数据）：修改数据前加<strong>X锁</strong>，<strong>事务结束后</strong>释放</li>
+<li>二级封锁协议（解决读脏数据）：读取数据前加<strong>S锁</strong>，<strong>读完后</strong>释放</li>
+<li>三级封锁协议（解决不可重复读）：读取数据前加<strong>S锁</strong>，<strong>事务结束后</strong>释放</li>
+</ol>
+<h2 id="活锁死锁"><a href="#活锁死锁" class="headerlink" title="活锁死锁"></a>活锁死锁</h2><p>活锁：加锁无限等待，可用先来先服务解决</p>
+<p>死锁的预防：</p>
+<ul>
+<li>一次封锁法：将要使用的数据一次全部加锁</li>
+<li>顺序封锁发：对数据对象规定一个封锁顺序</li>
+</ul>
+<p>死锁的诊断和解除：</p>
+<ul>
+<li>超时法：一个事务等待时间过长就认为发生死锁</li>
+<li>等待图法：事务间等待的有向图，若出现环路则为死锁</li>
+</ul>
+<p>死锁的解除：</p>
+<p>​	撤销一个处理死锁代价最小的事务</p>
+<h2 id="意向锁"><a href="#意向锁" class="headerlink" title="意向锁"></a>意向锁</h2><p>如果对一个节点加意向锁，说明该节点的下层节点正在被加锁</p>
+<ul>
+<li>意向共享锁（IS锁）：拟向下层节点添加S锁</li>
+<li>意向排它锁（IX锁）：拟向下层节点添加X锁</li>
+<li>共享意向排他锁（SIX锁）：先加S锁，再加IX锁，表示要读整个表，并更新个别元组</li>
+</ul>
+<p>意向锁作用：多粒度封锁提高了并发性，减少了加锁和解锁的开销</p>
 
                 
               </div>
