@@ -78,7 +78,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%BF%AB%E6%81%A2%E5%A4%8D%E7%AE%97%E6%B3%95.png">
 <meta property="og:image" content="http://xwww12.github.io/img/internet_img/%E5%9F%9F%E5%90%8D%E6%A0%91.png">
 <meta property="article:published_time" content="2025-01-01T05:57:24.140Z">
-<meta property="article:modified_time" content="2025-03-04T02:26:29.307Z">
+<meta property="article:modified_time" content="2025-03-05T04:11:49.692Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -280,7 +280,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.7k 字
+          6.8k 字
         
       </span>
     
@@ -291,7 +291,7 @@
         
         
         
-          56 分钟
+          57 分钟
         
       </span>
     
@@ -744,15 +744,38 @@
 <ol>
 <li><p>PPP协议</p>
 <ul>
-<li>只支持全双工</li>
-<li>无需纠错、无需序号、无需流量控制</li>
-<li>异步线路用字节填充，同步线路用比特填充</li>
-<li>帧错误就丢弃</li>
-<li>数据部分最大传输单元MTU</li>
+<li><p>只支持全双工</p>
+</li>
+<li><p>无需纠错、无需序号、无需流量控制</p>
+</li>
+<li><p>用字节填充法</p>
+<ul>
+<li>将0x7E(帧定界符) –&gt; 0x7D  0x5E</li>
+<li>将0x7D–&gt; 0x7D  0x5D</li>
+</ul>
+</li>
+<li><p>帧错误就丢弃</p>
+</li>
+<li><p>数据部分最大传输单元MTU</p>
+</li>
 </ul>
 <p> <img src="/img/internet_img/PPP%E5%8D%8F%E8%AE%AE%E5%B8%A7%E6%A0%BC%E5%BC%8F.png" srcset="/img/loading.gif" lazyload alt="PPP协议帧格式"></p>
+<ul>
+<li>地址字段：通常固定为<code>0xFF</code>，表示广播地址，由于PPP是点对点协议，地址字段的实际意义不大</li>
+<li>协议字段<ul>
+<li><code>0x0021</code>：IPv4</li>
+<li><code>0x0057</code>：IPv6</li>
+<li><code>0xC021</code>：链路控制协议（LCP）</li>
+<li><code>0x8021</code>：网络控制协议（NCP）</li>
+</ul>
+</li>
+</ul>
 </li>
 </ol>
+<blockquote>
+<p>PPP面向字节，使用字节填充法</p>
+<p>HDLC（High-level Data Link Control）面向比特，使用比特填充法（每5个连续1则添加一个0）</p>
+</blockquote>
 <h2 id="以太网交换机"><a href="#以太网交换机" class="headerlink" title="以太网交换机"></a>以太网交换机</h2><p><strong>自学习功能</strong>：</p>
 <ul>
 <li>交换表：记录MAC地址和端口号的映射关系<ol>

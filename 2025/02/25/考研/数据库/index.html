@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2.png">
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0.png">
 <meta property="article:published_time" content="2025-02-25T14:07:05.600Z">
-<meta property="article:modified_time" content="2025-03-04T12:17:58.430Z">
+<meta property="article:modified_time" content="2025-03-07T15:29:55.655Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          2.6k 字
         
       </span>
     
@@ -249,7 +249,7 @@
         
         
         
-          21 分钟
+          22 分钟
         
       </span>
     
@@ -597,6 +597,31 @@
 <li>共享意向排他锁（SIX锁）：先加S锁，再加IX锁，表示要读整个表，并更新个别元组</li>
 </ul>
 <p>意向锁作用：多粒度封锁提高了并发性，减少了加锁和解锁的开销</p>
+<h1 id="关系模式题型"><a href="#关系模式题型" class="headerlink" title="关系模式题型"></a>关系模式题型</h1><h2 id="求候选键"><a href="#求候选键" class="headerlink" title="求候选键"></a>求候选键</h2><h2 id="求最小函数依赖集"><a href="#求最小函数依赖集" class="headerlink" title="求最小函数依赖集"></a>求最小函数依赖集</h2><p>步骤：</p>
+<ol>
+<li>分解右侧为单属性</li>
+<li>消除冗余函数依赖</li>
+<li>消除左侧冗余属性</li>
+</ol>
+<h2 id="规范化程度"><a href="#规范化程度" class="headerlink" title="规范化程度"></a>规范化程度</h2><ol>
+<li><p>1NF</p>
+<p> 所有属性值都是<strong>原子</strong></p>
+</li>
+<li><p>2NF</p>
+<p> 所有非主属性必须<strong>完全依赖候选键</strong>（部分依赖）</p>
+</li>
+<li><p>3NF</p>
+<p> 非主属性不能<strong>传递依赖</strong>候选键（传递依赖）</p>
+</li>
+<li><p>BCNF</p>
+<p> 函数依赖的左侧必须是<strong>候选键</strong></p>
+</li>
+</ol>
+<h2 id="分解为3NF"><a href="#分解为3NF" class="headerlink" title="分解为3NF"></a>分解为3NF</h2><ol>
+<li>基于最小函数依赖集构建子关系模式</li>
+<li>强制包含候选键的关系模式</li>
+<li>合并冗余表</li>
+</ol>
 
                 
               </div>
