@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E5%88%86%E8%A7%A3%E4%B8%BA3nf.png">
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E5%88%86%E8%A7%A3%E4%B8%BAbcnf.png">
 <meta property="article:published_time" content="2025-02-25T14:07:05.600Z">
-<meta property="article:modified_time" content="2025-03-12T11:09:00.406Z">
+<meta property="article:modified_time" content="2025-03-13T13:01:57.606Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.8k 字
+          4.1k 字
         
       </span>
     
@@ -251,7 +251,7 @@
         
         
         
-          32 分钟
+          34 分钟
         
       </span>
     
@@ -682,7 +682,10 @@
  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">活锁：指当事务T1封锁了数据R, 事务T2请求封锁数据R于是T2等待，当事务T1释放锁后，系统首先批准了T3,T4,...的事务，T2可能永远等待<br>死锁：指两个或两个以上的事务分别请求封锁对方已经封锁的数据，导致循环等待而无法继续运行下去<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>简述关系数据库规范化理论，并给出2NF，3MF、BCNF的定义</p>
- <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">规范化理论是以关系模型为背景，进行数据库逻辑设计的有力工具。其逐步消除数据依赖中不合适的部分，使关系模型中的各个关系模式达到某种程度的分离<br>2NF: 每一个非主属性完全函数依赖于码<br>3NF: 关系模式中若不存在码X，属性组Y及非主属性Z，使得X-&gt;Y,Y-&gt;Z成立，Y不函数依赖于X，则称R&lt;U,F&gt;∈3NF<br>BCNF: 若X-&gt;Y且Y不函数依赖于X时X必含有码，则R∈BCNF<br></code></pre></td></tr></table></figure></li>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">规范化理论是以关系模型为背景，进行数据库逻辑设计的有力工具。其逐步消除数据依赖中不合适的部分，使关系模型中的各个关系模式达到某种程度的分离<br>2NF: 每一个非主属性完全函数依赖于码<br>3NF: 关系模式中若不存在码X，属性组Y及非主属性Z，使得X-&gt;Y,Y-&gt;Z成立，Y不函数依赖于X，则称R&lt;U,F&gt;∈3NF<br>BCNF: 若X-&gt;Y且Y不函数依赖于X时X必含有码，则R∈BCNF<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>简述数据库体系结构及其数据独立性的关系</p>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">数据库体系机构可以概括为三级模式和二级映像，三级模式分别为外模式、模式和内模式，二级映像为外模式/模式映像、模式/内模式映像。<br>外模式是数据库与外部应用程序对应的局部逻辑描述，一个数据库可以有多个外模式；<br>模式是数据库整体逻辑结构的描述，一个数据库对应一个模式；<br>内模式是数据库内部与存储及物理环境相关的逻辑描述，一个数据库对应一个内模式；<br>数据的独立性分为物理独立性和逻辑独立性。逻辑独立性是指外部的应用程序不会因为数据库逻辑结构的改变而改变，是由外模式/模式映像支持的；物理独立性是指外部应用程序不必因为数据库内部存储结构的改变而改变，是由模式/内模式映像支持的<br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
