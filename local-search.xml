@@ -116,7 +116,7 @@
     <link href="/2024/08/15/%E8%80%83%E7%A0%94/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     <url>/2024/08/15/%E8%80%83%E7%A0%94/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
     
-    <content type="html"><![CDATA[<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><h3 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h3><p><strong>定义</strong>：带权连通无向图，权值之和最小的那棵生成树</p><p><strong>性质</strong>：</p><ol><li>若存在权值相同的边，最小生成树可能不唯一</li><li>各边权值互不相等，生成树唯一</li><li>若无向连通图边数比顶点数少1，则最小生成树为自身</li></ol><p><strong>最小生成树算法</strong>：</p><p><strong>Prim（普里姆）算法</strong></p><p>步骤：</p><ol><li><p>贪心，初始时从图中任取一点加入T</p></li><li><p>之后选择与T最近的顶点加入T，直到选完所有点</p></li></ol><p>时间复杂度O(|V|²)，与边数无关，适合边稠密图</p><p><img src="/img/ds_img/Prim%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E8%BF%87%E7%A8%8B.png" alt="最小生成树过程"></p><p><strong>Kruskal（克鲁斯卡尔）算法</strong></p><p>步骤：</p><ol><li>贪心，权值由小到大选择</li><li>若该边依附的点在T中不同的连通分量，则将边加入T，直至所有点都在一个连通分量上</li></ol><p>时间复杂度O( |E|log2(|E|) )，适合边稀疏而顶点较多的图</p><p><img src="/img/ds_img/Kruskal%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E8%BF%87%E7%A8%8B.png" alt="最小生成树过程"></p><h3 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h3><p><strong>定义</strong>：</p><ol><li>带权路径长度：从一个顶点到另一个顶点路径上边的权值之和</li><li>最短路径：权值之和最短的路径</li></ol><p><strong>最短路径算法</strong>：</p><p><strong>Dijkstra（迪杰斯特拉）算法</strong></p><p>求单源最短路径</p><p>贪心，边不能为负数</p><p><img src="/img/ds_img/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E8%BF%87%E7%A8%8B.png"></p><p>时间复杂度O(|V|²)</p><p><strong>Floyd（弗洛伊德）算法</strong></p><p>求每对顶点间的最短距离</p><p><img src="/img/ds_img/%E5%BC%97%E6%B4%9B%E4%BC%8A%E5%BE%B7%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E8%BF%87%E7%A8%8B.png"></p><p>时间复杂度O(|V|³)</p><h3 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h3><p><strong>概念</strong>：</p><ol><li>AOV网：顶点表示活动的网络</li><li>DAG图：有向无环图</li><li>AOE网：边表示活动的网络，点表示事件</li></ol><p><img src="/img/ds_img/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E6%AD%A5%E9%AA%A4.png"></p><p><img src="/img/ds_img/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E8%BF%87%E7%A8%8B.png"></p><h3 id="关键路径"><a href="#关键路径" class="headerlink" title="关键路径"></a>关键路径</h3><p><strong>定义</strong>：</p><p>关键路径：AOE网中，具有最大路径长度的路径</p><p>关键活动：关键路径上的活动</p><p>最早发生时间ve(k)：从源点到顶点vk的最长路径长度，决定了从vk开始的活动的最早开工时间</p><p>最迟发生时间vl(k)：在不推迟整个工程完成的前提下，事件必须开始的最迟时间</p><p><img src="/img/ds_img/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84%E8%BF%87%E7%A8%8B1.png"></p><p><img src="/img/ds_img/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84%E8%BF%87%E7%A8%8B2.png"></p><h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h3 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h3><p><img src="/img/ds_img/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91_%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0.png"></p><h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><ol><li><p>构造深度为h的平衡二叉树的最少节点数</p><p> n0 &#x3D; 0, n1 &#x3D; 1, nh &#x3D; 1 + n(h-1) + n(h-2)</p></li><li><p>顺序插入时，平衡二叉树的高度</p><p> 如果结点个数为2^k - 1则为满二叉树</p></li></ol><h3 id="B-树"><a href="#B-树" class="headerlink" title="B-树"></a>B-树</h3><p>度为m的B-数性质</p><ol><li>每个非根节点<strong>最多</strong>可以有 m 个孩子，<strong>最少</strong>有 m&#x2F;2(向上取整) 个孩子</li><li>每个非根节点<strong>最多</strong>可以有 m-1 个key，<strong>最少</strong>有 m&#x2F;2(向上取整)  - 1个key</li><li>根节点不是终端节点，则根节点至少 1 个key，至少有两个孩子</li><li>所有的叶子节点都在同一层，表示查找失败节点</li></ol><p><strong>例题</strong></p><ol><li>节点数的上下限</li></ol><p><img src="/img/ds_img/b%E6%A0%91%E4%BE%8B%E9%A2%981.png"></p><h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><p><strong>注意点</strong></p><ol><li>平均查找长度与装填因子α直接相关，不直接依赖于表长或表中已有元素</li><li>聚集是因为选择了处理不当的处理冲突方式</li></ol><p><strong>例题</strong></p><p><img src="/img/ds_img/%E5%93%88%E5%B8%8C%E8%A1%A8%E4%BE%8B%E9%A2%981.png"></p><p><img src="/img/ds_img/%E5%93%88%E5%B8%8C%E8%A1%A8%E4%BE%8B%E9%A2%982.png"></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><h3 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h3><p><strong>定义</strong>：带权连通无向图，权值之和最小的那棵生成树</p><p><strong>性质</strong>：</p><ol><li>若存在权值相同的边，最小生成树可能不唯一</li><li>各边权值互不相等，生成树唯一</li><li>若无向连通图边数比顶点数少1，则最小生成树为自身</li></ol><p><strong>最小生成树算法</strong>：</p><p><strong>Prim（普里姆）算法</strong></p><p>步骤：</p><ol><li><p>贪心，初始时从图中任取一点加入T</p></li><li><p>之后选择与T最近的顶点加入T，直到选完所有点</p></li></ol><p>时间复杂度O(|V|²)，与边数无关，适合边稠密图</p><p><img src="/img/ds_img/Prim%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E8%BF%87%E7%A8%8B.png" alt="最小生成树过程"></p><p><strong>Kruskal（克鲁斯卡尔）算法</strong></p><p>步骤：</p><ol><li>贪心，权值由小到大选择</li><li>若该边依附的点在T中不同的连通分量，则将边加入T，直至所有点都在一个连通分量上</li></ol><p>时间复杂度O( |E|log2(|E|) )，适合边稀疏而顶点较多的图</p><p><img src="/img/ds_img/Kruskal%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E8%BF%87%E7%A8%8B.png" alt="最小生成树过程"></p><h3 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h3><p><strong>定义</strong>：</p><ol><li>带权路径长度：从一个顶点到另一个顶点路径上边的权值之和</li><li>最短路径：权值之和最短的路径</li></ol><p><strong>最短路径算法</strong>：</p><p><strong>Dijkstra（迪杰斯特拉）算法</strong></p><p>求单源最短路径</p><p>贪心，边不能为负数</p><p><img src="/img/ds_img/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E8%BF%87%E7%A8%8B.png"></p><p>时间复杂度O(|V|²)</p><p><strong>Floyd（弗洛伊德）算法</strong></p><p>求每对顶点间的最短距离</p><p><img src="/img/ds_img/%E5%BC%97%E6%B4%9B%E4%BC%8A%E5%BE%B7%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E8%BF%87%E7%A8%8B.png"></p><p>时间复杂度O(|V|³)</p><h3 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h3><p><strong>概念</strong>：</p><ol><li>AOV网：顶点表示活动的网络</li><li>DAG图：有向无环图</li><li>AOE网：边表示活动的网络，点表示事件</li></ol><p><img src="/img/ds_img/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E6%AD%A5%E9%AA%A4.png"></p><p><img src="/img/ds_img/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E8%BF%87%E7%A8%8B.png"></p><h3 id="关键路径"><a href="#关键路径" class="headerlink" title="关键路径"></a>关键路径</h3><p><strong>定义</strong>：</p><p>关键路径：AOE网中，具有最大路径长度的路径</p><p>关键活动：关键路径上的活动</p><p>最早发生时间ve(k)：从源点到顶点vk的最长路径长度，决定了从vk开始的活动的最早开工时间</p><p>最迟发生时间vl(k)：在不推迟整个工程完成的前提下，事件必须开始的最迟时间</p><p><img src="/img/ds_img/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84%E8%BF%87%E7%A8%8B1.png"></p><p><img src="/img/ds_img/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84%E8%BF%87%E7%A8%8B2.png"></p><h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h3 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h3><p><img src="/img/ds_img/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91_%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0.png"></p><h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><ol><li><p>构造深度为h的平衡二叉树的最少节点数</p><p> n0 &#x3D; 0, n1 &#x3D; 1, nh &#x3D; 1 + n(h-1) + n(h-2)</p></li><li><p>顺序插入时，平衡二叉树的高度</p><p> 如果结点个数为2^k - 1则为满二叉树</p></li></ol><h3 id="B-树"><a href="#B-树" class="headerlink" title="B-树"></a>B-树</h3><p>度为m的B-数性质</p><ol><li>每个非根节点<strong>最多</strong>可以有 m 个孩子，<strong>最少</strong>有 m&#x2F;2(向上取整) 个孩子</li><li>每个非根节点<strong>最多</strong>可以有 m-1 个key，<strong>最少</strong>有 m&#x2F;2(向上取整)  - 1个key</li><li>根节点不是终端节点，则根节点至少 1 个key，至少有两个孩子</li><li>所有的叶子节点都在同一层，表示查找失败节点</li></ol><p><strong>例题</strong></p><ol><li>节点数的上下限</li></ol><p><img src="/img/ds_img/b%E6%A0%91%E4%BE%8B%E9%A2%981.png"></p><h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><p><strong>注意点</strong></p><ol><li>平均查找长度与装填因子α直接相关，不直接依赖于表长或表中已有元素</li><li>聚集是因为选择了处理不当的处理冲突方式</li></ol><p><strong>例题</strong></p><p><img src="/img/ds_img/%E5%93%88%E5%B8%8C%E8%A1%A8%E4%BE%8B%E9%A2%981.png"></p><p><img src="/img/ds_img/%E5%93%88%E5%B8%8C%E8%A1%A8%E4%BE%8B%E9%A2%982.png"></p><h1 id="面试简答"><a href="#面试简答" class="headerlink" title="面试简答"></a>面试简答</h1><p><strong>1.稀疏的无向图用什么存储最好</strong></p><p>使用邻接表存储最好，仅需 O(n+2e) 空间（n 为节点数，e为边数）；</p><p>而邻接矩阵需要O(n^2)的空间</p><p><strong>2.空串和空格串是否一样？</strong></p><p>不一样。空串是一个长度为 0 的字符串，不包含任何字符；</p><p>空格串是一个由空格字符组成的字符串，长度至少为 1。</p><p><strong>3.怎么判断一个图是否有环？解释拓扑排序的过程</strong></p><p>常用的方法有 深度优先搜索（DFS） 和 拓扑排序</p><p>在 DFS 遍历过程中，如果遇到一个已经被访问过且仍在递归栈中的节点，则说明图中存在环。</p><p>拓扑排序仅适用于有向无环图（DAG）。如果图中存在环，则无法完成拓扑排序。</p><p>拓扑排序步骤：</p><ol><li>计算每个节点的入度（即有多少条边指向该节点）。</li><li>将所有入度为 0 的节点加入队列。</li><li>从队列中取出一个节点，将其加入拓扑排序结果中，并减少其所有邻居的入度。</li><li>如果某个邻居的入度变为 0，则将其加入队列。</li><li>重复上述过程，直到队列为空。</li><li>如果拓扑排序结果中的节点数小于总节点数，则说明图中存在环。</li></ol><p><strong>4.循环队列怎么判断队列满&#x2F;空</strong></p><p>当队头指针和队尾指针指向同一位置时，说明队列中没有元素；</p><p>判断队列满有两种办法：</p><ol><li>牺牲一个存储空间，队尾指针的下一个位置是队头指针时，说明队列已满。</li><li>维护一个变量 <code>size</code> 记录队列中的元素数量，当 <code>size</code> 等于 <code>capacity</code>时，说明队列已满；</li></ol><p><strong>5.什么是稀疏矩阵</strong></p><p>稀疏矩阵是指矩阵中非零元素的数量远少于零元素的数量</p><p>我们可以存储非零元素的行索引、列索引和值来压缩存储稀疏矩阵</p><p><strong>6.强连通图，N个顶点最多和最少有多少个边</strong></p><p>强连通图是指在有向图中，任意两个顶点之间都存在双向路径</p><p>假设顶点数为n，边数最少的情况是图形成一个有向环，边数内n</p><p>边数最多的情况是图是一个完全有向图，即图中任意两个顶点之间都有双向边，此时边数为n*(n-1)</p>]]></content>
     
     
     <categories>
@@ -1215,9 +1215,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1246,9 +1246,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1277,9 +1277,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -2813,9 +2813,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -2904,9 +2904,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
