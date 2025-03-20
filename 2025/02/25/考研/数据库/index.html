@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E5%88%86%E8%A7%A3%E4%B8%BA3nf.png">
 <meta property="og:image" content="http://xwww12.github.io/img/db_img/%E5%88%86%E8%A7%A3%E4%B8%BAbcnf.png">
 <meta property="article:published_time" content="2025-02-25T14:07:05.600Z">
-<meta property="article:modified_time" content="2025-03-15T11:26:08.217Z">
+<meta property="article:modified_time" content="2025-03-20T09:52:56.938Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.4k 字
+          5.4k 字
         
       </span>
     
@@ -251,7 +251,7 @@
         
         
         
-          37 分钟
+          45 分钟
         
       </span>
     
@@ -664,7 +664,7 @@
 <p><img src="/img/db_img/%E5%88%86%E8%A7%A3%E4%B8%BAbcnf.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="简答题"><a href="#简答题" class="headerlink" title="简答题"></a>简答题</h1><ol>
 <li><p>什么是数据、数据库、数据库管理系统、数据库系统</p>
- <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">数据（Data）：数据是数据库中存储的基本对象<br>数据库（Database）：数据库是长期存储在计算机内、有组织的、可共享的大量数据集合<br>数据库管理系统（DBMS）：位于用户和操作系统之间的一层数据管理软件，主要功能包括数据定义功能、数据组织、存储和管理，数据操纵功能，数据库事务管理和运行管理，数据库的建立和维护等功能<br>数据库系统（DBS）：数据库系统指在计算机系统中引入数据库的系统，由数据库、数据库管理系统（及其开发工具）、应用系统、数据库管理员构成<br></code></pre></td></tr></table></figure>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">数据（Data）：数据是数据库中存储的基本对象<br>数据库（Database）：数据库是长期存储在计算机内、有组织的、可共享的大量数据集合<br>数据库管理系统（DBMS）：数据库管理系统是一种软件系统，用于管理和组织数据库，提供对数据的存储、访问、处理和保护等功能。DBMS确保数据库的安全性和完整性，支持多个用户同时或不同时刻对数据库进行操作<br>数据库系统（DBS）：数据库系统指在计算机系统中引入数据库的系统，由数据库、数据库管理系统（及其开发工具）、应用系统、数据库管理员构成<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>什么是事务，事务的特征，事务和程序的区别</p>
  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">事务：事务是用户定义的数据库操作序列，这些操作要么全做，要么全不做，是一个不可分割的工作单位<br>事务的特征：<br>	原子性：要么全部成功，要么全部失败<br>	一致性：事务执行前后，数据库必须保持一致性状态<br>	隔离性：多个并发事务的执行是相互隔离的，一个事务的操作不会影响其他事务<br>	持久性：一旦事务提交成功，其对数据库的修改就是永久性的，即使系统发生故障也不会丢失<br>事务和程序的区别：一个事务可以是一条或一组SQL语句；一个应用程序通常包含多个事务<br></code></pre></td></tr></table></figure>
@@ -672,8 +672,8 @@
 <li><p>什么是计算机系统完整性，完整性约束对象作用的对象是</p>
  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">完整性：数据的正确性和相容性，防止不合语义的数据进入数据库<br>作用对象：<br>	列：对属性的取值类型、范围、精度等的约束条件<br>	元组：对元组各个属性列间的联系的约束<br>	关系：对若干元组建、关系集合上以及关系之间的联系的约束<br></code></pre></td></tr></table></figure>
 </li>
-<li><p>什么是排它锁和共享锁</p>
- <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">排它锁：排它锁是一种独占锁，当一个事务对数据对象加排它锁后，其他事务既不能读取也不能修改该数据对象，直到锁被释放<br>共享锁：共享锁是一种非独占锁，当一个事务对数据对象加共享锁后，其他事务可以读取该数据对象，但不能修改它，直到锁被释放<br></code></pre></td></tr></table></figure>
+<li><p>什么是封锁，什么是排它锁和共享锁</p>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">封锁是数据库管理系统中用于实现并发控制的一种机制，它允许事务在操作数据之前对数据对象加锁<br>排它锁：排它锁是一种独占锁，当一个事务对数据对象加排它锁后，其他事务既不能读取也不能修改该数据对象，直到锁被释放<br>共享锁：共享锁是一种非独占锁，当一个事务对数据对象加共享锁后，其他事务可以读取该数据对象，但不能修改它，直到锁被释放<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>数据库设计的基本步骤</p>
  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">需求分析<br>概念结构设计<br>逻辑结构设计<br>物理结构设计<br>数据库实施<br>数据库的运行和维护<br></code></pre></td></tr></table></figure>
@@ -697,7 +697,28 @@
  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">DBMS对并发事务不同的调度可能会产生不同的结果，多个事务的并发执行是正确的，当且仅当其结果和按某一次序串行的执行这些事务时的结果相同，称这种调度策略为可串行化调度，也称之为并发执行的可串行性，这也是判断并发调度策略正确与否的唯一标准<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>关系数据库管理系统的数据字典存储哪些内容</p>
- <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">数据字典通常包括数据项、数据结构、数据流、数据存储和处理5个部分。<br>其中，数据项是数据的最小组成单位，若干个数据项可以组成一个数据结构，数据字典通过对数据项和数据结构的定义来描述数据流、数据存储的逻辑内容<br></code></pre></td></tr></table></figure></li>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">数据字典通常包括数据项、数据结构、数据流、数据存储和处理过程5个部分。<br>其中，数据项是数据的最小组成单位，若干个数据项可以组成一个数据结构，数据字典通过对数据项和数据结构的定义来描述数据流、数据存储的逻辑内容<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>数据字典的作用是什么</p>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">数据字典是关于数据库中数据的描述，在需求分析阶段建立，是下一步进行概念设计的基础，并在数据库设计过程中不断修改、充实和完善<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>试描述DBMS查询优化的一般准则</p>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">1.选择运算应尽可能先做<br>2.把投影运算和选择运算同时进行<br>3.把投影同其前或后的双目运算结合起来执行<br>4.把某些选择同在它前面要执行的笛卡尔积结合起来成为一个连接运算<br>5.找出公共子表达式<br>6.选取合适的连接算法<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>三类完整性约束是什么</p>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">1.实体完整性：基本关系的所有主属性都不能取空值<br>2.参数完整性：在两个关系之间建立联系时，必须满足某些条件，以保证数据的一致性和完整性<br>3.用户定义完整性：用于保证数据的语义正确性，常见有唯一性、条件检查和非空性<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>什么是自主存取控制和强制存取控制</p>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">自主存取控制方法允许拥有者自主决定哪些用户可以访问其数据，并可以将其拥有的存取权限转授给其他用户。这种控制方法相对灵活，适用于需要高度自定义权限的场景。但存在权限滥用的风险，影响数据的安全性<br>强制存取控制方法由系统对数据对象的存取进行强制性的约束和控制。每一个数据对象都被标记为一定的密级，而每一个用户也被授予某个级别的许可证。只有用户的许可证级别高于或等于数据对象的密级时，才能访问该数据对象。这种控制方法相对严格，可以减少权限滥用的风险，从而提高数据的安全性。<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>什么是数据的完整性约束，什么是数据库的独立性</p>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">数据完整性约束可以防止无效的、不一致的或缺失的数据进入数据库，从而提高数据的质量和可靠性。数据完整性约束可以分为三类：实体完整性、参照完整性和用户定义完整性。<br>数据库的独立性是指数据库系统中的数据独立于应用程序，即数据的改变不会影响应用程序的正确性。<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>DBMS的五大功能</p>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">1.数据定义：提供DDL来创建、修改和删除数据库中的数据结构，如创建表、定义字段、设置约束等<br>2.数据操作：提供DML进行增删改查等操作，常用的命令包括SELECT、INSERT、UPDATE和DELETE<br>3.数据维护：包括数据备份、恢复优化和维护等功能<br>4.数据控制：提供DCL用于管理数据库的访问权限，如GRANT和REVOKE命令<br>5.事务管理：包括事务的提交、回滚、锁定和隔离等功能<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>为什么要有数据库数据恢复子系统</p>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs TEXT">因为计算机系统中硬件的故障、软件的错误、操作员的失误以及恶意的破坏是不可避免的，影响数据的正确性，因此必须有恢复子系统<br>恢复子系统的功能是把数据库从错误状态恢复到某一已知的正确状态<br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
