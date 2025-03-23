@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/IO%E8%BD%AF%E4%BB%B6%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://xwww12.github.io/img/os_img/%E5%81%87%E8%84%B1%E6%9C%BA%E6%8A%80%E6%9C%AF.png">
 <meta property="article:published_time" content="2024-04-11T12:45:50.435Z">
-<meta property="article:modified_time" content="2024-05-23T07:12:27.378Z">
+<meta property="article:modified_time" content="2025-03-23T06:06:22.213Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary_large_image">
@@ -310,7 +310,7 @@
         
         
         
-          114 分钟
+          121 分钟
         
       </span>
     
@@ -1867,6 +1867,38 @@
 <p>假脱机：用软件实现脱机</p>
 <p><img src="/img/os_img/%E5%81%87%E8%84%B1%E6%9C%BA%E6%8A%80%E6%9C%AF.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="驱动程序接口"><a href="#驱动程序接口" class="headerlink" title="驱动程序接口"></a>驱动程序接口</h3><p>接收上层应用发来的抽象IO请求，将它们转换为具体要求后发送给设备控制器</p>
+<h1 id="复试简答题"><a href="#复试简答题" class="headerlink" title="复试简答题"></a>复试简答题</h1><p><strong>1.文件链接方式</strong></p>
+<ul>
+<li><strong>隐式链接</strong>：文件的所有块通过指针链接在一起，形成一个链表，随机访问效率低。</li>
+<li><strong>显式链接</strong>：文件的块位置信息存储在外部数据结构中，而不是存储在块本身，随机访问效率高。</li>
+<li><strong>索引链接</strong>：使用索引块存储文件块位置，适合大文件，随机访问效率高。</li>
+</ul>
+<p><strong>FAT</strong>（File Allocation Table，文件分配表）是一种用于管理磁盘上文件存储的数据结构。它是<strong>显式链接</strong>的一种实现方式，用于记录文件在磁盘上的存储位置和分配情况。</p>
+<p><strong>2.什么是分时系统，分时系统的特点</strong></p>
+<p><strong>分时系统（Time-Sharing System）</strong> 是一种操作系统的设计模式，允许多个用户通过终端同时使用计算机资源。在分时系统中，CPU 的时间被划分为很小的时间片（Time Slice），每个用户或任务轮流使用 CPU 的时间片，从而实现多个用户或任务“同时”执行的效果。</p>
+<p><strong>特点</strong>：</p>
+<ol>
+<li>允许多个用户通过终端同时访问系统</li>
+<li>每个任务或用户轮流使用 CPU</li>
+<li>用户可以通过终端与系统实时交互</li>
+<li>系统响应速度较快</li>
+</ol>
+<p><strong>3.死锁的四个必要条件</strong></p>
+<p><strong>死锁（Deadlock）</strong> 是指多个进程或线程在执行过程中，因为竞争资源而互相等待，导致它们都无法继续执行的状态</p>
+<ol>
+<li>互斥条件：资源一次只能被一个进程占用</li>
+<li>请求和保持：进程已经占有了至少一个资源，同时又在等待获取其他被占用的资源</li>
+<li>不可抢占：进程已经占有的资源不能被强行剥夺，必须由进程主动释放</li>
+<li>循环等待：存在一个进程等待的循环链，每个进程都在等待下一个进程所占有的资源</li>
+</ol>
+<p><strong>4.进程和线程的区别</strong></p>
+<p><strong>进程</strong> 进程是程序的一次执行实例，是操作系统资源分配的基本单位，具有独立的内存空间和资源，进程切换的开销较大</p>
+<p><strong>线程</strong> 是 CPU 调度的基本单位，共享进程的内存空间和资源，线程切换的开销较小</p>
+<p><strong>5.什么是抖动</strong></p>
+<p>当系统频繁地在内存和磁盘之间进行页面交换（Page Swapping）时，会导致 CPU 的大部分时间都花在处理页面置换上，而不是执行实际的任务，从而导致系统性能急剧下降。这种现象被称为抖动</p>
+<p>原因：内存不足；页面置换算法不合理</p>
+<p><strong>6.简述PCB的内容</strong></p>
+<p>PCB 是操作系统中用于管理和控制进程的核心数据结构，包含了进程的标识信息、状态信息、调度信息、上下文信息、内存管理信息、文件管理信息、资源使用信息、进程通信信息和统计信息。通过 PCB，操作系统可以高效地管理进程的生命周期、资源分配和上下文切换。</p>
 
                 
               </div>
