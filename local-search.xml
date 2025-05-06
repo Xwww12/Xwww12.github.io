@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>AE</title>
+    <link href="/2025/05/06/%E5%85%B6%E4%BB%96/AE/"/>
+    <url>/2025/05/06/%E5%85%B6%E4%BB%96/AE/</url>
+    
+    <content type="html"><![CDATA[<h1 id="AE"><a href="#AE" class="headerlink" title="AE"></a>AE</h1><h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><table><thead><tr><th>说明</th><th>快捷键</th></tr></thead><tbody><tr><td>选取工具</td><td>v</td></tr><tr><td>手型工具</td><td>h</td></tr><tr><td>裁剪素材</td><td>alt + [ 或 alt+ ]</td></tr><tr><td>预合成（类似多个素材打包成一个）</td><td>cltr + shift + c</td></tr><tr><td>素材头(尾)时间移到指示器</td><td>[ 或 ]</td></tr><tr><td>居中锚点</td><td>ctrl + alt + home</td></tr><tr><td>居中素材</td><td>ctrl + home</td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table><p><strong>对素材</strong></p><table><thead><tr><th>说明</th><th>快捷键</th></tr></thead><tbody><tr><td>缩放</td><td>s</td></tr><tr><td>旋转</td><td>r</td></tr><tr><td>位置</td><td>p</td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table><h2 id="摄像机跟踪"><a href="#摄像机跟踪" class="headerlink" title="摄像机跟踪"></a>摄像机跟踪</h2><h3 id="打开方式"><a href="#打开方式" class="headerlink" title="打开方式"></a>打开方式</h3><p>方法一：动画 -&gt; 跟踪摄像机</p><p>方法二：窗口 -&gt; 跟踪器 -&gt; 跟踪摄像机</p><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>贴图、抠像</p><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><blockquote><p>先shitf选取多个点，右键<strong>设置地平面和原点</strong></p></blockquote><p>选择多个点，右键<strong>构建实底和摄像机</strong>，就可以创建一个纯色图层定在这几个点上</p><p>再按住shift选择素材（打开三维开关）的父级关联器，选择纯色图层，就能将素材固定到这个位置（这时纯色图层可以隐藏掉）</p><h2 id="运动跟踪"><a href="#运动跟踪" class="headerlink" title="运动跟踪"></a>运动跟踪</h2><h3 id="打开方式-1"><a href="#打开方式-1" class="headerlink" title="打开方式"></a>打开方式</h3><p>方法一：窗口 -&gt; 跟踪器 -&gt; 跟踪运动</p><h3 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h3><p>和摄像机跟踪的区别在于，运动跟踪只作用于XY轴，适合在平面的跟踪</p><h3 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h3><p>将跟踪点框住要跟踪的目标，点击分析</p><p>之后选择编辑目标，选择素材，之后点应用</p><h2 id="抠像"><a href="#抠像" class="headerlink" title="抠像"></a>抠像</h2><h4 id="颜色抠像"><a href="#颜色抠像" class="headerlink" title="颜色抠像"></a><strong>颜色抠像</strong></h4><h5 id="打开方式-2"><a href="#打开方式-2" class="headerlink" title="打开方式"></a>打开方式</h5><p>效果 -&gt; 抠像 -&gt; 线性颜色键</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>其他</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>日本旅游</title>
     <link href="/2025/04/11/%E6%97%85%E6%B8%B8/%E6%97%A5%E6%9C%AC%E6%97%85%E6%B8%B8/"/>
     <url>/2025/04/11/%E6%97%85%E6%B8%B8/%E6%97%A5%E6%9C%AC%E6%97%85%E6%B8%B8/</url>
