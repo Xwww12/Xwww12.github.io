@@ -24,7 +24,7 @@
 <meta property="og:description" content="AE快捷键   说明 快捷键    选取工具 v   手型工具 h   裁剪素材 alt + [ 或 alt+ ]   预合成（类似多个素材打包成一个） cltr + shift + c   素材头(尾)时间移到指示器 [ 或 ]   居中锚点 ctrl + alt + home   居中素材 ctrl + home   合成设置 ctrl + k   显示关键帧 u   显示&#x2F;隐藏图层">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-06T04:34:40.066Z">
-<meta property="article:modified_time" content="2025-05-08T03:00:31.266Z">
+<meta property="article:modified_time" content="2025-05-11T09:54:41.296Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          513 字
+          652 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          5 分钟
+          6 分钟
         
       </span>
     
@@ -387,6 +387,7 @@
 <td></td>
 </tr>
 </tbody></table>
+<h2 id="找资源"><a href="#找资源" class="headerlink" title="找资源"></a>找资源</h2><p><a target="_blank" rel="noopener" href="https://www.lookae.com/">https://www.lookae.com/</a></p>
 <h2 id="摄像机跟踪"><a href="#摄像机跟踪" class="headerlink" title="摄像机跟踪"></a>摄像机跟踪</h2><h3 id="打开方式"><a href="#打开方式" class="headerlink" title="打开方式"></a>打开方式</h3><p>方法一：动画 -&gt; 跟踪摄像机</p>
 <p>方法二：窗口 -&gt; 跟踪器 -&gt; 跟踪摄像机</p>
 <h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>贴图、抠像</p>
@@ -409,6 +410,28 @@
 <p>选择完后播放，会自动解算 </p>
 <h2 id="时间码"><a href="#时间码" class="headerlink" title="时间码"></a>时间码</h2><h3 id="打开方式-5"><a href="#打开方式-5" class="headerlink" title="打开方式"></a>打开方式</h3><p>创建一个纯色图层 -&gt; 效果 -&gt; 文本</p>
 <p>其中，编号用来计时，时间码显示的是时间线上的时间</p>
+<h2 id="常用表达式"><a href="#常用表达式" class="headerlink" title="常用表达式"></a>常用表达式</h2><h3 id="打开"><a href="#打开" class="headerlink" title="打开"></a>打开</h3><p>按alt在有码表的地方点击即可</p>
+<p>按两下e打开有表达式的属性</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
+<li><p>value：这个属性的初始值</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 一维属性，如旋转,给其赋值</span><br>value = <span class="hljs-number">50</span><br><span class="hljs-comment">// 二维属性，如位置</span><br>value = [<span class="hljs-number">100</span>, <span class="hljs-number">100</span>]<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>time：当前时间轴的时间（秒）</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 可用于属性的值随时间变化</span><br>time * <span class="hljs-number">100</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>index：素材的序号</p>
+</li>
+<li><p>wiggle(频率, 振幅)：晃动</p>
+</li>
+<li><p>random(最小值, 最大值)：随机数</p>
+</li>
+<li><p>Math.round()：四舍五入取整</p>
+</li>
+<li><p>Math.floor()：向下取整</p>
+</li>
+<li><p>Math.ceil()：向上取整</p>
+</li>
+</ul>
 
                 
               </div>
