@@ -16,15 +16,15 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="基本语法注释单行：# 多行：&#39;&#39;&#39;或&quot;&quot;&quot; 1234# 如果一段代码太长，可用\分段a &#x3D; b + c + \	d + e + \    f  变量类型数字 int bool float complex（复数）  字符串单行字符串可用&#39;&#39;或&quot;&quot;，多行字符串可用&#39;&#39;&#39; &#39;&amp;#39">
+    <meta name="description" content="基本语法注释单行：# 多行：&#39;&#39;&#39;或&quot;&quot;&quot; 1234# 如果一段代码太长，可用\分段a &#x3D; b + c + \	d + e + \    f  变量类型查看类型type()查看变量类型 isinstance(a, (类型1, ...))判断是否是其中一种类型或子类 数字 int bool（True&#x2F;False） float compl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python基础">
 <meta property="og:url" content="http://xwww12.github.io/2025/06/01/python/python%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="基本语法注释单行：# 多行：&#39;&#39;&#39;或&quot;&quot;&quot; 1234# 如果一段代码太长，可用\分段a &#x3D; b + c + \	d + e + \    f  变量类型数字 int bool float complex（复数）  字符串单行字符串可用&#39;&#39;或&quot;&quot;，多行字符串可用&#39;&#39;&#39; &#39;&amp;#39">
+<meta property="og:description" content="基本语法注释单行：# 多行：&#39;&#39;&#39;或&quot;&quot;&quot; 1234# 如果一段代码太长，可用\分段a &#x3D; b + c + \	d + e + \    f  变量类型查看类型type()查看变量类型 isinstance(a, (类型1, ...))判断是否是其中一种类型或子类 数字 int bool（True&#x2F;False） float compl">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-01T10:16:08.777Z">
-<meta property="article:modified_time" content="2025-06-01T13:04:43.039Z">
+<meta property="article:modified_time" content="2025-06-03T13:59:48.609Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          161 字
+          702 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          2 分钟
+          6 分钟
         
       </span>
     
@@ -299,25 +299,75 @@
 <p>多行：<code>&#39;&#39;&#39;</code>或<code>&quot;&quot;&quot;</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 如果一段代码太长，可用\分段</span><br>a = b + c + \<br>	d + e + \<br>    f<br></code></pre></td></tr></table></figure>
 
-<h2 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h2><h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><ul>
+<h2 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h2><h3 id="查看类型"><a href="#查看类型" class="headerlink" title="查看类型"></a>查看类型</h3><p><code>type()</code>查看变量类型</p>
+<p><code>isinstance(a, (类型1, ...))</code>判断是否是其中一种类型或子类</p>
+<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><ul>
 <li>int</li>
-<li>bool</li>
+<li>bool（True&#x2F;False）</li>
 <li>float</li>
 <li>complex（复数）</li>
 </ul>
+<blockquote>
+<p><code>/</code>返回浮点数，<code>//</code>返回整数<strong>的部分</strong></p>
+</blockquote>
 <h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>单行字符串可用<code>&#39;&#39;</code>或<code>&quot;&quot;</code>，多行字符串可用<code>&#39;&#39;&#39; &#39;&#39;&#39;</code>或<code>&quot;&quot;&quot; &quot;&quot;&quot;</code></p>
 <p>转义符号<code>\</code></p>
 <p>不让<code>\</code>生效，在引号前加r</p>
 <p>可用<code>+</code>连接字符串，<code>*</code>重复字符串</p>
+<p>字符串是不可改变量</p>
 <p><strong>切片</strong></p>
-<ul>
-<li>左闭右开</li>
-<li>还可加上步长</li>
-</ul>
+<p>左闭右开</p>
+<p>-1为末尾位置</p>
+<p>还可加上步长，步长-1表示逆向</p>
+<p><strong>格式化</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;我叫 %s 今年 %d 岁!&quot;</span> % (<span class="hljs-string">&#x27;小明&#x27;</span>, <span class="hljs-number">10</span>))<br><br><span class="hljs-comment"># 还有前面加f的格式化语法</span><br>name = <span class="hljs-string">&#x27;aaa&#x27;</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Hello <span class="hljs-subst">&#123;name&#125;</span>&#x27;</span>)      <span class="hljs-comment"># Hello aaa</span><br><br>w = &#123;<span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;baidu&#x27;</span>, <span class="hljs-string">&#x27;url&#x27;</span>: <span class="hljs-string">&#x27;www.baidu.com&#x27;</span>&#125;<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;w[<span class="hljs-string">&quot;name&quot;</span>]&#125;</span>: <span class="hljs-subst">&#123;w[<span class="hljs-string">&quot;url&quot;</span>]&#125;</span>&#x27;</span>)   <span class="hljs-comment"># baidu: www.baidu.com</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>列表的元素是可改变的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]<br><span class="hljs-built_in">print</span>(a[<span class="hljs-number">1</span> : <span class="hljs-number">2</span>]) <span class="hljs-comment"># [2]</span><br><span class="hljs-built_in">print</span>(a[<span class="hljs-number">1</span> :])   <span class="hljs-comment"># [2, 3, 4, 5, 6]</span><br><br>a[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span><br><span class="hljs-built_in">print</span>(a) <span class="hljs-comment">#[1, 0, 3, 4, 5, 6]</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>列表操作</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 增加元素</span><br>list1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>list1.append(<span class="hljs-number">4</span>)<br><span class="hljs-built_in">print</span>(list1)    <span class="hljs-comment"># [1, 2, 3, 4]</span><br><br><span class="hljs-comment"># 删除元素</span><br><span class="hljs-keyword">del</span> list1[<span class="hljs-number">0</span>]<br><span class="hljs-built_in">print</span>(list1)    <span class="hljs-comment"># [2, 3, 4]</span><br><br><span class="hljs-comment"># 比较列表</span><br><span class="hljs-keyword">import</span> operator<br><br>list1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>]<br>list2 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]<br><span class="hljs-built_in">print</span>(operator.eq(list1, list2))	<span class="hljs-comment"># False</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p>元组的元素不可以改变</p>
+<p>可以把字符串看成特殊的元组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">tup = (<span class="hljs-number">1</span>, ) <span class="hljs-comment"># 只包含一个元素的元组</span><br>a = (<span class="hljs-number">1</span>)     <span class="hljs-comment"># int类型</span><br>b = () 		<span class="hljs-comment"># 空元组</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(tup))    <span class="hljs-comment"># &lt;class &#x27;tuple&#x27;&gt;</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(a))  	<span class="hljs-comment"># &lt;class &#x27;int&#x27;&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>集合的元素可变，唯一</p>
+<p>创建可用<code>&#123;&#125;</code>或<code>set()</code>，空集合要用set</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python">a = <span class="hljs-built_in">set</span>(<span class="hljs-string">&#x27;abracadabra&#x27;</span>)<br>b = <span class="hljs-built_in">set</span>(<span class="hljs-string">&#x27;alacazam&#x27;</span>)<br><br><span class="hljs-built_in">print</span>(a)<br><br><span class="hljs-built_in">print</span>(a - b)     <span class="hljs-comment"># a 和 b 的差集</span><br><br><span class="hljs-built_in">print</span>(a | b)     <span class="hljs-comment"># a 和 b 的并集</span><br><br><span class="hljs-built_in">print</span>(a &amp; b)     <span class="hljs-comment"># a 和 b 的交集</span><br><br><span class="hljs-built_in">print</span>(a ^ b)     <span class="hljs-comment"># a 和 b 中不同时存在的元素</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><p>创建可用<code>&#123;&#125;</code>或<code>dict</code>，空字典可用<code>&#123;&#125;</code>创建</p>
+<p>key必须为不可变类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">a = &#123;<span class="hljs-string">&#x27;a&#x27;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;b&#x27;</span>: <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;c&#x27;</span>: <span class="hljs-number">3</span>, <span class="hljs-number">4</span> : <span class="hljs-string">&#x27;d&#x27;</span>&#125;<br><span class="hljs-built_in">print</span>(a)        <span class="hljs-comment"># &#123;&#x27;a&#x27;: 1, &#x27;b&#x27;: 2, &#x27;c&#x27;: 3, 4: &#x27;d&#x27;&#125;</span><br><span class="hljs-built_in">print</span>(a[<span class="hljs-string">&#x27;a&#x27;</span>])   <span class="hljs-comment"># 1</span><br><span class="hljs-built_in">print</span>(a[<span class="hljs-number">4</span>])     <span class="hljs-comment"># d</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>字典操作</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 删除指定key</span><br>d = &#123;<span class="hljs-number">1</span> : <span class="hljs-number">1</span>, <span class="hljs-number">2</span> : <span class="hljs-number">2</span>, <span class="hljs-number">3</span> : <span class="hljs-number">3</span>&#125;<br><span class="hljs-keyword">del</span> d[<span class="hljs-number">1</span>]<br><span class="hljs-built_in">print</span>(d)    <span class="hljs-comment"># &#123;2: 2, 3: 3&#125;</span><br><br><span class="hljs-comment"># 清空字典</span><br>d.clear()<br><span class="hljs-built_in">print</span>(d)    <span class="hljs-comment"># &#123;&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
 <h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 输入</span><br>price = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;Enter price: &quot;</span>)<br><br><span class="hljs-comment"># print默认带换行</span><br><span class="hljs-built_in">print</span>(price)<br><span class="hljs-built_in">print</span>(price, end = <span class="hljs-string">&#x27;&#x27;</span>)<br></code></pre></td></tr></table></figure>
 
 <h2 id="导入模块"><a href="#导入模块" class="headerlink" title="导入模块"></a>导入模块</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 整个模块</span><br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-comment"># 模块中的某个函数</span><br><span class="hljs-keyword">from</span> sys <span class="hljs-keyword">import</span> argv, path<br></code></pre></td></tr></table></figure>
 
+<h2 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h2><ul>
+<li>abs(): 绝对值</li>
+<li>ceil()&#x2F;floor(): 向上&#x2F;向下取整</li>
+<li>round(): 四舍五入</li>
+<li>cmp(): 比较两个数</li>
+<li>max()&#x2F;min(): 取最大&#x2F;最小值</li>
+<li>pow(): 开方</li>
+<li>sqrt(): 平方根</li>
+</ul>
 
                 
               </div>
