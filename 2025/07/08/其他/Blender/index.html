@@ -24,7 +24,7 @@
 <meta property="og:description" content="Blender安装官网：https:&#x2F;&#x2F;www.blender.org&#x2F; Download &gt; LTS(长期支持版本) &gt; Windows-Installer 设置– 保存设置 点击左下角 &gt; 保存用户设置 – 显示大小 编辑 &gt; 偏好设置 &gt; 界面 &gt; 分辨率缩放 – 设置临时文件位置 编辑 &gt; 偏好设置 &gt; 文件路径 &gt; 数据 &gt; 临">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-07-08T07:27:59.538Z">
-<meta property="article:modified_time" content="2025-07-09T08:55:51.397Z">
+<meta property="article:modified_time" content="2025-07-10T14:55:57.781Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          736 字
+          1k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          7 分钟
+          9 分钟
         
       </span>
     
@@ -382,7 +382,7 @@
 <p> 可能识别不到贴图，可以点击MMD &gt; 材质 &gt; 转换给Blender，之后再手动修改有问题的材质</p>
 </li>
 </ol>
-<h3 id="导入动作"><a href="#导入动作" class="headerlink" title="导入动作"></a>导入动作</h3><p>先选中骨骼和模型，按N &gt; MMD &gt; 导入vmd文件</p>
+<h3 id="导入动作"><a href="#导入动作" class="headerlink" title="导入动作"></a>导入动作</h3><p><strong>先选中骨骼和模型</strong>，按N &gt; MMD &gt; 导入vmd文件</p>
 <p>导入时右边的边距不低于30</p>
 <h3 id="导入镜头"><a href="#导入镜头" class="headerlink" title="导入镜头"></a>导入镜头</h3><p>选择相机，按N &gt; MMD &gt; 导入vmd文件</p>
 <p>导入时右边的边距不低于30</p>
@@ -403,7 +403,49 @@
 <li>修改属性后，要删除烘焙，从第二步再来一遍</li>
 </ol>
 </blockquote>
-<h2 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h2><p>先点击文件 &gt; 外部数据 &gt; 打包资源，之后再另存为</p>
+<h2 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h2><p>先点击文件 &gt; 外部数据 &gt; 打包资源，之后再另存为</p>
+<h2 id="输出视频"><a href="#输出视频" class="headerlink" title="输出视频"></a>输出视频</h2><ul>
+<li>MP4<ol>
+<li>输出 &gt; 文件格式 &gt; FFmpeg视频</li>
+<li>输出 &gt; 颜色 &gt; RPG</li>
+<li>输出 &gt; 编码 &gt; 容器 &gt; MPEG-4</li>
+<li>输出 &gt; 视频 &gt; 视频编码 &gt; H.264</li>
+<li>输出 &gt; 视频 &gt; 输出质量 &gt; 高画质</li>
+</ol>
+</li>
+<li>MOV<ol>
+<li>输出 &gt; 文件格式 &gt; FFmpeg视频</li>
+<li>输出 &gt; 颜色 &gt; RPGA</li>
+<li>输出 &gt; 编码 &gt; 容器 &gt; Quick Time</li>
+<li>输出 &gt; 视频 &gt; 视频编码 &gt; PNG</li>
+</ol>
+</li>
+</ul>
+<p>最后点击上面的 渲染 &gt; 渲染动画</p>
+<blockquote>
+<p>颜色：</p>
+<ol>
+<li>BW：黑白</li>
+<li>RPG：彩色</li>
+<li>RGBA：彩色+Alpha透明，要渲染 &gt; 胶片 &gt; 勾选透明</li>
+</ol>
+</blockquote>
+<h2 id="删除模型配件"><a href="#删除模型配件" class="headerlink" title="删除模型配件"></a>删除模型配件</h2><p>点击骨骼，按姿态模式</p>
+<p>然后选中骨骼，按G，看看能不能单独拖出来：</p>
+<ol>
+<li><p>如果能</p>
+<p> 选中后，点击MMD &gt; 模型手术 &gt; 切断，之后就能分离出来</p>
+<p> 然后可在集合中右键，删除层级</p>
+</li>
+<li><p>如果不能</p>
+<p> 关闭骨骼显示，点击模型，切换到编辑模式，然后选中后按x删除</p>
+<blockquote>
+<p>可以选中点或面后，按L选相连的面</p>
+</blockquote>
+<p> 还有一种方法是，切换到编辑模式，选择面模式，然后点击要删物体的一个面</p>
+<p> 之后点材质 &gt; 选择，就可以选择到这个物体的所有面</p>
+</li>
+</ol>
 
                 
               </div>
