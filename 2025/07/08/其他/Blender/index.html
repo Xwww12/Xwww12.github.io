@@ -23,10 +23,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Blender安装官网：https:&#x2F;&#x2F;www.blender.org&#x2F; Download &gt; LTS(长期支持版本) &gt; Windows-Installer 设置– 保存设置 点击左下角 &gt; 保存用户设置 – 显示大小 编辑 &gt; 偏好设置 &gt; 界面 &gt; 分辨率缩放 – 设置临时文件位置 编辑 &gt; 偏好设置 &gt; 文件路径 &gt; 数据 &gt; 临">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/blender_img/mmd%E9%AA%A8%E9%AA%BC.png">
+<meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E5%B8%B8%E7%94%A8%E9%AA%A8%E9%AA%BC.png">
 <meta property="article:published_time" content="2025-07-08T07:27:59.538Z">
-<meta property="article:modified_time" content="2025-07-10T14:55:57.781Z">
+<meta property="article:modified_time" content="2025-07-12T09:23:50.224Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/blender_img/mmd%E9%AA%A8%E9%AA%BC.png">
   
   
   
@@ -224,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          1.5k 字
         
       </span>
     
@@ -235,7 +238,7 @@
         
         
         
-          9 分钟
+          13 分钟
         
       </span>
     
@@ -366,7 +369,16 @@
 <td>切换物体或骨骼模式</td>
 <td>Tab</td>
 </tr>
+<tr>
+<td>添加物体</td>
+<td>shiift+A</td>
+</tr>
 </tbody></table>
+<blockquote>
+<ol>
+<li>想要让物体延坐标轴移动，可以按完G后，按X&#x2F;Y&#x2F;Z</li>
+</ol>
+</blockquote>
 <h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>– <strong>设置输出帧率</strong></p>
 <p>右边工作栏 &gt; 输出 &gt; 格式 &gt; 帧率</p>
 <p>– <strong>输出透明背景</strong></p>
@@ -444,6 +456,47 @@
 </blockquote>
 <p> 还有一种方法是，切换到编辑模式，选择面模式，然后点击要删物体的一个面</p>
 <p> 之后点材质 &gt; 选择，就可以选择到这个物体的所有面</p>
+</li>
+</ol>
+<h2 id="调整镜头动作"><a href="#调整镜头动作" class="headerlink" title="调整镜头动作"></a>调整镜头动作</h2><p>如果有的镜头位置不对，可以点</p>
+<p>MMD_Camera &gt; Camera &gt; 工具栏摄像机图标</p>
+<p>之后移到想要调整的关键帧，工具栏移到最下面的MMD Camera Tools调整位置</p>
+<p>调完按I键设置关键帧</p>
+<h2 id="场景打光"><a href="#场景打光" class="headerlink" title="场景打光"></a>场景打光</h2><blockquote>
+<p>如果灯光太多，会十分影响渲染速度，使用环境贴图就可以加快渲染速度</p>
+</blockquote>
+<p>下载贴图网站：<a target="_blank" rel="noopener" href="https://polyhaven.com/zh/hdris">https://polyhaven.com/zh/hdris</a></p>
+<p>打开自带的插件Node Wrangler</p>
+<ol>
+<li>选择 着色编辑器 &gt; 着色类型 &gt; 世界环境，选择背景，按ctrl+T，</li>
+<li>点击环境纹理的打开，选择下载的贴图即可</li>
+<li>背景的强度&#x2F;力度调整光的强度</li>
+<li>映射的位置可以调整光的方向</li>
+</ol>
+<h2 id="添加辉光"><a href="#添加辉光" class="headerlink" title="添加辉光"></a>添加辉光</h2><ol>
+<li>右上角视图着色方式，合成器 &gt; 总是</li>
+<li>打开着色器面板，勾选使用节点</li>
+<li>shift+A，添加滤镜 &gt; 辉光，拉到渲染层和合成之间</li>
+</ol>
+<h2 id="添加场景物体自发光"><a href="#添加场景物体自发光" class="headerlink" title="添加场景物体自发光"></a>添加场景物体自发光</h2><ol>
+<li><p>先导入场景，展开集合，找到倒三角的</p>
+</li>
+<li><p>转换给Blender，然后点按材质分开，就能拆分场景</p>
+</li>
+<li><p>点击着色器编辑器，选择物体，找到原理话BSDF下的自发光即可</p>
+<blockquote>
+<p>玻璃材质有时会出现噪点，选择材质 &gt; 表(曲)面，将渲染方式改为混合</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="骨骼"><a href="#骨骼" class="headerlink" title="骨骼"></a>骨骼</h2><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p><img src="/img/blender_img/mmd%E9%AA%A8%E9%AA%BC.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="骨骼分层"><a href="#骨骼分层" class="headerlink" title="骨骼分层"></a>骨骼分层</h3><ol>
+<li><p>选中骨骼，然后数据 &gt; 骨骼集合</p>
+</li>
+<li><p>先点眼睛隐藏掉所有的，看看有没有没有分层的，可以点右边+好创建分层，之后选择骨骼，点指定</p>
+</li>
+<li><p>创建一个“常用”分层，之后指定这些骨骼</p>
+<p> <img src="/img/blender_img/%E5%B8%B8%E7%94%A8%E9%AA%A8%E9%AA%BC.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ol>
 
