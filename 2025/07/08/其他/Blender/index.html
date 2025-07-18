@@ -23,14 +23,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Blender安装官网：https:&#x2F;&#x2F;www.blender.org&#x2F; Download &gt; LTS(长期支持版本) &gt; Windows-Installer 设置– 保存设置 点击左下角 &gt; 保存用户设置 – 显示大小 编辑 &gt; 偏好设置 &gt; 界面 &gt; 分辨率缩放 – 设置临时文件位置 编辑 &gt; 偏好设置 &gt; 文件路径 &gt; 数据 &gt; 临">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F%E7%82%B9%E7%BA%BF%E9%9D%A2.png">
 <meta property="og:image" content="http://xwww12.github.io/img/blender_img/mmd%E9%AA%A8%E9%AA%BC.png">
 <meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E5%B8%B8%E7%94%A8%E9%AA%A8%E9%AA%BC.png">
 <meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E4%BB%BF%E7%A1%85%E8%83%B6.png">
 <meta property="article:published_time" content="2025-07-08T07:27:59.538Z">
-<meta property="article:modified_time" content="2025-07-17T13:47:41.745Z">
+<meta property="article:modified_time" content="2025-07-18T16:50:50.360Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://xwww12.github.io/img/blender_img/mmd%E9%AA%A8%E9%AA%BC.png">
+<meta name="twitter:image" content="http://xwww12.github.io/img/blender_img/%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F%E7%82%B9%E7%BA%BF%E9%9D%A2.png">
   
   
   
@@ -228,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          2.3k 字
         
       </span>
     
@@ -239,7 +240,7 @@
         
         
         
-          15 分钟
+          19 分钟
         
       </span>
     
@@ -343,8 +344,8 @@
 <td>shift+中键</td>
 </tr>
 <tr>
-<td>移动</td>
-<td>G</td>
+<td>移动&#x2F;移动到游标</td>
+<td>G&#x2F;alt+G</td>
 </tr>
 <tr>
 <td>旋转</td>
@@ -378,11 +379,16 @@
 <td>复制物体</td>
 <td>shift+D</td>
 </tr>
+<tr>
+<td>设置父级</td>
+<td>ctrl+P，后点的是父级</td>
+</tr>
 </tbody></table>
 <blockquote>
 <ol>
 <li>想要让物体延坐标轴移动&#x2F;缩放，可以按完G后，按X&#x2F;Y&#x2F;Z</li>
 <li>如果物体有旋转，移动&#x2F;缩放按两下X&#x2F;Y&#x2F;Z可以切到物体自己的坐标系</li>
+<li>按shift+X&#x2F;Y&#x2F;Z，则是锁住这个方向，其他方向动</li>
 </ol>
 </blockquote>
 <h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>– <strong>设置输出帧率</strong></p>
@@ -390,6 +396,111 @@
 <p>– <strong>输出透明背景</strong></p>
 <p>渲染 &gt; 胶片 &gt; 勾选透明</p>
 <h2 id="材质"><a href="#材质" class="headerlink" title="材质"></a>材质</h2><p>添加材质：工具栏材质 &gt; 新建 &gt; 命名</p>
+<h2 id="建模"><a href="#建模" class="headerlink" title="建模"></a>建模</h2><h3 id="控制物体的点线面"><a href="#控制物体的点线面" class="headerlink" title="控制物体的点线面"></a>控制物体的点线面</h3><p><img src="/img/blender_img/%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F%E7%82%B9%E7%BA%BF%E9%9D%A2.png" srcset="/img/loading.gif" lazyload></p>
+<table>
+<thead>
+<tr>
+<th>操作技巧</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>反选</td>
+<td>ctrl+I</td>
+</tr>
+<tr>
+<td>选择相连的点&#x2F;线&#x2F;面</td>
+<td>ctrl+L</td>
+</tr>
+<tr>
+<td>选择一圈</td>
+<td>alt+左键点击横&#x2F;纵</td>
+</tr>
+<tr>
+<td>选择一圈竖线</td>
+<td>ctrl+alt+左键点击横&#x2F;纵</td>
+</tr>
+<tr>
+<td>透视模式</td>
+<td>在视图着色左边</td>
+</tr>
+</tbody></table>
+<h3 id="编辑模式常用工具"><a href="#编辑模式常用工具" class="headerlink" title="编辑模式常用工具"></a>编辑模式常用工具</h3><blockquote>
+<p>这些工具都可以在左边工具栏找到</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>挤出面</td>
+<td>选择点&#x2F;线&#x2F;面 + E</td>
+</tr>
+<tr>
+<td>内插面</td>
+<td>I</td>
+</tr>
+<tr>
+<td>倒角</td>
+<td>cltr+B，滚轮可调整面数</td>
+</tr>
+<tr>
+<td><strong>环切</strong></td>
+<td>ctrl+R，滚润可调整线数</td>
+</tr>
+<tr>
+<td>合并</td>
+<td>M</td>
+</tr>
+<tr>
+<td>断开</td>
+<td>V</td>
+</tr>
+<tr>
+<td>填充</td>
+<td>F</td>
+</tr>
+<tr>
+<td>桥接（将两个边相连）</td>
+<td>cltr+E，选择桥接循环边</td>
+</tr>
+<tr>
+<td>分离（将物体分成两节）</td>
+<td>P</td>
+</tr>
+<tr>
+<td>细分</td>
+<td>右键菜单中</td>
+</tr>
+<tr>
+<td>切刀</td>
+<td>K，空格退出</td>
+</tr>
+</tbody></table>
+<p>注意：</p>
+<ol>
+<li><strong>挤出</strong>&#x2F;复制面包括新建面和移动两个操作，如果只是<strong>右键取消，只取消了移动</strong>，尽量拉出来ctrl+z撤销</li>
+<li><strong>桥接</strong>需要是同一个物体，可以选择两个物体，cltr+J合为一个</li>
+</ol>
+<h3 id="修改器"><a href="#修改器" class="headerlink" title="修改器"></a>修改器</h3><p>在右边工具栏，图标为扳手，作用是可以随时调参数</p>
+<p>常用修改器有：</p>
+<ol>
+<li>布尔修改器：实现物体间并差交运算</li>
+<li>倒角修改器：同倒角</li>
+<li>实体化修改器：给面添加厚度</li>
+<li>表面细分修改器：增加面数更加光滑</li>
+<li>简易形变修改器：可以弯曲物体</li>
+<li>缩裹修改器：让物体贴服在面上</li>
+</ol>
+<blockquote>
+<p>修改器的执行顺序为从上到下，右上角点击应用后就不能修改了</p>
+<p><strong>显示不对时，可以ctrl+A，应用缩放</strong> </p>
+</blockquote>
+<h3 id="吸附"><a href="#吸附" class="headerlink" title="吸附"></a>吸附</h3><p>作用：物体靠近附近面时，会自动吸附上去</p>
+<p>开启：中上位置，有个磁铁图标，开启后右边选择面，勾选旋转对齐目标</p>
 <h1 id="MMD"><a href="#MMD" class="headerlink" title="MMD"></a>MMD</h1><h2 id="下载模型和动作"><a href="#下载模型和动作" class="headerlink" title="下载模型和动作"></a>下载模型和动作</h2><p>模之屋：<a target="_blank" rel="noopener" href="https://www.aplaybox.com/">https://www.aplaybox.com/</a></p>
 <p>BowlRoll：<a target="_blank" rel="noopener" href="https://bowlroll.net/file/index">https://bowlroll.net/file/index</a></p>
 <h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><h3 id="导入模型"><a href="#导入模型" class="headerlink" title="导入模型"></a>导入模型</h3><blockquote>
