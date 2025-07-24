@@ -25,11 +25,13 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F%E7%82%B9%E7%BA%BF%E9%9D%A2.png">
 <meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E8%8A%82%E7%82%B9%E7%A4%BA%E4%BE%8B1.png">
+<meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E8%8A%82%E7%82%B9%E7%A4%BA%E4%BE%8B2.png">
+<meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E8%8A%82%E7%82%B9%E7%A4%BA%E4%BE%8B3.png">
 <meta property="og:image" content="http://xwww12.github.io/img/blender_img/mmd%E9%AA%A8%E9%AA%BC.png">
 <meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E5%B8%B8%E7%94%A8%E9%AA%A8%E9%AA%BC.png">
 <meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E4%BB%BF%E7%A1%85%E8%83%B6.png">
 <meta property="article:published_time" content="2025-07-08T07:27:59.538Z">
-<meta property="article:modified_time" content="2025-07-21T13:25:23.943Z">
+<meta property="article:modified_time" content="2025-07-24T15:22:52.362Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/blender_img/%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F%E7%82%B9%E7%BA%BF%E9%9D%A2.png">
@@ -230,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          3.7k 字
         
       </span>
     
@@ -241,7 +243,7 @@
         
         
         
-          26 分钟
+          31 分钟
         
       </span>
     
@@ -388,6 +390,10 @@
 <td>设置父级</td>
 <td>ctrl+P，后点的是父级</td>
 </tr>
+<tr>
+<td>将两个物体合并为一个</td>
+<td>ctrl+J</td>
+</tr>
 </tbody></table>
 <blockquote>
 <ol>
@@ -400,7 +406,6 @@
 <p>右边工作栏 &gt; 输出 &gt; 格式 &gt; 帧率</p>
 <p>– <strong>输出透明背景</strong></p>
 <p>渲染 &gt; 胶片 &gt; 勾选透明</p>
-<h2 id="材质"><a href="#材质" class="headerlink" title="材质"></a>材质</h2><p>添加材质：工具栏材质 &gt; 新建 &gt; 命名</p>
 <h2 id="建模"><a href="#建模" class="headerlink" title="建模"></a>建模</h2><h3 id="控制物体的点线面"><a href="#控制物体的点线面" class="headerlink" title="控制物体的点线面"></a>控制物体的点线面</h3><p><img src="/img/blender_img/%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F%E7%82%B9%E7%BA%BF%E9%9D%A2.png" srcset="/img/loading.gif" lazyload></p>
 <table>
 <thead>
@@ -544,10 +549,11 @@
 <blockquote>
 <p>控制单个点的粗细是alt+S</p>
 </blockquote>
-<h2 id="材质-1"><a href="#材质-1" class="headerlink" title="材质"></a>材质</h2><p>注意点：</p>
+<h2 id="材质"><a href="#材质" class="headerlink" title="材质"></a>材质</h2><p>注意点：</p>
 <ol>
 <li>材质如果未被任何物体使用，在关掉软件时会被删掉，可点击盾牌图标防止被删</li>
 <li>着色器编辑器可以看到材质节点</li>
+<li>可以选择多个节点，ctrl+J或右键并入新框来设置成一组，方便查看</li>
 </ol>
 <h3 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h3><h4 id="原理化BSDF"><a href="#原理化BSDF" class="headerlink" title="原理化BSDF"></a>原理化BSDF</h4><blockquote>
 <p>一种基于物理的着色器，旨在模拟真实世界中光与各种材质的相互作用</p>
@@ -576,7 +582,9 @@
 <p>控制的是褶皱反光的反射数量</p>
 <p><strong>自发光</strong></p>
 <p>物体自身发光</p>
-<h4 id="图像纹理"><a href="#图像纹理" class="headerlink" title="图像纹理"></a>图像纹理</h4><p>载入图片材质</p>
+<h4 id="图像纹理"><a href="#图像纹理" class="headerlink" title="图像纹理"></a>图像纹理</h4><blockquote>
+<p>载入图片材质</p>
+</blockquote>
 <ul>
 <li><p>投影：</p>
 <ul>
@@ -591,7 +599,9 @@
 </ul>
 </li>
 </ul>
-<h4 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h4><p>调整材质的位置旋转缩放</p>
+<h4 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h4><blockquote>
+<p>调整材质的位置旋转缩放</p>
+</blockquote>
 <h4 id="纹理坐标"><a href="#纹理坐标" class="headerlink" title="纹理坐标"></a>纹理坐标</h4><blockquote>
 <p>指定二维材质映射到三维物体的方式</p>
 </blockquote>
@@ -601,7 +611,63 @@
 <li>物体：局部坐标系做映射，受物体原点影响</li>
 </ul>
 <p><img src="/img/blender_img/%E8%8A%82%E7%82%B9%E7%A4%BA%E4%BE%8B1.png" srcset="/img/loading.gif" lazyload></p>
-<h4 id="分离XYZ"><a href="#分离XYZ" class="headerlink" title="分离XYZ"></a>分离XYZ</h4><p>只选择XYZ其中一个</p>
+<blockquote>
+<p>安装插件Node Wrangler后，点击节点，按ctrl+T可以自动补齐左边这一串节点</p>
+</blockquote>
+<h4 id="分离XYZ"><a href="#分离XYZ" class="headerlink" title="分离XYZ"></a>分离XYZ</h4><blockquote>
+<p>只选择XYZ其中一个</p>
+</blockquote>
+<h4 id="混合转换器"><a href="#混合转换器" class="headerlink" title="混合转换器"></a>混合转换器</h4><blockquote>
+<p>将两种颜色&#x2F;材质混合、叠加、蒙版</p>
+</blockquote>
+<ul>
+<li>数据类型：选颜色</li>
+<li>系数：控制两种颜色&#x2F;材质占比。可以将黑白图片当做系数，<strong>黑表示0白表示1</strong>，实现<strong>蒙版</strong>的效果</li>
+</ul>
+<h4 id="凹凸"><a href="#凹凸" class="headerlink" title="凹凸"></a>凹凸</h4><blockquote>
+<p>给表面添加凹凸感</p>
+</blockquote>
+<p>下载材质网站：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://ambientcg.com/">https://ambientcg.com/</a></li>
+<li><a target="_blank" rel="noopener" href="https://polyhaven.com/">https://polyhaven.com/</a></li>
+</ul>
+<p><img src="/img/blender_img/%E8%8A%82%E7%82%B9%E7%A4%BA%E4%BE%8B2.png" srcset="/img/loading.gif" lazyload alt="通过调整法线产生凹凸感，并没有真的凹凸"></p>
+<blockquote>
+<p>Node Wrangler插件可以选中节点，ctrl+shift+T同时导入这几张材质</p>
+</blockquote>
+<p><img src="/img/blender_img/%E8%8A%82%E7%82%B9%E7%A4%BA%E4%BE%8B3.png" srcset="/img/loading.gif" lazyload alt="要真的有凹凸，要再加上置换修改器，别忘了编辑模式细分"></p>
+<h4 id="混合着色器"><a href="#混合着色器" class="headerlink" title="混合着色器"></a>混合着色器</h4><blockquote>
+<p>和混合转换器的区别是输入为着色器</p>
+</blockquote>
+<h4 id="物体信息"><a href="#物体信息" class="headerlink" title="物体信息"></a>物体信息</h4><ul>
+<li>随机：可以和颜色渐变配合给毛发做随机颜色</li>
+</ul>
+<h2 id="粒子"><a href="#粒子" class="headerlink" title="粒子"></a>粒子</h2><p><strong>添加粒子效果</strong>：右边工具栏 &gt; 粒子 &gt; 点击+号</p>
+<p><strong>播放</strong>：空格</p>
+<h3 id="发射器粒子"><a href="#发射器粒子" class="headerlink" title="发射器粒子"></a>发射器粒子</h3><p><strong>调整粒子为物体</strong>：渲染 &gt; 渲染为“物体” &gt; 选择物体</p>
+<p><strong>调整粒子为物体集合</strong>：渲染 &gt; 渲染为“集合” &gt; 选择集合</p>
+<p><strong>调整发射位置</strong>：源 &gt; 发射源</p>
+<p><strong>调整粒子各方向速度</strong>：速度 &gt; 物体对齐X&#x2F;Y&#x2F;Z</p>
+<p><strong>调整粒子受到的重力</strong>：立场权重 &gt; 重力</p>
+<p><strong>隐藏发射体</strong>：渲染 &gt; 取消勾选“显示发射体”（在最终输出时看不到）</p>
+<p><strong>物理</strong>：</p>
+<ul>
+<li>给粒子碰到的物体添加碰撞效果：右边工具栏 &gt; 物理 &gt; 碰撞</li>
+<li>给粒子添加阻尼效果：被碰撞的物体 &gt; 碰撞 &gt; 粒子 &gt; 阻尼</li>
+</ul>
+<h3 id="毛发粒子"><a href="#毛发粒子" class="headerlink" title="毛发粒子"></a>毛发粒子</h3><blockquote>
+<p>调整的和发射器粒子类似</p>
+</blockquote>
+<p><strong>调整毛发为物体</strong>：渲染 &gt; 渲染为“物体” &gt; 选择物体，如果要旋转物体，让毛发跟着转，要把物体旋转勾选上</p>
+<p><strong>改变毛发上下聚集</strong>：子级 &gt; 简单性 &gt; 簇集</p>
+<p><strong>让毛发弯曲</strong>：勾选高级 &gt; 物理 &gt; 布朗，发射里的段数不能为1</p>
+<p><strong>让毛发在曲面上立起来</strong>：勾选高级 &gt; 旋转 &gt; 坐标系轴向 &gt; 全局Z（默认往法线方向）</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><h3 id="顶点组"><a href="#顶点组" class="headerlink" title="顶点组"></a>顶点组</h3><p><strong>设置顶点组</strong>：</p>
+<ol>
+<li>编辑模式选择若干顶点</li>
+<li>右边工具栏 &gt; 数据 &gt; 顶点组，点击+，点击指定</li>
+</ol>
 <h1 id="MMD"><a href="#MMD" class="headerlink" title="MMD"></a>MMD</h1><h2 id="下载模型和动作"><a href="#下载模型和动作" class="headerlink" title="下载模型和动作"></a>下载模型和动作</h2><p>模之屋：<a target="_blank" rel="noopener" href="https://www.aplaybox.com/">https://www.aplaybox.com/</a></p>
 <p>BowlRoll：<a target="_blank" rel="noopener" href="https://bowlroll.net/file/index">https://bowlroll.net/file/index</a></p>
 <h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><h3 id="导入模型"><a href="#导入模型" class="headerlink" title="导入模型"></a>导入模型</h3><blockquote>
@@ -700,7 +766,7 @@
 </ol>
 <h2 id="添加辉光"><a href="#添加辉光" class="headerlink" title="添加辉光"></a>添加辉光</h2><ol>
 <li>右上角视图着色方式，合成器 &gt; 总是</li>
-<li>打开着色器面板，勾选使用节点</li>
+<li>打开合成器面板，勾选使用节点</li>
 <li>shift+A，添加滤镜 &gt; 辉光，拉到渲染层和合成之间</li>
 </ol>
 <h2 id="添加场景物体自发光"><a href="#添加场景物体自发光" class="headerlink" title="添加场景物体自发光"></a>添加场景物体自发光</h2><ol>
@@ -737,7 +803,7 @@
 <li>换头就移动头就行了，身体最好不要乱动</li>
 <li><strong>会破坏刚体结构</strong></li>
 </ol>
-<h2 id="材质-2"><a href="#材质-2" class="headerlink" title="材质"></a>材质</h2><h3 id="仿硅胶"><a href="#仿硅胶" class="headerlink" title="仿硅胶"></a>仿硅胶</h3><ol>
+<h2 id="材质-1"><a href="#材质-1" class="headerlink" title="材质"></a>材质</h2><h3 id="仿硅胶"><a href="#仿硅胶" class="headerlink" title="仿硅胶"></a>仿硅胶</h3><ol>
 <li><p>导入模型，转换给Blender</p>
 </li>
 <li><p>在渲染模式下看</p>
