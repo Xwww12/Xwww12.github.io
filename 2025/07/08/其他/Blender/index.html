@@ -41,7 +41,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E5%A4%B4%E5%8F%91%E7%BB%86%E5%88%862.png">
 <meta property="og:image" content="http://xwww12.github.io/img/blender_img/%E5%A4%B4%E5%8F%91%E7%BB%86%E5%88%863.png">
 <meta property="article:published_time" content="2025-07-08T07:27:59.538Z">
-<meta property="article:modified_time" content="2025-08-09T08:12:08.865Z">
+<meta property="article:modified_time" content="2025-08-13T12:08:02.644Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/blender_img/%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F%E7%82%B9%E7%BA%BF%E9%9D%A2.png">
@@ -242,7 +242,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.2k 字
+          5.5k 字
         
       </span>
     
@@ -253,7 +253,7 @@
         
         
         
-          44 分钟
+          46 分钟
         
       </span>
     
@@ -807,7 +807,19 @@
 <li>跟随轴：指定哪个物体的局部坐标轴对着目标</li>
 <li>向上：指定物体哪个坐标轴向上</li>
 </ul>
-<h2 id="流体"><a href="#流体" class="headerlink" title="流体"></a>流体</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><strong>三要素：</strong></p>
+<h2 id="物理"><a href="#物理" class="headerlink" title="物理"></a>物理</h2><h3 id="刚体"><a href="#刚体" class="headerlink" title="刚体"></a>刚体</h3><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><p>单个：右边物理 &gt; 刚体</p>
+<p>多个：物体模式 &gt; 上面物体 &gt; 刚体 &gt; 添加活动项</p>
+<p>缓存：刚体默认缓存为0-250，到场景 &gt; 杆体世界环境里可设置</p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><ul>
+<li>类型<ol>
+<li>活动项：会运动</li>
+<li>被动：不会运动，只有碰撞体积</li>
+</ol>
+</li>
+<li>敏感度：两个碰撞体之间的距离，当两个碰撞体之间有空隙时可以调</li>
+<li>重心：刚体的重心在原点</li>
+</ul>
+<h3 id="流体"><a href="#流体" class="headerlink" title="流体"></a>流体</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p><strong>三要素：</strong></p>
 <ol>
 <li>发射源：把液体发射出去</li>
 <li>域：液体模拟的范围</li>
@@ -825,14 +837,14 @@
 <li>几何数据：发射源的大小就是液体的大小</li>
 <li>流入：从发射源不断地流液体</li>
 </ol>
-<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><ol>
+<h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><ol>
 <li>创建发射源：创建一个立方体，添加 物理 &gt; 流体，类型为流，流体类型为液体</li>
 <li>创建域：创建一个立方体，物体 &gt; 视图显示 &gt; 显示为“线框”，调整合适大小，添加 物理 &gt; 流体，类型为域，修改 缓存 &gt; 类型”全部”（细分精度32，越高越像水）</li>
 <li>创建障碍物：选择物体，添加 物体 &gt; 流体，类型为效果器，（采样步长3，表面厚度0.05，两个值越大越不容易穿模）</li>
 <li>选择域，点击缓存 &gt; 烘焙</li>
 <li>添加材质：选择域，添加玻璃BSDF，折射率改为1.33，连到材质输出上。（Cycles渲染器）</li>
 </ol>
-<h3 id="各类液体参数"><a href="#各类液体参数" class="headerlink" title="各类液体参数"></a>各类液体参数</h3><p><img src="/img/blender_img/%E5%90%84%E7%B1%BB%E6%B6%B2%E4%BD%93%E5%8F%82%E6%95%B0.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="各类液体参数"><a href="#各类液体参数" class="headerlink" title="各类液体参数"></a>各类液体参数</h4><p><img src="/img/blender_img/%E5%90%84%E7%B1%BB%E6%B6%B2%E4%BD%93%E5%8F%82%E6%95%B0.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="MMD"><a href="#MMD" class="headerlink" title="MMD"></a>MMD</h1><h2 id="下载模型和动作"><a href="#下载模型和动作" class="headerlink" title="下载模型和动作"></a>下载模型和动作</h2><p>模之屋：<a target="_blank" rel="noopener" href="https://www.aplaybox.com/">https://www.aplaybox.com/</a></p>
 <p>BowlRoll：<a target="_blank" rel="noopener" href="https://bowlroll.net/file/index">https://bowlroll.net/file/index</a></p>
 <p>niconico：<a target="_blank" rel="noopener" href="https://3d.nicovideo.jp/">https://3d.nicovideo.jp/</a></p>
@@ -972,7 +984,7 @@
 <li>换头就移动头就行了，身体最好不要乱动</li>
 <li><strong>会破坏刚体结构</strong></li>
 </ol>
-<h2 id="乳摇"><a href="#乳摇" class="headerlink" title="乳摇"></a>乳摇</h2><ol>
+<h2 id="乳摇"><a href="#乳摇" class="headerlink" title="乳摇"></a>乳摇</h2><h3 id="布料方式"><a href="#布料方式" class="headerlink" title="布料方式"></a>布料方式</h3><ol>
 <li>创建一根柱体，顶点改成8，缩放到合适大小</li>
 <li>调整到骨骼位置，给末端卡根线，添加顶点组</li>
 <li>给柱体添加物理 &gt; 布料，形状 &gt; 钉固顶点组选择末端顶点组</li>
@@ -989,6 +1001,20 @@
 <li>布料缓存默认到250帧，需要修改</li>
 <li><strong>给模型添加动作后，需要把阻尼追踪移到最下面</strong></li>
 </ul>
+<h3 id="软体方式"><a href="#软体方式" class="headerlink" title="软体方式"></a>软体方式</h3><ol>
+<li>创建一个平面，删除两个点变为一个线</li>
+<li>将直线移动到骨骼位置，大小改为和骨骼一致，可以用吸附辅助移动</li>
+<li>给线的头尾的点设定顶点组</li>
+<li>给线添加 物理 &gt; 软体<ol>
+<li>目标 &gt; 顶点组：设为尾部的顶点用于固定</li>
+<li>硬度、阻尼根据实际需要设置</li>
+<li>强度：默认改为1，最小值改为0.75（根据实际需要设置）</li>
+</ol>
+</li>
+<li>选择直线和骨骼，到姿态模式，设置直线的父级为这根骨骼的<strong>父级</strong>，类型为骨骼（让直线跟着身体移动）</li>
+<li>选择骨骼，添加骨骼约束 &gt; 阻尼追踪，目标选择直线，顶点组选择直线前端顶点</li>
+</ol>
+<p>注意点同上</p>
 <h1 id="材质参考"><a href="#材质参考" class="headerlink" title="材质参考"></a>材质参考</h1><h2 id="添加噪波斑点"><a href="#添加噪波斑点" class="headerlink" title="添加噪波斑点"></a>添加噪波斑点</h2><p><img src="/img/blender_img/%E6%B7%BB%E5%8A%A0%E5%99%AA%E6%B3%A2%E7%BA%B9%E7%90%86.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="添加边缘光"><a href="#添加边缘光" class="headerlink" title="添加边缘光"></a>添加边缘光</h2><p><img src="/img/blender_img/%E6%B7%BB%E5%8A%A0%E8%BE%B9%E7%BC%98%E5%85%89.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="添加高光"><a href="#添加高光" class="headerlink" title="添加高光"></a>添加高光</h2><p><img src="/img/blender_img/%E6%B7%BB%E5%8A%A0%E9%AB%98%E5%85%89.png" srcset="/img/loading.gif" lazyload></p>
