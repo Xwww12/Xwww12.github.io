@@ -24,7 +24,7 @@
 <meta property="og:description" content="基本语法注释单行：# 多行：&#39;&#39;&#39;或&quot;&quot;&quot; 1234# 如果一段代码太长，可用\分段a &#x3D; b + c + \	d + e + \    f  变量类型查看类型type()查看变量类型 isinstance(a, (类型1, ...))判断是否是其中一种类型或子类 数字 int bool（True&#x2F;False） float compl">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-01T10:16:08.777Z">
-<meta property="article:modified_time" content="2025-09-10T02:23:14.100Z">
+<meta property="article:modified_time" content="2025-09-10T05:36:57.738Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          3.6k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          29 分钟
+          30 分钟
         
       </span>
     
@@ -795,7 +795,36 @@
 <h1 id="Numpy"><a href="#Numpy" class="headerlink" title="Numpy"></a>Numpy</h1><blockquote>
 <p>NumPy 是一个用于处理数组的 Python 库。</p>
 </blockquote>
-<h2 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 创建整型数组</span><br>ar1 = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br><span class="hljs-built_in">print</span>(ar1)  <span class="hljs-comment"># [1 2 3]</span><br><br><span class="hljs-comment"># 创建浮点型数组</span><br>ar2 = np.array([<span class="hljs-number">1.0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br><span class="hljs-built_in">print</span>(ar2)  <span class="hljs-comment"># [1. 2. 3.]</span><br><br><span class="hljs-comment"># 创建一个都是1的数组</span><br>arr1 = np.ones((<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)) <span class="hljs-comment"># 3行3列</span><br><span class="hljs-built_in">print</span>(arr1)<br><span class="hljs-built_in">print</span>(arr1.shape) <span class="hljs-comment"># 查看数组的维数</span><br><span class="hljs-built_in">print</span>(arr1.reshape((<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>))) <span class="hljs-comment"># 重塑数组的维度，填-1会自己计算,这里会变为1行6列</span><br><span class="hljs-built_in">print</span>(arr1.reshape(-<span class="hljs-number">1</span>)) <span class="hljs-comment">#变为1行6列</span><br><br><span class="hljs-comment"># 创建全0数组（np.zeros(), 同上）</span><br><br><span class="hljs-comment"># 创建递增数组</span><br>arr1 = np.arange(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>)<br><span class="hljs-built_in">print</span>(arr1) <span class="hljs-comment"># [1 2 3 4 5 6 7 8 9]</span><br><br><span class="hljs-comment"># 创建随机数组</span><br>arr1 = np.random.random(<span class="hljs-number">3</span>)<br><span class="hljs-built_in">print</span>(arr1)<br><br><span class="hljs-comment"># 创建服从正态分布的数组</span><br>arr1 = np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">100</span>)<br><span class="hljs-built_in">print</span>(arr1) <br></code></pre></td></tr></table></figure>
+<h2 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 创建整型数组</span><br>ar1 = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br><span class="hljs-built_in">print</span>(ar1)  <span class="hljs-comment"># [1 2 3]</span><br><br><span class="hljs-comment"># 创建浮点型数组</span><br>ar2 = np.array([<span class="hljs-number">1.0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br><span class="hljs-built_in">print</span>(ar2)  <span class="hljs-comment"># [1. 2. 3.]</span><br><br><span class="hljs-comment"># 创建一个都是1的数组</span><br>arr1 = np.ones((<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)) <span class="hljs-comment"># 3行3列</span><br><span class="hljs-built_in">print</span>(arr1)<br><span class="hljs-built_in">print</span>(arr1.shape) <span class="hljs-comment"># 查看数组的维数</span><br><span class="hljs-built_in">print</span>(arr1.reshape((<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>))) <span class="hljs-comment"># 重塑数组的维度，填-1会自己计算,这里会变为1行6列</span><br><span class="hljs-built_in">print</span>(arr1.reshape(-<span class="hljs-number">1</span>)) <span class="hljs-comment">#变为1行6列</span><br><br><span class="hljs-comment"># 创建全0数组（np.zeros(), 同上）</span><br><br><span class="hljs-comment"># 创建递增数组</span><br>arr1 = np.arange(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>)<br><span class="hljs-built_in">print</span>(arr1) <span class="hljs-comment"># [1 2 3 4 5 6 7 8 9]</span><br><br><span class="hljs-comment"># 创建随机数组</span><br>arr1 = np.random.random(<span class="hljs-number">3</span>)<br><span class="hljs-built_in">print</span>(arr1)<br><br><span class="hljs-comment"># 创建服从(0, 1)正态分布的数组</span><br>arr1 = np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">100</span>)<br><span class="hljs-built_in">print</span>(arr1) <br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="访问数组"><a href="#访问数组" class="headerlink" title="访问数组"></a>访问数组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">arr1 = np.array( [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]])<br><br><span class="hljs-comment"># 访问二维数组，注意一个中括号</span><br><span class="hljs-built_in">print</span>(arr1[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>])<br><br><span class="hljs-comment"># 花哨索引, 第一个中括号为行，第二个为列</span><br><span class="hljs-built_in">print</span>(arr1[ [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>] ]) <span class="hljs-comment"># [2 6]</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h2><h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><blockquote>
+<p>numpy的切片仅是原数组的视图，原python的是拷贝。要拷贝用数组.copy()</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 二维切片</span><br>arr1 = np.arange(<span class="hljs-number">1</span>, <span class="hljs-number">21</span>).reshape(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>)<br><span class="hljs-comment"># [[ 1  2  3  4  5]</span><br><span class="hljs-comment">#  [ 6  7  8  9 10]</span><br><span class="hljs-comment">#  [11 12 13 14 15]</span><br><span class="hljs-comment">#  [16 17 18 19 20]]</span><br><span class="hljs-built_in">print</span>(arr1)<br><span class="hljs-comment"># [[ 7  8  9]</span><br><span class="hljs-comment"># [12 13 14]]</span><br><span class="hljs-built_in">print</span>(arr1[<span class="hljs-number">1</span>:<span class="hljs-number">3</span>, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>])<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="翻转"><a href="#翻转" class="headerlink" title="翻转"></a>翻转</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 向量翻转</span><br>arr1 = np.arange(<span class="hljs-number">10</span>)<br>arr1 = np.flipud(arr1)<br><span class="hljs-built_in">print</span>(arr1) <span class="hljs-comment"># [9 8 7 6 5 4 3 2 1 0]</span><br><br><span class="hljs-comment"># 矩阵翻转</span><br>arr1 = np.arange(<span class="hljs-number">1</span>, <span class="hljs-number">21</span>).reshape(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>)<br>arr1 = np.fliplr(arr1)<br><span class="hljs-comment"># 左右翻转</span><br><span class="hljs-built_in">print</span>(arr1)<br><span class="hljs-comment"># 上下翻转</span><br>arr1 = np.flipud(arr1)<br><span class="hljs-built_in">print</span>(arr1)<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="转置"><a href="#转置" class="headerlink" title="转置"></a>转置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 转置数组</span><br>arr2 = arr1.T<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="重塑"><a href="#重塑" class="headerlink" title="重塑"></a>重塑</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 重塑为3行4列</span><br>arr2 = arr1.reshape((<span class="hljs-number">3</span>, <span class="hljs-number">4</span>))<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
 
 
                 
