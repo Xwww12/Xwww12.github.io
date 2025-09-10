@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>python环境</title>
+    <link href="/2025/09/08/python/python%E7%8E%AF%E5%A2%83/"/>
+    <url>/2025/09/08/python/python%E7%8E%AF%E5%A2%83/</url>
+    
+    <content type="html"><![CDATA[<h1 id="python环境"><a href="#python环境" class="headerlink" title="python环境"></a>python环境</h1><h2 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h2><p>python的包管理工具</p><ul><li><p>查看pip版本</p><p>  <code>pip --version</code></p></li><li><p>下载包</p><p>  <code>pip install 包名</code></p></li><li><p>删除包</p><p>  <code>pip uninstall 包名</code></p></li><li><p>查看已安装的包</p><p>  <code>pip list</code></p></li></ul><h2 id="conda"><a href="#conda" class="headerlink" title="conda"></a>conda</h2><blockquote><p>conda 是一个开源的<strong>软件包管理系统和环境管理软件</strong>，用于安装多个版本的软件包及其依赖关系，并在它们之间轻松切换。</p></blockquote><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>anaconda 是一个包含了许多常用库的集合版本，miniconda 是精简版本(只包含conda、pip、zlib、python 以及它们所需的包)</p><ul><li><strong>miniconda 官网</strong>：<a href="https://conda.io/miniconda.html"><strong>https://conda.io/miniconda.html</strong></a></li><li><strong>anaconda 官网</strong>：<a href="https://www.anaconda.com/download"><strong>https://www.anaconda.com/download</strong></a></li></ul><ol><li>点击安装包安装</li><li>选择安装路径，一路next</li><li>在环境变量中添加变量名：Conda，变量值：Scripts和condabin的文件夹路径</li><li>到Path中添加<code>%Conda%</code></li><li>cmd测试<code>conda --version</code></li></ol><h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><p>找到文件夹下的<code>Uninstall-Anaconda3.exe</code>运行即可</p><p>还有在c盘里有些残留，找教程删干净</p><h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul><li><strong>查看版本</strong>：<code>conda --version</code></li><li><strong>安装指定python版本</strong>：<code>conda create -n 环境名 python=3.11.9</code></li><li><strong>切换环境</strong>：<code>conda activate 环境名</code></li><li><strong>查看所在的环境</strong>：<code>conda info --envs</code></li><li><strong>查看所有环境</strong>：<code>conda env list</code></li><li><strong>删除已有环境</strong>：：<code>conda remove -n 环境名 --all</code></li><li><strong>查看当前环境已安装的库</strong>：<code>conda list</code></li></ul><p><strong>常用包</strong></p><blockquote><p>版本按需求更改，记得在需要的环境里安装</p></blockquote><ul><li>pip install numpy&#x3D;&#x3D;1.23</li><li>pip install Pandas&#x3D;&#x3D;1.2.4</li><li>pip install Matplotlib&#x3D;&#x3D;3.5.1</li></ul><h2 id="PyTorch"><a href="#PyTorch" class="headerlink" title="PyTorch"></a>PyTorch</h2><blockquote><p>由torch、torchvision、torchaudio三个库组成</p></blockquote><h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><blockquote><p>conda记得切换环境</p></blockquote><ol><li><p>查看GPU的CUDA版本：<code>nvcc -V</code></p></li><li><p>一般torch的cuda版本要 &lt;&#x3D; CUDA版本</p></li><li><p>打开官网<a href="https://pytorch.org/get-started/previous-versions/">https://pytorch.org/get-started/previous-versions/</a></p></li><li><p>在官网ctrl+F搜索<code>pip install torch==1.12.0</code>，找到指定版本的安装命令</p></li><li><p>检验是否安装成功</p> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-built_in">print</span>(torch.cuda.is_available())<br></code></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>其他</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>threejs</title>
     <link href="/2025/07/14/%E5%89%8D%E7%AB%AF/threejs/threejs/"/>
     <url>/2025/07/14/%E5%89%8D%E7%AB%AF/threejs/threejs/</url>
@@ -1336,9 +1363,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1367,9 +1394,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -1398,9 +1425,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -2901,9 +2928,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
@@ -2992,9 +3019,9 @@
     
     <tags>
       
-      <tag>后端</tag>
-      
       <tag>中间件</tag>
+      
+      <tag>后端</tag>
       
     </tags>
     
