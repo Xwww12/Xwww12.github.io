@@ -24,7 +24,7 @@
 <meta property="og:description" content="CentOS安装CentOS8下载镜像https:&#x2F;&#x2F;www.centos.org&#x2F;download&#x2F; 如要下载CentOS8：  点击Older Versions下的网址 点击8.5.2111 点击isos 点击CentOS-8.5.2111-x86_64-dvd1.iso即可  安装镜像安装镜像：  打开VMware，点击新建虚拟机（用的Vmware Pro 16版本） 选择“典型”，下一步">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-12T05:31:48.027Z">
-<meta property="article:modified_time" content="2025-09-12T06:30:06.820Z">
+<meta property="article:modified_time" content="2025-09-12T12:42:06.106Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          342 字
+          439 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -332,7 +332,7 @@
 <li>分区<ol>
 <li>点击“安装目的地”<ol>
 <li>存储配置“自定义”，点击“完成”</li>
-<li>点击“+”新增挂载点<ol>
+<li>点击“+”新增挂载点（大小根据需要改变）<ol>
 <li>&#x2F;            17GiB</li>
 <li>&#x2F;boot   1024Mib</li>
 <li>swap    2GiB</li>
@@ -347,6 +347,20 @@
 <li>点击”开始安装”</li>
 <li>选择接收许可，结束配置</li>
 </ol>
+</li>
+</ol>
+<h1 id="传输文件到虚拟机"><a href="#传输文件到虚拟机" class="headerlink" title="传输文件到虚拟机"></a>传输文件到虚拟机</h1><h2 id="通过FileZilla传输"><a href="#通过FileZilla传输" class="headerlink" title="通过FileZilla传输"></a>通过FileZilla传输</h2><ol>
+<li><p>检查ssh是否配置</p>
+<p> <code>yum list installed | grep openssh-server</code></p>
+<p> 出现<code>@anaconda</code>等字样说明已安装</p>
+<p> 若没有则使用<code> yum install openssh-server</code>安装</p>
+</li>
+<li><p>查看ssh服务状态，要为running</p>
+<p> <code>systemctl status sshd</code></p>
+</li>
+<li><p>使用<code>ifconfig</code>查看虚拟机地址</p>
+</li>
+<li><p>在FileZilla中填写虚拟机地址，用户名密码为登录虚拟机的用户名密码，端口为22</p>
 </li>
 </ol>
 
