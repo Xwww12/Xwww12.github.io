@@ -23,11 +23,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="基本语法注释单行：# 多行：&#39;&#39;&#39;或&quot;&quot;&quot; 1234# 如果一段代码太长，可用\分段a &#x3D; b + c + \	d + e + \    f  变量类型查看类型type()查看变量类型 isinstance(a, (类型1, ...))判断是否是其中一种类型或子类 数字 int bool（True&#x2F;False） float compl">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/python_img/%E7%A5%9E%E7%BB%8F%E5%85%83%E8%8A%82%E7%82%B9.png">
 <meta property="article:published_time" content="2025-06-01T10:16:08.777Z">
-<meta property="article:modified_time" content="2025-09-11T11:50:21.159Z">
+<meta property="article:modified_time" content="2025-09-15T11:28:20.506Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/python_img/%E7%A5%9E%E7%BB%8F%E5%85%83%E8%8A%82%E7%82%B9.png">
   
   
   
@@ -225,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.2k 字
+          7.6k 字
         
       </span>
     
@@ -236,7 +238,7 @@
         
         
         
-          44 分钟
+          64 分钟
         
       </span>
     
@@ -904,6 +906,190 @@
 
 
 <h3 id="数据透视"><a href="#数据透视" class="headerlink" title="数据透视"></a>数据透视</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 按列名2分类，算出均值（默认）</span><br>df.pivot_table(列名<span class="hljs-number">1</span>, index=列名<span class="hljs-number">2</span>)<br><br><span class="hljs-comment"># 按列名2分类，再按列名3分类，算出均值</span><br>df.pivot_table(列名<span class="hljs-number">1</span>, index=列名<span class="hljs-number">2</span>, columns=列名<span class="hljs-number">3</span>)<br><br><span class="hljs-comment"># 重置列的值，改为范围</span><br>pd.cut( df[<span class="hljs-string">&#x27;年龄&#x27;</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">25</span>, <span class="hljs-number">125</span>])<br><br><span class="hljs-comment"># 重置列的值，自动分割, 2为自动分为两列</span><br>pd.qcut( df[<span class="hljs-string">&#x27;费用&#x27;</span>], <span class="hljs-number">2</span> )<br></code></pre></td></tr></table></figure>
+
+<h1 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a>Matplotlib</h1><h2 id="绘图基础"><a href="#绘图基础" class="headerlink" title="绘图基础"></a>绘图基础</h2><h3 id="绘制图像"><a href="#绘制图像" class="headerlink" title="绘制图像"></a>绘制图像</h3><p><strong>绘制一条线</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br>x = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>] <span class="hljs-comment"># x轴</span><br>y = [<span class="hljs-number">1</span>, <span class="hljs-number">8</span>, <span class="hljs-number">27</span>, <span class="hljs-number">64</span>, <span class="hljs-number">125</span>] <span class="hljs-comment"># y轴</span><br><br><span class="hljs-comment"># Matlab方式绘图</span><br>Fig1 = plt.figure() <span class="hljs-comment"># 创建新图窗</span><br>plt.plot(x, y) <span class="hljs-comment"># 绘制线形图</span><br><br><span class="hljs-comment"># 面向对象方式绘图</span><br>Fig2 = plt.figure() <span class="hljs-comment"># 创建新图窗</span><br>ax2 = plt.axes() <span class="hljs-comment"># 创建坐标轴</span><br>ax2.plot(x, y) <span class="hljs-comment"># 绘制线形图</span><br><br>Fig2.show()<br></code></pre></td></tr></table></figure>
+
+<p><strong>绘制多条线</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br>x = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br>y1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br>y2 = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]<br>y3 = [-<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>, -<span class="hljs-number">3</span>, -<span class="hljs-number">4</span>, -<span class="hljs-number">5</span>]<br><br>Fig1 = plt.figure()<br>plt.plot(x, y1)<br>plt.plot(x, y2)<br>plt.plot(x, y3)<br><br>Fig1.show()<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>绘制多子图</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br>x = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br>y1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br>y2 = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]<br>y3 = [-<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>, -<span class="hljs-number">3</span>, -<span class="hljs-number">4</span>, -<span class="hljs-number">5</span>]<br><br>Fig1 = plt.figure()<br>plt.subplot(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>) <span class="hljs-comment"># 子图是3行1列排布的，且这是第一个子图</span><br>plt.plot(x, y1)<br>plt.subplot(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>plt.plot(x, y2)<br>plt.subplot(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>)<br>plt.plot(x, y3)<br><br>Fig1.show()<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="保存图像"><a href="#保存图像" class="headerlink" title="保存图像"></a>保存图像</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">Fig1.savefig(<span class="hljs-string">r&#x27;保存路径&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="图标类型"><a href="#图标类型" class="headerlink" title="图标类型"></a>图标类型</h3><p>要画什么类型的图时去官网找样例改</p>
+<p><a target="_blank" rel="noopener" href="https://matplotlib.org/stable/plot_types/index">https://matplotlib.org/stable/plot_types/index</a></p>
+<h4 id="二维图"><a href="#二维图" class="headerlink" title="二维图"></a>二维图</h4><blockquote>
+<p>只需要两个向量</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线型图</td>
+<td>plot()</td>
+</tr>
+<tr>
+<td>散点图</td>
+<td>scatter()</td>
+</tr>
+<tr>
+<td>条形图</td>
+<td>bar()</td>
+</tr>
+<tr>
+<td>杆图</td>
+<td>stem()</td>
+</tr>
+<tr>
+<td>阶梯图</td>
+<td>step()</td>
+</tr>
+<tr>
+<td>误差图</td>
+<td>fill_between()</td>
+</tr>
+<tr>
+<td>堆叠图</td>
+<td>stackplot()</td>
+</tr>
+</tbody></table>
+<h4 id="网格图"><a href="#网格图" class="headerlink" title="网格图"></a>网格图</h4><blockquote>
+<p>需要一个矩阵</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>图像展示</td>
+<td>imshow()</td>
+</tr>
+<tr>
+<td>等高线</td>
+<td>contour()</td>
+</tr>
+<tr>
+<td>填充等高线</td>
+<td>contourf()</td>
+</tr>
+</tbody></table>
+<h4 id="统计图"><a href="#统计图" class="headerlink" title="统计图"></a>统计图</h4><blockquote>
+<p>需要一个矩阵</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>直方图</td>
+<td>hist()</td>
+</tr>
+<tr>
+<td>箱型图</td>
+<td>boxplot()</td>
+</tr>
+<tr>
+<td>二维直方图</td>
+<td>hist2d()</td>
+</tr>
+<tr>
+<td>饼图</td>
+<td>pie()</td>
+</tr>
+</tbody></table>
+<h1 id="PyTorch"><a href="#PyTorch" class="headerlink" title="PyTorch"></a>PyTorch</h1><blockquote>
+<p>DNN：Deep Neural Network，深度神经网络</p>
+</blockquote>
+<h2 id="张量"><a href="#张量" class="headerlink" title="张量"></a>张量</h2><blockquote>
+<p>张量是一个 <strong>数学对象</strong>，可以看作是 <strong>坐标系无关的多维数据结构</strong>，它能在不同坐标系下转换但仍然保持物理意义。可以把张量理解为多维数组</p>
+</blockquote>
+<h3 id="用GPU存储张量"><a href="#用GPU存储张量" class="headerlink" title="用GPU存储张量"></a>用GPU存储张量</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-comment"># 生成标准正态分布的3行4列张量</span><br>ts1 = torch.randn(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br><span class="hljs-built_in">print</span>(ts1)<br><br><span class="hljs-comment"># 将张量移动到GPU上</span><br><span class="hljs-comment"># 可通过nvidia-smi查看设备上的显卡</span><br>ts2 = ts1.to(<span class="hljs-string">&#x27;cuda:0&#x27;</span>)<br><span class="hljs-built_in">print</span>(ts2)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="DNN大致原理"><a href="#DNN大致原理" class="headerlink" title="DNN大致原理"></a>DNN大致原理</h2><p>神经网络通过学习大量样本的输入与输出特征之间的关系，以拟合出输入与输出之间的方程。</p>
+<p>神经网络可以分为这几步：</p>
+<ul>
+<li><p><strong>划分数据集</strong></p>
+<blockquote>
+<p>按一定比例划分为训练集和测试集。数据集的特征决定了输入层和输出层的神经元</p>
+</blockquote>
+</li>
+<li><p><strong>训练网络</strong></p>
+<blockquote>
+<p>通过多次的前向传播和反向传播，不断调整内部参数，以拟合任意复杂函数的过程</p>
+<p>内部参数称为参数，外部参数称为超参数</p>
+</blockquote>
+<p>  <img src="/img/python_img/%E7%A5%9E%E7%BB%8F%E5%85%83%E8%8A%82%E7%82%B9.png" srcset="/img/loading.gif" lazyload></p>
+<p>  前向传播：</p>
+<p>  ​	将输入特征通过神经网络逐层计算，最终得到输出特征</p>
+<p>  神经元节点的计算过程：</p>
+<p>  ​	y &#x3D; w<sub>1</sub>x<sub>1</sub> + w<sub>2</sub>x<sub>2</sub> + w<sub>3</sub>x<sub>3</sub></p>
+<p>  ​	由于方程是线性的，因此必须在外面套一个非线性的函数σ，称为激活函数</p>
+<p>  反向传播：</p>
+<p>  ​	经过前向传播得到预测值后，通过损失函数计算差距，通过调整参数使得损失函数变小</p>
+</li>
+<li><p><strong>测试网络</strong></p>
+<blockquote>
+<p>使用测试集正向传播来测试准确率</p>
+</blockquote>
+</li>
+<li><p><strong>使用网络</strong></p>
+</li>
+</ul>
+<h2 id="DNN的实现"><a href="#DNN的实现" class="headerlink" title="DNN的实现"></a>DNN的实现</h2><p>查看损失函数、激活函数、层、优化算法等的文档，记得选择自己的版本：<a target="_blank" rel="noopener" href="http://pytorch.org/docs/1.12/nn.html">http://pytorch.org/docs/1.12/nn.html</a></p>
+<h3 id="批量梯度下降"><a href="#批量梯度下降" class="headerlink" title="批量梯度下降"></a>批量梯度下降</h3><blockquote>
+<p>一次性用 <strong>整个训练集</strong> 计算梯度，再更新权重</p>
+<p>优点：</p>
+<ul>
+<li>梯度是对整个数据集的精确估计，更新方向稳定。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>数据集大时，计算量大，训练慢</li>
+<li>占用内存大</li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span>  matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">DNN</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot; 搭建神经网络各层 &quot;&quot;&quot;</span><br>        <span class="hljs-built_in">super</span>(DNN, self).__init__()<br>        self.net = nn.Sequential(   <span class="hljs-comment"># 顺序搭建各层</span><br>            nn.Linear(<span class="hljs-number">3</span>, <span class="hljs-number">5</span>, ), nn.ReLU(),   <span class="hljs-comment"># 第1层，全连接层，输入3，输出5，ReLU为激活函数</span><br>            nn.Linear(<span class="hljs-number">5</span>, <span class="hljs-number">5</span>, ), nn.ReLU(),   <span class="hljs-comment"># 第2层，全连接层</span><br>            nn.Linear(<span class="hljs-number">5</span>, <span class="hljs-number">5</span>, ), nn.ReLU(),   <span class="hljs-comment"># 第3层，全连接层</span><br>            nn.Linear(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>, ), nn.ReLU()    <span class="hljs-comment"># 第4层，全连接层</span><br>        )<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-string">&quot;&quot;&quot; 前向传播 &quot;&quot;&quot;</span><br>        <span class="hljs-string">&quot;&quot;&quot; 张量会自动计算梯度，不需要反向传播方法 &quot;&quot;&quot;</span><br>        y = self.net(x) <span class="hljs-comment"># 输入数据</span><br>        <span class="hljs-keyword">return</span> y        <span class="hljs-comment"># 输出数据</span><br><br><span class="hljs-comment"># 模拟输入数据集，rand为均匀分布</span><br>X1 = torch.rand(<span class="hljs-number">10000</span>, <span class="hljs-number">1</span>)<br>X2 = torch.rand(<span class="hljs-number">10000</span>, <span class="hljs-number">1</span>)<br>X3 = torch.rand(<span class="hljs-number">10000</span>, <span class="hljs-number">1</span>)<br><br><span class="hljs-comment"># 模拟输出特征</span><br>Y1 = ( (X1 + X2 + X3) &lt; <span class="hljs-number">1</span> ).<span class="hljs-built_in">float</span>()<br>Y2 = ( ((X1 + X2 + X3) &gt; <span class="hljs-number">1</span>) &amp; ((X1 + X2 + X3) &lt; <span class="hljs-number">2</span>) ).<span class="hljs-built_in">float</span>()<br>Y3 = ( (X1 + X2 + X3) &gt; <span class="hljs-number">2</span> ).<span class="hljs-built_in">float</span>()<br><br><span class="hljs-comment"># 整合数据集，把数据放到gpu上</span><br>Data = torch.cat([X1, X2, X3, Y1, Y2, Y3], axis = <span class="hljs-number">1</span>)<br>Data = Data.to(<span class="hljs-string">&#x27;cuda:0&#x27;</span>)<br><br><span class="hljs-comment"># 划分训练集和测试集</span><br>train_size = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">len</span>(Data) * <span class="hljs-number">0.7</span>)<br>tes_size = <span class="hljs-built_in">len</span>(Data) - train_size<br>Data = Data[torch.randperm(Data.size(<span class="hljs-number">0</span>)), :]    <span class="hljs-comment"># 打乱数据集顺序</span><br>train_Data = Data[:train_size, :]<br>test_Data = Data[train_size:, :]<br><br><span class="hljs-comment"># 创建模型子类</span><br>model = DNN().to(<span class="hljs-string">&#x27;cuda:0&#x27;</span>)<br><br><span class="hljs-comment"># 查看内部参数</span><br><span class="hljs-comment"># for name, param in model.named_parameters():</span><br><span class="hljs-comment">#     print(f&quot;参数:&#123;name&#125;\n形状:&#123;param.shape&#125;\n数值:&#123;param&#125;&quot;)</span><br><br><span class="hljs-comment"># 选择损失函数</span><br>loss_fn = nn.MSELoss()<br><br><span class="hljs-comment"># 选择学习率与优化算法</span><br>learning_rate = <span class="hljs-number">0.01</span><br>optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)<br><br><br><span class="hljs-comment">######训练网络</span><br><br><span class="hljs-comment"># epochs为每个样本会正反向传播的次数</span><br>epochs = <span class="hljs-number">1000</span><br>losses = []     <span class="hljs-comment"># 记录损失函数</span><br><br><span class="hljs-comment"># 给训练集划分输入和输出</span><br>X = train_Data[:, :<span class="hljs-number">3</span>]<br>Y = train_Data[:, -<span class="hljs-number">3</span>:]<br><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>    Pred = model(X)     <span class="hljs-comment"># 一次前向传播</span><br>    loss = loss_fn(Pred, Y)     <span class="hljs-comment"># 计算损失函数</span><br>    losses.append(loss.item())  <span class="hljs-comment"># 记录损失函数的变化</span><br>    optimizer.zero_grad()       <span class="hljs-comment"># 清除上一轮滞留的梯度</span><br>    loss.backward()             <span class="hljs-comment"># 一次反向传播</span><br>    optimizer.step()            <span class="hljs-comment"># 优化内部参数</span><br><br>Fig = plt.figure()<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), losses)<br>plt.xlabel(<span class="hljs-string">&#x27;epoch&#x27;</span>)<br>plt.ylabel(<span class="hljs-string">&#x27;loss&#x27;</span>)<br>plt.show()<br><br><br><span class="hljs-comment">##### 测试网络</span><br>X = test_Data[:, :<span class="hljs-number">3</span>]<br>Y = test_Data[:, -<span class="hljs-number">3</span>:]<br><br><span class="hljs-keyword">with</span> torch.no_grad():   <span class="hljs-comment"># 测试不需要计算梯度，该局部关闭梯度计算功能</span><br>    Pred = model(X)<br>    Pred[:, torch.argmax(Pred, axis=<span class="hljs-number">1</span>)] = <span class="hljs-number">1</span><br>    Pred[Pred != <span class="hljs-number">1</span>] = <span class="hljs-number">0</span><br>    correct = torch.<span class="hljs-built_in">sum</span>( (Pred == Y).<span class="hljs-built_in">all</span>(<span class="hljs-number">1</span>) )<br>    total = Y.size(<span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;测试集精准度: <span class="hljs-subst">&#123;<span class="hljs-number">100</span> * correct / total&#125;</span>%&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>保存&#x2F;导出神经网络</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.save(model, <span class="hljs-string">&#x27;model.pth&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>导入神经网络</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">new_model = torch.load(<span class="hljs-string">&#x27;model.pth&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>从csv文件里导入数据</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 导入数据</span><br>df = pd.read_csv(<span class="hljs-string">&#x27;Data.csv&#x27;</span>, index_col=<span class="hljs-number">0</span>)   <span class="hljs-comment"># 从csv导入数据</span><br>arr = df.values             <span class="hljs-comment"># Pandas对象转为NumPy数组</span><br>arr = arr.astype(np.float32)<span class="hljs-comment"># 转为float32类型数组</span><br>ts = torch.tensor(arr)      <span class="hljs-comment"># 数组转为张量</span><br>ts = ts.to(<span class="hljs-string">&#x27;cuda&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="小批量梯度下降"><a href="#小批量梯度下降" class="headerlink" title="小批量梯度下降"></a>小批量梯度下降</h3><blockquote>
+<p>把训练集划分成若干 <strong>小批量（mini-batch）</strong>，每次只用一个批量计算梯度再更新。</p>
+<p>优点：</p>
+<ul>
+<li>计算效率高，比批量梯度下降快</li>
+<li>梯度有随机性，能跳出局部最优</li>
+<li>适合 GPU 并行计算</li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset, random_split, DataLoader<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span>  matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">DNN</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot; 搭建神经网络各层 &quot;&quot;&quot;</span><br>        <span class="hljs-built_in">super</span>(DNN, self).__init__()<br>        self.net = nn.Sequential(   <span class="hljs-comment"># 顺序搭建各层</span><br>            nn.Linear(<span class="hljs-number">8</span>, <span class="hljs-number">32</span>, ), nn.Sigmoid(),   <span class="hljs-comment"># 第1层，全连接层，输入3，输出5，ReLU为激活函数</span><br>            nn.Linear(<span class="hljs-number">32</span>, <span class="hljs-number">8</span>, ), nn.Sigmoid(),   <span class="hljs-comment"># 第2层，全连接层</span><br>            nn.Linear(<span class="hljs-number">8</span>, <span class="hljs-number">4</span>, ), nn.Sigmoid(),   <span class="hljs-comment"># 第3层，全连接层</span><br>            nn.Linear(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>, ), nn.Sigmoid()    <span class="hljs-comment"># 第4层，全连接层</span><br>        )<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-string">&quot;&quot;&quot; 前向传播 &quot;&quot;&quot;</span><br>        <span class="hljs-string">&quot;&quot;&quot; 张量会自动计算梯度，不需要反向传播方法 &quot;&quot;&quot;</span><br>        y = self.net(x) <span class="hljs-comment"># 输入数据</span><br>        <span class="hljs-keyword">return</span> y        <span class="hljs-comment"># 输出数据</span><br><br>model = DNN().to(<span class="hljs-string">&#x27;cuda&#x27;</span>)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyData</span>(<span class="hljs-title class_ inherited__">Dataset</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, filepath</span>):<br>        df = pd.read_csv(filepath, index_col=<span class="hljs-number">0</span>)  <span class="hljs-comment"># 从csv导入数据</span><br>        arr = df.values  <span class="hljs-comment"># Pandas对象转为NumPy数组</span><br>        arr = arr.astype(np.float32)  <span class="hljs-comment"># 转为float32类型数组</span><br>        ts = torch.tensor(arr)  <span class="hljs-comment"># 数组转为张量</span><br>        ts = ts.to(<span class="hljs-string">&#x27;cuda&#x27;</span>)<br>        self.X = ts[:, :-<span class="hljs-number">1</span>]<br>        self.Y = ts[:, -<span class="hljs-number">1</span>].reshape((-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>))<br>        self.<span class="hljs-built_in">len</span> = ts.shape[<span class="hljs-number">0</span>]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, index</span>):<br>        <span class="hljs-keyword">return</span> self.X[index], self.Y[index]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__len__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> self.<span class="hljs-built_in">len</span><br><br><span class="hljs-comment"># 划分训练集和测试集</span><br>Data = MyData(<span class="hljs-string">&#x27;Data.csv&#x27;</span>)<br>train_size = <span class="hljs-built_in">int</span>(<span class="hljs-number">0.7</span> * <span class="hljs-built_in">len</span>(Data))<br>test_size = <span class="hljs-built_in">len</span>(Data) - train_size<br>train_Data, test_Data = random_split(Data, [train_size, test_size])<br><br><span class="hljs-comment"># 批次加载器</span><br>train_loader = DataLoader(dataset=train_Data, batch_size=<span class="hljs-number">128</span>, shuffle=<span class="hljs-literal">True</span>)<br>test_loader = DataLoader(dataset=test_Data, batch_size=<span class="hljs-number">64</span>, shuffle=<span class="hljs-literal">False</span>)<br><br>epochs = <span class="hljs-number">500</span><br>losses = []<br><br><span class="hljs-comment"># 损失函数</span><br>loss_fn = nn.BCELoss(reduction=<span class="hljs-string">&#x27;mean&#x27;</span>)<br>learning_rate = <span class="hljs-number">0.005</span><br>optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)<br><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>    <span class="hljs-keyword">for</span> (x, y) <span class="hljs-keyword">in</span> train_loader:<br>        Pred = model(x)     <span class="hljs-comment"># 一次前向传播</span><br>        loss = loss_fn(Pred, y)     <span class="hljs-comment"># 计算损失函数</span><br>        losses.append(loss.item())  <span class="hljs-comment"># 记录损失函数的变化</span><br>        optimizer.zero_grad()       <span class="hljs-comment"># 清除上一轮滞留的梯度</span><br>        loss.backward()             <span class="hljs-comment"># 一次反向传播</span><br>        optimizer.step()            <span class="hljs-comment"># 优化内部参数</span><br><br><br>Fig = plt.figure()<br>plt.plot(<span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(losses)), losses)<br><br>plt.show()<br></code></pre></td></tr></table></figure>
+
+<h3 id="MNIST数据集"><a href="#MNIST数据集" class="headerlink" title="MNIST数据集"></a>MNIST数据集</h3><blockquote>
+<p>一个0-9数字识别的数据集</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset, random_split, DataLoader<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span>  matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> transforms  <span class="hljs-comment"># 图像转换，将数据集转化为张量</span><br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> datasets    <span class="hljs-comment"># 下载数据集</span><br><br><span class="hljs-comment"># 数据预处理,通常用于处理图像数据集输入神经网络</span><br><span class="hljs-comment"># ToTensor：将图像的[0, 255]变为[0, 1]</span><br><span class="hljs-comment"># Normalize(0.1307, 0.3081)：让MNIST 数据集接近正态分布</span><br>transform = transforms.Compose([<br>    transforms.ToTensor(),<br>    transforms.Normalize(<span class="hljs-number">0.1307</span>, <span class="hljs-number">0.3081</span>)<br>])<br><br><span class="hljs-comment"># 下载训练集</span><br>train_Data = datasets.MNIST(<br>    root=<span class="hljs-string">&#x27;./dataset/mnist/&#x27;</span>,<br>    train=<span class="hljs-literal">True</span>,<br>    transform=transform,<br>    download=<span class="hljs-literal">True</span><br>)<br><br><span class="hljs-comment"># 下载测试集</span><br>test_Data = datasets.MNIST(<br>    root=<span class="hljs-string">&#x27;./dataset/mnist/&#x27;</span>,<br>    train=<span class="hljs-literal">False</span>,<br>    transform=transform,<br>    download=<span class="hljs-literal">True</span><br>)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">DNN</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot; 搭建神经网络各层 &quot;&quot;&quot;</span><br>        <span class="hljs-built_in">super</span>(DNN, self).__init__()<br>        self.net = nn.Sequential(<br>            nn.Flatten(),       <span class="hljs-comment">#图像铺平成一维</span><br>            nn.Linear(<span class="hljs-number">784</span>, <span class="hljs-number">512</span>, ), nn.ReLU(),<br>            nn.Linear(<span class="hljs-number">512</span>, <span class="hljs-number">256</span>, ), nn.ReLU(),<br>            nn.Linear(<span class="hljs-number">256</span>, <span class="hljs-number">128</span>, ), nn.ReLU(),<br>            nn.Linear(<span class="hljs-number">128</span>, <span class="hljs-number">64</span>, ), nn.ReLU(),<br>            nn.Linear(<span class="hljs-number">64</span>, <span class="hljs-number">10</span>, ), nn.ReLU(),<br>        )<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-string">&quot;&quot;&quot; 前向传播 &quot;&quot;&quot;</span><br>        <span class="hljs-string">&quot;&quot;&quot; 张量会自动计算梯度，不需要反向传播方法 &quot;&quot;&quot;</span><br>        y = self.net(x) <span class="hljs-comment"># 输入数据</span><br>        <span class="hljs-keyword">return</span> y        <span class="hljs-comment"># 输出数据</span><br><br>model = DNN().to(<span class="hljs-string">&#x27;cuda:0&#x27;</span>)<br><br>train_loader = DataLoader(dataset=train_Data, batch_size=<span class="hljs-number">64</span>, shuffle=<span class="hljs-literal">True</span>)<br>test_loader = DataLoader(dataset=test_Data, batch_size=<span class="hljs-number">64</span>, shuffle=<span class="hljs-literal">False</span>)<br><br><span class="hljs-comment"># 设置损失函数和学习率</span><br>loss_fn = nn.CrossEntropyLoss()<br>learning_rate = <span class="hljs-number">0.01</span><br>optimizer = torch.optim.SGD(<br>    model.parameters(),<br>    lr=learning_rate,<br>    momentum=<span class="hljs-number">0.5</span>    <span class="hljs-comment"># 是梯度下降算法有了力和惯性</span><br>)<br><br>epochs = <span class="hljs-number">5</span><br>losses = []<br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>    <span class="hljs-keyword">for</span> (x, y) <span class="hljs-keyword">in</span> train_loader:<br>        x, y = x.to(<span class="hljs-string">&#x27;cuda:0&#x27;</span>), y.to(<span class="hljs-string">&#x27;cuda:0&#x27;</span>)<br>        Pred = model(x)     <span class="hljs-comment"># 一次前向传播</span><br>        loss = loss_fn(Pred, y)     <span class="hljs-comment"># 计算损失函数</span><br>        losses.append(loss.item())  <span class="hljs-comment"># 记录损失函数的变化</span><br>        optimizer.zero_grad()       <span class="hljs-comment"># 清除上一轮滞留的梯度</span><br>        loss.backward()             <span class="hljs-comment"># 一次反向传播</span><br>        optimizer.step()            <span class="hljs-comment"># 优化内部参数</span><br><br>Fig = plt.figure()<br>plt.plot(<span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(losses)), losses)<br><br>plt.show()<br></code></pre></td></tr></table></figure>
 
 
                 
