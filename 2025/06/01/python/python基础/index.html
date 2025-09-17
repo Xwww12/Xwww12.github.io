@@ -24,8 +24,15 @@
 <meta property="og:description" content="基本语法注释单行：# 多行：&#39;&#39;&#39;或&quot;&quot;&quot; 1234# 如果一段代码太长，可用\分段a &#x3D; b + c + \	d + e + \    f  变量类型查看类型type()查看变量类型 isinstance(a, (类型1, ...))判断是否是其中一种类型或子类 数字 int bool（True&#x2F;False） float compl">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/python_img/%E7%A5%9E%E7%BB%8F%E5%85%83%E8%8A%82%E7%82%B9.png">
+<meta property="og:image" content="http://xwww12.github.io/img/python_img/%E5%8D%B7%E7%A7%AF%E8%AE%A1%E7%AE%97.png">
+<meta property="og:image" content="http://xwww12.github.io/img/python_img/CNN%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA%E5%B0%BA%E5%AF%B8%E7%9A%84%E5%85%B3%E7%B3%BB.png">
+<meta property="og:image" content="http://xwww12.github.io/img/python_img/%E5%B9%B3%E5%9D%87%E6%B1%87%E8%81%9A.png">
+<meta property="og:image" content="http://xwww12.github.io/img/python_img/%E6%9C%80%E5%A4%A7%E5%80%BC%E6%B1%87%E8%81%9A.png">
+<meta property="og:image" content="http://xwww12.github.io/img/python_img/%E5%B0%BA%E5%AF%B8%E5%8F%98%E6%8D%A2%E6%80%BB%E7%BB%93.png">
+<meta property="og:image" content="http://xwww12.github.io/img/python_img/LeNet-51.png">
+<meta property="og:image" content="http://xwww12.github.io/img/python_img/LeNet-52.png">
 <meta property="article:published_time" content="2025-06-01T10:16:08.777Z">
-<meta property="article:modified_time" content="2025-09-15T11:28:20.506Z">
+<meta property="article:modified_time" content="2025-09-17T01:06:11.127Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.6k 字
+          8.1k 字
         
       </span>
     
@@ -238,7 +245,7 @@
         
         
         
-          64 分钟
+          68 分钟
         
       </span>
     
@@ -1091,6 +1098,78 @@
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset, random_split, DataLoader<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span>  matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> transforms  <span class="hljs-comment"># 图像转换，将数据集转化为张量</span><br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> datasets    <span class="hljs-comment"># 下载数据集</span><br><br><span class="hljs-comment"># 数据预处理,通常用于处理图像数据集输入神经网络</span><br><span class="hljs-comment"># ToTensor：将图像的[0, 255]变为[0, 1]</span><br><span class="hljs-comment"># Normalize(0.1307, 0.3081)：让MNIST 数据集接近正态分布</span><br>transform = transforms.Compose([<br>    transforms.ToTensor(),<br>    transforms.Normalize(<span class="hljs-number">0.1307</span>, <span class="hljs-number">0.3081</span>)<br>])<br><br><span class="hljs-comment"># 下载训练集</span><br>train_Data = datasets.MNIST(<br>    root=<span class="hljs-string">&#x27;./dataset/mnist/&#x27;</span>,<br>    train=<span class="hljs-literal">True</span>,<br>    transform=transform,<br>    download=<span class="hljs-literal">True</span><br>)<br><br><span class="hljs-comment"># 下载测试集</span><br>test_Data = datasets.MNIST(<br>    root=<span class="hljs-string">&#x27;./dataset/mnist/&#x27;</span>,<br>    train=<span class="hljs-literal">False</span>,<br>    transform=transform,<br>    download=<span class="hljs-literal">True</span><br>)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">DNN</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot; 搭建神经网络各层 &quot;&quot;&quot;</span><br>        <span class="hljs-built_in">super</span>(DNN, self).__init__()<br>        self.net = nn.Sequential(<br>            nn.Flatten(),       <span class="hljs-comment">#图像铺平成一维</span><br>            nn.Linear(<span class="hljs-number">784</span>, <span class="hljs-number">512</span>, ), nn.ReLU(),<br>            nn.Linear(<span class="hljs-number">512</span>, <span class="hljs-number">256</span>, ), nn.ReLU(),<br>            nn.Linear(<span class="hljs-number">256</span>, <span class="hljs-number">128</span>, ), nn.ReLU(),<br>            nn.Linear(<span class="hljs-number">128</span>, <span class="hljs-number">64</span>, ), nn.ReLU(),<br>            nn.Linear(<span class="hljs-number">64</span>, <span class="hljs-number">10</span>, ), nn.ReLU(),<br>        )<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-string">&quot;&quot;&quot; 前向传播 &quot;&quot;&quot;</span><br>        <span class="hljs-string">&quot;&quot;&quot; 张量会自动计算梯度，不需要反向传播方法 &quot;&quot;&quot;</span><br>        y = self.net(x) <span class="hljs-comment"># 输入数据</span><br>        <span class="hljs-keyword">return</span> y        <span class="hljs-comment"># 输出数据</span><br><br>model = DNN().to(<span class="hljs-string">&#x27;cuda:0&#x27;</span>)<br><br>train_loader = DataLoader(dataset=train_Data, batch_size=<span class="hljs-number">64</span>, shuffle=<span class="hljs-literal">True</span>)<br>test_loader = DataLoader(dataset=test_Data, batch_size=<span class="hljs-number">64</span>, shuffle=<span class="hljs-literal">False</span>)<br><br><span class="hljs-comment"># 设置损失函数和学习率</span><br>loss_fn = nn.CrossEntropyLoss()<br>learning_rate = <span class="hljs-number">0.01</span><br>optimizer = torch.optim.SGD(<br>    model.parameters(),<br>    lr=learning_rate,<br>    momentum=<span class="hljs-number">0.5</span>    <span class="hljs-comment"># 是梯度下降算法有了力和惯性</span><br>)<br><br>epochs = <span class="hljs-number">5</span><br>losses = []<br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>    <span class="hljs-keyword">for</span> (x, y) <span class="hljs-keyword">in</span> train_loader:<br>        x, y = x.to(<span class="hljs-string">&#x27;cuda:0&#x27;</span>), y.to(<span class="hljs-string">&#x27;cuda:0&#x27;</span>)<br>        Pred = model(x)     <span class="hljs-comment"># 一次前向传播</span><br>        loss = loss_fn(Pred, y)     <span class="hljs-comment"># 计算损失函数</span><br>        losses.append(loss.item())  <span class="hljs-comment"># 记录损失函数的变化</span><br>        optimizer.zero_grad()       <span class="hljs-comment"># 清除上一轮滞留的梯度</span><br>        loss.backward()             <span class="hljs-comment"># 一次反向传播</span><br>        optimizer.step()            <span class="hljs-comment"># 优化内部参数</span><br><br>Fig = plt.figure()<br>plt.plot(<span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(losses)), losses)<br><br>plt.show()<br></code></pre></td></tr></table></figure>
 
+
+
+<h1 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h1><h2 id="CNN和DNN的区别"><a href="#CNN和DNN的区别" class="headerlink" title="CNN和DNN的区别"></a>CNN和DNN的区别</h2><blockquote>
+<p>CNN: Convolutional Neural Network，卷积神经网络</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>DNN（深度神经网络）</th>
+<th>CNN（卷积神经网络）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>基本单元</strong></td>
+<td>全连接层（每个神经元都与前一层所有神经元相连）</td>
+<td>卷积层 + 池化层</td>
+</tr>
+<tr>
+<td><strong>参数量</strong></td>
+<td>参数多（因为全连接）</td>
+<td>参数少（卷积核共享权重）</td>
+</tr>
+<tr>
+<td><strong>特征提取</strong></td>
+<td>人工设计特征，输入通常是向量</td>
+<td>自动提取局部特征，适合图像&#x2F;时序</td>
+</tr>
+<tr>
+<td><strong>输入格式</strong></td>
+<td>一维向量</td>
+<td>二维&#x2F;三维张量（图像：高×宽×通道）</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>简单分类、回归、推荐系统</td>
+<td>图像识别、目标检测、语音识别、NLP（部分场景）</td>
+</tr>
+</tbody></table>
+<h2 id="CNN的大致原理"><a href="#CNN的大致原理" class="headerlink" title="CNN的大致原理"></a>CNN的大致原理</h2><p><strong>内部参数：卷积核</strong></p>
+<p>当输入数据进入卷积层后，会与卷积核（类似DNN的权重）进行卷积运算</p>
+<p>当输入数据是二维时被称为卷积核，三维及以上时称为滤波器</p>
+<p><img src="/img/python_img/%E5%8D%B7%E7%A7%AF%E8%AE%A1%E7%AE%97.png" srcset="/img/loading.gif" lazyload alt="卷积计算的方式"></p>
+<p><strong>内部参数：偏置</strong></p>
+<p>将卷积运算结果加上偏置的值</p>
+<p><strong>外部参数：填充</strong></p>
+<p>为了防止经过多个卷积层后图像越来越小，向图像的周围填充固定的数据（如0）</p>
+<p><strong>外部参数：步幅</strong></p>
+<p>使用卷积核的位置，每次往右移动1格就是步幅为1</p>
+<p><strong>输入和输出尺寸的关系</strong></p>
+<p>可通过调节步幅和尺寸来控制某层输出尺寸</p>
+<p><img src="/img/python_img/CNN%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA%E5%B0%BA%E5%AF%B8%E7%9A%84%E5%85%B3%E7%B3%BB.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>多通道输出</strong></p>
+<p>让三维的特征多经过几个卷积层，每层都有单独的偏置</p>
+<p><strong>汇聚（池化）</strong></p>
+<p>从一个范围内提取一个特征值，不会改变通道数</p>
+<ul>
+<li><p>平均汇聚</p>
+<p>  <img src="/img/python_img/%E5%B9%B3%E5%9D%87%E6%B1%87%E8%81%9A.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>最大值汇聚</p>
+<p>  <img src="/img/python_img/%E6%9C%80%E5%A4%A7%E5%80%BC%E6%B1%87%E8%81%9A.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<p><strong>尺寸变换总结</strong></p>
+<p><img src="/img/python_img/%E5%B0%BA%E5%AF%B8%E5%8F%98%E6%8D%A2%E6%80%BB%E7%BB%93.png" srcset="/img/loading.gif" lazyload></p>
+<p>汇聚只要高和宽除以步长就行</p>
+<h2 id="CNN模型"><a href="#CNN模型" class="headerlink" title="CNN模型"></a>CNN模型</h2><h3 id="LeNet-5"><a href="#LeNet-5" class="headerlink" title="LeNet-5"></a>LeNet-5</h3><blockquote>
+<p><strong>LeNet-5</strong> 是卷积神经网络（CNN）发展史上的一个里程碑模型，1998 年提出，第一个真正成功应用在图像识别上的 CNN 架构，为后来的 AlexNet、VGG、ResNet 奠定了基础</p>
+</blockquote>
+<p><img src="/img/python_img/LeNet-51.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/python_img/LeNet-52.png" srcset="/img/loading.gif" lazyload></p>
 
                 
               </div>
