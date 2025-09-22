@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/redis_img/xread.png">
 <meta property="og:image" content="http://xwww12.github.io/img/redis_img/gundongfenye.png">
 <meta property="article:published_time" content="2022-08-16T13:59:52.126Z">
-<meta property="article:modified_time" content="2023-09-07T00:44:54.509Z">
+<meta property="article:modified_time" content="2025-09-20T10:50:37.160Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="中间件">
@@ -241,7 +241,7 @@
         
         
         
-          89 分钟
+          90 分钟
         
       </span>
     
@@ -623,7 +623,12 @@
 <p>会额外存序列化的类信息，占据额外内存，可以使用<strong>StringRedisTemplate</strong>解决这个问题</p>
 </li>
 </ol>
-<h5 id="StringRedisTemplate"><a href="#StringRedisTemplate" class="headerlink" title="StringRedisTemplate"></a>StringRedisTemplate</h5><ol>
+<h5 id="StringRedisTemplate"><a href="#StringRedisTemplate" class="headerlink" title="StringRedisTemplate"></a>StringRedisTemplate</h5><blockquote>
+<p><code>StringRedisTemplate</code> 是 <code>RedisTemplate&lt;String, String&gt;</code> 的特化版本。</p>
+<p>它 <strong>简化了对 Redis 字符串（String）类型的操作</strong>，不需要手动序列化和反序列化。</p>
+<p>可以直接使用 Java 的 <code>String</code> 类型作为键和值</p>
+</blockquote>
+<ol>
 <li><p>注入StringRedisTemplate，测试</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringDataRedisDemoApplicationTests</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> StringRedisTemplate redisTemplate;<br>	<span class="hljs-comment">// JSON序列化工具</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">ObjectMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectMapper</span>();<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">testUser</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> JsonProcessingException &#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&quot;张三&quot;</span>, <span class="hljs-number">20</span>);<br>        <span class="hljs-comment">// 手动序列化为json</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">json</span> <span class="hljs-operator">=</span> mapper.writeValueAsString(user);<br>        redisTemplate.opsForValue().set(<span class="hljs-string">&quot;user:1&quot;</span>, json);<br>        <span class="hljs-comment">// 手动反序列化</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">jsonUser</span> <span class="hljs-operator">=</span> redisTemplate.opsForValue().get(<span class="hljs-string">&quot;user:1&quot;</span>);<br>        <span class="hljs-type">User</span> <span class="hljs-variable">u</span> <span class="hljs-operator">=</span> mapper.readValue(jsonUser, User.class);<br>        System.out.println(u);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
