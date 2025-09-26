@@ -24,7 +24,7 @@
 <meta property="og:description" content="LangChain4j部署模型本地部署下载Ollama Ollama 是一个可以在本地运行大语言模型（LLM）的工具和平台  Ollama官网 步骤：  下载：进入官网，点击download，选择对应操作系统下载安装包 安装：进入安装包所在文件夹，进入命令行，通过OllamaSetup.exe &#x2F;DIR&#x3D;E:\Ollama指定文件夹安装，否则默认装到C盘 设置模型的保存路径：新建一个models文">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-21T02:27:07.437Z">
-<meta property="article:modified_time" content="2025-09-25T13:23:47.171Z">
+<meta property="article:modified_time" content="2025-09-26T13:45:33.874Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.9k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          19 分钟
+          25 分钟
         
       </span>
     
@@ -482,7 +482,57 @@
 <li><p>在<code>chatMemoryProvider</code>中配置使用</p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CommonConfig</span> &#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> ChatMemoryStore redisChatMemoryStore;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> ChatMemoryProvider <span class="hljs-title function_">chatMemoryProvider</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChatMemoryProvider</span>()&#123;<br>            <span class="hljs-comment">// 通过指定的id没有找到memory时，会用get方法创建一个，实现会话的隔离</span><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> ChatMemory <span class="hljs-title function_">get</span><span class="hljs-params">(Object memoryId)</span> &#123;<br>                <span class="hljs-keyword">return</span> MessageWindowChatMemory.builder()<br>                        .id(memoryId)<br>                        .maxMessages(<span class="hljs-number">20</span>)<br>                        .chatMemoryStore(redisChatMemoryStore)<br>                        .build();<br>            &#125;<br>        &#125;;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ol>
-<p>​    </p>
+<h3 id="RAG"><a href="#RAG" class="headerlink" title="RAG"></a>RAG</h3><blockquote>
+<p>Retrieval-Augmented Generation，检索增强生成。通过检索外部知识库的方式增强大模型的生成能力</p>
+</blockquote>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p><strong>为什么要RAG</strong></p>
+<ul>
+<li>知识更新滞后：模型训练完成后，参数里的知识是静态的，不能自动更新。</li>
+<li>记忆有限：模型参数不可能包含所有的事实信息。</li>
+</ul>
+<p><strong>RAG基本流程</strong></p>
+<ol>
+<li>用户输入问题</li>
+<li>在外部知识库（如向量数据库）检索出相关的文档或片段</li>
+<li>将问题+检索到的相关文档一起输入给模型</li>
+<li>模型生成答案</li>
+</ol>
+<p><strong>向量数据库</strong></p>
+<ul>
+<li>是一种 <strong>专门用来存储、索引和检索高维向量</strong> 的数据库</li>
+<li>存储格式：不是存“字符串”或者“表格数据”，而是存储一大堆 <strong>浮点数向量</strong></li>
+<li>存储方式：文档被分割成一个个片段，再通过<strong>Embedding模型</strong>将其转换成一个个高维向量来存储</li>
+<li><strong>余弦相似度</strong>：两个向量夹角的余弦值，重合时为1，垂直时为0，用于计算两个向量的远近</li>
+<li>检索方式：通过Embedding模型将问题转化为向量，再和数据库中的数据计算余弦相似度，得到文本片段，一起发送给大模型</li>
+</ul>
+<p><strong>RAG优点</strong></p>
+<ul>
+<li>知识实时更新</li>
+<li>减少幻觉</li>
+<li>检索范围更可控</li>
+</ul>
+<h4 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h4><h5 id="Easy-RAG"><a href="#Easy-RAG" class="headerlink" title="Easy RAG"></a>Easy RAG</h5><blockquote>
+<p>将文档加载在内存中，是RAG的简化实现，用来熟悉概念的</p>
+</blockquote>
+<p><strong>存储</strong></p>
+<ol>
+<li><p>导入依赖</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>dev.langchain4j<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>langchain4j-easy-rag<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0.0-beta3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>构建向量数据库操作对象</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> EmbeddingStore <span class="hljs-title function_">store</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 加载文档</span><br>        List&lt;Document&gt; documents = ClassPathDocumentLoader.loadDocuments(<span class="hljs-string">&quot;content&quot;</span>);<br>        <span class="hljs-comment">// （内存简化版）向量数据库操作对象</span><br>        <span class="hljs-type">InMemoryEmbeddingStore</span> <span class="hljs-variable">store</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InMemoryEmbeddingStore</span>();<br>        <span class="hljs-comment">// 切割文档并向量化，存储到（内存简化版）向量数据库中</span><br>        <span class="hljs-type">EmbeddingStoreIngestor</span> <span class="hljs-variable">ingestor</span> <span class="hljs-operator">=</span> EmbeddingStoreIngestor.builder()<br>                <span class="hljs-comment">// 每个文档片段的最大长度(token)，片段之间的重叠部分大小（为了防止硬切导致语义丢失），第一个值太短可能导致没带上有效信息</span><br>                .documentSplitter(DocumentSplitters.recursive(<span class="hljs-number">500</span>, <span class="hljs-number">50</span>))<br>                .embeddingStore(store)<br>                .build();<br>        ingestor.ingest(documents);<br><br>        <span class="hljs-keyword">return</span> store;<br>    &#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>检索</strong></p>
+<ol>
+<li><p>构建向量数据库检索对象</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 构建向量数据库检索对象</span><br><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> ContentRetriever <span class="hljs-title function_">contentRetriever</span><span class="hljs-params">(EmbeddingStore store)</span> &#123;<br>    <span class="hljs-keyword">return</span> EmbeddingStoreContentRetriever.builder()<br>        .embeddingStore(store)<br>        .minScore(<span class="hljs-number">0.5</span>)      <span class="hljs-comment">// 最小的相似度</span><br>        .maxResults(<span class="hljs-number">3</span>)      <span class="hljs-comment">// 查询出来的片段的最大数量</span><br>        .build();<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置向量数据库检索对象</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@AiService(</span><br><span class="hljs-meta">        chatModel = &quot;openAiChatModel&quot;,</span><br><span class="hljs-meta">        chatMemoryProvider = &quot;chatMemoryProvider&quot;,</span><br><span class="hljs-meta">        contentRetriever = &quot;contentRetriever&quot;   // 配置向量数据库检索对象</span><br><span class="hljs-meta">)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">ConsultantService</span> &#123;<br>    ...<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>启动项目有日志信息，文档被切成了几份，测试</p>
+ <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">Documents were <span class="hljs-built_in">split</span> <span class="hljs-keyword">into</span> <span class="hljs-number">29</span> <span class="hljs-keyword">text</span> <span class="hljs-keyword">segments</span><br>Starting <span class="hljs-built_in">to</span> embed <span class="hljs-number">29</span> <span class="hljs-keyword">text</span> <span class="hljs-keyword">segments</span><br>Finished embedding <span class="hljs-number">29</span> <span class="hljs-keyword">text</span> <span class="hljs-keyword">segments</span><br></code></pre></td></tr></table></figure></li>
+</ol>
 
                 
               </div>
