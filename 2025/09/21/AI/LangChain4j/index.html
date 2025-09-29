@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/langchain4j_img/%E6%96%87%E6%A1%A3%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B.png">
 <meta property="article:published_time" content="2025-09-21T02:27:07.437Z">
-<meta property="article:modified_time" content="2025-09-27T09:10:50.533Z">
+<meta property="article:modified_time" content="2025-09-29T12:25:42.639Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          3.6k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          29 分钟
+          31 分钟
         
       </span>
     
@@ -557,6 +557,21 @@
 </li>
 <li><p>启动项目有日志信息，文档被切成了几份；测试，查看搜索时是否携带了文档中的信息</p>
  <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">Documents were <span class="hljs-built_in">split</span> <span class="hljs-keyword">into</span> <span class="hljs-number">29</span> <span class="hljs-keyword">text</span> <span class="hljs-keyword">segments</span><br>Starting <span class="hljs-built_in">to</span> embed <span class="hljs-number">29</span> <span class="hljs-keyword">text</span> <span class="hljs-keyword">segments</span><br>Finished embedding <span class="hljs-number">29</span> <span class="hljs-keyword">text</span> <span class="hljs-keyword">segments</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h3><blockquote>
+<p>让大模型能调用自定义的 Java 方法，扩展它的能力</p>
+</blockquote>
+<ol>
+<li><p>编写CRUD</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.xw.consultant.pojo;<br><br><span class="hljs-keyword">import</span> lombok.*;<br><br><span class="hljs-keyword">import</span> java.time.LocalDateTime;<br><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-meta">@Setter</span><br><span class="hljs-meta">@Getter</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Reservation</span> &#123;<br>    <span class="hljs-keyword">private</span> Long id;<br><br>    <span class="hljs-keyword">private</span> String name;<br><br>    <span class="hljs-keyword">private</span> String gender;<br><br>    <span class="hljs-keyword">private</span> String phone;<br><br>    <span class="hljs-keyword">private</span> LocalDateTime communicationTime;<br><br>    <span class="hljs-keyword">private</span> String province;<br><br>    <span class="hljs-keyword">private</span> Integer estimatedScore;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写Tools</p>
+<p> <code>@Tool</code>：用于将一个 Java 方法暴露给LLM作为可调用的函数</p>
+<p> <code>@P</code>：给 AI 提示正确的参数</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ReservationTool</span> &#123;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> ReservationService reservationService;<br><br>    <span class="hljs-comment">// 添加预约信息</span><br>    <span class="hljs-meta">@Tool(&quot;预约志愿填报服务&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addReservation</span><span class="hljs-params">(</span><br><span class="hljs-params">            <span class="hljs-meta">@P(&quot;考生姓名&quot;)</span> String name,</span><br><span class="hljs-params">            <span class="hljs-meta">@P(&quot;考生性别&quot;)</span> String gender,</span><br><span class="hljs-params">            <span class="hljs-meta">@P(&quot;考生手机号&quot;)</span> String phone,</span><br><span class="hljs-params">            <span class="hljs-meta">@P(&quot;预约沟通时间,格式为: yyyy-MM-dd&#x27;T&#x27;HH:mm&quot;)</span> String communicationTime,</span><br><span class="hljs-params">            <span class="hljs-meta">@P(&quot;考生所在省份&quot;)</span> String province,</span><br><span class="hljs-params">            <span class="hljs-meta">@P(&quot;考生预估分数&quot;)</span> Integer estimatedScore</span><br><span class="hljs-params">    )</span> &#123;<br>        <span class="hljs-type">Reservation</span> <span class="hljs-variable">reservation</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Reservation</span>(<span class="hljs-literal">null</span>, name, gender, phone, LocalDateTime.parse(communicationTime), province, estimatedScore);<br>        reservationService.insert(reservation);<br>    &#125;<br>    <span class="hljs-comment">// 查询预约信息</span><br>    <span class="hljs-meta">@Tool(&quot;根据考生手机号查询预约单&quot;)</span><br>    <span class="hljs-keyword">public</span> Reservation <span class="hljs-title function_">findReservation</span><span class="hljs-params">(</span><br><span class="hljs-params">            <span class="hljs-meta">@P(&quot;考生手机号&quot;)</span> String phone</span><br><span class="hljs-params">    )</span> &#123;<br>        <span class="hljs-keyword">return</span> reservationService.findByPhone(phone);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>AiService</code>注解上添加tools</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@AiService(</span><br><span class="hljs-meta">        chatModel = &quot;openAiChatModel&quot;,</span><br><span class="hljs-meta">        chatMemoryProvider = &quot;chatMemoryProvider&quot;,</span><br><span class="hljs-meta">        contentRetriever = &quot;contentRetriever&quot;,   // 配置向量数据库检索对象</span><br><span class="hljs-meta">        tools = &quot;reservationTool&quot;</span><br><span class="hljs-meta">)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">ConsultantService</span> &#123;<br>    ...<br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
