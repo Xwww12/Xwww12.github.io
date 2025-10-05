@@ -16,16 +16,16 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Threejs官网：https:&#x2F;&#x2F;threejs.org&#x2F; github仓库：https:&#x2F;&#x2F;github.com&#x2F;mrdoob&#x2F;three.js 环境本地本地运行：vscode安装live-server插件，右键想要运行的html文件，点击Open with Live Server 引入threejs： 123456789101112131415&#x2F;&#x2F; 在examples下的代码中可以找到官方写">
+    <meta name="description" content="Threejs官网：https:&#x2F;&#x2F;threejs.org&#x2F; github仓库：https:&#x2F;&#x2F;github.com&#x2F;mrdoob&#x2F;three.js 环境本地下载依赖包  核心文件：在官方仓库的&#x2F;build下的three.module.js 插件：在&#x2F;examples&#x2F;jsm下  本地运行 ​	vscode安装live-server插件，右键想要运行的html文件，点击Open with Live">
 <meta property="og:type" content="article">
 <meta property="og:title" content="threejs">
 <meta property="og:url" content="http://xwww12.github.io/2025/07/14/%E5%89%8D%E7%AB%AF/threejs/threejs/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Threejs官网：https:&#x2F;&#x2F;threejs.org&#x2F; github仓库：https:&#x2F;&#x2F;github.com&#x2F;mrdoob&#x2F;three.js 环境本地本地运行：vscode安装live-server插件，右键想要运行的html文件，点击Open with Live Server 引入threejs： 123456789101112131415&#x2F;&#x2F; 在examples下的代码中可以找到官方写">
+<meta property="og:description" content="Threejs官网：https:&#x2F;&#x2F;threejs.org&#x2F; github仓库：https:&#x2F;&#x2F;github.com&#x2F;mrdoob&#x2F;three.js 环境本地下载依赖包  核心文件：在官方仓库的&#x2F;build下的three.module.js 插件：在&#x2F;examples&#x2F;jsm下  本地运行 ​	vscode安装live-server插件，右键想要运行的html文件，点击Open with Live">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/threejs_img/%E9%80%8F%E8%A7%86%E6%8A%95%E5%BD%B1%E7%9B%B8%E6%9C%BA.png">
 <meta property="article:published_time" content="2025-07-14T13:44:41.899Z">
-<meta property="article:modified_time" content="2025-07-15T14:23:48.085Z">
+<meta property="article:modified_time" content="2025-10-05T13:30:21.721Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          448 字
+          495 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -299,9 +299,15 @@
                 
                 <h1 id="Threejs"><a href="#Threejs" class="headerlink" title="Threejs"></a>Threejs</h1><p>官网：<a target="_blank" rel="noopener" href="https://threejs.org/">https://threejs.org/</a></p>
 <p>github仓库：<a target="_blank" rel="noopener" href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a></p>
-<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><h3 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h3><p>本地运行：vscode安装live-server插件，右键想要运行的html文件，点击Open with Live Server</p>
-<p>引入threejs：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 在examples下的代码中可以找到官方写的导入代码</span><br><span class="hljs-comment">// 路径根据实际情况修改</span><br>&lt;script type=<span class="hljs-string">&quot;importmap&quot;</span>&gt;<br>    &#123;<br>        <span class="hljs-string">&quot;imports&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;three&quot;</span>: <span class="hljs-string">&quot;./build/three.module.js&quot;</span><br>        &#125;<br>    &#125;<br>&lt;/script&gt;<br><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> <span class="hljs-variable constant_">THREE</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;three&#x27;</span>;</span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-comment">// 浏览器控制台测试，是否引入成功</span></span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">Scene</span>);</span></span><br><span class="language-javascript"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><h3 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h3><p><strong>下载依赖包</strong></p>
+<ul>
+<li>核心文件：在官方仓库的<code>/build</code>下的<code>three.module.js</code></li>
+<li>插件：在<code>/examples/jsm</code>下</li>
+</ul>
+<p><strong>本地运行</strong></p>
+<p>​	vscode安装live-server插件，右键想要运行的html文件，点击Open with Live Server</p>
+<p><strong>引入threejs</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 在examples下的代码中可以找到官方写的导入代码</span><br><span class="hljs-comment">// three.module.js是运行基本的 three.js 应用程序所需的唯一文件</span><br><span class="hljs-comment">// 路径根据实际情况修改</span><br>&lt;script type=<span class="hljs-string">&quot;importmap&quot;</span>&gt;<br>    &#123;<br>        <span class="hljs-string">&quot;imports&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;three&quot;</span>: <span class="hljs-string">&quot;./build/three.module.js&quot;</span><br>        &#125;<br>    &#125;<br>&lt;/script&gt;<br><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> <span class="hljs-variable constant_">THREE</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;three&#x27;</span>;</span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-comment">// 浏览器控制台测试，是否引入成功</span></span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">Scene</span>);</span></span><br><span class="language-javascript"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <ul>
