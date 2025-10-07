@@ -1,0 +1,776 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/icon_img/juzi.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xw">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Kafka Kafka 可以理解为一个高性能消息中间件，主要用来：解耦系统（不同服务之间用消息传递，不直接依赖）、削峰填谷（应对突发流量）、异步通信、流式数据处理  概念Producer（生产者） 负责向 Kafka 发送消息   把消息发送到某个 Topic（主题） 发送时可以指定消息要写入哪个 Partition（分区） 通常是“异步发送”，效率高  Consumer（消费者） 从 Kafka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka">
+<meta property="og:url" content="http://xwww12.github.io/2025/10/07/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Kafka Kafka 可以理解为一个高性能消息中间件，主要用来：解耦系统（不同服务之间用消息传递，不直接依赖）、削峰填谷（应对突发流量）、异步通信、流式数据处理  概念Producer（生产者） 负责向 Kafka 发送消息   把消息发送到某个 Topic（主题） 发送时可以指定消息要写入哪个 Partition（分区） 通常是“异步发送”，效率高  Consumer（消费者） 从 Kafka">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/kafka_img/kafka%E4%B8%BB%E8%A6%81%E6%9E%B6%E6%9E%84.png">
+<meta property="article:published_time" content="2025-10-07T03:03:40.246Z">
+<meta property="article:modified_time" content="2025-10-07T13:02:32.454Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="中间件">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/kafka_img/kafka%E4%B8%BB%E8%A6%81%E6%9E%B6%E6%9E%84.png">
+  
+  
+  
+  <title>Kafka - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xwww12.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>夕立ち的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img/Reimu1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Kafka</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        xw
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-10-07 11:03" pubdate>
+          2025年10月7日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Kafka</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><blockquote>
+<p>Kafka 可以理解为一个<strong>高性能消息中间件</strong>，主要用来：<strong>解耦系统</strong>（不同服务之间用消息传递，不直接依赖）、<strong>削峰填谷</strong>（应对突发流量）、<strong>异步通信</strong>、<strong>流式数据处理</strong></p>
+</blockquote>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="Producer（生产者）"><a href="#Producer（生产者）" class="headerlink" title="Producer（生产者）"></a>Producer（生产者）</h3><blockquote>
+<p>负责向 Kafka 发送消息</p>
+</blockquote>
+<ul>
+<li>把消息发送到某个 <strong>Topic（主题）</strong></li>
+<li>发送时可以指定消息要写入哪个 <strong>Partition（分区）</strong></li>
+<li>通常是“异步发送”，效率高</li>
+</ul>
+<h3 id="Consumer（消费者）"><a href="#Consumer（消费者）" class="headerlink" title="Consumer（消费者）"></a>Consumer（消费者）</h3><blockquote>
+<p>从 Kafka 中读取消息</p>
+</blockquote>
+<ul>
+<li>订阅一个或多个 <strong>Topic</strong></li>
+<li>消费的方式是拉取（pull）模式</li>
+<li>多个消费者可以组成一个 <strong>Consumer Group（消费者组）</strong> 来分工处理数据</li>
+</ul>
+<h3 id="Topic（主题）"><a href="#Topic（主题）" class="headerlink" title="Topic（主题）"></a>Topic（主题）</h3><blockquote>
+<p>对消息进行分类和存储</p>
+</blockquote>
+<ul>
+<li>每个主题可以有多个 <strong>Partition（分区）</strong></li>
+<li>生产者往主题里发消息，消费者从主题里读消息</li>
+<li>比如有主题 <code>order_log</code>、<code>user_behavior</code></li>
+</ul>
+<h3 id="Partition（分区）"><a href="#Partition（分区）" class="headerlink" title="Partition（分区）"></a>Partition（分区）</h3><blockquote>
+<p>Kafka 的高性能关键所在</p>
+</blockquote>
+<ul>
+<li>每个 Topic 会被分成多个 Partition</li>
+<li>每个 Partition 是一个<strong>有序、不可变的消息队列</strong></li>
+<li>Partition 里的每条消息都有一个唯一的编号：<strong>offset（偏移量）</strong></li>
+<li>Kafka 通过分区来实现<strong>并行处理</strong>和<strong>数据分布</strong></li>
+</ul>
+<h3 id="Offset（偏移量）"><a href="#Offset（偏移量）" class="headerlink" title="Offset（偏移量）"></a>Offset（偏移量）</h3><blockquote>
+<p>消息在分区中的唯一位置编号</p>
+</blockquote>
+<ul>
+<li>每条消息在分区中都有一个 offset</li>
+<li>消费者会记录自己消费到哪里（比如 offset&#x3D;120）</li>
+<li>这个 offset 用来实现<strong>断点续传</strong></li>
+</ul>
+<h3 id="Broker（代理服务器）"><a href="#Broker（代理服务器）" class="headerlink" title="Broker（代理服务器）"></a><strong>Broker（代理服务器）</strong></h3><blockquote>
+<p>Kafka 的服务器节点</p>
+</blockquote>
+<ul>
+<li>每台 Broker 就是一个 Kafka 实例</li>
+<li>集群由多个Broker 组成</li>
+<li>每个 Broker 存储若干个 Partition 的数据</li>
+</ul>
+<h3 id="Replication（副本机制）"><a href="#Replication（副本机制）" class="headerlink" title="Replication（副本机制）"></a>Replication（副本机制）</h3><blockquote>
+<p>Kafka 为每个分区保存多个副本</p>
+</blockquote>
+<ul>
+<li>一个分区通常有 1 个 <strong>Leader</strong> 和若干个 <strong>Follower</strong></li>
+<li>Producer 和 Consumer 只和 Leader 交互</li>
+<li>如果 Leader 挂了，会由 Follower 自动接管</li>
+</ul>
+<h3 id="ZooKeeper"><a href="#ZooKeeper" class="headerlink" title="ZooKeeper"></a>ZooKeeper</h3><p>​	为了提高集群的<code>可用性和稳定性</code>， 架构中还会引入<code>ZooKeeper</code>, <code>ZooKeeper</code>用于维护<code>Kafka集群</code>中的<code>Broker节点</code>信息、<code>Partition</code>信息、<code>Topic</code>信息、集群管理、Leader选举、存储Metadata信息等</p>
+<p>​	在<code>Kafka</code>中，每个<code>Broker</code>都会向<code>ZooKeeper</code>注册自己的节点信息，包括<code>Broker ID、IP地址和端口号</code>等。同时，每个<code>Partition</code>的<code>Metadata</code>信息也会存储在<code>ZooKeeper</code>中，包括该<code>Partition</code>的<code>Replica</code>信息、<code>Leader</code>信息、<code>ISR</code>信息等。当<code>Broker</code>加入或退出集群时，<code>ZooKeeper</code>会自动通知其他<code>Broker</code>更新集群的状态信息。在<code>Leader</code>选举时，<code>ZooKeeper</code>会根据预设的算法选举出新的<code>Leader</code>，并通知其他<code>Broker</code>更新<code>Partition</code>的状态信息。</p>
+<h3 id="主要架构"><a href="#主要架构" class="headerlink" title="主要架构"></a>主要架构</h3><p><img src="/img/kafka_img/kafka%E4%B8%BB%E8%A6%81%E6%9E%B6%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><code>Producer</code>将消息发送到<code>Broker</code>节点，<code>Broker</code>将消息存储到对应的<code>Partition</code>中</li>
+<li><strong>每个Partition可以有多个Replica，其中一个Replica被选为Leader，其余Replica<code>为</code>Follower</strong></li>
+<li><strong>Leader负责处理消息的写操作，将消息追加到Partition中</strong></li>
+<li><strong>Follower负责与Leader保持同步，定期从Leader中拉取消息并复制到本地副本中，以保证数据的一致性</strong></li>
+<li><code>Consumer</code>从<code>Broker</code>中读取消息，可以指定消费某个<code>Topic</code>中的指定<code>Partition</code>中的消息，也可以进行批量消费或实时消费</li>
+<li><code>Broker</code>将消息存储在磁盘中，同时也会缓存部分消息到内存中，以提高读写性能</li>
+</ul>
+<h2 id="搭建Kafka集群"><a href="#搭建Kafka集群" class="headerlink" title="搭建Kafka集群"></a>搭建Kafka集群</h2><h3 id="Kafka-Assistant"><a href="#Kafka-Assistant" class="headerlink" title="Kafka Assistant"></a>Kafka Assistant</h3><p>官网：<a target="_blank" rel="noopener" href="https://www.redisant.com/ka">https://www.redisant.com/ka</a></p>
+<p>测试、查看Kafka的GUI工具</p>
+<h3 id="在Linux的Docker上"><a href="#在Linux的Docker上" class="headerlink" title="在Linux的Docker上"></a>在Linux的Docker上</h3><h4 id="三个Zookeeper、三个Kafka及一个Kafka-UI"><a href="#三个Zookeeper、三个Kafka及一个Kafka-UI" class="headerlink" title="三个Zookeeper、三个Kafka及一个Kafka-UI"></a>三个Zookeeper、三个Kafka及一个Kafka-UI</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3.1&#x27;</span><br><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">zoo1:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">confluentinc/cp-zookeeper:7.3.2</span><br>    <span class="hljs-attr">hostname:</span> <span class="hljs-string">zoo1</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">zoo1</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;2181:2181&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">ZOOKEEPER_CLIENT_PORT:</span> <span class="hljs-number">2181</span><br>      <span class="hljs-attr">ZOOKEEPER_SERVER_ID:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">ZOOKEEPER_SERVERS:</span> <span class="hljs-string">zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/zookeeper/zoo1/data:/data</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/zookeeper/zoo1/datalog:/datalog</span>  <br><br>  <span class="hljs-attr">zoo2:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">confluentinc/cp-zookeeper:7.3.2</span><br>    <span class="hljs-attr">hostname:</span> <span class="hljs-string">zoo2</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">zoo2</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;2182:2182&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">ZOOKEEPER_CLIENT_PORT:</span> <span class="hljs-number">2182</span><br>      <span class="hljs-attr">ZOOKEEPER_SERVER_ID:</span> <span class="hljs-number">2</span><br>      <span class="hljs-attr">ZOOKEEPER_SERVERS:</span> <span class="hljs-string">zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/zookeeper/zoo2/data:/data</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/zookeeper/zoo2/datalog:/datalog</span>    <br><br>  <span class="hljs-attr">zoo3:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">confluentinc/cp-zookeeper:7.3.2</span><br>    <span class="hljs-attr">hostname:</span> <span class="hljs-string">zoo3</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">zoo3</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;2183:2183&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">ZOOKEEPER_CLIENT_PORT:</span> <span class="hljs-number">2183</span><br>      <span class="hljs-attr">ZOOKEEPER_SERVER_ID:</span> <span class="hljs-number">3</span><br>      <span class="hljs-attr">ZOOKEEPER_SERVERS:</span> <span class="hljs-string">zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/zookeeper/zoo3/data:/data</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/zookeeper/zoo3/datalog:/datalog</span>    <br><br><br><br>  <span class="hljs-attr">kafka1:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">confluentinc/cp-kafka:7.3.2</span><br>    <span class="hljs-attr">hostname:</span> <span class="hljs-string">kafka1</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">kafka1</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9092:9092&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;29092:29092&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="hljs-string">INTERNAL://kafka1:19092,EXTERNAL://$&#123;DOCKER_HOST_IP:-127.0.0.1&#125;:9092,DOCKER://host.docker.internal:29092</span><br>      <span class="hljs-attr">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:</span> <span class="hljs-string">INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT</span><br>      <span class="hljs-attr">KAFKA_INTER_BROKER_LISTENER_NAME:</span> <span class="hljs-string">INTERNAL</span><br>      <span class="hljs-attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="hljs-string">&quot;zoo1:2181,zoo2:2182,zoo3:2183&quot;</span><br>      <span class="hljs-attr">KAFKA_BROKER_ID:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">KAFKA_LOG4J_LOGGERS:</span> <span class="hljs-string">&quot;kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO&quot;</span><br>      <span class="hljs-attr">KAFKA_AUTHORIZER_CLASS_NAME:</span> <span class="hljs-string">kafka.security.authorizer.AclAuthorizer</span><br>      <span class="hljs-attr">KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND:</span> <span class="hljs-string">&quot;true&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/kafka_data1:/kafka/data</span>  <br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zoo1</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zoo2</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zoo3</span><br><br>  <span class="hljs-attr">kafka2:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">confluentinc/cp-kafka:7.3.2</span><br>    <span class="hljs-attr">hostname:</span> <span class="hljs-string">kafka2</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">kafka2</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9093:9093&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;29093:29093&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="hljs-string">INTERNAL://kafka2:19093,EXTERNAL://$&#123;DOCKER_HOST_IP:-127.0.0.1&#125;:9093,DOCKER://host.docker.internal:29093</span><br>      <span class="hljs-attr">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:</span> <span class="hljs-string">INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT</span><br>      <span class="hljs-attr">KAFKA_INTER_BROKER_LISTENER_NAME:</span> <span class="hljs-string">INTERNAL</span><br>      <span class="hljs-attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="hljs-string">&quot;zoo1:2181,zoo2:2182,zoo3:2183&quot;</span><br>      <span class="hljs-attr">KAFKA_BROKER_ID:</span> <span class="hljs-number">2</span><br>      <span class="hljs-attr">KAFKA_LOG4J_LOGGERS:</span> <span class="hljs-string">&quot;kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO&quot;</span><br>      <span class="hljs-attr">KAFKA_AUTHORIZER_CLASS_NAME:</span> <span class="hljs-string">kafka.security.authorizer.AclAuthorizer</span><br>      <span class="hljs-attr">KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND:</span> <span class="hljs-string">&quot;true&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/kafka_data2:/kafka/data</span>    <br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zoo1</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zoo2</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zoo3</span><br><br>  <span class="hljs-attr">kafka3:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">confluentinc/cp-kafka:7.3.2</span><br>    <span class="hljs-attr">hostname:</span> <span class="hljs-string">kafka3</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">kafka3</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9094:9094&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;29094:29094&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="hljs-string">INTERNAL://kafka3:19094,EXTERNAL://$&#123;DOCKER_HOST_IP:-127.0.0.1&#125;:9094,DOCKER://host.docker.internal:29094</span><br>      <span class="hljs-attr">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:</span> <span class="hljs-string">INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT</span><br>      <span class="hljs-attr">KAFKA_INTER_BROKER_LISTENER_NAME:</span> <span class="hljs-string">INTERNAL</span><br>      <span class="hljs-attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="hljs-string">&quot;zoo1:2181,zoo2:2182,zoo3:2183&quot;</span><br>      <span class="hljs-attr">KAFKA_BROKER_ID:</span> <span class="hljs-number">3</span><br>      <span class="hljs-attr">KAFKA_LOG4J_LOGGERS:</span> <span class="hljs-string">&quot;kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO&quot;</span><br>      <span class="hljs-attr">KAFKA_AUTHORIZER_CLASS_NAME:</span> <span class="hljs-string">kafka.security.authorizer.AclAuthorizer</span><br>      <span class="hljs-attr">KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND:</span> <span class="hljs-string">&quot;true&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/kafka_data3:/kafka/data</span>    <br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zoo1</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zoo2</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zoo3</span><br>      <br>  <span class="hljs-attr">kafka-ui:</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">kafka-ui</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">provectuslabs/kafka-ui:latest</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">9999</span><span class="hljs-string">:8080</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">kafka1</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">kafka2</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">kafka3</span><br>  <br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">KAFKA_CLUSTERS_0_NAME:</span> <span class="hljs-string">k1</span><br>      <span class="hljs-attr">KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS:</span> <span class="hljs-string">kafka1:29092</span><br>    <br>      <span class="hljs-attr">KAFKA_CLUSTERS_1_NAME:</span> <span class="hljs-string">k2</span><br>      <span class="hljs-attr">KAFKA_CLUSTERS_1_BOOTSTRAPSERVERS:</span> <span class="hljs-string">kafka2:29093</span><br>      <br>      <span class="hljs-attr">KAFKA_CLUSTERS_2_NAME:</span> <span class="hljs-string">k3</span><br>      <span class="hljs-attr">KAFKA_CLUSTERS_2_BOOTSTRAPSERVERS:</span> <span class="hljs-string">kafka3:29094</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>解释</strong>：</p>
+<ul>
+<li><p>Zookeeper</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># 每个节点唯一编号</span><br><span class="hljs-attr">ZOOKEEPER_SERVER_ID:</span> <span class="hljs-number">1</span> <br><span class="hljs-comment"># 这表示这三台 ZooKeeper 会通过 2888（同步端口）和 3888（选举端口）组成一个ZK集群</span><br><span class="hljs-attr">ZOOKEEPER_SERVERS:</span> <span class="hljs-string">zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888</span><br><br><span class="hljs-comment"># 数据挂载的位置</span><br><span class="hljs-attr">volumes:</span><br>	<span class="hljs-bullet">-</span> <span class="hljs-string">./data/zookeeper/zoo1/data:/data</span><br>	<span class="hljs-bullet">-</span> <span class="hljs-string">./data/zookeeper/zoo1/datalog:/datalog</span>  <br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Kafka</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">environment:</span><br>      <span class="hljs-comment"># 定义 Kafka 访问地址</span><br>      <span class="hljs-comment"># PLAINTEXT：当客户端（生产者、消费者、UI 等）连接 Kafka 时使用的接口，明文协议</span><br>      <span class="hljs-comment"># INTERNAL：容器内部通信（Kafka Broker 之间用）</span><br>      <span class="hljs-comment"># EXTERNAL：主机（宿主机）访问</span><br>      <span class="hljs-comment"># DOCKER：Docker 网络中的访问方式</span><br>      <span class="hljs-attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="hljs-string">PLAINTEXT://localhost:9092,INTERNAL://kafka1:19092</span><br>      <span class="hljs-comment"># 定义通信协议</span><br>      <span class="hljs-attr">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:</span> <span class="hljs-string">PLAINTEXT:PLAINTEXT,INTERNAL:PLAINTEXT</span><br>      <span class="hljs-comment"># 指定 Broker 间通信通道</span><br>      <span class="hljs-attr">KAFKA_INTER_BROKER_LISTENER_NAME:</span> <span class="hljs-string">INTERNAL</span><br>      <span class="hljs-comment"># 连接 ZooKeeper 集群的地址</span><br>      <span class="hljs-attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="hljs-string">&quot;zoo1:2181,zoo2:2182,zoo3:2183&quot;</span><br>      <span class="hljs-comment"># 唯一编号</span><br>      <span class="hljs-attr">KAFKA_BROKER_ID:</span> <span class="hljs-number">1</span><br>      <span class="hljs-comment"># 系统级主题（__consumer_offsets）的副本数量配置，存储消费者的消费进度</span><br>      <span class="hljs-comment"># 建议有几个kafka就设置几</span><br>      <span class="hljs-attr">KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:</span> <span class="hljs-number">3</span><br>      <span class="hljs-comment"># 至少要有多少个副本同步成功，才能算写入成功</span><br>      <span class="hljs-attr">KAFKA_MIN_INSYNC_REPLICAS:</span> <span class="hljs-number">2</span><br>      <span class="hljs-comment"># 日志目录</span><br>      <span class="hljs-attr">KAFKA_LOG_DIRS:</span> <span class="hljs-string">/kafka/data</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="在Docker-Desktop上"><a href="#在Docker-Desktop上" class="headerlink" title="在Docker Desktop上"></a>在Docker Desktop上</h3><p>保存为<code>docker-compose.yml</code>文件，执行<code>docker-compose up -d</code>命令安装，会在所在文件夹下挂载数据文件</p>
+<p>通过kafka-ui的<code>http://localhost:9999/</code>可查看节点状态</p>
+<h4 id="一个Zookeeper、两个Kafka及一个Kafka-UI"><a href="#一个Zookeeper、两个Kafka及一个Kafka-UI" class="headerlink" title="一个Zookeeper、两个Kafka及一个Kafka-UI"></a>一个Zookeeper、两个Kafka及一个Kafka-UI</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">zookeeper:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">confluentinc/cp-zookeeper:7.3.2</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">zookeeper</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;2181:2181&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">ZOOKEEPER_CLIENT_PORT:</span> <span class="hljs-number">2181</span><br>      <span class="hljs-attr">ZOOKEEPER_TICK_TIME:</span> <span class="hljs-number">2000</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/zookeeper:/data</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/zookeeper-log:/datalog</span><br><br>  <span class="hljs-attr">kafka1:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">confluentinc/cp-kafka:7.3.2</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">kafka1</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-comment"># 映射到宿主机，供外部工具（如 Kafka Assistant）连接</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9092:9092&quot;</span> <br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">KAFKA_BROKER_ID:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="hljs-string">zookeeper:2181</span><br>      <br>      <span class="hljs-comment"># 1. 定义两个监听器：</span><br>      <span class="hljs-comment">#    - INTERNAL: 供 Docker 容器内部（如 kafka-ui）使用，使用服务名</span><br>      <span class="hljs-comment">#    - EXTERNAL: 供宿主机外部工具（如 Kafka Assistant）使用，使用 localhost</span><br>      <span class="hljs-attr">KAFKA_LISTENERS:</span> <span class="hljs-string">INTERNAL://:29092,EXTERNAL://:9092</span> <br>      <br>      <span class="hljs-comment"># 2. 告诉客户端 Broker 的正确地址（关键步骤！）</span><br>      <span class="hljs-attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="hljs-string">INTERNAL://kafka1:29092,EXTERNAL://localhost:9092</span><br>      <br>      <span class="hljs-comment"># 3. 映射安全协议</span><br>      <span class="hljs-attr">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:</span> <span class="hljs-string">INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT</span><br>      <br>      <span class="hljs-comment"># 4. 设置 Broker 之间通信使用的监听器名称</span><br>      <span class="hljs-attr">KAFKA_INTER_BROKER_LISTENER_NAME:</span> <span class="hljs-string">INTERNAL</span> <br>      <br>      <span class="hljs-attr">KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:</span> <span class="hljs-number">2</span><br>      <span class="hljs-attr">KAFKA_MIN_INSYNC_REPLICAS:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">KAFKA_LOG_DIRS:</span> <span class="hljs-string">/kafka/data</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/kafka1:/kafka/data</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zookeeper</span><br><br>  <span class="hljs-attr">kafka2:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">confluentinc/cp-kafka:7.3.2</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">kafka2</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9093:9093&quot;</span> <br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">KAFKA_BROKER_ID:</span> <span class="hljs-number">2</span><br>      <span class="hljs-attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="hljs-string">zookeeper:2181</span><br>      <br>      <span class="hljs-comment"># 1. 定义两个监听器</span><br>      <span class="hljs-attr">KAFKA_LISTENERS:</span> <span class="hljs-string">INTERNAL://:29093,EXTERNAL://:9093</span><br>      <br>      <span class="hljs-comment"># 2. 告诉客户端 Broker 的正确地址</span><br>      <span class="hljs-attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="hljs-string">INTERNAL://kafka2:29093,EXTERNAL://localhost:9093</span><br>      <br>      <span class="hljs-comment"># 3. 映射安全协议</span><br>      <span class="hljs-attr">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:</span> <span class="hljs-string">INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT</span><br>      <br>      <span class="hljs-comment"># 4. 设置 Broker 之间通信使用的监听器名称</span><br>      <span class="hljs-attr">KAFKA_INTER_BROKER_LISTENER_NAME:</span> <span class="hljs-string">INTERNAL</span><br>      <br>      <span class="hljs-attr">KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:</span> <span class="hljs-number">2</span><br>      <span class="hljs-attr">KAFKA_MIN_INSYNC_REPLICAS:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">KAFKA_LOG_DIRS:</span> <span class="hljs-string">/kafka/data</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./data/kafka2:/kafka/data</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zookeeper</span><br><br>  <span class="hljs-attr">kafka-ui:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">provectuslabs/kafka-ui:latest</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">kafka-ui</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9999:8080&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">KAFKA_CLUSTERS_0_NAME:</span> <span class="hljs-string">LocalCluster</span><br>      <span class="hljs-comment"># 使用内部监听器 (INTERNAL) 的地址：服务名:内部端口</span><br>      <span class="hljs-attr">KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS:</span> <span class="hljs-string">kafka1:29092,kafka2:29093</span> <br>      <span class="hljs-attr">KAFKA_CLUSTERS_0_ZOOKEEPER:</span> <span class="hljs-string">zookeeper:2181</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">kafka1</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">kafka2</span><br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="SpringBoot整合Kafka"><a href="#SpringBoot整合Kafka" class="headerlink" title="SpringBoot整合Kafka"></a>SpringBoot整合Kafka</h2><h3 id="快速使用"><a href="#快速使用" class="headerlink" title="快速使用"></a>快速使用</h3><blockquote>
+<p>Spring Boot 版本为3.5.6</p>
+</blockquote>
+<ol>
+<li><p>添加依赖</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- kafka --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.kafka<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-kafka<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- fast-json --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.fastjson2<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>fastjson2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0.59<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.slf4j<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>slf4j-api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.projectlombok<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lombok<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>添加配置</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">8081</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">kafka:</span><br>    <span class="hljs-attr">bootstrap-servers:</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><span class="hljs-string">:9092,</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><span class="hljs-string">:9093</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloController</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">topic</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;test&quot;</span>;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> KafkaTemplate&lt;Object, Object&gt; kafkaTemplate;<br><br>    <span class="hljs-comment">// 消费者，可指定消费者id、监听的topic</span><br>    <span class="hljs-meta">@KafkaListener(id = &quot;helloGroup&quot;, topics = topic)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listen</span><span class="hljs-params">(String msg)</span> &#123;<br>        log.info(<span class="hljs-string">&quot;hello receive value: &#123;&#125;&quot;</span>, msg);<br>    &#125;<br><br>    <span class="hljs-meta">@GetMapping(&quot;hello&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">hello</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 生产者，发送消息</span><br>        kafkaTemplate.send(topic, <span class="hljs-string">&quot;hello&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="创建Topic"><a href="#创建Topic" class="headerlink" title="创建Topic"></a>创建Topic</h3><p>Topic 相当于一个<strong>命名的通道或类别</strong>，用于组织和存储特定的数据流。</p>
+<ul>
+<li><strong>生产者 (Producer)</strong> 将数据发布（写入）到一个特定的 Topic。</li>
+<li><strong>消费者 (Consumer)</strong> 从它订阅的一个或多个 Topic 中读取数据。</li>
+</ul>
+<h4 id="自动创建"><a href="#自动创建" class="headerlink" title="自动创建"></a>自动创建</h4><p>向不存在的topic发送消息，会自动创建，</p>
+<p>默认分区数（Partitions） &#x3D; 1，副本数（Replica） &#x3D; 1</p>
+<h4 id="手动创建"><a href="#手动创建" class="headerlink" title="手动创建"></a>手动创建</h4><blockquote>
+<p>​	只要你在项目中引入了 Spring Kafka 依赖，并且配置了 <code>spring.kafka.bootstrap-servers</code>，Spring Boot 就会自动配置一个 <code>KafkaAdmin</code> Bean。正是这个 Bean 负责扫描所有的 <code>NewTopic</code> Bean 并与 Kafka Broker 进行通信以创建 Topic</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaConfig</span> &#123;<br><br>    <span class="hljs-comment">// 简单单分区Topic</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> NewTopic <span class="hljs-title function_">myTopic</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> TopicBuilder.name(<span class="hljs-string">&quot;my-first-topic&quot;</span>)<br>                .partitions(<span class="hljs-number">1</span>) <span class="hljs-comment">// 设置分区数为 1</span><br>                .replicas(<span class="hljs-number">1</span>)   <span class="hljs-comment">// 设置副本因子为 1</span><br>                .build();<br>    &#125;<br><br>    <span class="hljs-comment">// 多个分区和副本的Topic</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> NewTopic <span class="hljs-title function_">userEventsTopic</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> TopicBuilder.name(<span class="hljs-string">&quot;user-events-topic&quot;</span>)<br>                .partitions(<span class="hljs-number">3</span>) <span class="hljs-comment">// 设置分区数为 3</span><br>                .replicas(<span class="hljs-number">2</span>)   <span class="hljs-comment">// 设置副本因子为 2 (需要至少 2 个 Kafka Broker)</span><br>                .compact()     <span class="hljs-comment">// 日志压缩，日志中只会保留key对应的最新值</span><br>                .build();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>有些高级设置需要通过<code>.config()</code>来配置</p>
+<h3 id="发送消息"><a href="#发送消息" class="headerlink" title="发送消息"></a>发送消息</h3><h4 id="简单异步发送"><a href="#简单异步发送" class="headerlink" title="简单异步发送"></a>简单异步发送</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Resource</span><br><span class="hljs-keyword">private</span> KafkaTemplate&lt;Object, Object&gt; kafkaTemplate;<br><br><span class="hljs-meta">@GetMapping(&quot;hello&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">hello</span><span class="hljs-params">()</span> &#123;<br>    kafkaTemplate.send(topic, <span class="hljs-string">&quot;hello&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="同步获取发送结果"><a href="#同步获取发送结果" class="headerlink" title="同步获取发送结果"></a>同步获取发送结果</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/hello2&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">hello2</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 同步获取结果</span><br>    CompletableFuture&lt;SendResult&lt;Object, Object&gt;&gt; future = kafkaTemplate.send(<span class="hljs-string">&quot;hello2&quot;</span>,<span class="hljs-string">&quot;hello2&quot;</span>);<br>    <span class="hljs-keyword">try</span> &#123;<br>        SendResult&lt;Object,Object&gt; result = future.get();<br>        log.info(<span class="hljs-string">&quot;success &gt;&gt;&gt; &#123;&#125;&quot;</span>, result.getRecordMetadata().topic()); <span class="hljs-comment">// success &gt;&gt;&gt; hello2</span><br>    &#125;<span class="hljs-keyword">catch</span> (Throwable e)&#123;<br>        e.printStackTrace();<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello2&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="异步获取发送结果"><a href="#异步获取发送结果" class="headerlink" title="异步获取发送结果"></a>异步获取发送结果</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/hello3&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">hello3</span><span class="hljs-params">(String topic, String key, String message)</span> &#123;<br>    CompletableFuture&lt;SendResult&lt;Object, Object&gt;&gt; future = kafkaTemplate.send(<span class="hljs-string">&quot;hello2&quot;</span>, <span class="hljs-string">&quot;async hello2&quot;</span>);<br><br>    future.whenComplete((result, throwable) -&gt; &#123;<br>        <span class="hljs-keyword">if</span> (throwable != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-comment">// 发送失败处理</span><br>            log.error(<span class="hljs-string">&quot;fail &gt;&gt;&gt;&gt;&#123;&#125;&quot;</span>, throwable.getMessage());<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 发送成功处理</span><br>            log.info(<span class="hljs-string">&quot;async success &gt;&gt;&gt; &#123;&#125;&quot;</span>, result.getRecordMetadata().topic());<br>        &#125;<br>    &#125;);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello3&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="category-chain-item">中间件</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
+      
+        <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="print-no-link">#中间件</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Kafka</div>
+      <div>http://xwww12.github.io/2025/10/07/中间件/Kafka/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>xw</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年10月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/10/05/java/java%E5%8F%8D%E5%B0%84/" title="Java反射">
+                        <span class="hidden-mobile">Java反射</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 10px"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/snow2.js"></script>
+<script src="/js/pageTitle.js"></script>
+<script src="/js/sakura.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
