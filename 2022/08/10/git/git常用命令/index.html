@@ -16,18 +16,21 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="git常用命令本地仓库操作设置用户信息 1git config --global user.name &quot;用户名&quot;  1git config --global user.email &quot;邮箱&quot;  查看配置信息 1git config --list  创建git本地仓库 1git init  获取git远程仓库 1git clone 仓库地址  将文件存入暂存区">
+    <meta name="description" content="git常用命令仓库本地仓库操作设置用户信息 1git config --global user.name &quot;用户名&quot;  1git config --global user.email &quot;邮箱&quot;  查看配置信息 1git config --list  创建git本地仓库 1git init  获取git远程仓库 1git clone 仓库地址  提交到版本库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git常用命令">
 <meta property="og:url" content="http://xwww12.github.io/2022/08/10/git/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="git常用命令本地仓库操作设置用户信息 1git config --global user.name &quot;用户名&quot;  1git config --global user.email &quot;邮箱&quot;  查看配置信息 1git config --list  创建git本地仓库 1git init  获取git远程仓库 1git clone 仓库地址  将文件存入暂存区">
+<meta property="og:description" content="git常用命令仓库本地仓库操作设置用户信息 1git config --global user.name &quot;用户名&quot;  1git config --global user.email &quot;邮箱&quot;  查看配置信息 1git config --list  创建git本地仓库 1git init  获取git远程仓库 1git clone 仓库地址  提交到版本库">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/git_img/pullRequest.png">
+<meta property="og:image" content="http://xwww12.github.io/img/git_img/viewBranchs.png">
 <meta property="article:published_time" content="2022-08-10T13:11:51.430Z">
-<meta property="article:modified_time" content="2022-08-11T09:24:39.758Z">
+<meta property="article:modified_time" content="2025-10-09T10:22:18.847Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/git_img/pullRequest.png">
   
   
   
@@ -225,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          244 字
+          1.1k 字
         
       </span>
     
@@ -236,7 +239,7 @@
         
         
         
-          3 分钟
+          10 分钟
         
       </span>
     
@@ -295,74 +298,163 @@
             
               <div class="markdown-body">
                 
-                <h2 id="git常用命令"><a href="#git常用命令" class="headerlink" title="git常用命令"></a>git常用命令</h2><h4 id="本地仓库操作"><a href="#本地仓库操作" class="headerlink" title="本地仓库操作"></a>本地仓库操作</h4><p>设置用户信息</p>
+                <h1 id="git常用命令"><a href="#git常用命令" class="headerlink" title="git常用命令"></a>git常用命令</h1><h2 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h2><h3 id="本地仓库操作"><a href="#本地仓库操作" class="headerlink" title="本地仓库操作"></a>本地仓库操作</h3><p><strong>设置用户信息</strong></p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.name</span> <span class="hljs-string">&quot;用户名&quot;</span><br></code></pre></td></tr></table></figure>
 
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.email</span> <span class="hljs-string">&quot;邮箱&quot;</span><br></code></pre></td></tr></table></figure>
 
-<p>查看配置信息</p>
+<p><strong>查看配置信息</strong></p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua">git <span class="hljs-built_in">config</span> <span class="hljs-comment">--list</span><br></code></pre></td></tr></table></figure>
 
-<p>创建git本地仓库</p>
+<p><strong>创建git本地仓库</strong></p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">git <span class="hljs-keyword">init</span><br></code></pre></td></tr></table></figure>
 
-<p>获取git远程仓库</p>
+<p><strong>获取git远程仓库</strong></p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">仓库地址</span><br></code></pre></td></tr></table></figure>
 
-<p>将文件存入暂存区</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">git <span class="hljs-built_in">add</span> *或者文件名<br></code></pre></td></tr></table></figure>
-
-<p>将文件取消暂存 &#x2F; 切换版本</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git <span class="hljs-built_in">reset</span> *或者文件名<br></code></pre></td></tr></table></figure>
-
-<p>查看文件状态</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git status</span> <br></code></pre></td></tr></table></figure>
-
-<p>提交到版本库</p>
+<p><strong>提交到版本库</strong></p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">git</span> commit -m <span class="hljs-string">&quot;备注&quot;</span><br></code></pre></td></tr></table></figure>
 
-<p>查看日志</p>
+<p><strong>查看日志</strong></p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">git <span class="hljs-built_in">log</span><br></code></pre></td></tr></table></figure>
 
-<h4 id="远程仓库操作"><a href="#远程仓库操作" class="headerlink" title="远程仓库操作"></a>远程仓库操作</h4><p>查看远程仓库</p>
+
+
+<h3 id="远程仓库操作"><a href="#远程仓库操作" class="headerlink" title="远程仓库操作"></a>远程仓库操作</h3><p><strong>查看远程仓库</strong></p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git remote -v</span><br></code></pre></td></tr></table></figure>
 
-<p>添加远程仓库</p>
+<p><strong>添加远程仓库</strong></p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">git remote <span class="hljs-keyword">add </span><span class="hljs-keyword">origin </span>仓库地址<br></code></pre></td></tr></table></figure>
 
-<p>拉取远程仓库</p>
+<p><strong>拉取远程仓库</strong></p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git pull <span class="hljs-built_in">origin</span> 远程分支名<br></code></pre></td></tr></table></figure>
 
-<p>推送到远程仓库</p>
+<p><strong>推送到远程仓库</strong></p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> 远程分支名<br></code></pre></td></tr></table></figure>
 
-<h4 id="分支操作"><a href="#分支操作" class="headerlink" title="分支操作"></a>分支操作</h4><p>查看分支</p>
+
+
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><p><strong>新增文件</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">git <span class="hljs-built_in">add</span> 文件名<br></code></pre></td></tr></table></figure>
+
+<p><strong>删除文件</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 通过git命令删除<br>git rm 文件名<br><br><span class="hljs-regexp">//</span> 如果是手动删除<br><span class="hljs-regexp">//</span> 需要执行add命令，会把删除操作一并记录到暂存区<br>git add .<br></code></pre></td></tr></table></figure>
+
+<p><strong>取消git管理指定文件</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 只会让文件不被git管理，并不会删除本地文件<br>git rm --cached 文件名<br></code></pre></td></tr></table></figure>
+
+<p><strong>将文件取消暂存 &#x2F; 切换版本</strong></p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git <span class="hljs-built_in">reset</span> *或者文件名<br></code></pre></td></tr></table></figure>
+
+<p><strong>查看文件状态</strong></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git status</span> <br></code></pre></td></tr></table></figure>
+
+<p><strong>查看工作区和暂存区区别</strong></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git diff</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="分支操作"><a href="#分支操作" class="headerlink" title="分支操作"></a>分支操作</h2><p><strong>查看分支</strong></p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git branch</span><br></code></pre></td></tr></table></figure>
 
-<p>创建分支</p>
+<p><strong>创建分支</strong></p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">git <span class="hljs-keyword">branch </span>分支名<br></code></pre></td></tr></table></figure>
 
-<p>切换分支</p>
+<p><strong>切换分支</strong></p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">git</span> checkout 分支名<br></code></pre></td></tr></table></figure>
 
-<p>推送到远程仓库</p>
+<p><strong>推送到远程仓库</strong></p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> 分支名<br></code></pre></td></tr></table></figure>
 
-<p>合并分支</p>
+<p><strong>合并分支</strong></p>
 <figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cos">git <span class="hljs-keyword">merge</span> 分支名<br></code></pre></td></tr></table></figure>
 
-<h4 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h4><p>列出已有的标签</p>
+<p><strong>删除分支</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> Git 会检查该分支是否已合并到当前分支，如果未合并，会提示报错。<br>git branch -d 分支名<br><br><span class="hljs-regexp">//</span> 强制删除<br>git branch -D 分支名<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p><strong>列出已有的标签</strong></p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">git <span class="hljs-keyword">tag</span><br></code></pre></td></tr></table></figure>
 
-<p>创建标签</p>
+<p><strong>创建标签</strong></p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">git <span class="hljs-keyword">tag</span> <span class="hljs-title">标签名</span><br></code></pre></td></tr></table></figure>
 
-<p>将标签推送至远程仓库</p>
+<p><strong>将标签推送至远程仓库</strong></p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> 标签名<br></code></pre></td></tr></table></figure>
 
-<p>取出创建这个标签时的代码</p>
+<p><strong>取出创建这个标签时的代码</strong></p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">git</span> checkout -<span class="hljs-keyword">b</span> 新的分支名 标签名<br></code></pre></td></tr></table></figure>
 
+
+
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><ol>
+<li><p>推送远程仓库时出现<code>git SSL certificate problem: unable to get local issuer certificate</code>时，设置</p>
+ <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-comment">// 使用 Windows 系统自带的证书系统（Schannel）来处理 SSL/TLS 连接</span><br>git config <span class="hljs-attr">--global</span> http<span class="hljs-selector-class">.sslbackend</span> schannel<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>推送时<code>Automatic merge failed; fix conflicts and then commit the result.</code>，表示自动合并失败，本地和远程文件同一部分被修改</p>
+ <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-comment">// 查看冲突文件</span><br>git status<br><br><span class="hljs-comment">// 打开冲突文件可以看到</span><br>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD<br><span class="hljs-section">本地内容</span><br><span class="hljs-section">=======</span><br>远程内容<br>&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main<br><br><span class="hljs-comment">// 保留本地内容或远程内容</span><br><span class="hljs-comment">// 修改完文件后 git add、commit、push即可</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="git工作流"><a href="#git工作流" class="headerlink" title="git工作流"></a>git工作流</h1><h2 id="通常"><a href="#通常" class="headerlink" title="通常"></a>通常</h2><ol>
+<li><p>先将远程仓库的项目拉到本地</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">git clone &lt;仓库地址&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在本地<strong>新建一个自己的分支</strong></p>
+<blockquote>
+<p>建议在自己的branch上修改代码，而不是直接在主分支上修改</p>
+</blockquote>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git checkout -b &lt;分支名&gt;<br>// -b 新建并且切换到新分支<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在自己分支上<strong>修改代码</strong></p>
+</li>
+<li><p>在写完代码，还没有保存到git本地仓库时，可以通过<code>git diff</code>查看修改后的代码和修改前的代码的不同</p>
+<blockquote>
+<p>建议先看一下修改了哪些内容再继续</p>
+</blockquote>
+</li>
+<li><p>将修改的代码<strong>保存到暂存区</strong></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git status	// 查看还没有保存到暂存区的文件<br>git add &lt;文件名/*&gt;	// 将文件添加到暂存区，*表示所有<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>将暂存区的代码<strong>提交到git本地仓库中</strong></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">git commit -m &quot;&lt;备注信息&gt;&quot;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>将自己<strong>本地的分支提交到远程仓库</strong>，远程仓库会多出一个新分支</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">git push origin &lt;提交的远程仓库的分支名&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="当远程仓库的主分支代码有改动时"><a href="#当远程仓库的主分支代码有改动时" class="headerlink" title="当远程仓库的主分支代码有改动时"></a>当远程仓库的主分支代码有改动时</h2><blockquote>
+<p>如果在合并自己的分支和远程仓库主分支时，远程仓库主分支的代码在之前clone下来的基础上有改动，需要同步远程仓库的代码到本地的分支里，看看会不会冲突</p>
+</blockquote>
+<ol start="8">
+<li><p>先将本地git的分支切换回主分支，再<strong>将远程仓库的代码拉到本地</strong></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git checkout main<br>git pull origin main<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>切换到分支上，将分支上的代码和最新的代码<strong>尝试进行合并</strong></p>
+<blockquote>
+<p>可能会出现冲突，需要手动选择要保存的代码</p>
+</blockquote>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">git rebase main	// 意思是在最新的main的基础上，将我的修改添加到main中<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>解决完冲突后，将本地的分支推到远程仓库的分支上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git push -f origin &lt;分支名&gt;<br>// -f force强行<br></code></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="远程仓库上将分支和主分支合并"><a href="#远程仓库上将分支和主分支合并" class="headerlink" title="远程仓库上将分支和主分支合并"></a>远程仓库上将分支和主分支合并</h2><ol start="11">
+<li><p>远程仓库主人通过pull request的squash and merge 将所有的commit合并成一个commit ，再合并到主分支上</p>
+<p><img src="/img/git_img/pullRequest.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>合并完，通常会删除本地分支和远程分支，再把最新的主分支拉到本地主分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git branch -D &lt;分支名&gt;	// 删除本地分支<br>git pull origin main	// 把最新的主分支拉到本地主分支<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">删除远程分支：点击view all branchs，点击垃圾桶标识就可删除了<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/git_img/viewBranchs.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ol>
 
                 
               </div>
