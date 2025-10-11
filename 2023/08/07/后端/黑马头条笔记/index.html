@@ -1,0 +1,1241 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/icon_img/juzi.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xw">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="App端登录需求用户可以选择登录和不登录  登录后有查看和操作的权限 不登录只有查看的权限  知识点用户密码加密注册时  用户输入密码，生成随机的盐值，把密码和盐值拼接后，经过MD5生成秘钥并保存 盐值也需要一同保存到数据库  登录时  把用户输入的密码和数据库中保存的盐值进行MD5加密，生成的秘钥和数据库中的秘钥进行比对   MD5生成的秘钥是不可逆的  接口文档swagger 导包 12345">
+<meta property="og:type" content="article">
+<meta property="og:title" content="黑马头条笔记">
+<meta property="og:url" content="http://xwww12.github.io/2023/08/07/%E5%90%8E%E7%AB%AF/%E9%BB%91%E9%A9%AC%E5%A4%B4%E6%9D%A1%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="App端登录需求用户可以选择登录和不登录  登录后有查看和操作的权限 不登录只有查看的权限  知识点用户密码加密注册时  用户输入密码，生成随机的盐值，把密码和盐值拼接后，经过MD5生成秘钥并保存 盐值也需要一同保存到数据库  登录时  把用户输入的密码和数据库中保存的盐值进行MD5加密，生成的秘钥和数据库中的秘钥进行比对   MD5生成的秘钥是不可逆的  接口文档swagger 导包 12345">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-07T01:33:05.710Z">
+<meta property="article:modified_time" content="2025-10-11T12:30:48.541Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>黑马头条笔记 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xwww12.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>夕立ち的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img/Reimu1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">黑马头条笔记</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        xw
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-07 09:33" pubdate>
+          2023年8月7日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          67 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">黑马头条笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="App端"><a href="#App端" class="headerlink" title="App端"></a>App端</h1><h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>用户可以选择登录和不登录</p>
+<ul>
+<li>登录后有查看和操作的权限</li>
+<li>不登录只有查看的权限</li>
+</ul>
+<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><h4 id="用户密码加密"><a href="#用户密码加密" class="headerlink" title="用户密码加密"></a>用户密码加密</h4><p>注册时</p>
+<ol>
+<li>用户输入密码，生成随机的盐值，把密码和盐值拼接后，经过MD5生成秘钥并保存</li>
+<li>盐值也需要一同保存到数据库</li>
+</ol>
+<p>登录时</p>
+<ol>
+<li>把用户输入的密码和数据库中保存的盐值进行MD5加密，生成的秘钥和数据库中的秘钥进行比对</li>
+</ol>
+<blockquote>
+<p>MD5生成的秘钥是不可逆的</p>
+</blockquote>
+<h4 id="接口文档"><a href="#接口文档" class="headerlink" title="接口文档"></a>接口文档</h4><p><strong>swagger</strong></p>
+<p>导包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.springfox<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>springfox-swagger2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.springfox<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>添加配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.heima.common.swagger;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableSwagger2</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SwaggerConfiguration</span> &#123;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Docket <span class="hljs-title function_">buildDocket</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Docket</span>(DocumentationType.SWAGGER_2)<br>                .apiInfo(buildApiInfo())<br>                .select()<br>                <span class="hljs-comment">// 要扫描的API(Controller)基础包</span><br>                .apis(RequestHandlerSelectors.basePackage(<span class="hljs-string">&quot;com.heima&quot;</span>))<br>                .paths(PathSelectors.any())<br>                .build();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> ApiInfo <span class="hljs-title function_">buildApiInfo</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">Contact</span> <span class="hljs-variable">contact</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Contact</span>(<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiInfoBuilder</span>()<br>                .title(<span class="hljs-string">&quot;黑马头条-平台管理API文档&quot;</span>)<br>                .description(<span class="hljs-string">&quot;黑马头条后台api&quot;</span>)<br>                .contact(contact)<br>                .version(<span class="hljs-string">&quot;1.0.0&quot;</span>).build();<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>访问</p>
+<p><code>localhost:51801/swagger-ui.html</code></p>
+<p><strong>knife4j</strong></p>
+<p>swagger对应的包也要导</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>     <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.github.xiaoymin<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>     <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>knife4j-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.heima.common.swagger;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableSwagger2</span><br><span class="hljs-meta">@EnableKnife4j</span><br><span class="hljs-meta">@Import(BeanValidatorPluginsConfiguration.class)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Swagger2Configuration</span> &#123;<br><br>    <span class="hljs-meta">@Bean(value = &quot;defaultApi2&quot;)</span><br>    <span class="hljs-keyword">public</span> Docket <span class="hljs-title function_">defaultApi2</span><span class="hljs-params">()</span> &#123;<br>        Docket docket=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Docket</span>(DocumentationType.SWAGGER_2)<br>                .apiInfo(apiInfo())<br>                <span class="hljs-comment">//分组名称</span><br>                .groupName(<span class="hljs-string">&quot;1.0&quot;</span>)<br>                .select()<br>                <span class="hljs-comment">//这里指定Controller扫描包路径</span><br>                .apis(RequestHandlerSelectors.basePackage(<span class="hljs-string">&quot;com.heima&quot;</span>))<br>                .paths(PathSelectors.any())<br>                .build();<br>        <span class="hljs-keyword">return</span> docket;<br>    &#125;<br>    <span class="hljs-keyword">private</span> ApiInfo <span class="hljs-title function_">apiInfo</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiInfoBuilder</span>()<br>                .title(<span class="hljs-string">&quot;黑马头条API文档&quot;</span>)<br>                .description(<span class="hljs-string">&quot;黑马头条API文档&quot;</span>)<br>                .version(<span class="hljs-string">&quot;1.0&quot;</span>)<br>                .build();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>访问</p>
+<p><code>localhost:51801/doc.html</code></p>
+<h4 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h4><blockquote>
+<p>授权、限流、登录、日志、跨域</p>
+</blockquote>
+<p>导包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.jsonwebtoken<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jjwt<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>添加本地配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">51601</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">leadnews-app-gateway</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.200</span><span class="hljs-number">.130</span><span class="hljs-string">:8848</span><br>      <span class="hljs-attr">config:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.200</span><span class="hljs-number">.130</span><span class="hljs-string">:8848</span><br>        <span class="hljs-attr">file-extension:</span> <span class="hljs-string">yml</span><br></code></pre></td></tr></table></figure>
+
+<p>nacos添加配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">gateway:</span><br>      <span class="hljs-attr">globalcors:</span><br>        <span class="hljs-attr">add-to-simple-url-handler-mapping:</span> <span class="hljs-literal">true</span><br>        <span class="hljs-attr">corsConfigurations:</span><br>          <span class="hljs-string">&#x27;[/**]&#x27;</span><span class="hljs-string">:</span><br>            <span class="hljs-attr">allowedHeaders:</span> <span class="hljs-string">&quot;*&quot;</span><br>            <span class="hljs-attr">allowedOrigins:</span> <span class="hljs-string">&quot;*&quot;</span><br>            <span class="hljs-attr">allowedMethods:</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">GET</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">POST</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">DELETE</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">PUT</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">OPTION</span><br>      <span class="hljs-attr">routes:</span><br>        <span class="hljs-comment"># 平台管理</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">id:</span> <span class="hljs-string">user</span><br>          <span class="hljs-attr">uri:</span> <span class="hljs-string">lb://leadnews-user</span><br>          <span class="hljs-attr">predicates:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/user/**</span><br>          <span class="hljs-attr">filters:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">StripPrefix=</span> <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>网关的过滤器</strong></p>
+<blockquote>
+<p>实现GlobalFilter和Ordered接口</p>
+<p>GlobalFilter的filter方法为具体的过滤逻辑</p>
+<p>Ordered为设置过滤器的优先级，数值越小优先级越高</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.heima.app.gateway.filter;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 判断是否登录的过滤器，没有验证用户身份</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AuthorizeFilter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ordered</span>, GlobalFilter &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Mono&lt;Void&gt; <span class="hljs-title function_">filter</span><span class="hljs-params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;<br>        <span class="hljs-type">ServerHttpRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> exchange.getRequest();<br>        <span class="hljs-type">ServerHttpResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> exchange.getResponse();<br>        <span class="hljs-comment">// 访问登录接口，放行</span><br>        <span class="hljs-keyword">if</span> (request.getURI().getPath().contains(<span class="hljs-string">&quot;/login&quot;</span>)) &#123;<br>            <span class="hljs-keyword">return</span> chain.filter(exchange);<br>        &#125;<br>        <span class="hljs-comment">// 判断是否登录</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">token</span> <span class="hljs-operator">=</span> request.getHeaders().getFirst(<span class="hljs-string">&quot;token&quot;</span>);<br>        <span class="hljs-keyword">if</span> (StringUtils.isBlank(token)) &#123;<br>            response.setStatusCode(HttpStatus.UNAUTHORIZED);<br>            <span class="hljs-keyword">return</span> response.setComplete();<br>        &#125;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">Claims</span> <span class="hljs-variable">claims</span> <span class="hljs-operator">=</span> AppJwtUtil.getClaimsBody(token);<br>            <span class="hljs-comment">// 判断token是否过期</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> AppJwtUtil.verifyToken(claims);<br>            <span class="hljs-keyword">if</span> (result == <span class="hljs-number">1</span> || result == <span class="hljs-number">2</span>) &#123;<br>                response.setStatusCode(HttpStatus.UNAUTHORIZED);<br>                <span class="hljs-keyword">return</span> response.setComplete();<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>            response.setStatusCode(HttpStatus.UNAUTHORIZED);<br>            <span class="hljs-keyword">return</span> response.setComplete();<br>        &#125;<br>        <span class="hljs-comment">// 放行</span><br>        <span class="hljs-keyword">return</span> chain.filter(exchange);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getOrder</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h4><blockquote>
+<p>反向代理，负载均衡，部署前端项目</p>
+</blockquote>
+<ol>
+<li>配置nginx.conf文件</li>
+<li>通过<code>nginx</code>命令启动nginx</li>
+</ol>
+<p>在<code>conf</code>文件夹下创建新的文件夹来放自己编写的<code>conf</code>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs conf"># 配置了反向代理<br>upstream  heima-app-gateway&#123;<br>    server localhost:51601;<br>&#125;<br><br>server &#123;<br>	listen 8801;<br>	location / &#123;<br>		root D:/workspace/app-web/;<br>		index index.html;<br>	&#125;<br>	<br>	location ~/app/(.*) &#123;<br>		proxy_pass http://heima-app-gateway/$1;<br>		proxy_set_header HOST $host;  # 不改变源请求头的值<br>		proxy_pass_request_body on;  #开启获取请求体<br>		proxy_pass_request_headers on;  #开启获取请求头<br>		proxy_set_header X-Real-IP $remote_addr;   # 记录真实发出请求的客户端IP<br>		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  #记录代理信息<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在<code>conf</code>文件夹下的<code>nginx.conf</code>里导入自己编写的<code>conf</code>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs conf"><br>#user  nobody;<br>worker_processes  1;<br><br>events &#123;<br>    worker_connections  1024;<br>&#125;<br>http &#123;<br>    include       mime.types;<br>    default_type  application/octet-stream;<br>    sendfile        on;<br>    keepalive_timeout  65;<br>	# 引入自定义配置文件<br>	include leadnews.conf/*.conf;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>重新加载配置文件<code>nginx -s reload</code>并重启</p>
+<h2 id="查看文章"><a href="#查看文章" class="headerlink" title="查看文章"></a>查看文章</h2><h3 id="需求-1"><a href="#需求-1" class="headerlink" title="需求"></a>需求</h3><p><strong>刷新</strong></p>
+<p>上拉刷新：加载最新文章</p>
+<p>下拉刷新：加载早先的文章</p>
+<p> <strong>展示文章详情</strong></p>
+<h3 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h3><h4 id="拆分表"><a href="#拆分表" class="headerlink" title="拆分表"></a>拆分表</h4><p>ap_article：文章概述</p>
+<p>ap_article_config：文章配置（是否删除等）</p>
+<p>ap_article_content：文章详情</p>
+<p>垂直分表：将一个表的字段分散到多个表中</p>
+<p>好处：</p>
+<ol>
+<li>减少锁表的几率，查看文章概述和详情互不影响</li>
+<li>查询文章详情数据效率低，不会影响到查询文章概述</li>
+</ol>
+<p>拆分规则：</p>
+<ol>
+<li>不常用字段单独放一张表</li>
+<li>把大字段拆分出来单独一张表</li>
+<li>经常组合查询的字段单独一张表</li>
+</ol>
+<h4 id="FreeMarker模板引擎"><a href="#FreeMarker模板引擎" class="headerlink" title="FreeMarker模板引擎"></a>FreeMarker模板引擎</h4><p>导包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-freemarker<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>添加配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">8881</span> <span class="hljs-comment">#服务端口</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">freemarker-demo</span> <span class="hljs-comment">#指定服务名</span><br>  <span class="hljs-attr">freemarker:</span><br>    <span class="hljs-attr">cache:</span> <span class="hljs-literal">false</span>  <span class="hljs-comment">#关闭模板缓存，方便测试</span><br>    <span class="hljs-attr">settings:</span><br>      <span class="hljs-attr">template_update_delay:</span> <span class="hljs-number">0</span> <span class="hljs-comment">#检查模板更新延迟时间，设置为0表示立即检查，如果时间大于0会有缓存不方便进行模板测试</span><br>    <span class="hljs-attr">suffix:</span> <span class="hljs-string">.ftl</span>               <span class="hljs-comment">#指定Freemarker模板文件的后缀名</span><br></code></pre></td></tr></table></figure>
+
+<p>添加模板</p>
+<blockquote>
+<p>在resources&#x2F;templates&#x2F;下</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs ftl">&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>    &lt;meta charset=&quot;utf-8&quot;&gt;<br>    &lt;title&gt;Hello World!&lt;/title&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;b&gt;普通文本 String 展示：&lt;/b&gt;&lt;br&gt;&lt;br&gt;<br>Hello $&#123;name&#125; &lt;br&gt;<br>&lt;hr&gt;<br>&lt;b&gt;对象Student中的数据展示：&lt;/b&gt;&lt;br/&gt;<br>姓名：$&#123;stu.name&#125;&lt;br/&gt;<br>年龄：$&#123;stu.age&#125;<br>&lt;hr&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.heima.freemarker.controller;<br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/hello&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">hello</span><span class="hljs-params">(Model model)</span> &#123;<br>        model.addAttribute(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;freemarker&quot;</span>);<br>        <span class="hljs-type">Student</span> <span class="hljs-variable">student</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>();<br>        student.setName(<span class="hljs-string">&quot;zs&quot;</span>);<br>        student.setAge(<span class="hljs-number">18</span>);<br>        model.addAttribute(<span class="hljs-string">&quot;stu&quot;</span>, student);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;01-basic&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="MinIO"><a href="#MinIO" class="headerlink" title="MinIO"></a>MinIO</h4><p>分布式对象存储服务</p>
+<p><strong>概念</strong></p>
+<ul>
+<li>bucket：类似目录</li>
+<li>Object：类似文件</li>
+<li>Keys：类似文件名</li>
+</ul>
+<p><strong>docker安装</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker run -p <span class="hljs-number">9000</span>:<span class="hljs-number">9000</span> --name minio -d --restart=always -e <span class="hljs-string">&quot;MINIO_ACCESS_KEY=minio&quot;</span> -e <span class="hljs-string">&quot;MINIO_SECRET_KEY=minio123&quot;</span> -v <span class="hljs-regexp">/home/</span>data:<span class="hljs-regexp">/data -v /</span>home<span class="hljs-regexp">/config:/</span>root<span class="hljs-regexp">/.minio minio/mi</span>nio server /data<br></code></pre></td></tr></table></figure>
+
+<p>访问控制台<code>192.168.200.130:9000</code></p>
+<p><strong>使用java上传文件</strong></p>
+<p>导包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.minio<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>minio<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>7.1.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 准备文件</span><br>            <span class="hljs-type">FileInputStream</span> <span class="hljs-variable">fileInputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(<span class="hljs-string">&quot;d:\\list.html&quot;</span>);<br>            <span class="hljs-comment">// MinIO连接信息</span><br>            <span class="hljs-type">MinioClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> MinioClient.builder()<br>                .credentials(<span class="hljs-string">&quot;minio&quot;</span>, <span class="hljs-string">&quot;minio123&quot;</span>)<br>                .endpoint(<span class="hljs-string">&quot;http://192.168.200.130:9000&quot;</span>)<br>                .build();<br>            <span class="hljs-comment">// 上传文件</span><br>            <span class="hljs-type">PutObjectArgs</span> <span class="hljs-variable">putObjectArgs</span> <span class="hljs-operator">=</span> PutObjectArgs.builder()<br>                .object(<span class="hljs-string">&quot;list.html&quot;</span>)    <span class="hljs-comment">// 文件在MinIO中的文件名</span><br>                .contentType(<span class="hljs-string">&quot;text/html&quot;</span>)   <span class="hljs-comment">// 文件类型</span><br>                .bucket(<span class="hljs-string">&quot;leadnews&quot;</span>) <span class="hljs-comment">// 桶名称</span><br>                .stream(fileInputStream, fileInputStream.available(), -<span class="hljs-number">1</span>)   <span class="hljs-comment">// 上传的文件</span><br>                .build();<br>            client.putObject(putObjectArgs);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>        System.out.println(<span class="hljs-string">&quot;上传成功&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<p>​	通过FreeMarker将文章数据和模板绑定后生成静态文件，把静态的html文件保存到MinIO中，之后访问对应的文章页面就直接从MinIO中返回，不用再查询数据库</p>
+<h2 id="保存文章"><a href="#保存文章" class="headerlink" title="保存文章"></a>保存文章</h2><p>自媒体端发布文章，审核通过后，App端需要保存文章信息 </p>
+<p>通过<strong>Feign</strong>远程让自媒体端远程调用</p>
+<p>有带文章id：</p>
+<ul>
+<li>修改文章</li>
+<li>更新文章、文章内容</li>
+</ul>
+<p>没有带文章id：</p>
+<ul>
+<li>新增的文章</li>
+<li>要保存文章、文章配置、文章内容</li>
+</ul>
+<h2 id="文章搜索"><a href="#文章搜索" class="headerlink" title="文章搜索"></a>文章搜索</h2><h3 id="知识点-2"><a href="#知识点-2" class="headerlink" title="知识点"></a>知识点</h3><h4 id="elasticsearch"><a href="#elasticsearch" class="headerlink" title="elasticsearch"></a>elasticsearch</h4><p><strong>安装</strong></p>
+<ol>
+<li><p>拉取镜像</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">docker pull elasticsearch:<span class="hljs-number">7.4</span><span class="hljs-number">.0</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建容器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">docker run -id --name elasticsearch -d --restart=always -p <span class="hljs-number">9200</span>:<span class="hljs-number">9200</span> -p <span class="hljs-number">9300</span>:<span class="hljs-number">9300</span> -v /usr/share/elasticsearch/plugins:/usr/share/elasticsearch/plugins -e <span class="hljs-string">&quot;discovery.type=single-node&quot;</span> elasticsearch:<span class="hljs-number">7.4</span><span class="hljs-number">.0</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置ik分词器</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">把ik分词器上传到挂载的目录<span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/elasticsearch/</span>plugins中解压<br>重启es<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+</li>
+</ol>
+<p><strong>添加映射</strong></p>
+<ol>
+<li><p>添加语法：put请求发送<code>ip:端口/映射名</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">192.168</span><span class="hljs-number">.200</span><span class="hljs-number">.130</span>:<span class="hljs-number">9200</span>/app_info_article<br><br>&#123;<br>    <span class="hljs-string">&quot;mappings&quot;</span>:&#123;<br>        <span class="hljs-string">&quot;properties&quot;</span>:&#123;<br>            <span class="hljs-string">&quot;id&quot;</span>:&#123;<br>                <span class="hljs-string">&quot;type&quot;</span>:<span class="hljs-string">&quot;long&quot;</span><br>            &#125;,<br>            <span class="hljs-string">&quot;publishTime&quot;</span>:&#123;<br>                <span class="hljs-string">&quot;type&quot;</span>:<span class="hljs-string">&quot;date&quot;</span><br>            &#125;,<br>            <span class="hljs-string">&quot;layout&quot;</span>:&#123;<br>                <span class="hljs-string">&quot;type&quot;</span>:<span class="hljs-string">&quot;integer&quot;</span><br>            &#125;,<br>            <span class="hljs-string">&quot;images&quot;</span>:&#123;<br>                <span class="hljs-string">&quot;type&quot;</span>:<span class="hljs-string">&quot;keyword&quot;</span>,<br>                <span class="hljs-string">&quot;index&quot;</span>: <span class="hljs-literal">false</span><br>            &#125;,<br>            <span class="hljs-string">&quot;staticUrl&quot;</span>:&#123;<br>                <span class="hljs-string">&quot;type&quot;</span>:<span class="hljs-string">&quot;keyword&quot;</span>,<br>                <span class="hljs-string">&quot;index&quot;</span>: <span class="hljs-literal">false</span><br>            &#125;,<br>            <span class="hljs-string">&quot;authorId&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;long&quot;</span><br>            &#125;,<br>            <span class="hljs-string">&quot;authorName&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span><br>            &#125;,<br>            <span class="hljs-string">&quot;title&quot;</span>:&#123;<br>                <span class="hljs-string">&quot;type&quot;</span>:<span class="hljs-string">&quot;text&quot;</span>,<br>                <span class="hljs-string">&quot;analyzer&quot;</span>:<span class="hljs-string">&quot;ik_smart&quot;</span><br>            &#125;,<br>            <span class="hljs-string">&quot;content&quot;</span>:&#123;<br>                <span class="hljs-string">&quot;type&quot;</span>:<span class="hljs-string">&quot;text&quot;</span>,<br>                <span class="hljs-string">&quot;analyzer&quot;</span>:<span class="hljs-string">&quot;ik_smart&quot;</span><br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>其他操作</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">GET请求查询映射：http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">200.130</span>:<span class="hljs-number">9200</span>/app_info_article<br><br>DELETE请求，删除索引及映射：http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">200.130</span>:<span class="hljs-number">9200</span>/app_info_article<br><br>GET请求，查询所有文档：http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">200.130</span>:<span class="hljs-number">9200</span><span class="hljs-regexp">/app_info_article/</span>_search<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>初始化索引库</strong></p>
+<ol>
+<li><p>导包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 引入依赖模块 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.heima<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>heima-leadnews-common<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- Spring boot starter --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-comment">&lt;!--elasticsearch--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.elasticsearch.client<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>elasticsearch-rest-high-level-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>7.4.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.elasticsearch.client<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>elasticsearch-rest-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>7.4.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.elasticsearch<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>elasticsearch<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>7.4.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.jsoup<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jsoup<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.13.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>es配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Getter</span><br><span class="hljs-meta">@Setter</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@ConfigurationProperties(prefix = &quot;elasticsearch&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ElasticSearchConfig</span> &#123;<br>    <span class="hljs-keyword">private</span> String host;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> port;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> RestHighLevelClient <span class="hljs-title function_">client</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RestHighLevelClient</span>(RestClient.builder(<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpHost</span>(<br>                        host,<br>                        port,<br>                        <span class="hljs-string">&quot;http&quot;</span><br>                )<br>        ));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">9999</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">es-article</span><br><br>  <span class="hljs-attr">datasource:</span><br>    <span class="hljs-attr">driver-class-name:</span> <span class="hljs-string">com.mysql.jdbc.Driver</span><br>    <span class="hljs-attr">url:</span> <span class="hljs-string">jdbc:mysql://localhost:3306/leadnews_article?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</span><br>    <span class="hljs-attr">username:</span> <span class="hljs-string">root</span><br>    <span class="hljs-attr">password:</span> <span class="hljs-number">123456</span><br><span class="hljs-comment"># 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置</span><br><span class="hljs-attr">mybatis-plus:</span><br>  <span class="hljs-attr">mapper-locations:</span> <span class="hljs-string">classpath*:mapper/*.xml</span><br>  <span class="hljs-comment"># 设置别名包扫描路径，通过该属性可以给包中的类注册别名</span><br>  <span class="hljs-attr">type-aliases-package:</span> <span class="hljs-string">com.heima.model.article.pojos</span><br><br><br><span class="hljs-comment">#自定义elasticsearch连接配置</span><br><span class="hljs-attr">elasticsearch:</span><br>  <span class="hljs-attr">host:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.200</span><span class="hljs-number">.130</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">9200</span><br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建实体、mapper</p>
+</li>
+<li><p>导入数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-meta">@RunWith(SpringRunner.class)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ApArticleTest</span> &#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> ApArticleMapper apArticleMapper;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> RestHighLevelClient restHighLevelClient;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 初始化es中的数据</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-comment">// 查询文章</span><br>        List&lt;SearchArticleVo&gt; searchArticleVos = apArticleMapper.loadArticleList();<br><br>        <span class="hljs-comment">// 批量导入es</span><br>        <span class="hljs-type">BulkRequest</span> <span class="hljs-variable">bulkRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BulkRequest</span>(<span class="hljs-string">&quot;app_info_article&quot;</span>);<br>        <span class="hljs-keyword">for</span> (SearchArticleVo searchArticleVo : searchArticleVos) &#123;<br>            <span class="hljs-type">IndexRequest</span> <span class="hljs-variable">indexRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IndexRequest</span>()<br>                .id(searchArticleVo.getId().toString())<br>                .source(JSON.toJSONString(searchArticleVo), XContentType.JSON);<br>            bulkRequest.add(indexRequest);<br>        &#125;<br><br>        restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);<br>        System.out.println(<span class="hljs-string">&quot;文章信息导入es完成&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="需求-2"><a href="#需求-2" class="headerlink" title="需求"></a>需求</h4><p>搜索栏</p>
+<p>创建文章时添加文档到索引</p>
+<h2 id="搜索记录"><a href="#搜索记录" class="headerlink" title="搜索记录"></a>搜索记录</h2><p>每个用户都需要存储搜搜记录，数据量较大，使用MongoDB来存</p>
+<h3 id="知识点-3"><a href="#知识点-3" class="headerlink" title="知识点"></a>知识点</h3><p><strong>MongoDB</strong></p>
+<p>docker安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull mongo<br><br>docker run -di --name mongo-service --restart=always -p 27017:27017 -v ~/data/mongodata:/data mongo<br></code></pre></td></tr></table></figure>
+
+<p>spring集成mongodb</p>
+<ol>
+<li><p>导入依赖</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;dependency&gt;<br>    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>    &lt;artifactId&gt;spring-boot-starter-data-mongodb&lt;/artifactId&gt;<br>    &lt;/dependency&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>添加配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">9998</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">data:</span><br>    <span class="hljs-attr">mongodb:</span><br>      <span class="hljs-attr">host:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.200</span><span class="hljs-number">.130</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">27017</span><br>      <span class="hljs-attr">database:</span> <span class="hljs-string">leadnews-history</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>映射类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@Document(&quot;ap_associate_words&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ApAssociateWords</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span>;<br><br>    <span class="hljs-keyword">private</span> String id;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 联想词</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String associateWords;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 创建时间</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Date createdTime;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest(classes = MongoApplication.class)</span><br><span class="hljs-meta">@RunWith(SpringRunner.class)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MongoTest</span> &#123;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> MongoTemplate mongoTemplate;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">saveTest</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">ApAssociateWords</span> <span class="hljs-variable">apAssociateWords</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApAssociateWords</span>();<br>        apAssociateWords.setAssociateWords(<span class="hljs-string">&quot;test&quot;</span>);<br>        apAssociateWords.setCreatedTime(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>());<br>        mongoTemplate.save(apAssociateWords);<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">findByIdTest</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-type">ApAssociateWords</span> <span class="hljs-variable">apAssociateWords</span> <span class="hljs-operator">=</span> mongoTemplate.findById(<span class="hljs-string">&quot;64b65971d91a9f14ddf8da6a&quot;</span>, ApAssociateWords.class);<br>        System.out.println(apAssociateWords);<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">findByWordsTest</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">Query</span> <span class="hljs-variable">query</span> <span class="hljs-operator">=</span> Query.query(Criteria.where(<span class="hljs-string">&quot;associateWords&quot;</span>).is(<span class="hljs-string">&quot;test&quot;</span>))<br>            .with(Sort.by(Sort.Direction.DESC, <span class="hljs-string">&quot;createdTime&quot;</span>));<br>        List&lt;ApAssociateWords&gt; apAssociateWordsList = mongoTemplate.find(query, ApAssociateWords.class);<br>        System.out.println(apAssociateWordsList);<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testDel</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">Query</span> <span class="hljs-variable">query</span> <span class="hljs-operator">=</span> Query.query(Criteria.where(<span class="hljs-string">&quot;associateWords&quot;</span>).is(<span class="hljs-string">&quot;test&quot;</span>));<br>        mongoTemplate.remove(query, ApAssociateWords.class);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="需求-3"><a href="#需求-3" class="headerlink" title="需求"></a>需求</h3><p>保存用户的最新的10条记录在mongodb中</p>
+<p>如果记录在历史中，更新时间</p>
+<p>如果不在历史中，删掉最旧的一条记录再添加</p>
+<h2 id="用户行为"><a href="#用户行为" class="headerlink" title="用户行为"></a>用户行为</h2><h3 id="需求-4"><a href="#需求-4" class="headerlink" title="需求"></a>需求</h3><p>所有用户行为信息都要存到Redis中</p>
+<h4 id="点赞-x2F-取消点赞"><a href="#点赞-x2F-取消点赞" class="headerlink" title="点赞&#x2F;取消点赞"></a>点赞&#x2F;取消点赞</h4><p>用户点赞后记录到redis中，取消点赞时从redis中删除</p>
+<h4 id="阅读数"><a href="#阅读数" class="headerlink" title="阅读数"></a>阅读数</h4><p>将文章阅读数以hash结构存到redis</p>
+<p>key：Article:viewCont；key：articleId；value：阅读数</p>
+<h4 id="展示用户行为数据"><a href="#展示用户行为数据" class="headerlink" title="展示用户行为数据"></a>展示用户行为数据</h4><p>通过用户id和文章id查找redis的set中是否有对应的value</p>
+<h4 id="关注-x2F-取关"><a href="#关注-x2F-取关" class="headerlink" title="关注&#x2F;取关"></a>关注&#x2F;取关</h4><p>CRUD，同时改关注表和粉丝表</p>
+<h4 id="收藏"><a href="#收藏" class="headerlink" title="收藏"></a>收藏</h4><p>CRUD</p>
+<h2 id="热门文章"><a href="#热门文章" class="headerlink" title="热门文章"></a>热门文章</h2><h3 id="知识点-4"><a href="#知识点-4" class="headerlink" title="知识点"></a>知识点</h3><h4 id="xxl-job"><a href="#xxl-job" class="headerlink" title="xxl-job"></a>xxl-job</h4><p>分布式任务调度框架</p>
+<p>spring传统的定时任务@Scheduled，但是这样存在这一些问题 ：</p>
+<ul>
+<li>做集群任务的重复执行问题</li>
+<li>cron表达式定义在代码之中，修改不方便</li>
+<li>定时任务失败了，无法重试也没有统计</li>
+<li>如果任务量过大，不能有效的分片执行</li>
+</ul>
+<p><strong>部署</strong></p>
+<p>windows</p>
+<ol>
+<li>下载源码：<a target="_blank" rel="noopener" href="https://gitee.com/xuxueli0323/xxl-job">https://gitee.com/xuxueli0323/xxl-job</a></li>
+<li>执行sql</li>
+<li>修改<code>xxl-job-admin</code>下的数据库配置</li>
+<li>启动<code>XxlJobAdminApplication</code></li>
+<li>访问<code>http://localhost:8080/xxl-job-admin/</code>，账号admin，密码123456</li>
+</ol>
+<p>docker</p>
+<ol>
+<li><p>创建mysql容器，执行xxl-job的sql脚本</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -p 3306:3306 --name mysql57 \<br>-v /opt/mysql/conf:/etc/mysql \<br>-v /opt/mysql/logs:/var/log/mysql \<br>-v /opt/mysql/data:/var/lib/mysql \<br>-e MYSQL_ROOT_PASSWORD=root \<br>-d mysql:5.7<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>拉取xxl-job镜像</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull xuxueli/xxl-job-admin:2.3.0<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建xxl-job容器</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -e PARAMS=&quot;--spring.datasource.url=jdbc:mysql://192.168.200.130:3306/xxl_job?Unicode=true&amp;characterEncoding=UTF-8 \<br>--spring.datasource.username=root \<br>--spring.datasource.password=root&quot; \<br>-p 8888:8080 -v /tmp:/data/applogs \<br>--name xxl-job-admin --restart=always  -d xuxueli/xxl-job-admin:2.3.0<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>访问测试</p>
+</li>
+</ol>
+<p><strong>使用</strong></p>
+<ol>
+<li><p>导包</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.xuxueli<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>xxl-job-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>添加配置类，可以从官方的源码里找到</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.heima.xxlJob.config;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">XxlJobConfig</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">Logger</span> <span class="hljs-variable">logger</span> <span class="hljs-operator">=</span> LoggerFactory.getLogger(XxlJobConfig.class);<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;xxl.job.admin.addresses&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String adminAddresses;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;xxl.job.executor.appname&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String appname;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;xxl.job.executor.port&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> port;<br><br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> XxlJobSpringExecutor <span class="hljs-title function_">xxlJobExecutor</span><span class="hljs-params">()</span> &#123;<br>        logger.info(<span class="hljs-string">&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; xxl-job config init.&quot;</span>);<br>        <span class="hljs-type">XxlJobSpringExecutor</span> <span class="hljs-variable">xxlJobSpringExecutor</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">XxlJobSpringExecutor</span>();<br>        xxlJobSpringExecutor.setAdminAddresses(adminAddresses);<br>        xxlJobSpringExecutor.setAppname(appname);<br>        xxlJobSpringExecutor.setPort(port);<br>        <span class="hljs-keyword">return</span> xxlJobSpringExecutor;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>添加配置</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">8881</span><br><br><span class="hljs-attr">xxl:</span><br>  <span class="hljs-attr">job:</span><br>    <span class="hljs-attr">admin:</span><br>      <span class="hljs-attr">addresses:</span> <span class="hljs-string">http://192.168.200.130:8888/xxl-job-admin</span><br>    <span class="hljs-attr">executor:</span><br>      <span class="hljs-attr">appname:</span> <span class="hljs-string">sample</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">9999</span>    <span class="hljs-comment"># 随意</span><br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>编写要执行的方法</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.heima.xxlJob.jpb;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloJob</span> &#123;<br>    <span class="hljs-meta">@XxlJob(&quot;demoJobHandler&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">hello</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;job test&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在控制台添加执行器管理和任务管理</p>
+</li>
+<li><p>在任务管理里运行定时任务</p>
+</li>
+</ol>
+<p><strong>路由策略</strong></p>
+<ol>
+<li>轮询：服务器轮流执行任务</li>
+<li>分片广播：将任务序号取模来分配到服务器上</li>
+</ol>
+<h4 id="KafkaStream"><a href="#KafkaStream" class="headerlink" title="KafkaStream"></a>KafkaStream</h4><p>Kafka Stream是Apache Kafka从0.10版本引入的一个新Feature。它是提供了对存储于Kafka内的数据进行<strong>流式处理和分析</strong>的功能。</p>
+<p><strong>概念</strong></p>
+<p>Source Processor：源处理器，从Topic中生成输入流，转发给其他处理器进行处理</p>
+<p>Sink Processor：将处理器处理完的数据转发给指定的Topic</p>
+<p><strong>入门案例</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * kafka stream 流式处理</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaStreamQuickStart</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 配置</span><br>        <span class="hljs-type">Properties</span> <span class="hljs-variable">prop</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Properties</span>();<br>        prop.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG,<span class="hljs-string">&quot;192.168.200.130:9092&quot;</span>);<br>        prop.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());<br>        prop.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());<br>        prop.put(StreamsConfig.APPLICATION_ID_CONFIG,<span class="hljs-string">&quot;streams-quickstart&quot;</span>);<br>        <span class="hljs-comment">// builder</span><br>        <span class="hljs-type">StreamsBuilder</span> <span class="hljs-variable">streamsBuilder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StreamsBuilder</span>();<br><br>        <span class="hljs-comment">// 流式计算</span><br>        streamProcessor(streamsBuilder);<br><br>        <span class="hljs-comment">// 创建kafkaStream</span><br>        <span class="hljs-type">KafkaStreams</span> <span class="hljs-variable">kafkaStreams</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaStreams</span>(streamsBuilder.build(), prop);<br>        <span class="hljs-comment">// 开启</span><br>        kafkaStreams.start();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">streamProcessor</span><span class="hljs-params">(StreamsBuilder streamsBuilder)</span> &#123;<br>        <span class="hljs-comment">// 指定从哪个topic中获取消息</span><br>        KStream&lt;String, String&gt; stream = streamsBuilder.stream(<span class="hljs-string">&quot;itcast_topic_input&quot;</span>);<br><br>        stream.flatMapValues(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ValueMapper</span>&lt;String, Iterable&lt;String&gt;&gt;() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> Iterable&lt;String&gt; <span class="hljs-title function_">apply</span><span class="hljs-params">(String s)</span> &#123;<br>                <span class="hljs-keyword">return</span> Arrays.asList(s.split(<span class="hljs-string">&quot; &quot;</span>));<br>            &#125;<br>        &#125;)<br>            <span class="hljs-comment">// 按照value进行聚合</span><br>            .groupBy((key, value) -&gt; value)<br>            <span class="hljs-comment">// 计算时间间隔</span><br>            .windowedBy(TimeWindows.of(Duration.ofSeconds(<span class="hljs-number">10</span>)))<br>            <span class="hljs-comment">// 统计单词个数</span><br>            .count()<br>            .toStream()<br>            .map((key, value) -&gt; &#123;<br>                System.out.println(<span class="hljs-string">&quot;key: &quot;</span> + key + <span class="hljs-string">&quot;, value&quot;</span> + value);<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">KeyValue</span>&lt;&gt;(key.key().toString(), value.toString());<br>            &#125;)<br>            <span class="hljs-comment">// 发送消息</span><br>            .to(<span class="hljs-string">&quot;itcast_topic_out&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>往<code>itcast_topic_input</code>发送消息，<code>itcast_topic_out</code>接收消息</p>
+<p><strong>springboot整合kafkaStream</strong></p>
+<ol>
+<li><p>添加配置</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">kafka:</span><br>  <span class="hljs-attr">hosts:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.200</span><span class="hljs-number">.130</span><span class="hljs-string">:9092</span><br>  <span class="hljs-attr">group:</span> <span class="hljs-string">$&#123;spring.application.name&#125;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>添加配置类</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.heima.kafka.config;<br><br><span class="hljs-meta">@Getter</span><br><span class="hljs-meta">@Setter</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableKafkaStreams</span><br><span class="hljs-meta">@ConfigurationProperties(prefix = &quot;kafka&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaStreamConfig</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">MAX_MESSAGE_SIZE</span> <span class="hljs-operator">=</span> <span class="hljs-number">16</span>* <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span>;<br><br>    <span class="hljs-keyword">private</span> String hosts;<br><br>    <span class="hljs-keyword">private</span> String group;<br><br>    <span class="hljs-meta">@Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)</span><br>    <span class="hljs-keyword">public</span> KafkaStreamsConfiguration <span class="hljs-title function_">defaultKafkaStreamsConfig</span><span class="hljs-params">()</span> &#123;<br>        Map&lt;String, Object&gt; props = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, hosts);<br>        props.put(StreamsConfig.APPLICATION_ID_CONFIG, <span class="hljs-built_in">this</span>.getGroup()+<span class="hljs-string">&quot;_stream_aid&quot;</span>);<br>        props.put(StreamsConfig.CLIENT_ID_CONFIG, <span class="hljs-built_in">this</span>.getGroup()+<span class="hljs-string">&quot;_stream_cid&quot;</span>);<br>        props.put(StreamsConfig.RETRIES_CONFIG, <span class="hljs-number">10</span>);<br>        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());<br>        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaStreamsConfiguration</span>(props);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>添加监听器，处理流数据</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.heima.kafka.listener;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaStreamHelloListener</span> &#123;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> KStream&lt;String,String&gt; <span class="hljs-title function_">kStream</span><span class="hljs-params">(StreamsBuilder streamsBuilder)</span>&#123;<br>        <span class="hljs-comment">//创建kstream对象，同时指定从那个topic中接收消息</span><br>        KStream&lt;String, String&gt; stream = streamsBuilder.stream(<span class="hljs-string">&quot;itcast-topic-input&quot;</span>);<br>        stream.flatMapValues(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ValueMapper</span>&lt;String, Iterable&lt;String&gt;&gt;() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> Iterable&lt;String&gt; <span class="hljs-title function_">apply</span><span class="hljs-params">(String value)</span> &#123;<br>                <span class="hljs-keyword">return</span> Arrays.asList(value.split(<span class="hljs-string">&quot; &quot;</span>));<br>            &#125;<br>        &#125;)<br>            <span class="hljs-comment">//根据value进行聚合分组</span><br>            .groupBy((key,value)-&gt;value)<br>            <span class="hljs-comment">//聚合计算时间间隔</span><br>            .windowedBy(TimeWindows.of(Duration.ofSeconds(<span class="hljs-number">10</span>)))<br>            <span class="hljs-comment">//求单词的个数</span><br>            .count()<br>            .toStream()<br>            <span class="hljs-comment">//处理后的结果转换为string字符串</span><br>            .map((key,value)-&gt;&#123;<br>                System.out.println(<span class="hljs-string">&quot;key:&quot;</span>+key+<span class="hljs-string">&quot;,value:&quot;</span>+value);<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">KeyValue</span>&lt;&gt;(key.key().toString(),value.toString());<br>            &#125;)<br>            <span class="hljs-comment">//发送消息</span><br>            .to(<span class="hljs-string">&quot;itcast-topic-out&quot;</span>);<br>        <span class="hljs-keyword">return</span> stream;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="需求-5"><a href="#需求-5" class="headerlink" title="需求"></a>需求</h3><p>定时计算：</p>
+<p>​	为每个频道缓存热度最高的30条文章（5天之内的）：</p>
+<p>​	根据文章的阅读，点赞，评论，收藏加权（1,3,5,8）来判断文章的热度</p>
+<p>​	feign调用wemedia，获取所有频道</p>
+<p>​	根据频道来分组文章并排序，缓存热度最高的30条文章</p>
+<p>实时计算：</p>
+<p>​	behavior微服务中，在记录用户行为后，发送消息到kafka的一个topic中</p>
+<p>​	article微服务中，创建handle获取kafka的消息，记录、转换后发送到另一个topic中</p>
+<p>​	之后article里面创建一个listener来监听这个topic来更新数据库和缓存</p>
+<h1 id="自媒体端"><a href="#自媒体端" class="headerlink" title="自媒体端"></a>自媒体端</h1><h2 id="登录-1"><a href="#登录-1" class="headerlink" title="登录"></a>登录</h2><p>同app端的登录</p>
+<h2 id="上传素材"><a href="#上传素材" class="headerlink" title="上传素材"></a>上传素材</h2><ol>
+<li><p>获取登录用户id</p>
+<p>1.1 在wemedia网关中将token中的载荷userId存到header中</p>
+<p>1.2 wemedia服务中通过拦截器，将header中的id存到ThreadLocal中</p>
+</li>
+<li><p>保存素材到minIO</p>
+<p>2.1 校验参数，UUID随机生成素材名称</p>
+<p>2.2 保存到minIO后，将访问地址保存到数据库中</p>
+<p>2.3 返回素材数据供前端回显</p>
+</li>
+</ol>
+<h2 id="展示素材列表"><a href="#展示素材列表" class="headerlink" title="展示素材列表"></a>展示素材列表</h2><p>分页查询，查询条件为是全部还是已收藏的素材</p>
+<p>根据ThreadLocal中的userId查找用户的素材</p>
+<h2 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h2><ul>
+<li>如果文章状态为草稿<ul>
+<li>只保存文章信息，文章和图片的对应关系暂不保存</li>
+</ul>
+</li>
+<li>不为草稿<ul>
+<li>保存文章信息和文章与图片的对应关系</li>
+</ul>
+</li>
+<li>判断文章封面图片<ul>
+<li>选择无图、单图、三图：选择文章中的图片</li>
+<li>选择自动：根据文章中图片的数量来决定</li>
+</ul>
+</li>
+</ul>
+<h2 id="展示文章"><a href="#展示文章" class="headerlink" title="展示文章"></a>展示文章</h2><p>同展示素材列表</p>
+<h2 id="文章审核"><a href="#文章审核" class="headerlink" title="文章审核"></a>文章审核</h2><p>接入阿里云的内容安全服务，通过调用第三方接口对文章内容进行审查</p>
+<p>需要开通阿里云内容安全服务，accessKeyId，secret</p>
+<p><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/433565.html?spm=a2c4g.464388.0.0.4b822d46lSWB0h">文本审核增强版 (aliyun.com)</a></p>
+<p>审核完图片和文章后，调用App端微服务的保存文章<strong>Feign</strong>接口</p>
+<p><strong>服务降级</strong>：</p>
+<ol>
+<li>实现feign远程接口，编写降级逻辑</li>
+<li>在<code>@FeignClient</code>注解中指定降级逻辑</li>
+<li>在自媒体端中添加配置类来扫描服务降级类所在的包</li>
+<li>在自媒体端的远程配置中开启服务降级</li>
+</ol>
+<p><strong>异步调用</strong></p>
+<ul>
+<li>自媒体端保存文章时异步调用文章审核</li>
+<li>开启异步调用@EnableAsync</li>
+<li>在审核文章方法上加@Async</li>
+</ul>
+<h2 id="敏感词过滤"><a href="#敏感词过滤" class="headerlink" title="敏感词过滤"></a>敏感词过滤</h2><p><strong>文本过滤方案</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>方案</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据库模糊查询</td>
+<td>效率太低</td>
+</tr>
+<tr>
+<td>String.indexOf(“”)查找</td>
+<td>数据库量大的话也是比较慢</td>
+</tr>
+<tr>
+<td>全文检索</td>
+<td>分词再匹配</td>
+</tr>
+<tr>
+<td><strong>DFA算法</strong></td>
+<td>确定有穷自动机(一种数据结构)</td>
+</tr>
+</tbody></table>
+<p>DFA算法类似字典树来匹配敏感词</p>
+<p><strong>图片过滤方案</strong></p>
+<blockquote>
+<p>OCR （Optical Character Recognition，光学字符识别）是指电子设备（例如扫描仪或数码相机）检查纸上打印的字符，通过检测暗、亮的模式确定其形状，然后用字符识别方法将形状翻译成计算机文字的过程</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>方案</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>百度OCR</td>
+<td>收费</td>
+</tr>
+<tr>
+<td>Tesseract-OCR</td>
+<td>Google维护的开源OCR引擎，支持Java，Python等语言调用</td>
+</tr>
+<tr>
+<td><strong>Tess4J</strong></td>
+<td>封装了Tesseract-OCR  ，支持Java调用</td>
+</tr>
+</tbody></table>
+<p><strong>Tess4J</strong>使用</p>
+<ol>
+<li><p>导包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>net.sourceforge.tess4j<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>tess4j<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.1.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 本地图片文件</span><br>            <span class="hljs-type">File</span> <span class="hljs-variable">file</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;C:\\Users\\ASUS\\Desktop\\aaa.jpg&quot;</span>);<br>            <span class="hljs-comment">// 创建Tesseract对象</span><br>            <span class="hljs-type">Tesseract</span> <span class="hljs-variable">tesseract</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Tesseract</span>();<br>            <span class="hljs-comment">// 设置字体库路径</span><br>            tesseract.setDatapath(<span class="hljs-string">&quot;D:\\download\\&quot;</span>);<br>            <span class="hljs-comment">// 设置具体字体库</span><br>            tesseract.setLanguage(<span class="hljs-string">&quot;chi_sim&quot;</span>);<br>            <span class="hljs-comment">// 识别图片文字</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> tesseract.doOCR(file);<br>            result = result.replace(<span class="hljs-string">&quot;\\r|\\n&quot;</span>, <span class="hljs-string">&quot;-&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;识别结果：&quot;</span> + result);<br>        &#125; <span class="hljs-keyword">catch</span> (TesseractException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="文章定时发布"><a href="#文章定时发布" class="headerlink" title="文章定时发布"></a>文章定时发布</h2><h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p><strong>DelayQueue</strong>：</p>
+<p>JDK自带的延迟队列，队列元素实现<strong>Delayed</strong>接口（获取剩余时间，排序），之后将元素添加到<code>DelayerQueue</code>中，只有过期的元素才能poll()出来</p>
+<p>缺点：</p>
+<ol>
+<li>服务关闭就丢失队列中的任务</li>
+</ol>
+<p><strong>RabbitMQ</strong>：</p>
+<p>通过死信交换机实现延迟队列，当消息过期后会被发送到死信交换机中</p>
+<p><strong>Redis</strong>：</p>
+<p>先将任务添加到数据库中实现持久化，</p>
+<p>然后把未来5分钟之内要执行的任务添加到zSet，zSet再把当前要执行的任务放到list中</p>
+<p><strong>Redis实现定时发布</strong></p>
+<ol>
+<li><p>拉取、启动redis</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull redis<br><br>docker run -d --name redis --restart=always -p 6379:6379 redis --requirepass &quot;leadnews&quot;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>导包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!-- redis依赖commons-pool 这个依赖一定要添加 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.commons<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>commons-pool2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>添加配置，测试</p>
+</li>
+</ol>
+<p><strong>生产任务</strong></p>
+<p>先将任务及日志添加到数据库中实现持久化，</p>
+<p>然后把未来5分钟之内要执行的任务添加到zSet，zSet再把当前要执行的任务放到list中</p>
+<p><strong>取消任务</strong></p>
+<p>将任务从数据库中删除，更改对应日志的状态，</p>
+<p>然后删除redis中的任务</p>
+<p><strong>消费任务</strong></p>
+<p>删除redis、db中任务，更新日志，返回任务</p>
+<p><strong>从zSet中刷新任务</strong></p>
+<p>将zSet中的到期任务刷到对应list中</p>
+<p>使用<code>scan</code>来获取一定数量的任务，<code>keys *</code>占用cpu太多不使用</p>
+<p>通过定时任务实现定时刷新</p>
+<p>通过redis的<code>setnx</code>实现分布式锁，让多个定时任务同时只能有一个执行刷新任务</p>
+<p><strong>从DB中同步任务</strong></p>
+<p>先清空redis中的任务，保证任务不会重复存在于redis中</p>
+<p>从DB中将5分钟之内的数据刷新到redis中</p>
+<p><code>heima-leadnews-schedule</code>通过Feign向外提供服务</p>
+<h2 id="文章上架下架"><a href="#文章上架下架" class="headerlink" title="文章上架下架"></a>文章上架下架</h2><h3 id="知识点-5"><a href="#知识点-5" class="headerlink" title="知识点"></a>知识点</h3><h4 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h4><p>mq比较</p>
+<ul>
+<li>RabbitMQ：性能较好，数据量没有那么大</li>
+<li>RocketMQ：可靠性好</li>
+<li>Kafka：吞吐量高</li>
+</ul>
+<p><strong>概念</strong></p>
+<ul>
+<li>producer：发布消息的对象称之为主题生产者（Kafka topic producer）</li>
+<li><strong>topic</strong>：Kafka将消息分门别类，每一类的消息称之为一个主题（Topic），一个topic可以在集群上的不同机器上有分区</li>
+<li>consumer：订阅消息并处理发布的消息的对象称之为主题消费者（consumers）</li>
+<li>broker：已发布的消息保存在一组服务器中，称之为Kafka集群。集群中的每一个服务器都是一个代理（Broker）。 消费者可以订阅一个或多个主题（topic），并从Broker拉数据，从而消费这些已发布的消息。</li>
+</ul>
+<p><strong>安装</strong></p>
+<ol>
+<li><p>安装zookeeper</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull zookeeper:3.4.14<br><br>docker run -d --name zookeeper -p 2181:2181 zookeeper:3.4.14<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>安装kafka</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull wurstmeister/kafka:2.12-2.3.1<br><br>docker run -d --name kafka \<br>--env KAFKA_ADVERTISED_HOST_NAME=192.168.200.130 \<br>--env KAFKA_ZOOKEEPER_CONNECT=192.168.200.130:2181 \<br>--env KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.200.130:9092 \<br>--env KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 \<br>--env KAFKA_HEAP_OPTS=&quot;-Xmx256M -Xms256M&quot; \<br>--net=host wurstmeister/kafka:2.12-2.3.1<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<p>导包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.kafka<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>kafka-clients<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>生产者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.heima.kafka.sample;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProducerQuickStart</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">//1.kafka的配置信息</span><br>        <span class="hljs-type">Properties</span> <span class="hljs-variable">properties</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Properties</span>();<br>        <span class="hljs-comment">//kafka的连接地址</span><br>        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,<span class="hljs-string">&quot;192.168.200.130:9092&quot;</span>);<br>        <span class="hljs-comment">//发送失败，失败的重试次数</span><br>        properties.put(ProducerConfig.RETRIES_CONFIG,<span class="hljs-number">5</span>);<br>        <span class="hljs-comment">//消息key的序列化器</span><br>        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,<span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringSerializer&quot;</span>);<br>        <span class="hljs-comment">//消息value的序列化器</span><br>        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,<span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringSerializer&quot;</span>);<br><br>        <span class="hljs-comment">// 生产者</span><br>        KafkaProducer&lt;String, String&gt; producer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaProducer</span>&lt;&gt;(properties);<br><br>        <span class="hljs-comment">// 消息</span><br>        ProducerRecord&lt;String, String&gt; record = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProducerRecord</span>&lt;&gt;(<span class="hljs-string">&quot;topic001&quot;</span>,<span class="hljs-string">&quot;key001&quot;</span>,<span class="hljs-string">&quot;hello kafka&quot;</span>);<br><br>        <span class="hljs-comment">// 发送消息</span><br>        producer.send(record);<br>        System.out.println(<span class="hljs-string">&quot;=======消息发送成功&quot;</span>);<br><br>        <span class="hljs-comment">// 关闭消息通道，消息才能发送出去</span><br>        producer.close();<br><br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>消费者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.heima.kafka.sample;<br><br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ConsumerQuickStart</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">//1.添加kafka的配置信息</span><br>        <span class="hljs-type">Properties</span> <span class="hljs-variable">properties</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Properties</span>();<br>        <span class="hljs-comment">//kafka的连接地址</span><br>        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;192.168.200.130:9092&quot;</span>);<br>        <span class="hljs-comment">//消费者组，同一个组里的同时只能有一个消费者接收到消息</span><br>        properties.put(ConsumerConfig.GROUP_ID_CONFIG, <span class="hljs-string">&quot;group2&quot;</span>);<br>        <span class="hljs-comment">//消息的反序列化器</span><br>        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, <span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span>);<br>        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, <span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span>);<br><br>        <span class="hljs-comment">//2.消费者对象</span><br>        KafkaConsumer&lt;String, String&gt; consumer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaConsumer</span>&lt;String, String&gt;(properties);<br><br>        <span class="hljs-comment">//3.订阅主题</span><br>        consumer.subscribe(Collections.singletonList(<span class="hljs-string">&quot;topic001&quot;</span>));<br><br>        <span class="hljs-comment">// 接收消息</span><br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(<span class="hljs-number">1000</span>));<br>            <span class="hljs-keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records) &#123;<br>                System.out.println(record.key());<br>                System.out.println(record.value());<br>            &#125;<br><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>kafka高可用</strong></p>
+<ol>
+<li><p>集群</p>
+<p>集群中的一台服务器称为Broker，即一台服务器宕机了，任然可以对外提供服务</p>
+</li>
+<li><p>备份</p>
+<p>主节点：Leader Replica；从节点：Follower Replica</p>
+<p>从节点又分为ISR（in-sync replica）和普通节点。</p>
+<p>ISR需要同步备份，从节点异步备份。</p>
+<p>所以如果主节点宕机了，如果要数据可靠，则从ISR节点中选择一个作为主节点；如果要高可用，则从任意一个活着的节点中选一个作为主节点</p>
+</li>
+</ol>
+<p><strong>生产者</strong></p>
+<ol>
+<li><p>同步发送消息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">RecordMetadata</span> <span class="hljs-variable">recordMetadata</span> <span class="hljs-operator">=</span> producer.send(record).get();<br>System.out.println(<span class="hljs-string">&quot;偏移量：&quot;</span> + recordMetadata.offset());<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>异步发送消息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">producer.send(record, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Callback</span>() &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCompletion</span><span class="hljs-params">(RecordMetadata recordMetadata, Exception e)</span> &#123;<br>        <span class="hljs-keyword">if</span> (e != <span class="hljs-literal">null</span>)<br>            e.printStackTrace();<br>        System.out.println(<span class="hljs-string">&quot;偏移量：&quot;</span> + recordMetadata.offset());<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>部分配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 发送失败，失败的重试次数</span><br>properties.put(ProducerConfig.RETRIES_CONFIG,<span class="hljs-number">5</span>);<br><span class="hljs-comment">// 应答方式 0： 不需要应答 1： 主节点收到后应答（默认） 2： 同步给所有从节点后应答</span><br>properties.put(ProducerConfig.ACKS_CONFIG, <span class="hljs-string">&quot;all&quot;</span>);<br><span class="hljs-comment">// 压缩方式 snappy，lz4，gzip</span><br>properties.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, <span class="hljs-string">&quot;snappy&quot;</span>);<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>消费者</strong></p>
+<ol>
+<li><p>消费者组</p>
+<p>一个消息在消费者组中只能被一个消费者消费</p>
+<p>一个消息可以被不同组的消费者消费</p>
+</li>
+<li><p>消息有序性</p>
+<p>一个Topic的分区里的消息是按顺序消费的，但不同分区不能保证有序性。</p>
+<p>要保证有序性那就只能提供一个分区</p>
+<blockquote>
+<p>场景：聊天，多次转账的越变更通知</p>
+</blockquote>
+</li>
+<li><p>偏移量</p>
+<p>消费者每处理完一批消息，就会往’_consumer_offset’这个Topic里提交偏移量，偏移量用于确定消息队列中哪些消息被消费了</p>
+<p><strong>自动提交</strong>偏移量可能带来的问题</p>
+<ol>
+<li><p>重复消费</p>
+<p>如果消费者处理一批消息到一半宕机了，但还没有提交偏移量，其他消费者就会来接手分区继续处理消息，此时就会重复消费消息</p>
+</li>
+<li><p>消息丢失</p>
+<p>如果正在处理消息时就提交偏移量，此时宕机了，那么正在处理的消息就会丢失</p>
+</li>
+</ol>
+<p><strong>手动提交</strong>可以解决这些问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 取消自动提交偏移量</span><br>properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, <span class="hljs-literal">false</span>);<br><br><span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>        <span class="hljs-comment">// 消费消息</span><br>        ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(<span class="hljs-number">1000</span>));<br>        <span class="hljs-keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records) &#123;<br>            System.out.println(record.key());<br>            System.out.println(record.value());<br>        &#125;<br>        consumer.commitAsync(); <span class="hljs-comment">// 异步提交偏移量，如果出现异常不会重试</span><br>    &#125;<br>&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>    e.printStackTrace();<br>    System.out.println(<span class="hljs-string">&quot;错误信息：&quot;</span> + e);<br>&#125; <span class="hljs-keyword">finally</span> &#123;<br>    consumer.commitSync();      <span class="hljs-comment">// 同步提交，如果之前异步提交失败了，这里会不断重试知道发送成功</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="Spring集成Kafka"><a href="#Spring集成Kafka" class="headerlink" title="Spring集成Kafka"></a>Spring集成Kafka</h4><ol>
+<li><p>导包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!--spring集成kafka--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.kafka<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-kafka<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">exclusions</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">exclusion</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.kafka<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>kafka-clients<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">exclusion</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">exclusions</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--Kafka--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.kafka<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>kafka-clients<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>fastjson<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">9991</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">kafka-demo</span><br>  <span class="hljs-attr">kafka:</span><br>    <span class="hljs-comment"># Kafka地址</span><br>    <span class="hljs-attr">bootstrap-servers:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.200</span><span class="hljs-number">.130</span><span class="hljs-string">:9092</span><br>    <span class="hljs-comment"># 生产者配置</span><br>    <span class="hljs-attr">producer:</span><br>      <span class="hljs-attr">retries:</span> <span class="hljs-number">10</span><br>      <span class="hljs-attr">key-serializer:</span> <span class="hljs-string">org.apache.kafka.common.serialization.StringSerializer</span><br>      <span class="hljs-attr">value-serializer:</span> <span class="hljs-string">org.apache.kafka.common.serialization.StringSerializer</span><br>    <span class="hljs-comment"># 消费者配置</span><br>    <span class="hljs-attr">consumer:</span><br>      <span class="hljs-attr">group-id:</span> <span class="hljs-string">$&#123;spring.application.name&#125;-test</span><br>      <span class="hljs-attr">key-deserializer:</span> <span class="hljs-string">org.apache.kafka.common.serialization.StringDeserializer</span><br>      <span class="hljs-attr">value-deserializer:</span> <span class="hljs-string">org.apache.kafka.common.serialization.StringDeserializer</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>生产消息，要发送对象可以转Json</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloController</span> &#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> KafkaTemplate&lt;String, String&gt; kafkaTemplate;<br><br>    <span class="hljs-meta">@GetMapping(&quot;/hello&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">hello</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 发送消息到&#x27;test-topic&#x27;</span><br>        kafkaTemplate.send(<span class="hljs-string">&quot;test-topic&quot;</span>, <span class="hljs-string">&quot;message&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;ok&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>监听Topic</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloListener</span> &#123;<br><br>    <span class="hljs-comment">// 从&#x27;test-topic&#x27;中接收消息</span><br>    <span class="hljs-meta">@KafkaListener(topics = &#123;&quot;test-topic&quot;&#125;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onMessage</span><span class="hljs-params">(String message)</span> &#123;<br>        System.out.println(message);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="需求-6"><a href="#需求-6" class="headerlink" title="需求"></a>需求</h3><p>自媒体端设置文章上下架，通过kafka将文章配置同步到app端</p>
+<h1 id="平台管理端"><a href="#平台管理端" class="headerlink" title="平台管理端"></a>平台管理端</h1><h2 id="登录-2"><a href="#登录-2" class="headerlink" title="登录"></a>登录</h2><p>登录接口：根据传来的用户名密码，和数据库中的进行加盐比对来判断是否登录成功</p>
+<p>网关：解析token，将解析出来的userId放到请求头中</p>
+<p>nginx：将请求反向代理到网关，网关再路由到登录接口</p>
+<h2 id="频道管理"><a href="#频道管理" class="headerlink" title="频道管理"></a>频道管理</h2><p>CRUD</p>
+<h2 id="敏感词管理"><a href="#敏感词管理" class="headerlink" title="敏感词管理"></a>敏感词管理</h2><p>CRUD</p>
+<h2 id="用户认证审核"><a href="#用户认证审核" class="headerlink" title="用户认证审核"></a>用户认证审核</h2><p>CRUD</p>
+<h2 id="文章人工审核"><a href="#文章人工审核" class="headerlink" title="文章人工审核"></a>文章人工审核</h2><p>CRUD</p>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><h2 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h2><p>持续集成（ Continuous integration ， 简称 CI ）指的是，频繁地（一天多次）将代码集成到主干</p>
+<p>一个自动构建过程， 从检出代码、 编译构建、 运行测试、 结果记录、 测试统计等都是自动完成的， 无需人工干预。</p>
+<h3 id="知识点-6"><a href="#知识点-6" class="headerlink" title="知识点"></a>知识点</h3><h4 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h4><p>Jenkins  是一款流行的开源持续集成（Continuous Integration）工具，广泛用于项目开发，具有自动化构建、测试和部署等功能</p>
+<p><a target="_blank" rel="noopener" href="http://jenkins-ci.org/">http://jenkins-ci.org/</a></p>
+<p>流程：提交代码到git -&gt; jenkins拉取代码，使用jdk、maven等对代码进行编译、打包等操作 -&gt; 最后把生成的jar或war分发到服务器上</p>
+<p><strong>安装</strong></p>
+<blockquote>
+<p>centos7</p>
+</blockquote>
+<p>yum安装</p>
+<ol>
+<li><p>添加安装源</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo --no-check-certificate<br><br>sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>命令安装</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum -y install jenkins<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">vim /etc/sysconfig/jenkins<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改为对应的目标用户， 这里使用的是root</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">JENKINS_USER=<span class="hljs-string">&quot;root&quot;</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">服务监听端口</span><br>JENKINS_PORT=&quot;16060&quot;<br></code></pre></td></tr></table></figure>
+
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">修改目录权限</span><br><br>chown -R root:root /var/lib/jenkins<br>chown -R root:root /var/cache/jenkins<br>chown -R root:root /var/log/jenkins<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重启</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl restart jenkins<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果报错</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Starting Jenkins bash: /usr/bin/java: No such file or directory</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">需要创建java环境的软链接</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">ln</span> -s /usr/local/jdk/bin/java /usr/bin/java</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>访问控制台</p>
+<p> <a target="_blank" rel="noopener" href="http://192.168.200.100:16060/">http://192.168.200.100:16060/</a></p>
+<p> 获取管理密码</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /var/lib/jenkins/secrets/initialAdminPassword<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>安装插件</strong></p>
+<p>jenkins的功能需要安装插件来添加</p>
+<p>安装方式：</p>
+<ol>
+<li><p>进入【系统管理】-【插件管理】</p>
+</li>
+<li><p>点击标签页的【可选插件】</p>
+</li>
+</ol>
+<p><strong>安装环境</strong></p>
+<p>在linux系统中安装jdk、git、maven等应用</p>
+<p>然后到控制台的Manager Jenkins的Global Tools Configuration中指定所在位置</p>
+<h4 id="多环境开发"><a href="#多环境开发" class="headerlink" title="多环境开发"></a>多环境开发</h4><ul>
+<li>Development ：开发环境</li>
+<li>Production ：生产环境</li>
+<li>Test ：测试环境</li>
+</ul>
+<p>添加配置指定使用哪个环境的配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>	<span class="hljs-attr">profiles:</span><br>		<span class="hljs-attr">active:</span> <span class="hljs-string">dev</span><br></code></pre></td></tr></table></figure>
+
+<p>在nacos中添加<code>$&#123;spring.application.name&#125;-环境.yml</code>来设置不同环境的配置文件</p>
+<h4 id="部署-1"><a href="#部署-1" class="headerlink" title="部署"></a>部署</h4><ol>
+<li>代码提交到远程仓库</li>
+<li>Jenkins拉取代码，用maven打包，dockerfile创建镜像</li>
+<li>服务器上运行容器</li>
+</ol>
+<p>(示例)</p>
+<p>添加maven插件，自动生成镜像</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">finalName</span>&gt;</span>heima-leadnews-user<span class="hljs-tag">&lt;/<span class="hljs-name">finalName</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">executions</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">execution</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">goals</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">goal</span>&gt;</span>repackage<span class="hljs-tag">&lt;/<span class="hljs-name">goal</span>&gt;</span><br>                    <span class="hljs-tag">&lt;/<span class="hljs-name">goals</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">execution</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">executions</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">source</span>&gt;</span>$&#123;java.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">source</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">target</span>&gt;</span>$&#123;java.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">target</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.spotify<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>dockerfile-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.3.6<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">repository</span>&gt;</span>$&#123;docker.image&#125;/$&#123;project.artifactId&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">repository</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">buildArgs</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">JAR_FILE</span>&gt;</span>target/$&#123;project.build.finalName&#125;.jar<span class="hljs-tag">&lt;/<span class="hljs-name">JAR_FILE</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">buildArgs</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>添加Dockerfile</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs txt"># 设置JAVA版本<br>FROM java:8<br># 指定存储卷, 任何向/tmp写入的信息都不会记录到容器存储层<br>VOLUME /tmp<br># 拷贝运行JAR包<br>ARG JAR_FILE<br>COPY $&#123;JAR_FILE&#125; app.jar<br># 设置JVM运行参数， 这里限定下内存大小，减少开销<br>ENV JAVA_OPTS=&quot;\<br>-server \<br>-Xms256m \<br>-Xmx512m \<br>-XX:MetaspaceSize=256m \<br>-XX:MaxMetaspaceSize=512m&quot;<br>#空参数，方便创建容器时传参<br>ENV PARAMS=&quot;&quot;<br># 入口点， 执行JAVA运行命令<br>ENTRYPOINT [&quot;sh&quot;,&quot;-c&quot;,&quot;java -jar $JAVA_OPTS /app.jar $PARAMS&quot;]<br></code></pre></td></tr></table></figure>
+
+<p>将工程上传到远程仓库</p>
+<p>Jenkins工作台 -&gt; 新建Item -&gt; Freestyle project</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>黑马头条笔记</div>
+      <div>http://xwww12.github.io/2023/08/07/后端/黑马头条笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>xw</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/java/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/" title="Java集合框架">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java集合框架</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/06/06/Spring&amp;SpringBoot/SpringSecurity/" title="SpringSecurity">
+                        <span class="hidden-mobile">SpringSecurity</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 10px"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/snow2.js"></script>
+<script src="/js/pageTitle.js"></script>
+<script src="/js/sakura.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
