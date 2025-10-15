@@ -27,17 +27,15 @@
 <meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/image-20210713224724673.png">
 <meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E7%BB%9F%E4%B8%80%E9%85%8D%E7%BD%AE.png">
 <meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF.png">
-<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E5%85%B1%E4%BA%AB%E9%85%8D%E7%BD%AE.png">
+<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/Nacos%E9%9B%86%E7%BE%A4.png">
 <meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/image-20210713232522531.png">
 <meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E6%9D%83%E9%87%8D.png">
-<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4.png">
-<meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/Nacos%E9%9B%86%E7%BE%A4.png">
 <meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/feign%E6%8A%BD%E5%8F%96.png">
 <meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/feignApi.png">
 <meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/%E5%AF%BC%E5%85%A5feignApi.png">
 <meta property="og:image" content="http://xwww12.github.io/img/weifuwu_img/gateway%E6%A8%A1%E5%9D%97.png">
 <meta property="article:published_time" content="2022-09-03T13:06:02.208Z">
-<meta property="article:modified_time" content="2025-10-13T13:40:07.970Z">
+<meta property="article:modified_time" content="2025-10-15T12:08:22.569Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="微服务">
 <meta name="twitter:card" content="summary_large_image">
@@ -239,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.3k 字
+          5.9k 字
         
       </span>
     
@@ -250,7 +248,7 @@
         
         
         
-          45 分钟
+          50 分钟
         
       </span>
     
@@ -445,11 +443,18 @@
 </li>
 <li><p>执行命令，使用docker desktop的话改成全在一行</p>
  <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">run</span><span class="language-bash"> --name nacos-standalone-derby \</span><br><span class="language-bash">    -e MODE=standalone \</span><br><span class="language-bash">    -e NACOS_AUTH_TOKEN=<span class="hljs-variable">$&#123;your_nacos_auth_secret_token&#125;</span> \</span><br><span class="language-bash">    -e NACOS_AUTH_IDENTITY_KEY=<span class="hljs-variable">$&#123;your_nacos_server_identity_key&#125;</span> \</span><br><span class="language-bash">    -e NACOS_AUTH_IDENTITY_VALUE=<span class="hljs-variable">$&#123;your_nacos_server_identity_value&#125;</span> \</span><br><span class="language-bash">    -p 8080:8080 \</span><br><span class="language-bash">    -p 8848:8848 \</span><br><span class="language-bash">    -p 9848:9848 \</span><br><span class="language-bash">    -d nacos/nacos-server:latest</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>8080: Nacos Web 控制台</li>
+<li>8848: Nacos Server 与客户端交互的主入口</li>
+<li>9848: gRPC 通信端口</li>
+</ul>
 </li>
 <li><p>访问<code>http://127.0.0.1:8080/index.html</code>，会要求设置密码</p>
 </li>
 </ol>
-<h3 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h3><h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><h5 id="在nacos中添加配置"><a href="#在nacos中添加配置" class="headerlink" title="在nacos中添加配置"></a>在nacos中添加配置</h5><blockquote>
+<h3 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h3><p><a target="_blank" rel="noopener" href="https://sca.aliyun.com/docs/2023/user-guide/nacos/quick-start/">官方文档</a></p>
+<h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><h5 id="在nacos中添加配置"><a href="#在nacos中添加配置" class="headerlink" title="在nacos中添加配置"></a>在nacos中添加配置</h5><blockquote>
 <p>项目的核心配置，需要热更新的配置才有放到nacos管理的必要</p>
 </blockquote>
 <p><img src="/img/weifuwu_img/%E7%BB%9F%E4%B8%80%E9%85%8D%E7%BD%AE.png" srcset="/img/loading.gif" lazyload alt="统一配置"></p>
@@ -494,14 +499,20 @@
 
 <p>只要修改<code>spring.profiles.active</code>的值，就能切换不同环境的配置</p>
 <p>如上面的配置就会加载<code>basic-service-develop.yml</code></p>
-<h4 id="配置共享"><a href="#配置共享" class="headerlink" title="配置共享"></a>配置共享</h4><blockquote>
-<p> nacos配置的文件名格式为<code>服务名-环境.yaml</code>，如<code>userservice-dev.yaml</code></p>
-<p> 当文件名为<code>服务名.yaml</code>时，即为共享配置，每个环境的都能读到</p>
+<h4 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h4><blockquote>
+<p>Namespace 的常用场景之一是不同环境下配置的区分隔离</p>
 </blockquote>
-<p><img src="/img/weifuwu_img/%E5%85%B1%E4%BA%AB%E9%85%8D%E7%BD%AE.png" srcset="/img/loading.gif" lazyload alt="共享配置"></p>
-<p>有相同配置时，配置的优先级为: 环境配置&gt;共享配置&gt;本地配置</p>
-<h3 id="服务注册与发现"><a href="#服务注册与发现" class="headerlink" title="服务注册与发现"></a>服务注册与发现</h3><p><a target="_blank" rel="noopener" href="https://sca.aliyun.com/docs/2023/user-guide/nacos/quick-start/">官方文档</a></p>
-<h4 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h4><ol>
+<p><strong>使用</strong></p>
+<ol>
+<li><p>创建命名空间并添加配置</p>
+</li>
+<li><p>在配置文件中指定命名空间id，就能读取到不同命名空间下的配置</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">config:</span><br>      <span class="hljs-comment"># 注意是命名空间的id，默认值为public</span><br>        <span class="hljs-attr">namespace:</span> <span class="hljs-string">f9983feb-a567-4113-8f6c-2ab242c3223f</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="服务注册与发现"><a href="#服务注册与发现" class="headerlink" title="服务注册与发现"></a>服务注册与发现</h3><h4 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h4><blockquote>
+<p>在 Spring Cloud 应用的启动阶段，监听了 WebServerInitializedEvent 事件，当 Web 容器初始化完成后，即收到 WebServerInitializedEvent 事件后，会触发注册的动作，调用 ServiceRegistry 的 register 方法，将服务注册到 Nacos Server。</p>
+</blockquote>
+<ol>
 <li><p>项目中导入依赖</p>
  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--nacos服务发现--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
 </li>
@@ -511,45 +522,6 @@
 <li><p>在启动类上加注解<code>@EnableDiscoveryClient</code></p>
 </li>
 </ol>
-<h4 id="配置集群"><a href="#配置集群" class="headerlink" title="配置集群"></a>配置集群</h4><p><img src="/img/weifuwu_img/image-20210713232522531.png" srcset="/img/loading.gif" lazyload alt="image-20210713232522531"></p>
-<ul>
-<li><p>修改配置</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:8848</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">cluster-name:</span> <span class="hljs-string">HZ</span> <span class="hljs-comment"># 集群名称</span><br></code></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="同集群优先的负载均衡"><a href="#同集群优先的负载均衡" class="headerlink" title="同集群优先的负载均衡"></a>同集群优先的负载均衡</h4><blockquote>
-<p>Nacos中提供了一个<code>NacosRule</code>的实现，可以优先从同集群中挑选实例</p>
-</blockquote>
-<ul>
-<li><p>修改配置文件application.yml</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">userservice:</span>	<span class="hljs-comment">#服务名称</span><br>  <span class="hljs-attr">ribbon:</span><br>    <span class="hljs-attr">NFLoadBalancerRuleClassName:</span> <span class="hljs-string">com.alibaba.cloud.nacos.ribbon.NacosRule</span> <span class="hljs-comment"># 负载均衡规则 </span><br></code></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="权重优先的负载均衡"><a href="#权重优先的负载均衡" class="headerlink" title="权重优先的负载均衡"></a>权重优先的负载均衡</h4><blockquote>
-<p>权重越高，优先级越高</p>
-</blockquote>
-<p><img src="/img/weifuwu_img/%E6%9D%83%E9%87%8D.png" srcset="/img/loading.gif" lazyload alt="权重"></p>
-<ul>
-<li>通过编辑来设置权重</li>
-</ul>
-<h4 id="给微服务配置namespace"><a href="#给微服务配置namespace" class="headerlink" title="给微服务配置namespace"></a>给微服务配置namespace</h4><blockquote>
-<p>只有同一个命名空间的服务才能访问</p>
-<p>通过namespace来实现环境隔离功能</p>
-</blockquote>
-<ul>
-<li>通过控制台来创建命名空间</li>
-</ul>
-<p><img src="/img/weifuwu_img/%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4.png" srcset="/img/loading.gif" lazyload alt="命名空间"></p>
-<ul>
-<li><p>配置文件中设置所在的命名空间</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:8848</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">cluster-name:</span> <span class="hljs-string">HZ</span> <span class="hljs-comment"># 集群名称</span><br>        <span class="hljs-attr">namespace:</span> <span class="hljs-string">c36cee20-482c-4675-a115-5e84b8f53882</span> <span class="hljs-comment">#命名空间</span><br></code></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="设置实例类型"><a href="#设置实例类型" class="headerlink" title="设置实例类型"></a>设置实例类型</h4><blockquote>
-<p>实例分为临时实例和非临时实例</p>
-<p>临时实例：如果实例宕机超过一定时间，会从服务列表剔除，默认的类型</p>
-<p>非临时实例：如果实例宕机，不会从服务列表剔除，也可以叫永久实例</p>
-</blockquote>
-<p>设置为非临时实例</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">ephemeral:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 设置为非临时实例</span><br></code></pre></td></tr></table></figure>
-
 <h3 id="Nacos搭建集群"><a href="#Nacos搭建集群" class="headerlink" title="Nacos搭建集群"></a>Nacos搭建集群</h3><p>通过nginx反向代理多个nacos实现负载均衡</p>
 <p><img src="/img/weifuwu_img/Nacos%E9%9B%86%E7%BE%A4.png" srcset="/img/loading.gif" lazyload alt="Nacos集群"></p>
 <p><strong>步骤:</strong></p>
@@ -558,7 +530,7 @@
 <li>配置nacos</li>
 <li>配置nginx反向代理</li>
 </ul>
-<h5 id="配置nacos"><a href="#配置nacos" class="headerlink" title="配置nacos"></a>配置nacos</h5><ul>
+<h4 id="配置nacos"><a href="#配置nacos" class="headerlink" title="配置nacos"></a>配置nacos</h4><ul>
 <li><p>进入nacos的conf目录，修改配置文件cluster.conf.example，重命名为cluster.conf</p>
 </li>
 <li><p>添加nacos集群的ip和端口</p>
@@ -572,7 +544,7 @@
 <li><p>分别启动nacos</p>
 <figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dos">startup.<span class="hljs-built_in">cmd</span><br></code></pre></td></tr></table></figure></li>
 </ul>
-<h5 id="配置nginx反向代理"><a href="#配置nginx反向代理" class="headerlink" title="配置nginx反向代理"></a>配置nginx反向代理</h5><ul>
+<h4 id="配置nginx反向代理"><a href="#配置nginx反向代理" class="headerlink" title="配置nginx反向代理"></a>配置nginx反向代理</h4><ul>
 <li><p>下载解压nginx到非中文目录下</p>
 </li>
 <li><p>修改conf&#x2F;nginx.conf文件</p>
@@ -581,6 +553,33 @@
 <li><p>代码中nacos的地址要改为nginx的</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:80</span> <span class="hljs-comment"># Nacos地址</span><br></code></pre></td></tr></table></figure></li>
 </ul>
+<h4 id="配置集群"><a href="#配置集群" class="headerlink" title="配置集群"></a>配置集群</h4><p><img src="/img/weifuwu_img/image-20210713232522531.png" srcset="/img/loading.gif" lazyload alt="image-20210713232522531"></p>
+<ul>
+<li><p>修改配置</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:8848</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">cluster-name:</span> <span class="hljs-string">HZ</span> <span class="hljs-comment"># 集群名称</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="同集群优先的负载均衡"><a href="#同集群优先的负载均衡" class="headerlink" title="同集群优先的负载均衡"></a>同集群优先的负载均衡</h4><blockquote>
+<p>Nacos中提供了一个<code>NacosRule</code>的实现，可以优先从同集群中挑选实例</p>
+</blockquote>
+<ul>
+<li><p>修改配置文件application.yml</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">userservice:</span>	<span class="hljs-comment">#服务名称</span><br>  <span class="hljs-attr">ribbon:</span><br>    <span class="hljs-attr">NFLoadBalancerRuleClassName:</span> <span class="hljs-string">com.alibaba.cloud.nacos.ribbon.NacosRule</span> <span class="hljs-comment"># 负载均衡规则 </span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="权重优先的负载均衡"><a href="#权重优先的负载均衡" class="headerlink" title="权重优先的负载均衡"></a>权重优先的负载均衡</h4><blockquote>
+<p>权重越高，优先级越高</p>
+</blockquote>
+<p><img src="/img/weifuwu_img/%E6%9D%83%E9%87%8D.png" srcset="/img/loading.gif" lazyload alt="权重"></p>
+<ul>
+<li>通过编辑来设置权重</li>
+</ul>
+<h4 id="设置实例类型"><a href="#设置实例类型" class="headerlink" title="设置实例类型"></a>设置实例类型</h4><blockquote>
+<p>实例分为临时实例和非临时实例</p>
+<p>临时实例：如果实例宕机超过一定时间，会从服务列表剔除，默认的类型</p>
+<p>非临时实例：如果实例宕机，不会从服务列表剔除，也可以叫永久实例</p>
+</blockquote>
+<p>设置为非临时实例</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">ephemeral:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 设置为非临时实例</span><br></code></pre></td></tr></table></figure>
+
 <h2 id="Feign服务消费"><a href="#Feign服务消费" class="headerlink" title="Feign服务消费"></a>Feign服务消费</h2><blockquote>
 <p>Feign是声明式的服务调用工具，我们只需创建一个接口并用注解的方式来配置它，就可以实现对某个服务接口的调用，简化了直接使用RestTemplate来调用服务接口的开发量</p>
 </blockquote>
@@ -818,6 +817,27 @@
 <p>在gateway服务的application.yml文件中，添加下面的配置：</p>
 <figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">spring:<br>  cloud:<br>    gateway:<br>      # 。。。<br>      globalcors: # 全局的跨域处理<br>        add-to-simple-url-handler-mapping: true # 解决options请求被拦截问题<br>        corsConfigurations:<br>          &#x27;<span class="hljs-string">[/**]</span>&#x27;:<br>            allowedOrigins: # 允许哪些网站的跨域请求 <br>              - <span class="hljs-string">&quot;http://localhost:8090&quot;</span><br>            allowedMethods: # 允许的跨域ajax的请求方式<br>              - <span class="hljs-string">&quot;<span class="hljs-keyword">GET</span>&quot;</span><br>              - <span class="hljs-string">&quot;<span class="hljs-keyword">POST</span>&quot;</span><br>              - <span class="hljs-string">&quot;<span class="hljs-keyword">DELETE</span>&quot;</span><br>              - <span class="hljs-string">&quot;<span class="hljs-keyword">PUT</span>&quot;</span><br>              - <span class="hljs-string">&quot;<span class="hljs-keyword">OPTIONS</span>&quot;</span><br>            allowedHeaders: <span class="hljs-string">&quot;*&quot;</span> # 允许在请求中携带的头信息<br>            allowCredentials: true # 是否允许携带cookie<br>            maxAge: <span class="hljs-number">360000</span> # 这次跨域检测的有效期<br></code></pre></td></tr></table></figure>
 
+
+
+<h2 id="SchedulingTasks分布式定时任务"><a href="#SchedulingTasks分布式定时任务" class="headerlink" title="SchedulingTasks分布式定时任务"></a>SchedulingTasks分布式定时任务</h2><blockquote>
+<p>防止定时任务被多个节点重复执行</p>
+</blockquote>
+<h3 id="使用MySQL作为分布式锁"><a href="#使用MySQL作为分布式锁" class="headerlink" title="使用MySQL作为分布式锁"></a>使用MySQL作为分布式锁</h3><ol>
+<li><p>建表</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> `shedlock` (<br>  `NAME` <span class="hljs-type">varchar</span>(<span class="hljs-number">64</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>  `lock_until` <span class="hljs-type">timestamp</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>  `locked_at` <span class="hljs-type">timestamp</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span>(<span class="hljs-number">3</span>),<br>  `locked_by` <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>  <span class="hljs-keyword">PRIMARY</span> KEY (`NAME`)<br>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>添加依赖</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 分布式任务需要的锁 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>net.javacrumbs.shedlock<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>shedlock-spring<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>6.9.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- shedlock的JDBC实现方式 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>net.javacrumbs.shedlock<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>shedlock-provider-jdbc-template<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>6.9.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- JDBC --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.mysql<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mysql-connector-j<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建<code>lockProvider</code>的Bean</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 分布式定时任务锁</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ScheduledLockConfig</span> &#123;<br><br>    <span class="hljs-comment">// 数据库连接池对象</span><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> DataSource dataSource;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> LockProvider <span class="hljs-title function_">lockProvider</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JdbcTemplateLockProvider</span>(<br>                JdbcTemplateLockProvider.Configuration.builder()<br>                        <span class="hljs-comment">// 指定锁的持久化方式是通过 JdbcTemplate 操作数据库</span><br>                        .withJdbcTemplate(<span class="hljs-keyword">new</span> <span class="hljs-title class_">JdbcTemplate</span>(dataSource))<br>                        <span class="hljs-comment">// 指定数据库中存储锁时间使用 UTC 时间，防止时区差异导致锁失效时间计算错误</span><br>                        .withTimeZone(TimeZone.getTimeZone(<span class="hljs-string">&quot;UTC&quot;</span>))<br>                        .build()<br>        );<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建定时任务</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringJob</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 每5分钟跑一次</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * cron表达式：秒、分、时、日、月、星期、年</span><br><span class="hljs-comment">     * name: 锁的唯一名称</span><br><span class="hljs-comment">     * lockAtMostFor: 最长持锁时间。如果任务卡死没释放锁，ShedLock会在2分钟后自动释放，避免锁永远卡死</span><br><span class="hljs-comment">     * lockAtLeastFor: 最短持锁时间。即使任务很快执行完，也至少保留锁1分钟，防止任务立即被另一个实例重复触发</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Scheduled(cron = &quot;0 */5 * * * ?&quot;)</span><br>    <span class="hljs-meta">@SchedulerLock(name = &quot;SpringJob.job1&quot;, lockAtMostFor = &quot;2m&quot;, lockAtLeastFor = &quot;1m&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">job1</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;time=&quot;</span> + DateTime.now().toString(<span class="hljs-string">&quot;YYYY-MM-dd HH:mm:ss&quot;</span>) + <span class="hljs-string">&quot; do job1...&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 每5秒跑一次</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Scheduled(fixedRate = 5000)</span><br>    <span class="hljs-meta">@SchedulerLock(name = &quot;SpringJob.job2&quot;, lockAtMostFor = &quot;4s&quot;, lockAtLeastFor = &quot;4s&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">job2</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;time=&quot;</span> + DateTime.now().toString(<span class="hljs-string">&quot;YYYY-MM-dd HH:mm:ss&quot;</span>) + <span class="hljs-string">&quot; do job2...&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 上次跑完之后隔5秒再跑</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> InterruptedException</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Scheduled(fixedDelay = 5000)</span><br>    <span class="hljs-meta">@SchedulerLock(name = &quot;SpringJob.job3&quot;, lockAtMostFor = &quot;4s&quot;, lockAtLeastFor = &quot;4s&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">job3</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        System.out.println(<span class="hljs-string">&quot;time=&quot;</span> + DateTime.now().toString(<span class="hljs-string">&quot;YYYY-MM-dd HH:mm:ss&quot;</span>) + <span class="hljs-string">&quot; do job3...&quot;</span>);<br>        Thread.sleep(<span class="hljs-number">10000</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>开启定时任务</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@EnableDiscoveryClient</span><br><span class="hljs-meta">@EnableFeignClients</span><br><span class="hljs-comment">// 开启定时任务</span><br><span class="hljs-meta">@EnableScheduling</span><br><span class="hljs-comment">// 开启分布式定时任务锁</span><br><span class="hljs-meta">@EnableSchedulerLock(defaultLockAtMostFor = &quot;3m&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BasicServiceApplication</span> &#123;<br>    ...<br></code></pre></td></tr></table></figure></li>
+</ol>
 
                 
               </div>
