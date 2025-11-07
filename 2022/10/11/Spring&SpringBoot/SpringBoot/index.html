@@ -24,7 +24,7 @@
 <meta property="og:description" content="Spring Bootpom xml格式2.x版本的格式1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-11T14:36:07.877Z">
-<meta property="article:modified_time" content="2025-10-22T11:31:53.464Z">
+<meta property="article:modified_time" content="2025-10-24T11:35:20.296Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="Spring">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.4k 字
+          4.6k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          37 分钟
+          39 分钟
         
       </span>
     
@@ -480,6 +480,19 @@
 </li>
 <li><p>业务代码中抛出异常</p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/test&quot;)</span><br><span class="hljs-keyword">public</span> CommonResult&lt;String&gt; <span class="hljs-title function_">test</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> BaseException &#123;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-literal">true</span>) &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BaseException</span>(<span class="hljs-number">666</span>, <span class="hljs-string">&quot;testException&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> CommonResult.success(<span class="hljs-string">&quot;test&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Http请求工具"><a href="#Http请求工具" class="headerlink" title="Http请求工具"></a>Http请求工具</h2><h3 id="RestClient"><a href="#RestClient" class="headerlink" title="RestClient"></a>RestClient</h3><blockquote>
+<p>在Spring Boot 3.2之后，使用RestClient代替RestTemplate进行发送Http请求</p>
+</blockquote>
+<h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><ol>
+<li><p>导入依赖</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"># 包含在了Spring Boot Web依赖中<br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>添加<code>RestClientConfig</code>配置类</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RestClientConfig</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 全局 RestClient Bean</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> RestClient <span class="hljs-title function_">restClient</span><span class="hljs-params">(Builder builder)</span> &#123;<br>        <span class="hljs-keyword">return</span> builder<br>            	.defaultHeader(<span class="hljs-string">&quot;User-Agent&quot;</span>, <span class="hljs-string">&quot;MyApp/1.0 (SpringBoot 3.3.5)&quot;</span>)    <span class="hljs-comment">// 通用 header</span><br>                .baseUrl(<span class="hljs-string">&quot;http://localhost:5050&quot;</span>) <span class="hljs-comment">// 第三方 API 地址</span><br>                .build();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 往body()里传将Json反序列化后的对象的.class。 记得该类要有getter、setter和构造方法</span><br>    Map&lt;String, Object&gt; body = restClient.get()<br>        .uri(<span class="hljs-string">&quot;/version&quot;</span>)<br>        .retrieve()<br>        .body(String.class);<br>    System.out.println(body);<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
