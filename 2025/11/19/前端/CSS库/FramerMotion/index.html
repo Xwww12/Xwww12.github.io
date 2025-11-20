@@ -24,7 +24,7 @@
 <meta property="og:description" content="Framer Motion 用于构建流畅、生产级 UI 动画的 React 动画库 版本：12.23.24  官网：https:&#x2F;&#x2F;motion.dev&#x2F; 安装 安装依赖  1npm install motion  在代码中使用  1import &amp;#123; motion &amp;#125; from &quot;motion&#x2F;react&quot;  测试使用  新建个项目  创建个组件  一个旋转">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-19T11:25:52.581Z">
-<meta property="article:modified_time" content="2025-11-19T13:34:24.913Z">
+<meta property="article:modified_time" content="2025-11-20T14:00:59.047Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          531 字
+          950 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          5 分钟
+          8 分钟
         
       </span>
     
@@ -390,6 +390,46 @@
 <li><p><strong>exit</strong>：当组件被移除时的动画</p>
   <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs tsx">&lt;<span class="hljs-title class_">AnimatePresence</span>&gt;<br>  &#123;isVisible &amp;&amp; (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">motion.div</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">key</span>=<span class="hljs-string">&quot;modal&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">initial</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">opacity:</span> <span class="hljs-attr">0</span> &#125;&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">animate</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">opacity:</span> <span class="hljs-attr">1</span> &#125;&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">exit</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">opacity:</span> <span class="hljs-attr">0</span> &#125;&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">    /&gt;</span></span><br>  )&#125;<br>&lt;/<span class="hljs-title class_">AnimatePresence</span>&gt;<br></code></pre></td></tr></table></figure></li>
 </ul>
+<h3 id="动画关键帧"><a href="#动画关键帧" class="headerlink" title="动画关键帧"></a>动画关键帧</h3><blockquote>
+<p>传入的值为数组时，会按顺序通过这些值进行动画</p>
+</blockquote>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs tsx">&lt;motion.<span class="hljs-property">div</span><br>    style=&#123;box&#125;<br>    animate=&#123;&#123;<br>        <span class="hljs-attr">scale</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>],<br>        <span class="hljs-attr">rotate</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">180</span>, <span class="hljs-number">180</span>, <span class="hljs-number">0</span>],<br>        <span class="hljs-attr">borderRadius</span>: [<span class="hljs-string">&quot;0%&quot;</span>, <span class="hljs-string">&quot;0%&quot;</span>, <span class="hljs-string">&quot;50%&quot;</span>, <span class="hljs-string">&quot;50%&quot;</span>, <span class="hljs-string">&quot;0%&quot;</span>],<br>    &#125;&#125;<br>    transition=&#123;&#123;<br>        <span class="hljs-attr">duration</span>: <span class="hljs-number">2</span>,<br>        <span class="hljs-attr">ease</span>: <span class="hljs-string">&quot;easeInOut&quot;</span>,<br>        <span class="hljs-attr">times</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">0.2</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.8</span>, <span class="hljs-number">1</span>],   <span class="hljs-comment">// 关键帧占整个动画的百分比</span><br>        <span class="hljs-attr">repeat</span>: <span class="hljs-title class_">Infinity</span>,   <span class="hljs-comment">// 无限循环</span><br>        <span class="hljs-attr">repeatDelay</span>: <span class="hljs-number">1</span>,     <span class="hljs-comment">// 一轮过后挺1s</span><br>    &#125;&#125;<br>/&gt;<br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li><p>数组中的值为null时表示使用当前值</p>
+  <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// null的时候为2</span><br><span class="hljs-attr">scale</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-literal">null</span>, <span class="hljs-number">1</span>],<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>times是一个介于 0和1之间的进度值数组，用于定义每个关键帧在动画中的位置</p>
+</li>
+</ul>
+<h3 id="交互动画"><a href="#交互动画" class="headerlink" title="交互动画"></a>交互动画</h3><p>常用的手势交互动画有：</p>
+<ul>
+<li><code>whileHover</code>：悬停时</li>
+<li><code>whileTap</code>：按下时</li>
+<li><code>whileFocus</code>：聚焦时</li>
+<li><code>whileDrag</code>：拖拽时</li>
+<li><code>whileInView</code>：滚动进入视口时</li>
+</ul>
+<blockquote>
+<p>手势动画结束后会回到animate或initial的值</p>
+</blockquote>
+<h3 id="✨定义变量"><a href="#✨定义变量" class="headerlink" title="✨定义变量"></a>✨定义变量</h3><blockquote>
+<p>通过定义变量实现复用和方便管理</p>
+</blockquote>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// 定义变量</span><br><span class="hljs-keyword">const</span> variants = &#123;<br>  <span class="hljs-attr">visible</span>: &#123; <span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span> &#125;,<br>  <span class="hljs-attr">hidden</span>: &#123; <span class="hljs-attr">opacity</span>: <span class="hljs-number">0</span> &#125;,<br>&#125;<br><br><span class="hljs-comment">// 使用</span><br>&lt;motion.<span class="hljs-property">div</span><br>  variants=&#123;variants&#125;	<span class="hljs-comment">// 引入变量</span><br>  initial=<span class="hljs-string">&quot;hidden&quot;</span><br>  whileInView=<span class="hljs-string">&quot;visible&quot;</span><br>  exit=<span class="hljs-string">&quot;hidden&quot;</span><br>/&gt;<br></code></pre></td></tr></table></figure>
+
+<p>使用变量还可以控制父子动画的间隔</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> list = &#123;<br>  <span class="hljs-attr">visible</span>: &#123;<br>    <span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span>,<br>    <span class="hljs-attr">transition</span>: &#123;<br>      <span class="hljs-attr">when</span>: <span class="hljs-string">&quot;beforeChildren&quot;</span>,		<span class="hljs-comment">// 在子动画之前</span><br>      <span class="hljs-attr">delayChildren</span>: <span class="hljs-title function_">stagger</span>(<span class="hljs-number">0.3</span>), <span class="hljs-comment">// 和子动画错开0.3s</span><br>    &#125;,<br>  &#125;,<br>  <span class="hljs-attr">hidden</span>: &#123;<br>    <span class="hljs-attr">opacity</span>: <span class="hljs-number">0</span>,<br>    <span class="hljs-attr">transition</span>: &#123;<br>      <span class="hljs-attr">when</span>: <span class="hljs-string">&quot;afterChildren&quot;</span>,	<span class="hljs-comment">// 在子动画之后</span><br>    &#125;,<br>  &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>变量还可以定义为函数</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> variants = &#123;<br>  <span class="hljs-attr">hidden</span>: &#123; <span class="hljs-attr">opacity</span>: <span class="hljs-number">0</span> &#125;,<br>  <span class="hljs-attr">visible</span>: <span class="hljs-function">(<span class="hljs-params">index</span>) =&gt;</span> (&#123;<br>    <span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span>,<br>    <span class="hljs-attr">transition</span>: &#123; <span class="hljs-attr">delay</span>: index * <span class="hljs-number">0.3</span> &#125;<br>  &#125;)<br>&#125;<br><br><span class="hljs-comment">// 通过custom传入参数</span><br>items.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">motion.div</span> <span class="hljs-attr">custom</span>=<span class="hljs-string">&#123;index&#125;</span> <span class="hljs-attr">variants</span>=<span class="hljs-string">&#123;variants&#125;</span> /&gt;</span></span>)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="布局动画"><a href="#布局动画" class="headerlink" title="布局动画"></a>布局动画</h2><blockquote>
+<p>将布局像css一样使用</p>
+</blockquote>
 
                 
               </div>
