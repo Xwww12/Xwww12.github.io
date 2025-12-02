@@ -24,8 +24,9 @@
 <meta property="og:description" content="机器学习概述人工智能三大概念 人工智能：AI，Artificial Intelligence 机器学习：ML，Machine Learning 深度学习：DL, Deep Learning  包含关系：人工智能 &gt; 机器学习 &gt; 深度学习 AI发展三要素数据、算法、算力 样本、特征、标签 样本(Sample)：一行数据就是一个样本；多个样本组成数据集；有时一条样本被叫成一条记录 特征(">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/ml_learning_img/%E5%BD%92%E4%B8%80%E5%8C%96.png">
+<meta property="og:image" content="http://xwww12.github.io/img/ml_learning_img/%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B.png">
 <meta property="article:published_time" content="2025-11-24T05:38:04.362Z">
-<meta property="article:modified_time" content="2025-11-28T11:49:48.264Z">
+<meta property="article:modified_time" content="2025-12-01T11:35:37.436Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          2.5k 字
         
       </span>
     
@@ -238,7 +239,7 @@
         
         
         
-          18 分钟
+          22 分钟
         
       </span>
     
@@ -430,6 +431,52 @@
 <h3 id="使用保存的模型"><a href="#使用保存的模型" class="headerlink" title="使用保存的模型"></a>使用保存的模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">use_model</span>():<br>    <span class="hljs-comment"># 用来测试的图片(28 * 28)</span><br>    img = plt.imread(<span class="hljs-string">&quot;./data/demo.png&quot;</span>)<br>    img = img.reshape(<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>)    <span class="hljs-comment"># 第二个数为-1时表示展平，不需要再归一化，imread时自动做了</span><br>    <span class="hljs-comment"># 加载保存的模型</span><br>    estimator = joblib.load(<span class="hljs-string">&#x27;./model/手写数字识别.pkl&#x27;</span>)<br>    <span class="hljs-comment"># 使用</span><br>    y_pred = estimator.predict(img)<br>    <span class="hljs-built_in">print</span>(y_pred)<br></code></pre></td></tr></table></figure>
 
 
+
+<h2 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h2><blockquote>
+<p>用<strong>线性公式</strong>来描述多个自变量（特征）和一个因变量（标签）之间的关系</p>
+<p>属于<strong>有监督</strong>学习，<strong>标签是连续</strong>的</p>
+</blockquote>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
+<li><strong>一元线性回归</strong>：y &#x3D; wx + b（w为权重，b为偏置），目标值与单个因变量有关</li>
+<li><strong>多元线性回归</strong>：y &#x3D; (w1x1 + b1) + (w2x2 + b2) + … + b，目标值与多个因变量有关</li>
+</ul>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><ul>
+<li><p>一元线性回归</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression<br><br><span class="hljs-comment"># 数据, 特征为身高，标签为体重</span><br>x_train = [[<span class="hljs-number">160</span>], [<span class="hljs-number">166</span>], [<span class="hljs-number">172</span>], [<span class="hljs-number">174</span>], [<span class="hljs-number">180</span>]]<br>y_train = [<span class="hljs-number">56.3</span>, <span class="hljs-number">60.6</span>, <span class="hljs-number">65.1</span>, <span class="hljs-number">68.5</span>, <span class="hljs-number">75</span>]<br>x_test = [[<span class="hljs-number">176</span>]]<br><br>estimator = LinearRegression()<br>estimator.fit(x_train, y_train)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;权重<span class="hljs-subst">&#123;estimator.coef_&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;偏置<span class="hljs-subst">&#123;estimator.intercept_&#125;</span>&quot;</span>)<br><br>y_pred = estimator.predict(x_test)<br><span class="hljs-built_in">print</span>(y_pred)<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><blockquote>
+<p>Loss Function, 用来评判模型的好坏，值越小表示误差越小</p>
+</blockquote>
+<h4 id="损失函数分类"><a href="#损失函数分类" class="headerlink" title="损失函数分类"></a>损失函数分类</h4><ul>
+<li>最小二乘：(预测值 - 真实值)^2求和</li>
+<li>均方误差（MSE）：(预测值 - 真实值)^2求和 &#x2F; 样本总数</li>
+<li>平均绝对误差（MAE）：|预测值 - 真实值|求和 &#x2F; 样本总数</li>
+</ul>
+<h4 id="让损失函数最小的方法"><a href="#让损失函数最小的方法" class="headerlink" title="让损失函数最小的方法"></a>让损失函数最小的方法</h4><h5 id="正规方程法"><a href="#正规方程法" class="headerlink" title="正规方程法"></a>正规方程法</h5><ul>
+<li><p><strong>一元线性回归</strong>的情况：</p>
+<ol>
+<li>对损失函数分别对w（权重）和b（偏置）分别求偏导</li>
+<li>然后联立起来求偏导为0的值，来让损失函数最小</li>
+</ol>
+</li>
+<li><p><strong>多元线性回归</strong>的情况：</p>
+<blockquote>
+<ol>
+<li>多元线性回归方程式：y &#x3D; w1x1 +  w2x2  +  w3x3  +  …  + b &#x3D;  w^Tx  +  b</li>
+<li>把一个样本的特征值带入x1、x2、….得预测值</li>
+<li>损失函数 &#x3D; 累加每个样本的（真实值 - 预测值）^ 2</li>
+</ol>
+</blockquote>
+<ol>
+<li><p>对损失函数的w（包含所有权重的矩阵）求导，得到方程</p>
+<p> <img src="/img/ml_learning_img/%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>可知要求w时X^(-1)要存在，不是所有情况都能用</p>
+</li>
+</ol>
+</li>
+</ul>
+<h5 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h5>
                 
               </div>
             

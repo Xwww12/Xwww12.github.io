@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/suanfa_img/%E7%8A%B6%E6%80%81%E6%9C%BA.png">
 <meta property="article:published_time" content="2023-02-23T03:54:32.439Z">
-<meta property="article:modified_time" content="2025-11-25T02:12:45.068Z">
+<meta property="article:modified_time" content="2025-12-01T05:49:52.795Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          3.7k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          28 分钟
+          31 分钟
         
       </span>
     
@@ -345,9 +345,31 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 后序</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">LRD</span><span class="hljs-params">(TreeNode node)</span> &#123;<br>    Deque&lt;TreeNode&gt; stack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayDeque</span>&lt;&gt;();<br>    <span class="hljs-comment">// 记录上一个访问的节点</span><br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">pre</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">while</span> (node != <span class="hljs-literal">null</span> || !stack.isEmpty()) &#123;<br>        <span class="hljs-keyword">while</span> (node != <span class="hljs-literal">null</span>) &#123;<br>            stack.push(node);<br>            node = node.left;<br>        &#125;<br>     	node = stack.peek();<br>        <span class="hljs-keyword">if</span> (node.right != <span class="hljs-literal">null</span> &amp;&amp; node.right != prev) &#123;<br>            node = node.right;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            stack.poll();<br>            System.out.println(node.val);<br>            prev = node;<br>            node = <span class="hljs-literal">null</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="前缀和"><a href="#前缀和" class="headerlink" title="前缀和"></a>前缀和</h3><p>设数组nums，前缀和数组s，则s[i + 1] &#x3D; s[i] + nums[i]，s[i]表示nums[i]<strong>前面</strong>元素之和</p>
-<p>通过前缀和，我们可以把<strong>子数组的元素和转换成两个前缀和的差</strong></p>
-<p>如nums &#x3D; [1, 2, -1, 2]，则子数组[2, -1, 2]的和为s[4] - s[1] &#x3D; 3</p>
+<h3 id="前缀和"><a href="#前缀和" class="headerlink" title="前缀和"></a>前缀和</h3><ul>
+<li><p><strong>适用场景</strong>：</p>
+<ul>
+<li>前缀和是用来做<strong>预处理</strong>的，主要是用来将区间求和的时间复杂度从 O (n) 优化到 O (1)，适用于频繁查询区间和的场景</li>
+<li>有的时候要求区间的最大值&#x2F;最小值，因此有变体<strong>前缀最大值&#x2F;最小值</strong></li>
+</ul>
+</li>
+<li><p><strong>模板：</strong></p>
+<ol>
+<li><p>一维前缀和</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 预处理前缀和, n+1能不用处理边界值</span><br><span class="hljs-type">int</span>[] preSum = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>    preSum[i] = preSum[i - <span class="hljs-number">1</span>] + nums[i - <span class="hljs-number">1</span>];<br>&#125;<br><span class="hljs-comment">// 计算 [l, r] 的和（原数组索引）</span><br><span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> preSum[r + <span class="hljs-number">1</span>] - preSum[l];<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>二维前缀和</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 预处理二维前缀和</span><br><span class="hljs-type">int</span>[][] preSum = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>][m + <span class="hljs-number">1</span>];<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt;= m; j++) &#123;<br>        preSum[i][j] = matrix[i-<span class="hljs-number">1</span>][j-<span class="hljs-number">1</span>] + preSum[i-<span class="hljs-number">1</span>][j] + preSum[i][j-<span class="hljs-number">1</span>] - preSum[i-<span class="hljs-number">1</span>][j-<span class="hljs-number">1</span>];<br>    &#125;<br>&#125;<br><span class="hljs-comment">// 计算 [x1,y1] 到 [x2,y2] 的矩形和</span><br><span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> preSum[x2+<span class="hljs-number">1</span>][y2+<span class="hljs-number">1</span>] - preSum[x1][y2+<span class="hljs-number">1</span>] - preSum[x2+<span class="hljs-number">1</span>][y1] + preSum[x1][y1];<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p><strong>题：</strong></p>
+<ol>
+<li>一维前缀和：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/range-sum-query-immutable/">303. 区域和检索 - 数组不可变</a></li>
+<li>二维前缀和：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/range-sum-query-2d-immutable/">304. 二维区域和检索 - 矩阵不可变</a></li>
+<li>前缀和+哈希表记录：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subarray-sum-equals-k/">560. 和为 K 的子数组</a></li>
+<li>前缀和+二分查找：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-size-subarray-sum/">209. 长度最小的子数组</a></li>
+</ol>
+</li>
+</ul>
 <h3 id="前缀树"><a href="#前缀树" class="headerlink" title="前缀树"></a>前缀树</h3><p>模板</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Trie</span> &#123;<br>    TrieNode root;<br><br>    <span class="hljs-comment">/** Initialize your data structure here. */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Trie</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">this</span>.root = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TrieNode</span>();<br>    &#125;<br><br>    <span class="hljs-comment">/** Inserts a word into the trie. */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">insert</span><span class="hljs-params">(String word)</span> &#123;<br>        <span class="hljs-type">TrieNode</span> <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> root;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">char</span> ch : word.toCharArray()) &#123;<br>            <span class="hljs-keyword">if</span> (node.children[ch - <span class="hljs-string">&#x27;a&#x27;</span>] == <span class="hljs-literal">null</span>) &#123;<br>                node.children[ch - <span class="hljs-string">&#x27;a&#x27;</span>] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TrieNode</span>();<br>            &#125;<br>            node = node.children[ch - <span class="hljs-string">&#x27;a&#x27;</span>];<br>        &#125;<br>        node.isWord = <span class="hljs-literal">true</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/** Returns if the word is in the trie. */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">search</span><span class="hljs-params">(String word)</span> &#123;<br>        <span class="hljs-type">TrieNode</span> <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> root;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">char</span> ch : word.toCharArray()) &#123;<br>            <span class="hljs-keyword">if</span> (node.children[ch - <span class="hljs-string">&#x27;a&#x27;</span>] == <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            node = node.children[ch - <span class="hljs-string">&#x27;a&#x27;</span>];<br>        &#125;<br>        <span class="hljs-keyword">return</span> node.isWord == <span class="hljs-literal">true</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/** Returns if there is any word in the trie that starts with the given prefix. */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">startsWith</span><span class="hljs-params">(String prefix)</span> &#123;<br>        <span class="hljs-type">TrieNode</span> <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> root;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">char</span> ch : prefix.toCharArray()) &#123;<br>            <span class="hljs-keyword">if</span> (node.children[ch - <span class="hljs-string">&#x27;a&#x27;</span>] == <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            node = node.children[ch - <span class="hljs-string">&#x27;a&#x27;</span>];<br>        &#125;<br>        <span class="hljs-keyword">return</span> node != <span class="hljs-literal">null</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">TrieNode</span> &#123;<br>        TrieNode[] children;<br>        <span class="hljs-type">boolean</span> isWord;<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-title function_">TrieNode</span><span class="hljs-params">()</span> &#123;<br>            children = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TrieNode</span>[<span class="hljs-number">26</span>];<br>            isWord = <span class="hljs-literal">false</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -372,17 +394,50 @@
 <p>​	<strong>处理取模技巧</strong>：如果数x为负数，则 <code>x mod m = y mod m</code> 等同于<code>(x mod m + m) mod m = y mod m</code></p>
 <p>例题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/smallest-missing-non-negative-integer-after-operations/">6321. 执行操作后的最大 MEX - 力扣（LeetCode）</a></p>
 <h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><h4 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h4><p><strong>01背包</strong></p>
-<blockquote>
-<p>每个物品只能拿一次</p>
-<p>背包容量从后往前推防止一个物品拿多次</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/YaVDxD/?favorite=e8X3pBZi">剑指 Offer II 102. 加减的目标值 - 力扣（LeetCode）</a></p>
+<ul>
+<li><p><strong>特征</strong>：每个物品只能拿一次，求能拿的最大价值</p>
+</li>
+<li><p><strong>做法</strong>：因为不能重复选同一个物品，所以要<strong>从大到小遍历容器</strong>， 避免同一个物品被多次计算</p>
+<ol>
+<li>定义dp[j] &#x3D; 背包容量为 j 时的最大价值</li>
+<li>遍历物品+容器</li>
+</ol>
+</li>
+<li><p><strong>题：</strong></p>
+<ol>
+<li>01背包+记忆化搜索：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/target-sum/">494. 目标和</a></li>
+<li>二维01背包：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/ones-and-zeroes/">474. 一和零</a></li>
+<li>难点在于发现是01背包问题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/last-stone-weight-ii/">1049. 最后一块石头的重量 II</a></li>
+</ol>
+</li>
+</ul>
+<p><strong>完全背包</strong></p>
+<ul>
+<li><strong>特征</strong>：每个物品的数量是无限的</li>
+<li><strong>做法</strong>：<strong>从小到大遍历容器</strong>，让物品可以被重复选择<ol>
+<li>定义dp[j] &#x3D; 背包容量为 j 时的最大价值</li>
+<li>遍历物品+容器</li>
+</ol>
+</li>
+<li><strong>题：</strong><ol>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/coin-change/">322. 零钱兑换</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.smqyoj.com/p/CSP202503B">CSP202503B. 机器人饲养指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/perfect-squares/">279. 完全平方数</a></li>
+<li>稍有不同的完全背包：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/word-break/">139. 单词拆分</a></li>
+</ol>
+</li>
+</ul>
 <p><strong>多重背包</strong></p>
-<blockquote>
-<p>物品可以重复选，有个数限制</p>
-<p>背包容量从前往后推，尝试将每个物品放入每个背包容量</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/gaM7Ch/?favorite=e8X3pBZi">剑指 Offer II 103. 最少的硬币数目 - 力扣（LeetCode）</a></p>
+<ul>
+<li><p><strong>特征：</strong>每个物品的数量有限个</p>
+</li>
+<li><p><strong>做法：</strong>当做01背包做，要<strong>从大到小遍历容器</strong></p>
+<ol>
+<li>定义dp[j] &#x3D; 背包容量为 j 时的最大价值</li>
+<li>遍历物品+容器+选的物品个数</li>
+</ol>
+</li>
+</ul>
 <h4 id="数位DP"><a href="#数位DP" class="headerlink" title="数位DP"></a>数位DP</h4><blockquote>
 <p>​	考虑人类计数的方式，最朴素的计数就是从小到大开始依次加一。但我们发现对于位数比较多的数，这样的过程中有许多重复的部分。例如，从 7000 数到 7999、从 8000 数到 8999、和从 9000 数到 9999 的过程非常相似，它们都是后三位从 000 变到 999，不一样的地方只有千位这一位，所以我们可以把这些过程归并起来，将这些过程中产生的计数答案也都存在一个通用的数组里。</p>
 </blockquote>

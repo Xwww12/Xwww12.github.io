@@ -24,7 +24,7 @@
 <meta property="og:description" content="Framer Motion 用于构建流畅、生产级 UI 动画的 React 动画库 版本：12.23.24  官网：https:&#x2F;&#x2F;motion.dev&#x2F; 安装 安装依赖  1npm install motion  在代码中使用  1import &amp;#123; motion &amp;#125; from &quot;motion&#x2F;react&quot;  测试使用  新建个项目  创建个组件  一个旋转">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-19T11:25:52.581Z">
-<meta property="article:modified_time" content="2025-11-26T13:21:32.631Z">
+<meta property="article:modified_time" content="2025-11-30T12:55:37.483Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary_large_image">
@@ -386,6 +386,9 @@
 <td></td>
 </tr>
 </tbody></table>
+<blockquote>
+<p>在线贝塞尔曲线网站：<a target="_blank" rel="noopener" href="https://cubic-bezier.com/">https://cubic-bezier.com/</a></p>
+</blockquote>
 </li>
 <li><p><strong>exit</strong>：当组件被移除时的动画</p>
   <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs tsx">&lt;<span class="hljs-title class_">AnimatePresence</span>&gt;<br>  &#123;isVisible &amp;&amp; (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">motion.div</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">key</span>=<span class="hljs-string">&quot;modal&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">initial</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">opacity:</span> <span class="hljs-attr">0</span> &#125;&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">animate</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">opacity:</span> <span class="hljs-attr">1</span> &#125;&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">exit</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">opacity:</span> <span class="hljs-attr">0</span> &#125;&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">    /&gt;</span></span><br>  )&#125;<br>&lt;/<span class="hljs-title class_">AnimatePresence</span>&gt;<br></code></pre></td></tr></table></figure></li>
