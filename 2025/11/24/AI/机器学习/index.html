@@ -41,7 +41,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/ml_learning_img/%E5%9F%BA%E5%B0%BC%E5%80%BC.png">
 <meta property="og:image" content="http://xwww12.github.io/img/ml_learning_img/%E5%9F%BA%E5%B0%BC%E6%8C%87%E6%95%B0%E4%BE%8B%E5%AD%90.png">
 <meta property="article:published_time" content="2025-11-24T05:38:04.362Z">
-<meta property="article:modified_time" content="2025-12-20T10:01:51.281Z">
+<meta property="article:modified_time" content="2025-12-21T02:55:19.351Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -243,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.8k 字
+          6.1k 字
         
       </span>
     
@@ -254,7 +254,7 @@
         
         
         
-          49 分钟
+          51 分钟
         
       </span>
     
@@ -683,6 +683,9 @@
 </li>
 </ol>
 <p><img src="/img/ml_learning_img/%E5%9F%BA%E5%B0%BC%E6%8C%87%E6%95%B0%E4%BE%8B%E5%AD%90.png" srcset="/img/loading.gif" lazyload alt="建树例子"></p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><h4 id="决策树案例"><a href="#决策树案例" class="headerlink" title="决策树案例"></a>决策树案例</h4><p>数据集下载：<a target="_blank" rel="noopener" href="https://tianchi.aliyun.com/dataset/179968">https://tianchi.aliyun.com/dataset/179968</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics<br><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split<br><span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier     <span class="hljs-comment"># 决策树</span><br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> plot_tree<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">titanic_data</span>(<span class="hljs-params">file_path</span>):<br>    titanic_train_df = pd.read_csv(file_path)<br>    <span class="hljs-comment"># 特征：仓位等级，年龄，性别</span><br>    x = titanic_train_df[[<span class="hljs-string">&#x27;Pclass&#x27;</span>, <span class="hljs-string">&#x27;Age&#x27;</span>, <span class="hljs-string">&#x27;Sex&#x27;</span>]]<br>    <span class="hljs-comment"># 标签：是否存活</span><br>    <span class="hljs-keyword">try</span>:<br>        y = titanic_train_df[<span class="hljs-string">&#x27;Survived&#x27;</span>]<br>    <span class="hljs-keyword">except</span> KeyError:<br>        y = pd.Series()<br>    x = x.copy()    <span class="hljs-comment"># 解决警告</span><br>    <span class="hljs-comment"># 将年龄的空值赋值为年龄的均值</span><br>    x[<span class="hljs-string">&#x27;Age&#x27;</span>] = x[<span class="hljs-string">&#x27;Age&#x27;</span>].fillna(x[<span class="hljs-string">&#x27;Age&#x27;</span>].mean())<br>    <span class="hljs-comment"># 将性别拆分</span><br>    x = pd.get_dummies(x, columns=[<span class="hljs-string">&#x27;Sex&#x27;</span>])<br>    <span class="hljs-keyword">return</span> x, y<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">plot</span>(<span class="hljs-params">estimator</span>):<br>    plt.figure(figsize = (<span class="hljs-number">30</span>, <span class="hljs-number">40</span>))      <span class="hljs-comment"># 设置图片大小</span><br>    plot_tree(decision_tree=estimator, max_depth=<span class="hljs-number">10</span>, filled=<span class="hljs-literal">True</span>)<br>    plt.savefig(<span class="hljs-string">&#x27;./data/titanic_tree.png&#x27;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">titanic</span>():<br>    x, y = titanic_data(<span class="hljs-string">&#x27;./data/titanic_train.csv&#x27;</span>)<br>    x_vail, _ = titanic_data(<span class="hljs-string">&#x27;./data/titanic_test.csv&#x27;</span>)<br>    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">42</span>)<br><br>    <span class="hljs-comment"># 训练</span><br>    <span class="hljs-comment"># criterion: 建树的方式，默认gini; max_depth: 树的最大深度;</span><br>    <span class="hljs-comment"># min_samples_split: 节点分裂需要的最小样本数; min_samples_leaf: 分裂后叶子中要包含的最小样本数; 这两个如果不满足就不会分裂</span><br>    estimator = DecisionTreeClassifier(max_depth=<span class="hljs-number">10</span>)<br>    estimator.fit(x_train, y_train)<br><br>    <span class="hljs-comment"># 预测</span><br>    y_pred = estimator.predict(x_test)<br><br>    <span class="hljs-comment"># 评估</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;评估报告<span class="hljs-subst">&#123;metrics.classification_report(y_test, y_pred)&#125;</span>&#x27;</span>)<br><br>    <span class="hljs-comment"># 绘制决策树</span><br>    plot(estimator)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># x_train, y_train = titanic_data(&#x27;./data/titanic_train.csv&#x27;)</span><br>    titanic()<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
