@@ -16,15 +16,15 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="深度学习">
+    <meta name="description" content="深度学习常见深度学习模型 卷积神经网络(Convolutional Neural Networks，CNN) 主要用于图像处理，如图像分类、目标检测、图像分割等 特点是使用卷积层来自动提取图像的局部特征，并通过池化层减少参数数量，提高计算效率   循环神经网络(Recurrent Neural Networks，RNN) 适用于处理序列数据，例如自然语言处理（NLP）、语音识别等   自编码器(A">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习">
 <meta property="og:url" content="http://xwww12.github.io/2025/12/31/AI/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="深度学习">
+<meta property="og:description" content="深度学习常见深度学习模型 卷积神经网络(Convolutional Neural Networks，CNN) 主要用于图像处理，如图像分类、目标检测、图像分割等 特点是使用卷积层来自动提取图像的局部特征，并通过池化层减少参数数量，提高计算效率   循环神经网络(Recurrent Neural Networks，RNN) 适用于处理序列数据，例如自然语言处理（NLP）、语音识别等   自编码器(A">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-12-31T01:40:49.785Z">
-<meta property="article:modified_time" content="2025-12-31T01:41:31.691Z">
+<meta property="article:modified_time" content="2025-12-31T13:06:35.154Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4 字
+          557 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          1 分钟
+          5 分钟
         
       </span>
     
@@ -295,7 +295,65 @@
             
               <div class="markdown-body">
                 
-                <h1 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h1>
+                <h1 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h1><h2 id="常见深度学习模型"><a href="#常见深度学习模型" class="headerlink" title="常见深度学习模型"></a>常见深度学习模型</h2><ul>
+<li><strong>卷积神经网络</strong>(Convolutional Neural Networks，<strong>CNN</strong>)<ul>
+<li>主要用于<strong>图像处理</strong>，如图像分类、目标检测、图像分割等</li>
+<li>特点是使用卷积层来自动提取图像的局部特征，并通过池化层减少参数数量，提高计算效率</li>
+</ul>
+</li>
+<li><strong>循环神经网络</strong>(Recurrent Neural Networks，<strong>RNN</strong>)<ul>
+<li>适用于处理序列数据，例如<strong>自然语言处理</strong>（NLP）、语音识别等</li>
+</ul>
+</li>
+<li><strong>自编码器</strong>(Autoencoders)<ul>
+<li>一种无监督学习模型，通常用于<strong>降维</strong>、特征学习或者异常检测</li>
+</ul>
+</li>
+<li><strong>生成对抗网络</strong>(Generative Adversarial Networks，<strong>GAN</strong>)<ul>
+<li>包含生成器和判别器，生成器负责创建看起来真实的假样本，判别器负责区分真假</li>
+<li>广泛用于图像合成、视频生成领域</li>
+</ul>
+</li>
+<li><strong>Transformer</strong><ul>
+<li>主要用于<strong>自然语言处理</strong>任务</li>
+</ul>
+</li>
+<li>深度强化学习(Deep Reinforcement Learning，DRL)</li>
+<li>图神经网络(GNN,Graph Neural Network)</li>
+</ul>
+<h2 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h2><blockquote>
+<p>PyTorch 是一个<strong>开源的深度学习框架</strong>，主要用于<strong>构建、训练和部署神经网络模型</strong>。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="http://docs.pytorch.org/docs/stable/index.html">官方文档</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>创建新的anaconda环境：<code>conda create -n 环境名 python=版本</code></li>
+<li>切换环境：<code>conda activate 环境名</code></li>
+<li>安装Pytorch：<code>pip install torch</code></li>
+<li>安装NumPy：<code>pip install numpy</code>（不安装使用torch时会有警告）</li>
+</ul>
+<h3 id="Tensor张量"><a href="#Tensor张量" class="headerlink" title="Tensor张量"></a>Tensor张量</h3><blockquote>
+<p>pytorch中的数据结构，类似于NumPy的ndarray，并支持GPU加速</p>
+<p>可看做是<strong>多维数组 + 能自动求导</strong></p>
+</blockquote>
+<h4 id="创建Tensor的方式"><a href="#创建Tensor的方式" class="headerlink" title="创建Tensor的方式"></a>创建Tensor的方式</h4><blockquote>
+<p>data: 数据, dtype: 可指定元素类型,默认float32</p>
+<p>torch.tensor(data, dtpye)：创建Tensor的函数（推荐用这个）</p>
+<p>torch.Tensor()：Tensor的构造函数</p>
+</blockquote>
+<ol>
+<li><p>直接创建</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 创建一维的标量</span><br>t1 = torch.tensor(<span class="hljs-number">10</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;t1: <span class="hljs-subst">&#123;t1&#125;</span>, type: <span class="hljs-subst">&#123;<span class="hljs-built_in">type</span>(t1)&#125;</span>&#x27;</span>)<br><span class="hljs-comment"># t1: 10, type: &lt;class &#x27;torch.Tensor&#x27;&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用python数组创建</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">arr = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]]<br>t2 = torch.tensor(arr)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;t2: <span class="hljs-subst">&#123;t2&#125;</span>, type: <span class="hljs-subst">&#123;<span class="hljs-built_in">type</span>(t2)&#125;</span>&#x27;</span>)<br><span class="hljs-comment"># t2: tensor([[1, 2],</span><br><span class="hljs-comment">#         [3, 4]]), type: &lt;class &#x27;torch.Tensor&#x27;&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用numpy的ndarray创建</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">data = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>]])<br>t3 = torch.tensor(data)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;t3: <span class="hljs-subst">&#123;t3&#125;</span>, type: <span class="hljs-subst">&#123;<span class="hljs-built_in">type</span>(t3)&#125;</span>&#x27;</span>)<br><span class="hljs-comment"># t3: tensor([[1, 2],</span><br><span class="hljs-comment">#         [3, 4],</span><br><span class="hljs-comment">#         [5, 6]]), type: &lt;class &#x27;torch.Tensor&#x27;&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>torch.Tensor()</code>方式</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 创建2行3列的Tensor</span><br>t4 = torch.Tensor(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;t4: <span class="hljs-subst">&#123;t4&#125;</span>, type: <span class="hljs-subst">&#123;<span class="hljs-built_in">type</span>(t4)&#125;</span>&#x27;</span>)<br><span class="hljs-comment"># t4: tensor([[2.3420e+18, 1.8581e-42, 0.0000e+00],</span><br><span class="hljs-comment">#         [0.0000e+00, 0.0000e+00, 0.0000e+00]]), type: &lt;class &#x27;torch.Tensor&#x27;&gt;</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+
                 
               </div>
             
