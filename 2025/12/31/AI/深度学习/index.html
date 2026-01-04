@@ -24,8 +24,17 @@
 <meta property="og:description" content="深度学习常见深度学习模型 卷积神经网络(Convolutional Neural Networks，CNN) 主要用于图像处理，如图像分类、目标检测、图像分割等 特点是使用卷积层来自动提取图像的局部特征，并通过池化层减少参数数量，提高计算效率   循环神经网络(Recurrent Neural Networks，RNN) 适用于处理序列数据，例如自然语言处理（NLP）、语音识别等   自编码器(A">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/deep_learning_img/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A1%88%E4%BE%8B.png">
+<meta property="og:image" content="http://xwww12.github.io/img/deep_learning_img/Sigmoid%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png">
+<meta property="og:image" content="http://xwww12.github.io/img/deep_learning_img/Sigmoid%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F.png">
+<meta property="og:image" content="http://xwww12.github.io/img/deep_learning_img/Tanh%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png">
+<meta property="og:image" content="http://xwww12.github.io/img/deep_learning_img/Tanh%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F.png">
+<meta property="og:image" content="http://xwww12.github.io/img/deep_learning_img/ReLU%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png">
+<meta property="og:image" content="http://xwww12.github.io/img/deep_learning_img/ReLU%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F.png">
+<meta property="og:image" content="http://xwww12.github.io/img/deep_learning_img/LeakyReLU%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png">
+<meta property="og:image" content="http://xwww12.github.io/img/deep_learning_img/LeakyReLU%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F.png">
+<meta property="og:image" content="http://xwww12.github.io/img/deep_learning_img/Softmax%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png">
 <meta property="article:published_time" content="2025-12-31T01:40:49.785Z">
-<meta property="article:modified_time" content="2026-01-03T12:08:19.765Z">
+<meta property="article:modified_time" content="2026-01-04T11:05:47.262Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          3.3k 字
         
       </span>
     
@@ -238,7 +247,7 @@
         
         
         
-          26 分钟
+          28 分钟
         
       </span>
     
@@ -565,6 +574,42 @@
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h5 id="线性回归案例"><a href="#线性回归案例" class="headerlink" title="线性回归案例"></a>线性回归案例</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> TensorDataset  <span class="hljs-comment"># 把特征和标签绑定在一起</span><br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> DataLoader     <span class="hljs-comment"># 数据加载与批处理器</span><br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim                     <span class="hljs-comment"># 优化器，自动调整参数</span><br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> make_regression    <span class="hljs-comment"># 生成数据集</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_dataset</span>():<br>    x, y, coef = make_regression(<br>        n_samples=<span class="hljs-number">100</span>,      <span class="hljs-comment"># 样本数量</span><br>        n_features=<span class="hljs-number">1</span>,       <span class="hljs-comment"># 特征数量</span><br>        noise=<span class="hljs-number">10</span>,           <span class="hljs-comment"># 噪声</span><br>        coef=<span class="hljs-literal">True</span>,<br>        random_state=<span class="hljs-number">1</span>      <span class="hljs-comment"># 随机种子</span><br>    )<br><br>    <span class="hljs-keyword">return</span> (torch.tensor(x, dtype=torch.<span class="hljs-built_in">float</span>),<br>            torch.tensor(y, dtype=torch.<span class="hljs-built_in">float</span>),<br>            coef)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">train_model</span>(<span class="hljs-params">x, y, coef</span>):<br>    <span class="hljs-comment"># 数据集</span><br>    dataset = TensorDataset(x, y)<br><br>    <span class="hljs-comment"># 批处理器</span><br>    dataloader = DataLoader(dataset, batch_size=<span class="hljs-number">16</span>, shuffle=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-comment"># 线性回归模型</span><br>    <span class="hljs-comment"># in_features: 输入特征维度, out_features: 输出特征维度</span><br>    model = nn.Linear(in_features=<span class="hljs-number">1</span>, out_features=<span class="hljs-number">1</span>)<br><br>    <span class="hljs-comment"># 损失函数</span><br>    criterion = nn.MSELoss()<br><br>    <span class="hljs-comment"># 优化器</span><br>    <span class="hljs-comment"># 模型参数，学习率</span><br>    optimizer = optim.SGD(model.parameters(), lr=<span class="hljs-number">0.01</span>)<br><br>    <span class="hljs-comment"># 训练整个数据集的轮次</span><br>    epochs = <span class="hljs-number">100</span><br>    <span class="hljs-comment"># 记录每轮的总损失</span><br>    losses = []<br><br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>        total_loss = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> train_x, train_y <span class="hljs-keyword">in</span> dataloader:<br>            <span class="hljs-comment"># 预测</span><br>            y_pred = model(train_x)<br><br>            <span class="hljs-comment"># 计算损失</span><br>            loss = criterion(y_pred, train_y.reshape(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>))<br>            total_loss += loss.item()<br><br>            <span class="hljs-comment"># 反向传播</span><br>            loss.<span class="hljs-built_in">sum</span>().backward()<br><br>            <span class="hljs-comment"># 更新参数</span><br>            optimizer.step()<br>            optimizer.zero_grad()<br>        losses.append(total_loss)<br><br>    plt.rcParams[<span class="hljs-string">&#x27;font.sans-serif&#x27;</span>] = [<span class="hljs-string">&#x27;SimHei&#x27;</span>]<br>    plt.rcParams[<span class="hljs-string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="hljs-literal">False</span><br>    plt.title(<span class="hljs-string">&#x27;每轮总损失&#x27;</span>)<br>    plt.plot(<span class="hljs-built_in">range</span>(epochs), losses)<br>    plt.grid()<br>    plt.show()<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    x, y, coef = create_dataset()<br>    train_model(x, y, coef)<br></code></pre></td></tr></table></figure>
 
 <p><img src="/img/deep_learning_img/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A1%88%E4%BE%8B.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h2><blockquote>
+<p>作用是为神经网络<strong>引入非线性因素</strong>，如果没有激活函数，输出都是输入的线性组合，与没有隐藏层效果相当</p>
+</blockquote>
+<h3 id="Sigmoid"><a href="#Sigmoid" class="headerlink" title="Sigmoid"></a>Sigmoid</h3><p><strong>作用</strong>：把输入值映射到[0, 1]区间上，多用于<strong>二分类</strong></p>
+<p><strong>缺点</strong>：</p>
+<ol>
+<li>Sigmoid的导数最大值为0.25，反向传播时会让值变小，在多层的神经网络中会导致<strong>梯度消失</strong></li>
+<li>只能用于浅层网络</li>
+<li>幂运算相对耗时</li>
+</ol>
+<p><img src="/img/deep_learning_img/Sigmoid%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png" srcset="/img/loading.gif" lazyload alt="公式"></p>
+<p><img src="/img/deep_learning_img/Sigmoid%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F.png" srcset="/img/loading.gif" lazyload alt="图像"></p>
+<h3 id="Tanh"><a href="#Tanh" class="headerlink" title="Tanh"></a>Tanh</h3><p><strong>作用</strong>：把输入值映射到[-1, 1]区间上</p>
+<p><strong>优点</strong>：</p>
+<ol>
+<li>梯度大，比Sigmoid收敛速度快</li>
+</ol>
+<p><img src="/img/deep_learning_img/Tanh%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png" srcset="/img/loading.gif" lazyload alt="公式"></p>
+<p><img src="/img/deep_learning_img/Tanh%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F.png" srcset="/img/loading.gif" lazyload alt="图像"></p>
+<h3 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h3><p><strong>作用</strong>：只取正数</p>
+<p><strong>优点</strong>：</p>
+<ol>
+<li><strong>简单效果好</strong>，计算速度快</li>
+<li>收敛速度快于Sigmoid和Tanh</li>
+</ol>
+<p><strong>缺点</strong>：</p>
+<ol>
+<li>Dead ReLU Problem：指的是某些神经元可能永远不会被激活，导致相应的参数永远不能被更新</li>
+</ol>
+<p><img src="/img/deep_learning_img/ReLU%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png" srcset="/img/loading.gif" lazyload alt="公式"></p>
+<p><img src="/img/deep_learning_img/ReLU%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F.png" srcset="/img/loading.gif" lazyload alt="图像"></p>
+<h3 id="Leaky-ReLU"><a href="#Leaky-ReLU" class="headerlink" title="Leaky ReLU"></a>Leaky ReLU</h3><p><strong>作用</strong>：将ReLU的前半段设为αx而非0，通常α &#x3D; 0.01，解决ReLU的Dead ReLU Problem</p>
+<p><img src="/img/deep_learning_img/LeakyReLU%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png" srcset="/img/loading.gif" lazyload alt="公式"></p>
+<p><img src="/img/deep_learning_img/LeakyReLU%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F.png" srcset="/img/loading.gif" lazyload alt="图像"></p>
+<h3 id="Softmax"><a href="#Softmax" class="headerlink" title="Softmax"></a>Softmax</h3><p><strong>作用</strong>：用于多分类，是Sigmoid的推广；选择概率最大的为输出</p>
+<p><img src="/img/deep_learning_img/Softmax%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png" srcset="/img/loading.gif" lazyload alt="公式"></p>
 
                 
               </div>
