@@ -24,8 +24,11 @@
 <meta property="og:description" content="hello-agents教程 概念 什么是AI Agent  AI Agent是能够让大语言模型（LLMs）执行操作的系统，通过为 LLMs 提供工具和知识来扩展其功能。    Agent 的任务环境  性能度量（Performance）：在预算和时间内，最大化用户满意度与合理性 环境（Environment）：能调用的工具、其他Agent 执行器（Actuators）：调用函数，展示结果 传感器">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/%E4%BB%80%E4%B9%88%E6%98%AFaiAgent.png">
+<meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/%E4%BD%99%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6.png">
+<meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/Transformer%E6%9E%B6%E6%9E%84.png">
+<meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/Temperature%E5%AF%B9Softmax%E7%9A%84%E5%BD%B1%E5%93%8D.png">
 <meta property="article:published_time" content="2026-03-16T11:38:27.749Z">
-<meta property="article:modified_time" content="2026-03-26T11:05:04.242Z">
+<meta property="article:modified_time" content="2026-03-29T11:26:30.756Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          194 字
+          1.5k 字
         
       </span>
     
@@ -238,7 +241,7 @@
         
         
         
-          2 分钟
+          13 分钟
         
       </span>
     
@@ -317,9 +320,122 @@
 <li>思考（Thought）：大模型推理并制定行动计划，选择要调用的工具</li>
 <li>行动（Action）：执行具体的行动</li>
 </ol>
-<p> 通过不断地循环上面的步骤，动态调整行动计划</p>
+<p> 通过不断地循环上面的步骤，动态调整行动计划
+ </p>
+</li>
+<li><p><strong>强化学习的框架</strong></p>
+<ul>
+<li><p>智能体（Agent）：负责学习和<strong>决策</strong></p>
+</li>
+<li><p>环境（Environment）：除Agent外的一切</p>
+</li>
+<li><p>状态（State）：对某时刻的环境的描述</p>
+</li>
+<li><p>行动（Action）：Agent根据当前状态所能采取的操作</p>
+</li>
+<li><p>奖励（Reward）：在智能体执行一个行动后，反馈给智能体的一个标量信号</p>
+<blockquote>
+<p>Agent的学习目标，并非最大化某一个时间步的即时奖励，而是最大化从当前时刻开始到未来的<strong>累积奖励</strong></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>N-gram模型</strong></p>
+<p>假定一个词出现的概率只与前有限的N - 1个词有关，N即为上下文窗口大小；</p>
+<p>一句话出现的概率为每个词出现概率的乘积；</p>
+<p>缺点：</p>
+<ul>
+<li>语料库中一个词从未出现过，其概率就为0</li>
+<li>泛化能力差：将词视为孤立、离散的符号，无法理解词与词之间的语义相似性</li>
+</ul>
+</li>
+<li><p><strong>前馈神经网络语言模型</strong>（Feedforward Neural Network Language Model）</p>
+<p> 用连续的向量来表示词；</p>
+<p> 将词映射到<strong>高维的连续向量空间上的点</strong>（Word Embedding），语义相近的词在空间位置上也相近；</p>
+<p> 常用余弦相似度来计算两个点的关系：</p>
+<p> ​	<img src="/img/ai_agent_img/%E4%BD%99%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>两个向量夹角为0°，余弦值为1，完全正相关</li>
+<li>夹角为90°，余弦值为0，无关</li>
+<li>夹角为180°，余弦值为-1，完全负相关</li>
+</ul>
+<p> 解决泛化能力的问题；</p>
+<p> 缺点：</p>
+<ul>
+<li>与N-gram类似，上下文窗口是固定的</li>
+</ul>
+</li>
+<li><p><strong>循环神经网络</strong>（Recurrent Neural Network, RNN）</p>
+<p> 引入了一个隐藏状态（hidden-state）来保存短期记忆，每次读入输入后都会结合之前的隐藏状态来生成新的隐藏状态，并传递给下一刻；</p>
+<p> 解决固定上下文窗口；</p>
+<p> 缺点：</p>
+<ul>
+<li>梯度消失：早期的记忆对后期的影响微乎其微</li>
+<li>必须按顺序处理数据，无法进行大规模的并行计算</li>
+</ul>
+</li>
+<li><p><strong>Transformer 架构</strong></p>
+<p> 抛弃了循环结构，转而完全依赖一种名为<strong>注意力 (Attention)</strong> 的机制来捕捉序列内的依赖关系，从而实现了真正意义上的<strong>并行</strong>计算；</p>
+<p> <img src="/img/ai_agent_img/Transformer%E6%9E%B6%E6%9E%84.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><strong>编码器</strong>：读取所有输入词元，最终为每个词元生成一个富含上下文信息的向量表示</li>
+<li><strong>解码器</strong>：参考自己已经生成的前文，并“咨询”编码器的理解结果，来生成下一个词。</li>
+</ul>
+</li>
+<li><p><strong>Decoder-Only 架构</strong></p>
+<p> 只保留了Transformer的解码器部分</p>
+<p> 自回归：给模型一个起始文本，不断地“回顾”自己已经写下的内容，然后思考下一个字该写什么</p>
 </li>
 </ol>
+<h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><ul>
+<li>多头注意力模块（Self-Attention）：处理序列中每个词时，都能兼顾句子中其他词，为每个词赋予不同的注意力权重；将原始的Q, K, V 向量分成多分，每份分别进行一次单头注意力的计算，从多个角度获取特征关系</li>
+<li>前馈神经网络模块：作用是从多头注意力模块获取的信息中提取更高阶的特征</li>
+<li>位置编码模块：注意力机制中没有考虑词元的位置信息。位置编码为输入序列中的每一个词元嵌入向量，都额外加上一个能代表其绝对位置和相对位置信息的“位置向量”</li>
+</ul>
+<h2 id="模型采样参数"><a href="#模型采样参数" class="headerlink" title="模型采样参数"></a>模型采样参数</h2><ul>
+<li><p>Temperature：控制模型输出 “随机性” 与 “确定性” 的参数。值越高，会让出现概率低的词也有机会被选中</p>
+<p>  <img src="/img/ai_agent_img/Temperature%E5%AF%B9Softmax%E7%9A%84%E5%BD%B1%E5%93%8D.png" srcset="/img/loading.gif" lazyload alt="Temperature对Softmax的影响"></p>
+</li>
+<li><p>Top-k：将所有token按概率从大到小排序，只保留前 k 个，把这 k 个的概率重新归一化，之后只在这 k 个里面随机选</p>
+</li>
+<li><p>Top-p：将所有token按概率从大到小排序，只保留前概率加起来 &gt;&#x3D; p 的token</p>
+</li>
+</ul>
+<h2 id="提示词技巧"><a href="#提示词技巧" class="headerlink" title="提示词技巧"></a>提示词技巧</h2><ul>
+<li><p>角色扮演：赋予模型一个特定的角色，可以引导它的回答风格、语气和知识范围，使其输出更符合特定场景的需求</p>
+<blockquote>
+<p>你现在是一名资深深度学习工程师，说话简洁、专业、不废话，只给关键结论和代码，不解释多余背景。用户问什么，你都用技术专家的语气回答。</p>
+</blockquote>
+</li>
+<li><p>示例：通过在提示中提供清晰的输入输出示例，来“教会”模型如何处理我们的请求，尤其是在处理复杂格式或特定风格的任务时非常有效</p>
+<blockquote>
+<p>把中文翻译成英文，格式如下：</p>
+<p>输入：你好</p>
+<p>输出：Hello</p>
+<p>输入：我在学大模型</p>
+<p>输出：I am learning large models</p>
+<p>输入：今天天气不错</p>
+<p>输出：</p>
+</blockquote>
+<blockquote>
+<p>我需要你从产品评论中提取产品名称和用户情感。请严格按照下面的JSON格式输出。</p>
+<p>评论:这款“星尘”笔记本电脑的屏幕显示效果惊人，但我不太喜欢它的键盘手感。<br>输出:{“product_name”: “星尘笔记本电脑”, “sentiment”: “混合”}</p>
+<p>评论:我刚买的“声动”耳机音质很棒，续航也超出了我的预期！<br>输出:</p>
+</blockquote>
+</li>
+<li><p>思维链：引导模型一步一步地思考，提升了模型在复杂任务上的推理能力</p>
+<blockquote>
+<p>红球有多少个？</p>
+<p>请一步一步思考，先写步骤，再算答案：</p>
+<ol>
+<li>先设变量</li>
+<li>列出方程</li>
+<li>解方程</li>
+<li>给出最终答案</li>
+</ol>
+</blockquote>
+</li>
+</ul>
 
                 
               </div>
