@@ -27,8 +27,9 @@
 <meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/%E4%BD%99%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6.png">
 <meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/Transformer%E6%9E%B6%E6%9E%84.png">
 <meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/Temperature%E5%AF%B9Softmax%E7%9A%84%E5%BD%B1%E5%93%8D.png">
+<meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/ReAct.png">
 <meta property="article:published_time" content="2026-03-16T11:38:27.749Z">
-<meta property="article:modified_time" content="2026-03-29T11:26:30.756Z">
+<meta property="article:modified_time" content="2026-03-31T11:04:31.918Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -230,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.7k 字
         
       </span>
     
@@ -241,7 +242,7 @@
         
         
         
-          13 分钟
+          14 分钟
         
       </span>
     
@@ -436,6 +437,16 @@
 </blockquote>
 </li>
 </ul>
+<h2 id="Agent架构"><a href="#Agent架构" class="headerlink" title="Agent架构"></a>Agent架构</h2><h3 id="ReAct-Reasoning-and-Acting"><a href="#ReAct-Reasoning-and-Acting" class="headerlink" title="ReAct (Reasoning and Acting)"></a>ReAct (Reasoning and Acting)</h3><p> 一种将<strong>思考</strong>和<strong>行动</strong>紧密结合的范式，让智能体边想边做，动态调整。</p>
+<p>每次输出都执行三个流程：</p>
+<ul>
+<li>Thought（思考）：制定下一步计划</li>
+<li>Action（行动）：调用外部工具</li>
+<li>Observation（观察）：获取外部工具的返回值</li>
+</ul>
+<p><img src="/img/ai_agent_img/ReAct.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Plan-and-Solve"><a href="#Plan-and-Solve" class="headerlink" title="Plan-and-Solve"></a>Plan-and-Solve</h3><p>一种“三思而后行”的范式，智能体首先生成一个完整的行动计划，然后严格执行。</p>
+<h3 id="Reflection"><a href="#Reflection" class="headerlink" title="Reflection"></a>Reflection</h3><p>一种赋予智能体“反思”能力的范式，通过自我批判和修正来优化结果。</p>
 
                 
               </div>
