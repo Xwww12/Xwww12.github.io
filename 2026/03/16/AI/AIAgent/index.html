@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/PlanAndSolve.png">
 <meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/Dify%E6%B5%8B%E8%AF%95%E4%BD%BF%E7%94%A8.png">
 <meta property="article:published_time" content="2026-03-16T11:38:27.749Z">
-<meta property="article:modified_time" content="2026-04-25T11:52:01.589Z">
+<meta property="article:modified_time" content="2026-04-28T13:42:03.188Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -233,7 +233,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          3.8k 字
         
       </span>
     
@@ -244,7 +244,7 @@
         
         
         
-          29 分钟
+          32 分钟
         
       </span>
     
@@ -626,6 +626,20 @@
 <p>  适合复杂研究与分析，能从并行探索中获益</p>
 </li>
 </ul>
+<h3 id="创建上下文"><a href="#创建上下文" class="headerlink" title="创建上下文"></a>创建上下文</h3><p>根据<strong>GSSC流水线</strong>(Gather-Select-Structure-Compress)创建</p>
+<ol>
+<li><strong>Gather</strong>：多源信息汇流（记忆系统、RAG等），从多个来源汇集候选信息</li>
+<li><strong>Select</strong>（核心）：信息选择，根据相关性和新近性对候选信息进行评分和选择</li>
+<li><strong>Structure</strong>：结构化输出将选中的信息组织成结构化的上下文模板</li>
+<li><strong>Compress</strong>（压缩）：对超限上下文进行压缩处理，根据实际任务复杂度动态调整最大上下文大小</li>
+</ol>
+<h3 id="结构化笔记"><a href="#结构化笔记" class="headerlink" title="结构化笔记"></a>结构化笔记</h3><blockquote>
+<p>NoteTool，以 Markdown 文件作为载体，头部使用 YAML 前置元数据记录关键信息，正文用于记录状态、结论、阻塞与行动项等内容。这种设计结合了人类可读性、版本控制友好性和易于回注上下文的特性</p>
+</blockquote>
+<p><strong>作用</strong>：对于需要<strong>长期追踪、结构化管理</strong>的<strong>项目式任务</strong>，我们需要一种更轻量、更人类友好的记录方式。</p>
+<p><strong>存储格式</strong>：Markdown + YAML，进行合理的分类和定期清理与归档</p>
+<p><strong>存储内容</strong>：一般记录里程碑的节点，如当前阶段的任务状态、进度、总结、遇到的问题和下一步的计划等</p>
+<p><strong>使用</strong>：检索相关笔记，添加到<strong>上下文</strong>中</p>
 
                 
               </div>
