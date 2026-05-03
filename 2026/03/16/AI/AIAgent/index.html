@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/PlanAndSolve.png">
 <meta property="og:image" content="http://xwww12.github.io/img/ai_agent_img/Dify%E6%B5%8B%E8%AF%95%E4%BD%BF%E7%94%A8.png">
 <meta property="article:published_time" content="2026-03-16T11:38:27.749Z">
-<meta property="article:modified_time" content="2026-04-28T13:42:03.188Z">
+<meta property="article:modified_time" content="2026-05-02T12:46:26.567Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -233,7 +233,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.8k 字
+          4.1k 字
         
       </span>
     
@@ -244,7 +244,7 @@
         
         
         
-          32 分钟
+          34 分钟
         
       </span>
     
@@ -636,10 +636,37 @@
 <h3 id="结构化笔记"><a href="#结构化笔记" class="headerlink" title="结构化笔记"></a>结构化笔记</h3><blockquote>
 <p>NoteTool，以 Markdown 文件作为载体，头部使用 YAML 前置元数据记录关键信息，正文用于记录状态、结论、阻塞与行动项等内容。这种设计结合了人类可读性、版本控制友好性和易于回注上下文的特性</p>
 </blockquote>
-<p><strong>作用</strong>：对于需要<strong>长期追踪、结构化管理</strong>的<strong>项目式任务</strong>，我们需要一种更轻量、更人类友好的记录方式。</p>
+<p><strong>作用</strong>：对于需要<strong>长期追踪、结构化管理</strong>的<strong>项目式任务</strong>，我们需要一种更轻量、更人类友好的记录方式。能够跨时间和跨会话保持连贯性</p>
 <p><strong>存储格式</strong>：Markdown + YAML，进行合理的分类和定期清理与归档</p>
 <p><strong>存储内容</strong>：一般记录里程碑的节点，如当前阶段的任务状态、进度、总结、遇到的问题和下一步的计划等</p>
 <p><strong>使用</strong>：检索相关笔记，添加到<strong>上下文</strong>中</p>
+<h3 id="即时文件系统访问"><a href="#即时文件系统访问" class="headerlink" title="即时文件系统访问"></a>即时文件系统访问</h3><p>不是预先加载所有文件，而是按需探索和检索。如读代码、日志、数据等。</p>
+<p><strong>主要功能</strong>：</p>
+<ul>
+<li>提供给LLM访问文件的方法</li>
+<li>限制命令的权限</li>
+</ul>
+<h2 id="Agent通信协议"><a href="#Agent通信协议" class="headerlink" title="Agent通信协议"></a>Agent通信协议</h2><blockquote>
+<p>提供了一套标准化的接口规范，让智能体能够以统一的方式访问各种外部服务</p>
+</blockquote>
+<h3 id="MCP"><a href="#MCP" class="headerlink" title="MCP"></a>MCP</h3><blockquote>
+<p>Model Context Protocol，<strong>标准化</strong>智能体与外部工具&#x2F;资源的通信方式，<strong>允许智能体和工具之间共享丰富的上下文信息</strong></p>
+</blockquote>
+<h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><ol>
+<li>建立与MCP Service的连接</li>
+<li>发现 能力&#x2F;工具<ol>
+<li>将工具列表转换为 LLM 能理解的格式，添加到系统提示词中</li>
+<li>LLM 分析用户问题和可用工具，决定是否需要调用工具以及调用哪个工具</li>
+</ol>
+</li>
+<li>调用 能力&#x2F;工具</li>
+</ol>
+<h3 id="A2A"><a href="#A2A" class="headerlink" title="A2A"></a>A2A</h3><blockquote>
+<p>Agent-to-Agent Protocol，实现<strong>智能体之间的点对点通信</strong>，每个智能体既是服务提供者，也是服务消费者</p>
+</blockquote>
+<h3 id="ANP"><a href="#ANP" class="headerlink" title="ANP"></a>ANP</h3><blockquote>
+<p>Agent Network Protocol，构建大规模智能体网络的基础设施，<strong>在大规模网络中发现和连接智能体</strong>，让智能体能够动态地发现网络中的其他服务，而不需要预先配置所有的连接关系</p>
+</blockquote>
 
                 
               </div>
