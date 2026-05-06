@@ -16,15 +16,19 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="基本概念 什么是线程池（Thread Pool）  是一种基于池化思想管理线程的工具，线程池维护多个线程，等待管理者分配可并发执行的任务  线程池的作用  降低资源消耗：通过池化技术重复利用已创建的线程，降低线程创建和销毁造成的损耗。 提高响应速度：任务到达时，无需等待线程创建即可立即执行。 提高线程的可管理性：线程是稀缺资源，如果无限制创建，不仅会消耗系统资源，还会因为线程的不合理分布导致资源调">
+<meta property="og:type" content="article">
 <meta property="og:title" content="动态线程池oneThread系统">
 <meta property="og:url" content="http://xwww12.github.io/2026/05/06/%E5%90%8E%E7%AB%AF/%E5%8A%A8%E6%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0oneThread%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="基本概念 什么是线程池（Thread Pool）  是一种基于池化思想管理线程的工具，线程池维护多个线程，等待管理者分配可并发执行的任务  线程池的作用  降低资源消耗：通过池化技术重复利用已创建的线程，降低线程创建和销毁造成的损耗。 提高响应速度：任务到达时，无需等待线程创建即可立即执行。 提高线程的可管理性：线程是稀缺资源，如果无限制创建，不仅会消耗系统资源，还会因为线程的不合理分布导致资源调">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xwww12.github.io/img/one_thread_img/ThreadPoolExecutor%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
 <meta property="article:published_time" content="2026-05-06T12:10:17.958Z">
-<meta property="article:modified_time" content="2026-05-06T12:10:49.733Z">
+<meta property="article:modified_time" content="2026-05-06T13:20:23.807Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xwww12.github.io/img/one_thread_img/ThreadPoolExecutor%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
   
   
   
@@ -222,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          346 字
         
       </span>
     
@@ -233,7 +237,7 @@
         
         
         
-          1 分钟
+          3 分钟
         
       </span>
     
@@ -292,7 +296,30 @@
             
               <div class="markdown-body">
                 
-                
+                <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
+<li><p><strong>什么是线程池（Thread Pool）</strong></p>
+<p> 是一种基于池化思想管理线程的工具，线程池维护多个线程，等待管理者分配可并发执行的任务</p>
+</li>
+<li><p><strong>线程池的作用</strong></p>
+<ul>
+<li><strong>降低资源消耗</strong>：通过池化技术重复利用已创建的线程，降低线程创建和销毁造成的损耗。</li>
+<li><strong>提高响应速度</strong>：任务到达时，无需等待线程创建即可立即执行。</li>
+<li><strong>提高线程的可管理性</strong>：线程是稀缺资源，如果无限制创建，不仅会消耗系统资源，还会因为线程的不合理分布导致资源调度失衡，降低系统的稳定性。使用线程池可以进行统一的分配、调优和监控。</li>
+<li><strong>提供更多更强大的功能</strong>：线程池具备可拓展性，允许开发人员向其中增加更多的功能。比如延时定时线程池ScheduledThreadPoolExecutor，就允许任务延期执行或定期执行。</li>
+</ul>
+</li>
+<li><p><strong>线程池解决的问题</strong></p>
+<ul>
+<li>防止频繁申请&#x2F;销毁资源和调度资源</li>
+<li>抑制对资源无限的申请</li>
+<li>合理管理内部的资源分布</li>
+</ul>
+</li>
+</ol>
+<h2 id="Java中线程池的实现"><a href="#Java中线程池的实现" class="headerlink" title="Java中线程池的实现"></a>Java中线程池的实现</h2><p><a target="_blank" rel="noopener" href="https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html">Java线程池实现原理及其在美团业务中的实践</a></p>
+<p>Java中的线程池核心实现类是<strong>ThreadPoolExecutor</strong></p>
+<h3 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h3><p><img src="/img/one_thread_img/ThreadPoolExecutor%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png" srcset="/img/loading.gif" lazyload alt="ThreadPoolExecutor运行流程"></p>
+<h3 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h3>
                 
               </div>
             
