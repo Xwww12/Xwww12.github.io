@@ -24,7 +24,7 @@
 <meta property="og:description" content="使用的claude版本是v2.1.77 教程 安装安装Claude code命令行工具 环境  需要Node.js &gt;&#x3D; 16 、 npm &gt;&#x3D; 8和git &gt;&#x3D; 2  12345678# 检查Node.js版本node --version# 检查npm版本npm --version# 检查git版本git --version  安装插件  VS Code搜索插件：Claude">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-17T06:42:00.389Z">
-<meta property="article:modified_time" content="2026-03-18T12:41:07.059Z">
+<meta property="article:modified_time" content="2026-05-08T11:59:59.954Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          495 字
+          1.2k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          5 分钟
+          10 分钟
         
       </span>
     
@@ -327,8 +327,9 @@
 </li>
 </ol>
 <h3 id="安装AICodeSwitch"><a href="#安装AICodeSwitch" class="headerlink" title="安装AICodeSwitch"></a>安装AICodeSwitch</h3><blockquote>
-<p>用于管理和切换多个模型</p>
+<p>用于管理和切换多个模型，是<strong>网页ui</strong></p>
 <p><strong>每次电脑重启都需要aicos ui来启动</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/tangshuang/aicodeswitch">https://github.com/tangshuang/aicodeswitch</a></p>
 </blockquote>
 <ol>
 <li><p>执行安装命令</p>
@@ -340,6 +341,30 @@
 <li><p>配置参考</p>
 <p> 【只要1分钟，Claude Code快速接入国产大模型GLM】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1a865B8ErA/?share_source=copy_web&amp;vd_source=1b540b8917a7827974950e295fe5de5d">https://www.bilibili.com/video/BV1a865B8ErA/?share_source=copy_web&amp;vd_source=1b540b8917a7827974950e295fe5de5d</a></p>
 </li>
+<li><p>停止</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">aicos stop<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>卸载</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm uninstall -g aicodeswitch<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="安装CCSwitch"><a href="#安装CCSwitch" class="headerlink" title="安装CCSwitch"></a>安装CCSwitch</h3><blockquote>
+<p>和AICodeSwitch功能类似，但这个是<strong>桌面客户端</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/farion1231/cc-switch">https://github.com/farion1231/cc-switch</a></p>
+</blockquote>
+<ol>
+<li><p>在github仓库中选择对应版本下载即可</p>
+</li>
+<li><p>配置使用的模型</p>
+<ol>
+<li>以配置deepseek为例，先申请秘钥</li>
+<li>然后点击右上角加号，选择deepseek</li>
+<li>往下滑，填入秘钥，以及把模型都换成<code>deepseek-v4-pro[1m]</code>，1m表示上下文大小，默认128k</li>
+</ol>
+</li>
+<li><p>启用使用的模型</p>
+</li>
+<li><p>查看当前使用的模型</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 在claude命令行中输入</span><br>/model<br></code></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><ol>
 <li><p>卸载命令行工具</p>
@@ -348,20 +373,107 @@
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><blockquote>
 <p>很消耗token😥</p>
 </blockquote>
-<h3 id="交互式对话"><a href="#交互式对话" class="headerlink" title="交互式对话"></a>交互式对话</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 启动交互式聊天</span><br>claude<br><br><span class="hljs-comment"># 在交互窗口, 清除当前对话</span><br>clear 或重开一个对话框<br></code></pre></td></tr></table></figure>
-
-
-
-<h3 id="帮助"><a href="#帮助" class="headerlink" title="帮助"></a>帮助</h3><blockquote>
-<p>在交互窗口中</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">/help, /h - 显示帮助信息<br>/new - 开始新对话<br>/clear - 清除当前对话<br>/model - 切换模型<br>/config - 查看或修改配置<br>/exit - 退出对话（仅命令行）<br></code></pre></td></tr></table></figure>
-
-
-
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
+<li><p>启动claude</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">claude<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>回滚</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/rewind<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>切换模式</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">shift</span> + tab来切换<br>* plan mode		<span class="hljs-comment"># 计划模式</span><br>* accept edits	<span class="hljs-comment"># 自动放行所有文件修改，但终端 / Shell 命令仍需手动确认</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>更改思考强度</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/effort [low|medium|high|max|auto]<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>输入多行内容</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ctrl + j <span class="hljs-comment"># 换行</span><br>ctrl + g <span class="hljs-comment"># 打开文本编辑器，输入完ctrl + s保存关掉就会出现在对话框里</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>自动同意权限申请（危险操作）</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">claude --dangerously-skip-permissions<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>退出claude，会保存历史会话</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/exit<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查看最近历史</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">/resume	<span class="hljs-comment"># 展示最近的历史会话</span><br>claude --<span class="hljs-built_in">continue</span> <span class="hljs-comment"># 打开上次会话</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>自动生成 CLAUDE.md</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># CLAUDE.md作用是作为永久的上下文记忆，每次请求都会发给LLM</span><br>/init	<span class="hljs-comment"># 会扫描项目目录自动创建上下文</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>选择文件</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">@文件名<br>例如：@CLAUDE.md 翻译成中文<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查看上下文使用情况</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/context<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>压缩上下文</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/compact<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>清空上下文</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/clear<br></code></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h2><h3 id="代码生成"><a href="#代码生成" class="headerlink" title="代码生成"></a>代码生成</h3><ol>
 <li>在请求代码理解时，提供足够的上下文信息：<strong>说明代码的用途和业务背景、提供相关的依赖和环境信息、说明代码的预期行为</strong></li>
 <li>复杂的代码分步骤进行理解：<strong>理解整体结构和主要功能、再深入分析关键函数和算法、最后关注细节和边界情况</strong></li>
+</ol>
+<h2 id="Skill"><a href="#Skill" class="headerlink" title="Skill"></a>Skill</h2><blockquote>
+<p>Claude Skills（技能）是 Anthropic 于 2025-10 推出的<strong>模块化能力扩展系统</strong>，把 “任务指令 + 可执行脚本 + 参考资源” 打包成文件夹，让 Claude 在需要时<strong>动态加载、自动使用</strong>，相当于给 AI 装 “专业软件包”，从通用助手变成领域专家。</p>
+</blockquote>
+<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>标准 Skill 是文件夹，最少 1 个文件，可选脚本与资源：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-keyword">my</span>-skill/<br>├─ skill.md   <span class="hljs-comment"># 必需：YAML头+Markdown，写清用途、触发条件、步骤、约束</span><br>├─ scripts/   <span class="hljs-comment"># 可选：Python/JS 脚本（如处理PDF、Excel）</span><br>└─ resources/ <span class="hljs-comment"># 可选：模板、示例、规范文档</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="安装-x2F-卸载"><a href="#安装-x2F-卸载" class="headerlink" title="安装&#x2F;卸载"></a>安装&#x2F;卸载</h3><p><strong>全局安装</strong>：将文件放到用户目录下的<code>.claude/skills</code>下（没有这个目录就手动创建一个）</p>
+<p><strong>局部安装</strong>：在项目根目录下的<code>.claude/skills</code></p>
+<p><strong>安装：</strong></p>
+<ol>
+<li><p>手动复制：直接将文件夹clone&#x2F;放到<code>skills</code>里</p>
+</li>
+<li><p>使用工具：通过skill分享网站的安装命令下载</p>
+</li>
+<li><p>安装plugin：在claude命令行里<code>/plugin </code>来安装</p>
+<blockquote>
+<p>Plugin &#x3D; Skills + Agents + MCP + Hooks</p>
+</blockquote>
+</li>
+<li><p>让claude自己写一个</p>
+</li>
+</ol>
+<p><strong>卸载</strong>：直接删掉对应文件夹即可</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ol>
+<li><p>大模型<strong>自动调用</strong></p>
+</li>
+<li><p>用<code>/</code> + 名称来<strong>主动调用</strong></p>
+</li>
+<li><p>查看已有的skills</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/skills<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="skill分享网站"><a href="#skill分享网站" class="headerlink" title="skill分享网站"></a>skill分享网站</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://skills.sh/">https://skills.sh/</a></li>
+<li>github</li>
+<li>官方插件市场：claude命令行输入<code>/plugin</code></li>
+</ol>
+<h2 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h2><blockquote>
+<p>可以看做一个独立的副会话，将任务执行完后将结果返回给主会话，防止污染上下文</p>
+</blockquote>
+<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><ol>
+<li><p>查看已有的agents</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/agents<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>选择<code>Create new agent</code></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">1. Project(.claude/agents)	<span class="hljs-comment"># 项目级</span><br>2. Personal(~/.claude/agents/)	<span class="hljs-comment"># 全局</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建完后会让选择agent使用tools的权限</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">先取消All tools<br>然后勾选Read-only tools<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>然后配置驱动模型</p>
+</li>
+<li><p>配置Agent颜色</p>
+</li>
+<li><p>配置记忆文件存放位置</p>
+</li>
 </ol>
 
                 
