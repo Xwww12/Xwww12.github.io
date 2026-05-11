@@ -24,7 +24,7 @@
 <meta property="og:description" content="使用的claude版本是v2.1.77 教程 安装安装Claude code命令行工具 环境  需要Node.js &gt;&#x3D; 16 、 npm &gt;&#x3D; 8和git &gt;&#x3D; 2  12345678# 检查Node.js版本node --version# 检查npm版本npm --version# 检查git版本git --version  安装插件  VS Code搜索插件：Claude">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-17T06:42:00.389Z">
-<meta property="article:modified_time" content="2026-05-08T11:59:59.954Z">
+<meta property="article:modified_time" content="2026-05-11T06:43:41.824Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -236,7 +236,7 @@
         
         
         
-          10 分钟
+          11 分钟
         
       </span>
     
@@ -427,21 +427,16 @@
 
 <h3 id="安装-x2F-卸载"><a href="#安装-x2F-卸载" class="headerlink" title="安装&#x2F;卸载"></a>安装&#x2F;卸载</h3><p><strong>全局安装</strong>：将文件放到用户目录下的<code>.claude/skills</code>下（没有这个目录就手动创建一个）</p>
 <p><strong>局部安装</strong>：在项目根目录下的<code>.claude/skills</code></p>
-<p><strong>安装：</strong></p>
+<p><strong>安装方式</strong>：</p>
 <ol>
-<li><p>手动复制：直接将文件夹clone&#x2F;放到<code>skills</code>里</p>
-</li>
-<li><p>使用工具：通过skill分享网站的安装命令下载</p>
-</li>
-<li><p>安装plugin：在claude命令行里<code>/plugin </code>来安装</p>
-<blockquote>
-<p>Plugin &#x3D; Skills + Agents + MCP + Hooks</p>
-</blockquote>
-</li>
-<li><p>让claude自己写一个</p>
-</li>
+<li>命令行安装：在项目文件夹下打开命令行，执行复制来的<code>npx</code>命令</li>
+<li>手动安装：下载文件夹，将文件夹整个复制进去</li>
+<li>ClaudeCode自动安装：直接给claude链接，跟它说帮忙安装</li>
 </ol>
-<p><strong>卸载</strong>：直接删掉对应文件夹即可</p>
+<p><strong>卸载skill</strong>：</p>
+<ul>
+<li>直接删掉对应文件夹即可</li>
+</ul>
 <h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ol>
 <li><p>大模型<strong>自动调用</strong></p>
 </li>
@@ -451,7 +446,12 @@
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/skills<br></code></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="skill分享网站"><a href="#skill分享网站" class="headerlink" title="skill分享网站"></a>skill分享网站</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/vercel-labs/skills%EF%BC%9Afind">https://github.com/vercel-labs/skills：find</a> skills，能自动找符合需要的skill</li>
 <li><a target="_blank" rel="noopener" href="https://skills.sh/">https://skills.sh/</a></li>
+<li><a target="_blank" rel="noopener" href="https://agentskill.sh/">https://agentskill.sh/</a></li>
+<li><a target="_blank" rel="noopener" href="https://skillsmp.com/">https://skillsmp.com/</a></li>
+<li><a target="_blank" rel="noopener" href="https://clawhub.ai/">https://clawhub.ai/</a></li>
+<li><a target="_blank" rel="noopener" href="https://modelscope.cn/skills%EF%BC%9A%E5%9B%BD%E5%86%85%E7%9A%84%E7%A4%BE%E5%8C%BA">https://modelscope.cn/skills：国内的社区</a></li>
 <li>github</li>
 <li>官方插件市场：claude命令行输入<code>/plugin</code></li>
 </ol>
