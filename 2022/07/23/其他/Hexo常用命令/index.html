@@ -16,23 +16,22 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="MySQL主从配置注意 主从服务器操作系统版本和位数一致； Master 和 Slave 数据库的版本要一致； Master 和 Slave 数据库中的数据要一致； Master 开启二进制日志， Master 和 Slave 的 server_id 在局域网内必须唯一；  步骤​	主库配置  修改配置文件&#x2F;etc&#x2F;my.cnf(windows下在my.ini文件中) 123[">
+    <meta name="description" content="启动服务器1hexo server 或 hexo s     参数     -p post,自定义端口   -l log,启动日志   默认访问网址http:&#x2F;&#x2F;localhost:4000&#x2F; 生成静态文件1hexo generate 或 hexo g     参数     -d deploy, 生成后立即部署到服务器   -f force,强制重新生成全部文件,不加则只生成改动的文件   部署网">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL主从配置">
-<meta property="og:url" content="http://xwww12.github.io/2022/08/19/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/MySQL%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:title" content="Hexo常用命令">
+<meta property="og:url" content="http://xwww12.github.io/2022/07/23/%E5%85%B6%E4%BB%96/Hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="MySQL主从配置注意 主从服务器操作系统版本和位数一致； Master 和 Slave 数据库的版本要一致； Master 和 Slave 数据库中的数据要一致； Master 开启二进制日志， Master 和 Slave 的 server_id 在局域网内必须唯一；  步骤​	主库配置  修改配置文件&#x2F;etc&#x2F;my.cnf(windows下在my.ini文件中) 123[">
+<meta property="og:description" content="启动服务器1hexo server 或 hexo s     参数     -p post,自定义端口   -l log,启动日志   默认访问网址http:&#x2F;&#x2F;localhost:4000&#x2F; 生成静态文件1hexo generate 或 hexo g     参数     -d deploy, 生成后立即部署到服务器   -f force,强制重新生成全部文件,不加则只生成改动的文件   部署网">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-19T13:07:21.797Z">
-<meta property="article:modified_time" content="2022-11-12T06:20:55.651Z">
+<meta property="article:published_time" content="2022-07-23T11:09:58.872Z">
+<meta property="article:modified_time" content="2026-06-02T06:07:35.770Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="后端">
-<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>MySQL主从配置 - Hexo</title>
+  <title>Hexo常用命令 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">MySQL主从配置</span>
+            <span id="subtitle">Hexo常用命令</span>
           
         </div>
 
@@ -214,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-19 21:07" pubdate>
-          2022年8月19日 晚上
+        <time datetime="2022-07-23 19:09" pubdate>
+          2022年7月23日 晚上
         </time>
       </span>
     
@@ -226,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          611 字
+          106 字
         
       </span>
     
@@ -237,7 +236,7 @@
         
         
         
-          6 分钟
+          1 分钟
         
       </span>
     
@@ -291,60 +290,56 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">MySQL主从配置</h1>
+            <h1 id="seo-header">Hexo常用命令</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="MySQL主从配置"><a href="#MySQL主从配置" class="headerlink" title="MySQL主从配置"></a>MySQL主从配置</h2><h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ul>
-<li>主从服务器操作系统版本和位数一致；</li>
-<li>Master 和 Slave 数据库的版本要一致；</li>
-<li>Master 和 Slave 数据库中的数据要一致；</li>
-<li>Master 开启二进制日志， Master 和 Slave 的 server_id 在局域网内必须唯一；</li>
-</ul>
-<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p>​	<strong>主库配置</strong></p>
-<ol>
-<li><p>修改配置文件&#x2F;etc&#x2F;my.cnf(windows下在my.ini文件中)</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[mysqld]</span><br><span class="hljs-attr">log-bin</span>=master-bin	<span class="hljs-comment">#开启二进制文件</span><br><span class="hljs-attr">server-id</span>=<span class="hljs-number">100</span>	<span class="hljs-comment">#服务器唯一ID</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>重启mysql服务</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl restart mysqld</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>登录mysql创建一个用户并赋予REPLICATION SLAVE权限</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE USER &#x27;username&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;password&#x27;;<br>GRANT REPLICATION SLAVE ON *.* TO &#x27;username&#x27;@&#x27;%&#x27;;<br>ALTER USER &#x27;username&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;password&#x27;;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>查看主库状态</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">show master status;<br></code></pre></td></tr></table></figure></li>
-</ol>
-<p>​	<strong>从库配置</strong>	</p>
-<ol>
-<li><p>修改配置文件</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[mysqld]</span><br><span class="hljs-attr">server-id</span>=<span class="hljs-number">101</span>	<span class="hljs-comment">#服务器唯一ID</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>重启mysql服务</p>
-</li>
-<li><p>设置主节点参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CHANGE MASTER TO<br>MASTER_HOST=&#x27;192.168.229.168&#x27;,<br>MASTER_USER=&#x27;zs&#x27;,<br>MASTER_PASSWORD=&#x27;123456&#x27;,<br>MASTER_LOG_FILE=&#x27;master-bin.000001&#x27;,		#查看主库状态时File列的参数<br>MASTER_LOG_POS=3578;						#查看主库状态时Position列的参数<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>开启主从服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">start slave;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>查看是否成功</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">show slave status \G<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h4><ol>
-<li>Slave_SQL_Running: NO</li>
-</ol>
-<p>解决方式:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; stop slave ;<br>mysql&gt; set GLOBAL SQL_SLAVE_SKIP_COUNTER=1;<br>mysql&gt; start slave ;<br><br>或者主节点参数配置错误，重新配置一遍<br></code></pre></td></tr></table></figure>
+                <h4 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h4><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">hexo <span class="hljs-keyword">server</span> 或 hexo s<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-p</td>
+<td>post,自定义端口</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>log,启动日志</td>
+</tr>
+</tbody></table>
+<p>默认访问网址<code>http://localhost:4000/</code></p>
+<h4 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog">hexo <span class="hljs-keyword">generate</span> 或 hexo g<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-d</td>
+<td>deploy, 生成后立即部署到服务器</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>force,强制重新生成全部文件,不加则只生成改动的文件</td>
+</tr>
+</tbody></table>
+<h4 id="部署网站"><a href="#部署网站" class="headerlink" title="部署网站"></a>部署网站</h4><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">hexo <span class="hljs-keyword">deploy</span> 或 hexo d<br></code></pre></td></tr></table></figure>
 
 
 
-<ol start="2">
-<li>Slave_IO_Running: NO&#x2F;Collecting</li>
-</ol>
-<p>解决方式:</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk">每次数据库重启后都会导致master status发生变化,重新配置从库的主节点参数<br><br>或者复制虚拟机时数据库的uuid相同，删除<span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/mysql/</span>auto.cnf文件后重启数据库<br>systemctl restart mysqld<br><br>或者防火墙没关<br></code></pre></td></tr></table></figure>
+<h4 id="清除缓存"><a href="#清除缓存" class="headerlink" title="清除缓存"></a>清除缓存</h4><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo clean</span><br></code></pre></td></tr></table></figure>
+
+<p>清除缓存文件 (<code>db.json</code>) 和已生成的静态文件 (<code>public</code>)。</p>
+<h4 id="Hexo版本"><a href="#Hexo版本" class="headerlink" title="Hexo版本"></a>Hexo版本</h4><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">hexo <span class="hljs-built_in">version</span> 或 hexo -v<br></code></pre></td></tr></table></figure>
 
 
 
@@ -354,16 +349,10 @@
 
 
 
-<h4 id="读写分离"><a href="#读写分离" class="headerlink" title="读写分离"></a>读写分离</h4><p>主库负责增删改，从库负责查</p>
-<p><strong>Sharding-JDBC</strong></p>
-<p>轻量级java框架，增强JDBC功能，可以在程序中实现数据库读写分离</p>
-<ol>
-<li><p>导入坐标</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.shardingsphere<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>sharding-jdbc-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.0.0-RC1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>配置</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">shardingsphere:</span><br>    <span class="hljs-attr">datasource:</span><br>      <span class="hljs-comment"># 定义数据源名称</span><br>      <span class="hljs-attr">names:</span><br>        <span class="hljs-string">master,slave</span><br>      <span class="hljs-comment"># 主数据源</span><br>      <span class="hljs-attr">master:</span><br>        <span class="hljs-attr">type:</span> <span class="hljs-string">com.alibaba.druid.pool.DruidDataSource</span><br>        <span class="hljs-attr">driver-class-name:</span> <span class="hljs-string">com.mysql.cj.jdbc.Driver</span><br>        <span class="hljs-attr">url:</span> <span class="hljs-string">jdbc:mysql://192.168.229.168:3306/rw?characterEncoding=utf-8</span><br>        <span class="hljs-attr">username:</span> <span class="hljs-string">root</span><br>        <span class="hljs-attr">password:</span> <span class="hljs-number">123456</span><br>      <span class="hljs-comment"># 从数据源</span><br>      <span class="hljs-attr">slave:</span><br>        <span class="hljs-attr">type:</span> <span class="hljs-string">com.alibaba.druid.pool.DruidDataSource</span><br>        <span class="hljs-attr">driver-class-name:</span> <span class="hljs-string">com.mysql.cj.jdbc.Driver</span><br>        <span class="hljs-attr">url:</span> <span class="hljs-string">jdbc:mysql://192.168.229.130:3306/rw?characterEncoding=utf-8</span><br>        <span class="hljs-attr">username:</span> <span class="hljs-string">root</span><br>        <span class="hljs-attr">password:</span> <span class="hljs-number">123456</span><br>    <span class="hljs-attr">masterslave:</span><br>      <span class="hljs-comment"># 读写分离配置（轮询）</span><br>      <span class="hljs-attr">load-balance-algorithm-type:</span> <span class="hljs-string">round_robin</span><br>      <span class="hljs-comment"># 最终的数据源名称</span><br>      <span class="hljs-attr">name:</span> <span class="hljs-string">dataSource</span><br>      <span class="hljs-comment"># 主库数据源名称</span><br>      <span class="hljs-attr">master-data-source-name:</span> <span class="hljs-string">master</span><br>      <span class="hljs-comment"># 从库数据源名称列表，多个逗号分隔</span><br>      <span class="hljs-attr">slave-data-source-names:</span> <span class="hljs-string">slave</span><br>    <span class="hljs-attr">props:</span><br>      <span class="hljs-attr">sql:</span><br>        <span class="hljs-attr">show:</span> <span class="hljs-literal">true</span> <span class="hljs-comment">#开启SQL显示，默认false</span><br>  <span class="hljs-attr">main:</span><br>  	<span class="hljs-comment">#Sharding和Druid的类有重名的，需要加上这个配置</span><br>    <span class="hljs-attr">allow-bean-definition-overriding:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></li>
-</ol>
+
+
+
+
 
                 
               </div>
@@ -387,15 +376,8 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/" class="category-chain-item">其他</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/" class="category-chain-item">mysql</a>
-  
-  
-
   
 
   
@@ -411,9 +393,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
-      
-        <a href="/tags/mysql/" class="print-no-link">#mysql</a>
+        <a href="/tags/git/" class="print-no-link">#git</a>
       
     </div>
   
@@ -425,8 +405,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>MySQL主从配置</div>
-      <div>http://xwww12.github.io/2022/08/19/数据库/mysql/MySQL主从配置/</div>
+      <div>Hexo常用命令</div>
+      <div>http://xwww12.github.io/2022/07/23/其他/Hexo常用命令/</div>
     </div>
     <div class="license-meta">
       
@@ -438,7 +418,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年8月19日</div>
+          <div>2022年7月23日</div>
         </div>
       
       
@@ -470,21 +450,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/20/%E4%B8%AD%E9%97%B4%E4%BB%B6/Nginx/" title="Nginx">
+                      <a href="/2022/07/29/%E5%89%8D%E7%AB%AF/vue/1.Vue%E4%B8%8B%E8%BD%BD/" title="1.Vue下载">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Nginx</span>
+                        <span class="hidden-mobile">1.Vue下载</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2022/08/16/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/" title="Redis">
-                        <span class="hidden-mobile">Redis</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>
