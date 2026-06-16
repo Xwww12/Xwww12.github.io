@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/one_thread_img/ThreadPoolExecutor%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
 <meta property="article:published_time" content="2026-05-06T12:10:17.958Z">
-<meta property="article:modified_time" content="2026-06-07T07:24:18.757Z">
+<meta property="article:modified_time" content="2026-06-14T12:44:52.340Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/one_thread_img/ThreadPoolExecutor%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          3.9k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          26 分钟
+          33 分钟
         
       </span>
     
@@ -492,8 +492,10 @@
 
 
 <h2 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h2><p>oneThread 是基于配置中心 构建的 动态可观测 Java 线程池框架，弥补了 JDK 原生线程池参数配置不灵活的不足 ，支持核心参数的在线<strong>动态调整</strong> 、<strong>运行时状态监控</strong>  与 <strong>阈值告警</strong> ，有效提升系统的稳定性与可运维性。框架兼容主流配置中心如 Nacos、Apollo，实现线程池参数的<strong>热更新</strong></p>
-<h2 id="读取远端配置"><a href="#读取远端配置" class="headerlink" title="读取远端配置"></a>读取远端配置</h2><h3 id="绑定配置到对象"><a href="#绑定配置到对象" class="headerlink" title="绑定配置到对象"></a>绑定配置到对象</h3><p>Nacos配置本质上是字符串形式的键值对形式，通过<strong>绑定到类</strong><code>BootstrapConfigProperties</code>上来便于类型转换、代码提示和后续维护</p>
-<h3 id="非Spring环境全局共享变量"><a href="#非Spring环境全局共享变量" class="headerlink" title="非Spring环境全局共享变量"></a>非Spring环境全局共享变量</h3><p>而<code>BootstrapConfigProperties</code>类是在非Spring环境的<code>core</code>包下，通过在Bean装配的时候<strong>赋值给静态单例变量</strong>来实现全局共享</p>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><h3 id="读取远端配置"><a href="#读取远端配置" class="headerlink" title="读取远端配置"></a>读取远端配置</h3><p><strong>绑定配置到对象</strong></p>
+<p>Nacos配置本质上是字符串形式的键值对形式，通过<strong>绑定到类</strong><code>BootstrapConfigProperties</code>上来便于类型转换、代码提示和后续维护</p>
+<p><strong>非Spring环境全局共享变量</strong></p>
+<p>而<code>BootstrapConfigProperties</code>类是在非Spring环境的<code>core</code>包下，通过在Bean装配的时候<strong>赋值给静态单例变量</strong>来实现全局共享</p>
 <blockquote>
 <p>如果是Spring环境下，用@ConfigurationProperties(prefix &#x3D; “onethread”)就能自动绑定对应前缀的配置</p>
 </blockquote>
@@ -501,6 +503,52 @@
 
 
 
+<h3 id="感知远端配置变化"><a href="#感知远端配置变化" class="headerlink" title="感知远端配置变化"></a>感知远端配置变化</h3><ol>
+<li><p>通过<strong>自定义的starter</strong>，自动装配<code>NacosCloudRefresherHandler</code>这个Bean；</p>
+</li>
+<li><p>这个Bean实现了<code>ApplicationRunner</code>接口，当Spring容器初始化完成后，会注册一个监听来监听Nacos远端参数的变化；</p>
+</li>
+<li><p>当远端参数发生变化后，监听器会感知到，并将传来的<strong>字符串</strong>形式的配置信息，通过<code>Binder</code>绑定更新到配置类中</p>
+</li>
+<li><p>发布更新事件</p>
+</li>
+</ol>
+<h3 id="保障并发更新线程池参数"><a href="#保障并发更新线程池参数" class="headerlink" title="保障并发更新线程池参数"></a>保障并发更新线程池参数</h3><ol>
+<li><p>通过接口<code>ApplicationListener</code>监听参数更新的事件来触发更新</p>
+</li>
+<li><p>可能存在多个用户同时更新线程池参数的情况，因此用<code>synchronized</code>在<strong>线程池Id上加锁</strong>，实现<strong>细粒度</strong>的上锁</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// intern() 保证是从字符串常量池里拿到的同一个对象</span><br><span class="hljs-keyword">synchronized</span> (threadPoolId.intern()) &#123;<br>    ...<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>比较远端参数和本地的线程池参数是否有变化</p>
+</li>
+<li><p>修改本地的线程池参数：主要的是核心线程数和最大核心数，若<strong>新核心线程数大于旧最大核心数</strong>，就需要<strong>先设置最大核心数</strong>；否则就<strong>先设置和新线程数</strong>（因为新最大线程数可能调小了，会让旧核心线程数超过最大线程数）</p>
+<blockquote>
+<p><strong>线程池的核心线程数必须 &lt;&#x3D; 最大线程数</strong>，否则会报错</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="阻塞队列热更新"><a href="#阻塞队列热更新" class="headerlink" title="阻塞队列热更新"></a>阻塞队列热更新</h3><blockquote>
+<p>在请求的高峰期和低谷期需要动态地设置队列容量，防止高峰流量造成服务雪崩</p>
+</blockquote>
+<ol>
+<li><p>Java原生的阻塞队列是<strong>不能</strong>动态调整容量的</p>
+</li>
+<li><p>在原生<code>LinkedBlockingQueue</code>的基础上进行修改</p>
+<p> 主要修改部分：</p>
+<ul>
+<li><p>去掉了<code>capacity</code>的<code>final</code>关键字，让容量可修改</p>
+</li>
+<li><p>在修改容量<code>capacity</code>后，主动去唤醒等待队列里的线程</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setCapacity</span><span class="hljs-params">(<span class="hljs-type">int</span> capacity)</span> &#123;<br>    <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">oldCapacity</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.capacity;<br>    <span class="hljs-built_in">this</span>.capacity = capacity;<br>    <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> count.get();<br>    <span class="hljs-keyword">if</span> (capacity &gt; size &amp;&amp; size &gt;= oldCapacity) &#123;<br>        signalNotFull();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>调整进入已满等待队列的进入条件</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 原本的是count.get() == capacity</span><br><span class="hljs-keyword">while</span> (count.get() &gt;= capacity) &#123;<br>    notFull.await();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>  修改后，若调小容量，也能阻塞线程</p>
+</li>
+</ul>
+</li>
+</ol>
 <h2 id="用到的设计模式"><a href="#用到的设计模式" class="headerlink" title="用到的设计模式"></a>用到的设计模式</h2><h3 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h3><blockquote>
 <p> 在创建<strong>字段特别多、构造复杂</strong>的对象时，<strong>可不用写一堆重载构造方法，不用臃肿的 set 方法</strong>。</p>
 <p>通过链式调用、清晰优雅、还能保证对象不可变</p>
@@ -521,6 +569,20 @@
 <p><strong>父类定义一套「固定不变的执行流程 &#x2F; 算法骨架」</strong>，流程中可变的步骤<strong>定义为抽象方法，交给子类去实现；子类只重写可变细节，不修改父类的核心流程。</strong></p>
 </blockquote>
 <p>动态线程池在多配置中心支持的场景下，<strong>监听器注册与配置刷新存在高度相似的处理流程</strong>。为了统一逻辑、增强可扩展性，引入<strong>模板方法模式</strong> 进行重构，形成一套结构清晰、职责分明的刷新机制。</p>
+<h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><p>通过Spring的<code>ApplicationListener</code>接口来创建监听器，通过<code>ApplicationContextHolder.getInstance().publishEvent</code>来发布事件；</p>
+<p>当比如当参数更新时就会发布事件来触发线程池的参数更新</p>
+<h3 id="模板方法-1"><a href="#模板方法-1" class="headerlink" title="模板方法"></a>模板方法</h3><p><strong>模板方法核心思想</strong>：在抽象类的一个方法里定义一个操作的框架，将具体的实现步骤留到子类来实现。</p>
+<p>优点：</p>
+<ol>
+<li>复用性强</li>
+<li>扩展性强</li>
+<li>结构清晰</li>
+</ol>
+<p>为了支持多种配置中心并保持良好的可维护性，采用了<strong>模板方法模式</strong> 来封装公共流程、抽象差异行为，从而实现可扩展、高内聚的动态配置刷新能力。</p>
+<p>定义模板抽象类<code>AbstractDynamicThreadPoolRefresher</code>，定义刷新步骤</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 注册配置变更监听器，由子类实现具体逻辑</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* <span class="hljs-doctag">@throws</span> Exception</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">registerListener</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 默认空实现，子类可以按需覆盖</span><br><span class="hljs-comment">     */</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">beforeRegister</span><span class="hljs-params">()</span> &#123;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 默认空实现，子类可以按需覆盖</span><br><span class="hljs-comment">     */</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterRegister</span><span class="hljs-params">()</span> &#123;<br>&#125;<br><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">(ApplicationArguments args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    beforeRegister();<br>    registerListener();<br>    afterRegister();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在具体的Nacos刷新类和Apollo刷新类里实现注册监听器逻辑</p>
 
                 
               </div>
