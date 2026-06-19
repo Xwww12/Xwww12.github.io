@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/one_thread_img/ThreadPoolExecutor%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
 <meta property="article:published_time" content="2026-05-06T12:10:17.958Z">
-<meta property="article:modified_time" content="2026-06-14T12:44:52.340Z">
+<meta property="article:modified_time" content="2026-06-17T08:54:08.627Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://xwww12.github.io/img/one_thread_img/ThreadPoolExecutor%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k 字
+          4.5k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          33 分钟
+          38 分钟
         
       </span>
     
@@ -549,6 +549,38 @@
 </ul>
 </li>
 </ol>
+<h3 id="线程池监控"><a href="#线程池监控" class="headerlink" title="线程池监控"></a>线程池监控</h3><p>通过定时任务扫描，对<strong>线程池活跃度</strong>、<strong>队列负载</strong>和<strong>拒绝异常</strong>三个方向进行监控</p>
+<ul>
+<li>活跃度：活跃线程数 &#x2F; 最大线程数</li>
+<li>队列负载：任务数 &#x2F; 队列容量</li>
+<li>拒绝异常：监控到新的<code>RejectedExecutionException</code></li>
+</ul>
+<p><strong>实现</strong>：</p>
+<ul>
+<li><p>监控</p>
+<p>  通过JDK提供的<code>ScheduledExecutorService</code>实现定时任务</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">start</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 每10秒检查一次，初始延迟0秒</span><br>    scheduler.scheduleWithFixedDelay(<span class="hljs-built_in">this</span>::checkAlarm, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>, TimeUnit.SECONDS);<br>&#125;<br><br><span class="hljs-comment">// 定时任务</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">checkAlarm</span><span class="hljs-params">()</span> &#123;<br>    Collection&lt;ThreadPoolExecutorHolder&gt; holders = OneThreadRegistry.getAllHolders();<br>    <span class="hljs-keyword">for</span> (ThreadPoolExecutorHolder holder : holders) &#123;<br>        <span class="hljs-keyword">if</span> (holder.getExecutorProperties().getAlarm().getEnable()) &#123;<br>            checkQueueUsage(holder);	<span class="hljs-comment">// 检查队列负载</span><br>            checkActiveRate(holder);	<span class="hljs-comment">// 检查活跃度</span><br>            checkRejectCount(holder);	<span class="hljs-comment">// 检查拒绝数</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>  通过配置文件注入监听Bean</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean(initMethod = &quot;start&quot;, destroyMethod = &quot;stop&quot;)</span><br><span class="hljs-keyword">public</span> ThreadPoolAlarmChecker <span class="hljs-title function_">threadPoolAlarmChecker</span><span class="hljs-params">(NotifierDispatcher notifierDispatcher)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ThreadPoolAlarmChecker</span>(notifierDispatcher);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>告警</p>
+<ul>
+<li><p>队列负载和线程活跃度都是通过轮询线程池，获取参数并计算百分比，当超过限额时就发送告警</p>
+</li>
+<li><p>拒绝数告警是通过<strong>动态模式</strong>代理线程池的拒绝方法，添加计数功能和告警功能实现，在定时任务里会扫描拒绝次数来发出告警</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RejectedProxyInvocationHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">InvocationHandler</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object target;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> AtomicLong rejectCount;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">REJECT_METHOD</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;rejectedExecution&quot;</span>;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">invoke</span><span class="hljs-params">(Object proxy, Method method, Object[] args)</span> <span class="hljs-keyword">throws</span> Throwable &#123;<br>        <span class="hljs-comment">// 判断是否是要代理的方法，通过方法名和参数来校验</span><br>        <span class="hljs-keyword">if</span> (REJECT_METHOD.equals(method.getName()) &amp;&amp;<br>                args != <span class="hljs-literal">null</span> &amp;&amp;<br>                args.length == <span class="hljs-number">2</span> &amp;&amp;<br>                args[<span class="hljs-number">0</span>] <span class="hljs-keyword">instanceof</span> Runnable &amp;&amp;<br>                args[<span class="hljs-number">1</span>] <span class="hljs-keyword">instanceof</span> ThreadPoolExecutor) &#123;<br>            rejectCount.incrementAndGet();<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (method.getName().equals(<span class="hljs-string">&quot;toString&quot;</span>) &amp;&amp; method.getParameterCount() == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> target.getClass().getSimpleName();<br>        &#125;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">return</span> method.invoke(target, args);<br>        &#125; <span class="hljs-keyword">catch</span> (InvocationTargetException ex) &#123;<br>            <span class="hljs-keyword">throw</span> ex.getCause();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="告警"><a href="#告警" class="headerlink" title="告警"></a>告警</h3><blockquote>
+<p>要控制告警的间隔</p>
+</blockquote>
+<p>限制告警次数策略：</p>
+<ul>
+<li><p>时间窗口限流：为每一个线程池设立一个时间戳，只有距离上次时间戳一段时间后才能发送</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, Long&gt; ALARM_RECORD = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConcurrentHashMap</span>&lt;&gt;();<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">allowAlarm</span><span class="hljs-params">(String threadPoolId, String alarmType, <span class="hljs-type">int</span> intervalMinutes)</span> &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> buildKey(threadPoolId, alarmType);<br>    <span class="hljs-type">long</span> <span class="hljs-variable">currentTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br>    <span class="hljs-type">long</span> <span class="hljs-variable">intervalMillis</span> <span class="hljs-operator">=</span> intervalMinutes * <span class="hljs-number">60</span> * <span class="hljs-number">1000L</span>;<br><br>    <span class="hljs-comment">// compute：保证了整个&quot;读取-计算-写入&quot;过程的原子性</span><br>    <span class="hljs-keyword">return</span> ALARM_RECORD.compute(key, (k, lastTime) -&gt; &#123;<br>        <span class="hljs-keyword">if</span> (lastTime == <span class="hljs-literal">null</span> || (currentTime - lastTime) &gt; intervalMillis) &#123;<br>            <span class="hljs-keyword">return</span> currentTime; <span class="hljs-comment">// 更新时间为当前时间</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> lastTime; <span class="hljs-comment">// 保持原时间</span><br>    &#125;) == currentTime; <span class="hljs-comment">// 返回值等于当前时间说明允许发送</span><br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">buildKey</span><span class="hljs-params">(String threadPoolId, String alarmType)</span> &#123;<br>    <span class="hljs-keyword">return</span> threadPoolId + <span class="hljs-string">&quot;|&quot;</span> + alarmType;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="用到的设计模式"><a href="#用到的设计模式" class="headerlink" title="用到的设计模式"></a>用到的设计模式</h2><h3 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h3><blockquote>
 <p> 在创建<strong>字段特别多、构造复杂</strong>的对象时，<strong>可不用写一堆重载构造方法，不用臃肿的 set 方法</strong>。</p>
 <p>通过链式调用、清晰优雅、还能保证对象不可变</p>
@@ -583,6 +615,14 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 注册配置变更监听器，由子类实现具体逻辑</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* <span class="hljs-doctag">@throws</span> Exception</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">registerListener</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 默认空实现，子类可以按需覆盖</span><br><span class="hljs-comment">     */</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">beforeRegister</span><span class="hljs-params">()</span> &#123;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 默认空实现，子类可以按需覆盖</span><br><span class="hljs-comment">     */</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterRegister</span><span class="hljs-params">()</span> &#123;<br>&#125;<br><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">(ApplicationArguments args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    beforeRegister();<br>    registerListener();<br>    afterRegister();<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>在具体的Nacos刷新类和Apollo刷新类里实现注册监听器逻辑</p>
+<h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><blockquote>
+<p>真实对象和代理对象都实现同一个接口，调用方通过引入代理对象对其行为进行增强的设计手段</p>
+</blockquote>
+<ul>
+<li>静态代理：<strong>编译期</strong>手动编写代理类代码，一个目标类对应一个代理类</li>
+<li>动态代理：在<strong>运行时</strong>生成代理类</li>
+</ul>
+<p>项目里通过实现JDK提供的接口<code>InvocationHandler </code>，实现<code>invoke</code>方法实现动态代理</p>
 
                 
               </div>
