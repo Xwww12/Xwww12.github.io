@@ -18,8 +18,8 @@
   
     <meta name="description" content="使用的claude版本是v2.1.77 教程 安装安装Claude code命令行工具 环境  需要Node.js &gt;&#x3D; 16 、 npm &gt;&#x3D; 8和git &gt;&#x3D; 2  12345678# 检查Node.js版本node --version# 检查npm版本npm --version# 检查git版本git --version  安装插件  VS Code搜索插件：Claude">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ClaudeCode使用">
-<meta property="og:url" content="http://xwww12.github.io/2026/03/17/AI/ClaudeCode%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="ClaudeCode">
+<meta property="og:url" content="http://xwww12.github.io/2026/03/17/AI/ClaudeCode/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="使用的claude版本是v2.1.77 教程 安装安装Claude code命令行工具 环境  需要Node.js &gt;&#x3D; 16 、 npm &gt;&#x3D; 8和git &gt;&#x3D; 2  12345678# 检查Node.js版本node --version# 检查npm版本npm --version# 检查git版本git --version  安装插件  VS Code搜索插件：Claude">
 <meta property="og:locale" content="zh_CN">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/claude_img/%E5%88%92%E5%88%86%E4%BB%BB%E5%8A%A1.png">
 <meta property="og:image" content="http://xwww12.github.io/img/claude_img/%E7%94%9F%E6%88%90Prompt.png">
 <meta property="article:published_time" content="2026-03-17T06:42:00.389Z">
-<meta property="article:modified_time" content="2026-06-16T07:46:05.341Z">
+<meta property="article:modified_time" content="2026-06-20T06:49:01.533Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
@@ -36,7 +36,7 @@
   
   
   
-  <title>ClaudeCode使用 - Hexo</title>
+  <title>ClaudeCode - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">ClaudeCode使用</span>
+            <span id="subtitle">ClaudeCode</span>
           
         </div>
 
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.7k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          19 分钟
+          23 分钟
         
       </span>
     
@@ -295,7 +295,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">ClaudeCode使用</h1>
+            <h1 id="seo-header">ClaudeCode</h1>
             
             
               <div class="markdown-body">
@@ -419,9 +419,27 @@
   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/clear<br></code></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="CLAUDE-md"><a href="#CLAUDE-md" class="headerlink" title="CLAUDE.md"></a>CLAUDE.md</h3><blockquote>
-<p>项目级记忆文件，本质是给 AI 的<strong>项目说明书</strong>，在<strong>每次会话启动时自动加载</strong>，为 Claude <strong>提供持久化的项目上下文与指令</strong>，避免重复解释，确保编码一致性。</p>
+<p>项目级记忆文件，本质是给 AI 的<strong>项目说明书</strong>，<strong>可以把它理解成：写给 Claude Code 的项目交接文档</strong>，在<strong>每次会话启动时自动加载</strong>，为 Claude <strong>提供持久化的项目上下文与指令</strong>，避免重复解释，确保编码一致性。</p>
 </blockquote>
-<p>可以让AI自己写，也可以手动写</p>
+<p><strong><code>CLAUDE.md</code>作用</strong>：</p>
+<ul>
+<li>让长期规则有稳定入口，防止规则被膨胀的上下文淹没</li>
+<li><code>CLAUDE.md</code>会进入上下文，因此不是越长越好，而是要<strong>短、准、可执行</strong></li>
+<li>只有团队共享规则，才适合放入</li>
+</ul>
+<p><strong>存放位置</strong>：</p>
+<ul>
+<li>项目级的放在根目录下</li>
+<li>每个子模块也可以有各自的<code>CLAUDE.md</code></li>
+</ul>
+<p><strong>编写模板</strong>：</p>
+<blockquote>
+<p>只写对模型行动有影响的内容，像历史记录、接口文档等应该写在另外的文件里</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section"># 项目工作说明</span><br><br><span class="hljs-section">## 项目概述</span><br><br><span class="hljs-bullet">-</span> 本项目是一个 XXX 应用，主要技术栈是 XXX。<br><span class="hljs-bullet">-</span> 主要代码在 <span class="hljs-code">`src/`</span>，测试在 <span class="hljs-code">`tests/`</span>。<br><span class="hljs-bullet">-</span> 优先遵循现有代码风格，不要引入新的架构风格。<br><br><span class="hljs-section">## 常用命令</span><br><br><span class="hljs-bullet">-</span> 安装依赖：<span class="hljs-code">`pnpm install`</span><br><span class="hljs-bullet">-</span> 本地开发：<span class="hljs-code">`pnpm dev`</span><br><span class="hljs-bullet">-</span> 单元测试：<span class="hljs-code">`pnpm test`</span><br><span class="hljs-bullet">-</span> 构建检查：<span class="hljs-code">`pnpm build`</span><br><br><span class="hljs-section">## 目录结构</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-code">`src/components/`</span>：通用组件<br><span class="hljs-bullet">-</span> <span class="hljs-code">`src/pages/`</span>：页面入口<br><span class="hljs-bullet">-</span> <span class="hljs-code">`src/api/`</span>：接口封装<br><span class="hljs-bullet">-</span> <span class="hljs-code">`src/hooks/`</span>：可复用业务逻辑<br><span class="hljs-bullet">-</span> <span class="hljs-code">`tests/`</span>：测试文件<br><br><span class="hljs-section">## 编码规范</span><br><br><span class="hljs-bullet">-</span> 新增 API 请求必须放在 <span class="hljs-code">`src/api/`</span>。<br><span class="hljs-bullet">-</span> 页面组件不要直接调用 <span class="hljs-code">`fetch`</span>。<br><span class="hljs-bullet">-</span> 公共逻辑被两个以上模块复用时，抽到 <span class="hljs-code">`src/hooks/`</span>。<br><span class="hljs-bullet">-</span> 修改已有功能时，优先保持现有接口兼容。<br><br><span class="hljs-section">## 禁止事项</span><br><br><span class="hljs-bullet">-</span> 不要提交 <span class="hljs-code">`.env`</span>、token、密钥。<br><span class="hljs-bullet">-</span> 不要升级核心依赖版本，除非用户明确要求。<br><span class="hljs-bullet">-</span> 不要修改数据库 schema，除非用户明确要求。<br><span class="hljs-bullet">-</span> 不要删除用户已有改动。<br><br><span class="hljs-section">## 验证要求</span><br><br><span class="hljs-bullet">-</span> 修改业务逻辑后，运行相关测试。<br><span class="hljs-bullet">-</span> 修改公共组件后，运行构建检查。<br><span class="hljs-bullet">-</span> 如果测试无法运行，在最终回复里说明原因。<br><br><span class="hljs-section">## 常见坑</span><br><br><span class="hljs-bullet">-</span> 本项目使用 pnpm，不要使用 npm 或 yarn。<br><span class="hljs-bullet">-</span> 修改配置文件后，需要重新启动开发服务器。<br><span class="hljs-bullet">-</span> 遇到鉴权问题，先检查 <span class="hljs-code">`src/api/auth.ts`</span> 和 <span class="hljs-code">`src/store/auth.ts`</span>。<br></code></pre></td></tr></table></figure>
+
+
+
 <h3 id="历史会话存储位置"><a href="#历史会话存储位置" class="headerlink" title="历史会话存储位置"></a>历史会话存储位置</h3><p><code>%USERPROFILE%\.claude\projects\</code>，会话数据以<strong>JSONL 格式</strong>保存</p>
 <h2 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h2><h3 id="代码生成"><a href="#代码生成" class="headerlink" title="代码生成"></a>代码生成</h3><blockquote>
 <p>将提示词划分为四个部分：<strong>目标</strong>、<strong>输入</strong>、<strong>输出</strong>、<strong>步骤</strong></p>
@@ -638,8 +656,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>ClaudeCode使用</div>
-      <div>http://xwww12.github.io/2026/03/17/AI/ClaudeCode使用/</div>
+      <div>ClaudeCode</div>
+      <div>http://xwww12.github.io/2026/03/17/AI/ClaudeCode/</div>
     </div>
     <div class="license-meta">
       
