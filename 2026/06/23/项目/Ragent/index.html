@@ -24,7 +24,7 @@
 <meta property="og:description" content="基础基本概念 大模型的参数：   指神经网络中的权重（Weight）和偏置（Bias）的总数量。   参数数量和能力不是线性关系，存在边际效应。   参数不是越多越好，越多推理成本也越高。  Token：是模型内部的最小处理单元，模型通过分词器（Tokenizer）把文本切碎后的小片段。  上下文窗口：指模型单次能处理的最大 Token 总数  Temperature：控制输出的随机性与发散度">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-23T07:07:44.713Z">
-<meta property="article:modified_time" content="2026-07-04T07:02:01.427Z">
+<meta property="article:modified_time" content="2026-07-09T07:52:52.097Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.4k 字
+          9.4k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          71 分钟
+          79 分钟
         
       </span>
     
@@ -964,6 +964,31 @@
 <li>资源访问（Resources）：Host主动从MCP Server读取的数据，然后发给模型，如预先读取用户的个人资料</li>
 <li>提示词模板（Prompt）</li>
 </ul>
+<p><strong>MCP调用协议</strong></p>
+<blockquote>
+<p>MCP调用协议选择的是<strong>JSON-RPC 2.0</strong>，为了在<strong>协议层</strong>统一“请求—响应—通知”的表达方式。</p>
+<p><strong>JSON-RPC 2.0</strong> 是一种<strong>轻量级远程过程调用（Remote Procedure Call，RPC）协议</strong>。它规定了<strong>请求和响应的数据格式</strong>，使用 <strong>JSON</strong> 来表示消息，但<strong>不限定底层传输协议</strong>。</p>
+</blockquote>
+<p>基本请求结构（Request）</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;jsonrpc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2.0&quot;</span><span class="hljs-punctuation">,</span>	<span class="hljs-comment">// 协议版本，固定为 &quot;2.0&quot;</span><br>    <span class="hljs-attr">&quot;method&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;subtract&quot;</span><span class="hljs-punctuation">,</span>	<span class="hljs-comment">// 要调用的方法名</span><br>    <span class="hljs-attr">&quot;params&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">42</span><span class="hljs-punctuation">,</span> <span class="hljs-number">23</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>		<span class="hljs-comment">// 方法参数，可以是Object 或 Array</span><br>    <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span>				<span class="hljs-comment">// 请求编号，当批量发送请求时用于匹配响应</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>基本响应结构（Response）</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// 调用成功</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;jsonrpc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2.0&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;result&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Alice&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;age&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><br><span class="hljs-punctuation">&#125;</span><br><br><span class="hljs-comment">// 调用失败</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;jsonrpc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2.0&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;error&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;code&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">-32601</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Method not found&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>通知（Notification）</p>
+<blockquote>
+<p>不需要响应的请求，和Request的区别是没有id</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;jsonrpc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2.0&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;method&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;saveLog&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;params&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hello&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
 <p><strong>MCP传输机制</strong></p>
 <table>
 <thead>
@@ -1010,7 +1035,123 @@
 </tr>
 </tbody></table>
 <p><strong>GitHub上社区开发的MCP</strong>：<a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/servers">https://github.com/modelcontextprotocol/servers</a></p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="中间件部署"><a href="#中间件部署" class="headerlink" title="中间件部署"></a>中间件部署</h2><h3 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h3><blockquote>
+<h3 id="工具设计原则"><a href="#工具设计原则" class="headerlink" title="工具设计原则"></a>工具设计原则</h3><p>工具定义设计原则：</p>
+<ul>
+<li><strong>单一职责原则</strong>：一个工具只做一件事，不要把多个功能塞进一个工具</li>
+<li><strong>参数最小化原则</strong>：只暴露必要的参数，不要把所有可能的参数都加上</li>
+<li><strong>幂等性原则</strong>：操作类工具要设计成幂等</li>
+<li><strong>返回值结构化原则</strong>：返回结构化的 JSON，包含足够但不冗余的信息，错误响应要包含错误码和错误信息</li>
+</ul>
+<p>工具描述编写技巧：</p>
+<ul>
+<li>工具的作用</li>
+<li>返回什么</li>
+<li>适用场景</li>
+<li>参数说明，包含参数示例</li>
+</ul>
+<h3 id="工具稳定性和安全性"><a href="#工具稳定性和安全性" class="headerlink" title="工具稳定性和安全性"></a>工具稳定性和安全性</h3><p><strong>稳定性</strong>：</p>
+<ul>
+<li>设置超时时间：避免无限等待</li>
+<li>设置重试策略：对网络错误进行重试，重试间隔为指数退避（间隔时间为上次的两倍）</li>
+<li>降级策略：返回兜底信息</li>
+<li>熔断机制：工具持续调用失败，暂时停止调用该工具，避免雪崩</li>
+</ul>
+<p><strong>安全性</strong>：</p>
+<ul>
+<li>权限控制</li>
+<li>参数校验：防止SQL注入、路径穿越等</li>
+<li>信息脱敏</li>
+<li>记录日志</li>
+</ul>
+<h2 id="会话记忆"><a href="#会话记忆" class="headerlink" title="会话记忆"></a>会话记忆</h2><h3 id="记忆保存策略"><a href="#记忆保存策略" class="headerlink" title="记忆保存策略"></a>记忆保存策略</h3><ul>
+<li><p><strong>完整历史</strong>：每次请求都带上所有历史消息</p>
+</li>
+<li><p><strong>滑动窗口</strong>：保留最近N轮对话</p>
+</li>
+<li><p><strong>Token截断</strong>：设置Token上限，超出上限的消息直接丢弃</p>
+<blockquote>
+<p>截断时要保证成对丢弃——一轮对话的 user 和 assistant 消息要么都保留，要么都丢弃</p>
+</blockquote>
+</li>
+<li><p><strong>摘要压缩</strong>：用大模型把早期对话压缩成一段简短的摘要</p>
+<table>
+<thead>
+<tr>
+<th align="left">触发策略</th>
+<th align="left">做法</th>
+<th align="left">优缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">按轮数触发</td>
+<td align="left">每隔 N 轮（如每 5 轮）压缩一次</td>
+<td align="left">简单直接，但不够灵活，短消息也触发浪费</td>
+</tr>
+<tr>
+<td align="left">按 Token 阈值触发</td>
+<td align="left">对话历史超过 M Token（如 3,000 Token）时压缩</td>
+<td align="left">更精确，推荐使用</td>
+</tr>
+<tr>
+<td align="left">按话题切换触发</td>
+<td align="left">检测到用户换了话题时压缩上一段对话</td>
+<td align="left">效果最好，但话题切换检测本身有难度</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>混合策略</strong>：早期对话压缩成摘要+最近N轮保留完整对话</p>
+</li>
+</ul>
+<h3 id="记忆存储方法"><a href="#记忆存储方法" class="headerlink" title="记忆存储方法"></a>记忆存储方法</h3><blockquote>
+<p><strong>Redis做主存储+MySQL做归档</strong> 。对话进行时，消息存 Redis（快速读写）；对话结束后，异步写入 MySQL（持久化、审计）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">维度</th>
+<th align="left">内存</th>
+<th align="left">Redis</th>
+<th align="left">数据库（MySQL）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">读写性能</td>
+<td align="left">极快（纳秒）</td>
+<td align="left">快（毫秒）</td>
+<td align="left">较慢（毫秒~十毫秒）</td>
+</tr>
+<tr>
+<td align="left">持久化</td>
+<td align="left">不支持</td>
+<td align="left">可选（AOF&#x2F;RDB）</td>
+<td align="left">天然支持</td>
+</tr>
+<tr>
+<td align="left">分布式</td>
+<td align="left">不支持</td>
+<td align="left">天然支持</td>
+<td align="left">支持</td>
+</tr>
+<tr>
+<td align="left">过期清理</td>
+<td align="left">需自己实现</td>
+<td align="left">原生支持（TTL）</td>
+<td align="left">需定时任务</td>
+</tr>
+<tr>
+<td align="left">实现复杂度</td>
+<td align="left">极低</td>
+<td align="left">低</td>
+<td align="left">中</td>
+</tr>
+<tr>
+<td align="left">适用场景</td>
+<td align="left">开发调试</td>
+<td align="left">生产环境</td>
+<td align="left">审计 &#x2F; 分析场景</td>
+</tr>
+</tbody></table>
+<h2 id="查询重写与语义增强"><a href="#查询重写与语义增强" class="headerlink" title="查询重写与语义增强"></a>查询重写与语义增强</h2><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="中间件部署"><a href="#中间件部署" class="headerlink" title="中间件部署"></a>中间件部署</h2><h3 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h3><blockquote>
 <p>Postgres 是一个免费且开源的<strong>关系型数据库</strong>管理系统（RDBMS），强调可扩展性和 SQL 兼容性。PostgreSQL 具有原子性、一致性、隔离性和持久性（ACID）属性、可自动更新的视图、物化视图、触发器、外键和存储过程。它在所有主流操作系统上得到支持，包括 Windows、Linux、macOS、FreeBSD 和 OpenBSD，并能够处理从单机到数据仓库、数据湖或具有大量并发用户的外部服务等各种工作负载。</p>
 </blockquote>
 <p><strong>Docker部署</strong>：</p>

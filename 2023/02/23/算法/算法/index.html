@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/suanfa_img/%E7%8A%B6%E6%80%81%E6%9C%BA.png">
 <meta property="article:published_time" content="2023-02-23T03:54:32.439Z">
-<meta property="article:modified_time" content="2026-07-04T02:13:30.893Z">
+<meta property="article:modified_time" content="2026-07-09T03:07:44.968Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.4k 字
+          5.5k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          45 分钟
+          46 分钟
         
       </span>
     
@@ -548,13 +548,23 @@
 <p>​	<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/prime-subtraction-operation/">6355. 质数减法运算 - 力扣（LeetCode）</a></p>
 <h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h2><blockquote>
 <p>本质<strong>暴力搜索</strong>。将递归过程<strong>看成一棵树</strong>，当前层为现在选择的元素，纵向为选择了现在的元素之后的发展；</p>
-<p>优化：对于不符合条件的分支进行剪枝，来减少时间复杂度</p>
+<p>优化：<strong>对于不符合条件 &#x2F; 重复的分支 进行剪枝</strong>，往往会大幅减少时间复杂度</p>
 </blockquote>
 <p><strong>回溯模板</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>    dfs();<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">if</span> (终止条件) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <br>    <span class="hljs-keyword">for</span> () &#123;<br>        遍历;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 
+<h3 id="集合划分"><a href="#集合划分" class="headerlink" title="集合划分"></a>集合划分</h3><blockquote>
+<p>将集合划分成相等 &#x2F; 尽可能平均的k份</p>
+</blockquote>
+<p>这类题目的关键在<strong>如何剪枝</strong></p>
+<p>题目：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/fair-distribution-of-cookies/">2305. 公平分发饼干</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/partition-to-k-equal-sum-subsets/">698. 划分为k个相等的子集</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/matchsticks-to-square/">473. 火柴拼正方形</a></li>
+</ul>
 <h2 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h2><blockquote>
 <p>本质是选择每一阶段的<strong>局部最优</strong>，从而达到<strong>全局最优</strong>。</p>
 </blockquote>
@@ -570,18 +580,23 @@
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/queue-reconstruction-by-height/">406. 根据身高重建队列</a></li>
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/candy/">135. 分发糖果</a></li>
 </ul>
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><h3 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h3><p><strong>01背包</strong></p>
-<ul>
-<li><p><strong>特征</strong>：每个物品只能拿一次，求能拿的最大价值</p>
-</li>
-<li><p><strong>做法</strong>：因为不能重复选同一个物品，所以要<strong>从大到小遍历容器</strong>， 避免同一个物品被多次计算</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p><strong>步骤</strong>：</p>
 <ol>
+<li><strong>确定dp数组以及下标的含义</strong></li>
+<li><strong>确定递推公式</strong></li>
+<li>dp数组如何初始化</li>
+<li>确定遍历顺序</li>
+<li>举例推导dp数组</li>
+</ol>
+<h3 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h3><p><strong>01背包</strong></p>
+<ul>
+<li><strong>特征</strong>：每个物品只能拿一次，求能拿的最大价值</li>
+<li><strong>做法</strong>：因为不能重复选同一个物品，所以要<strong>从大到小遍历容器</strong>， 避免同一个物品被多次计算<ol>
 <li>定义dp[j] &#x3D; 背包容量为 j 时的最大价值</li>
 <li>遍历物品+容器</li>
 </ol>
 </li>
-<li><p><strong>题：</strong></p>
-<ol>
+<li><strong>题：</strong><ol>
 <li>01背包+记忆化搜索：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/target-sum/">494. 目标和</a></li>
 <li>二维01背包：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/ones-and-zeroes/">474. 一和零</a></li>
 <li>难点在于发现是01背包问题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/last-stone-weight-ii/">1049. 最后一块石头的重量 II</a></li>
