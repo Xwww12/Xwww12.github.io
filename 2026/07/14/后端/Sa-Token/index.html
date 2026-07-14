@@ -1,0 +1,713 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/icon_img/juzi.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xw">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="介绍 Sa-Token 是一个轻量级 Java 权限认证框架，主要解决：登录认证、权限认证、单点登录、OAuth2.0、分布式Session会话、微服务网关鉴权 等一系列权限相关问题。 Sa-Token 旨在以简单、优雅的方式完成系统的权限认证部分  官网：https:&#x2F;&#x2F;sa-token.cc 集成 导入依赖  123456&lt;!-- Sa-Token 权限认证，在线文档：https:&#x2F;&#x2F;s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sa-Token">
+<meta property="og:url" content="http://xwww12.github.io/2026/07/14/%E5%90%8E%E7%AB%AF/Sa-Token/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="介绍 Sa-Token 是一个轻量级 Java 权限认证框架，主要解决：登录认证、权限认证、单点登录、OAuth2.0、分布式Session会话、微服务网关鉴权 等一系列权限相关问题。 Sa-Token 旨在以简单、优雅的方式完成系统的权限认证部分  官网：https:&#x2F;&#x2F;sa-token.cc 集成 导入依赖  123456&lt;!-- Sa-Token 权限认证，在线文档：https:&#x2F;&#x2F;s">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-14T01:44:29.518Z">
+<meta property="article:modified_time" content="2026-07-14T06:14:30.232Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Sa-Token - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xwww12.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>夕立ち的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img/Reimu1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Sa-Token</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        xw
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-07-14 09:44" pubdate>
+          2026年7月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Sa-Token</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><blockquote>
+<p><strong>Sa-Token</strong> 是一个轻量级 Java 权限认证框架，主要解决：<strong>登录认证</strong>、<strong>权限认证</strong>、<strong>单点登录</strong>、<strong>OAuth2.0</strong>、<strong>分布式Session会话</strong>、<strong>微服务网关鉴权</strong> 等一系列权限相关问题。</p>
+<p>Sa-Token 旨在以<strong>简单、优雅</strong>的方式完成系统的权限认证部分</p>
+</blockquote>
+<p>官网：<a target="_blank" rel="noopener" href="https://sa-token.cc/">https://sa-token.cc</a></p>
+<h1 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h1><ol>
+<li><p>导入依赖</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- Sa-Token 权限认证，在线文档：https://sa-token.cc --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>cn.dev33<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>sa-token-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.45.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>如果使用的 <code>SpringBoot 3.x</code>，请引入 <code>sa-token-spring-boot3-starter</code></li>
+<li>如果使用的 <code>SpringBoot 4.x</code>，请引入 <code>sa-token-spring-boot4-starter</code></li>
+</ul>
+</li>
+<li><p>添加配置</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">server:</span><br>  <span class="hljs-comment"># 端口</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">8081</span><br><br><span class="hljs-comment"># Sa-Token 配置</span><br><span class="hljs-attr">sa-token:</span><br>  <span class="hljs-comment"># token 名称（同时也是 cookie 名称）</span><br>  <span class="hljs-attr">token-name:</span> <span class="hljs-string">satoken</span><br>  <span class="hljs-comment"># token 有效期（单位：秒） 默认30天，-1 代表永久有效</span><br>  <span class="hljs-attr">timeout:</span> <span class="hljs-number">2592000</span><br>  <span class="hljs-comment"># token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结</span><br>  <span class="hljs-attr">active-timeout:</span> <span class="hljs-number">-1</span><br>  <span class="hljs-comment"># 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）</span><br>  <span class="hljs-attr">is-concurrent:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-comment"># 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）</span><br>  <span class="hljs-attr">is-share:</span> <span class="hljs-literal">false</span><br>  <span class="hljs-comment"># token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）</span><br>  <span class="hljs-attr">token-style:</span> <span class="hljs-string">uuid</span><br>  <span class="hljs-comment"># 是否输出操作日志</span><br>  <span class="hljs-attr">is-log:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建<code>Controller</code>进行测试</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/user/&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br><br>    <span class="hljs-comment">// 测试登录，浏览器访问： http://localhost:8081/user/doLogin?username=zhang&amp;password=123456</span><br>    <span class="hljs-meta">@RequestMapping(&quot;doLogin&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">doLogin</span><span class="hljs-params">(String username, String password)</span> &#123;<br>        <span class="hljs-comment">// 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对 </span><br>        <span class="hljs-keyword">if</span>(<span class="hljs-string">&quot;zhang&quot;</span>.equals(username) &amp;&amp; <span class="hljs-string">&quot;123456&quot;</span>.equals(password)) &#123;<br>            StpUtil.login(<span class="hljs-number">10001</span>);<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;登录成功&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;登录失败&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin</span><br>    <span class="hljs-meta">@RequestMapping(&quot;isLogin&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">isLogin</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;当前会话是否登录：&quot;</span> + StpUtil.isLogin();<br>    &#125;   <br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 会话登录：参数填写要登录的账号id，建议的数据类型：long | int | String， 不可以传入复杂类型，如：User、Admin 等等</span><br>StpUtil.login(Object userId);  <br></code></pre></td></tr></table></figure>
+
+<p>创建了一个 token 凭证，且通过 Cookie 上下文返回给了前端；</p>
+<p><code>StpUtil</code>已将token保存到cookie中，省略了手写返回 token 的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 判断当前会话是否已经登录，返回 true=已登录，false=未登录</span><br>StpUtil.isLogin();<br><br><span class="hljs-comment">// 检验当前会话是否已经登录, 如果已登录代码会安全通过，未登录则抛出异常：`NotLoginException`</span><br>StpUtil.checkLogin();<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 当前会话注销登录</span><br>StpUtil.logout();<br><br><span class="hljs-comment">// 踢人下线</span><br>StpUtil.kickout(); <br></code></pre></td></tr></table></figure>
+
+<p>注销：会将Token删除</p>
+<p>踢人下线：Token不被删除，会被标记，下次使用会提示</p>
+<h2 id="鉴权"><a href="#鉴权" class="headerlink" title="鉴权"></a>鉴权</h2><h3 id="代码鉴权"><a href="#代码鉴权" class="headerlink" title="代码鉴权"></a>代码鉴权</h3><ol>
+<li><p>先实现<code>StpInterface</code>接口来<strong>返回账号拥有的权限和角色</strong></p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StpInterfaceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StpInterface</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 返回一个账号所拥有的权限码集合 </span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">getPermissionList</span><span class="hljs-params">(Object loginId, String loginType)</span> &#123;<br>        <span class="hljs-comment">// 本 list 仅做模拟，实际项目中要根据具体业务逻辑来查询权限</span><br>        List&lt;String&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><br>        list.add(<span class="hljs-string">&quot;101&quot;</span>);<br>        list.add(<span class="hljs-string">&quot;user.add&quot;</span>);<br>        list.add(<span class="hljs-string">&quot;user.update&quot;</span>);<br>        list.add(<span class="hljs-string">&quot;user.get&quot;</span>);<br>        <span class="hljs-comment">// list.add(&quot;user.delete&quot;);</span><br>        list.add(<span class="hljs-string">&quot;art.*&quot;</span>);<br><br>        <span class="hljs-keyword">return</span> list;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 返回一个账号所拥有的角色标识集合 (权限与角色可分开校验)</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">getRoleList</span><span class="hljs-params">(Object loginId, String loginType)</span> &#123;<br>        <span class="hljs-comment">// 本 list 仅做模拟，实际项目中要根据具体业务逻辑来查询角色</span><br>        List&lt;String&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><br>        list.add(<span class="hljs-string">&quot;admin&quot;</span>);<br>        list.add(<span class="hljs-string">&quot;super-admin&quot;</span>);<br><br>        <span class="hljs-keyword">return</span> list;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用，校验角色和权限</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 获取：当前账号所拥有的权限集合</span><br>StpUtil.getPermissionList();<br><br><span class="hljs-comment">// 判断：当前账号是否含有指定权限, 返回 true 或 false</span><br>StpUtil.hasPermission(<span class="hljs-string">&quot;user.add&quot;</span>);        <br><br><span class="hljs-comment">// 校验：当前账号是否含有指定权限, 如果验证未通过，则抛出异常: NotPermissionException </span><br>StpUtil.checkPermission(<span class="hljs-string">&quot;user.add&quot;</span>);        <br><br><span class="hljs-comment">// 校验：当前账号是否含有指定权限 [指定多个，必须全部验证通过]</span><br>StpUtil.checkPermissionAnd(<span class="hljs-string">&quot;user.add&quot;</span>, <span class="hljs-string">&quot;user.delete&quot;</span>, <span class="hljs-string">&quot;user.get&quot;</span>);        <br><br><span class="hljs-comment">// 校验：当前账号是否含有指定权限 [指定多个，只要其一验证通过即可]</span><br>StpUtil.checkPermissionOr(<span class="hljs-string">&quot;user.add&quot;</span>, <span class="hljs-string">&quot;user.delete&quot;</span>, <span class="hljs-string">&quot;user.get&quot;</span>);    <br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="注解鉴权"><a href="#注解鉴权" class="headerlink" title="注解鉴权"></a>注解鉴权</h3><ol>
+<li><p>注册拦截器，开启注解鉴权功能</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SaTokenConfigure</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">WebMvcConfigurer</span> &#123;<br><br>    <span class="hljs-comment">// 注册 Sa-Token 拦截器，打开注解式鉴权功能 </span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addInterceptors</span><span class="hljs-params">(InterceptorRegistry registry)</span> &#123;<br>        <span class="hljs-comment">// 注册 Sa-Token 拦截器，打开注解式鉴权功能 </span><br>        registry.addInterceptor(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SaInterceptor</span>()).addPathPatterns(<span class="hljs-string">&quot;/**&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用（只能在Controller层使用）</p>
+<ul>
+<li><code>@SaCheckLogin</code>: 登录校验 —— 只有登录之后才能进入该方法。</li>
+<li><code>@SaCheckRole(&quot;admin&quot;)</code>: 角色校验 —— 必须具有指定角色标识才能进入该方法。</li>
+<li><code>@SaCheckPermission(&quot;user:add&quot;)</code>: 权限校验 —— 必须具有指定权限才能进入该方法。</li>
+<li><code>@SaCheckSafe</code>: 二级认证校验 —— 必须二级认证之后才能进入该方法。</li>
+<li><code>@SaCheckHttpBasic</code>: HttpBasic校验 —— 只有通过 HttpBasic 认证后才能进入该方法。</li>
+<li><code>@SaCheckHttpDigest</code>: HttpDigest校验 —— 只有通过 HttpDigest 认证后才能进入该方法。</li>
+<li><code>@SaCheckDisable(&quot;comment&quot;)</code>：账号服务封禁校验 —— 校验当前账号指定服务是否被封禁。</li>
+<li><code>@SaCheckSign</code>：API 签名校验 —— 用于跨系统的 API 签名参数校验。</li>
+<li><code>@SaIgnore</code>：忽略校验 —— 表示被修饰的方法或类无需进行<strong>注解鉴权和路由拦截器鉴权</strong>。</li>
+</ul>
+<blockquote>
+<p> 如果需要再Controller以外的层使用，需要引入依赖<code>sa-token-spring-aop</code>，不可同时用拦截器和AOP，否则会触发两次</p>
+</blockquote>
+</li>
+</ol>
+<p>​    </p>
+<h3 id="拦截器鉴权"><a href="#拦截器鉴权" class="headerlink" title="拦截器鉴权"></a>拦截器鉴权</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SaTokenConfigure</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">WebMvcConfigurer</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addInterceptors</span><span class="hljs-params">(InterceptorRegistry registry)</span> &#123;<br>        <span class="hljs-comment">// 注册 Sa-Token 拦截器，定义详细认证规则 </span><br>        registry.addInterceptor(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SaInterceptor</span>(handler -&gt; &#123;<br>            <span class="hljs-comment">// 指定一条 match 规则</span><br>            SaRouter<br>                .match(<span class="hljs-string">&quot;/**&quot;</span>)    <span class="hljs-comment">// 拦截的 path 列表，可以写多个 */</span><br>                .notMatch(<span class="hljs-string">&quot;/user/doLogin&quot;</span>)        <span class="hljs-comment">// 排除掉的 path 列表，可以写多个 </span><br>                .check(r -&gt; StpUtil.checkLogin());        <span class="hljs-comment">// 要执行的校验动作，可以写完整的 lambda 表达式</span><br>                <br>            <span class="hljs-comment">// 根据路由划分模块，不同模块不同鉴权 </span><br>            SaRouter.match(<span class="hljs-string">&quot;/user/**&quot;</span>, r -&gt; StpUtil.checkPermission(<span class="hljs-string">&quot;user&quot;</span>));<br>            SaRouter.match(<span class="hljs-string">&quot;/admin/**&quot;</span>, r -&gt; StpUtil.checkPermission(<span class="hljs-string">&quot;admin&quot;</span>));<br>            SaRouter.match(<span class="hljs-string">&quot;/goods/**&quot;</span>, r -&gt; StpUtil.checkPermission(<span class="hljs-string">&quot;goods&quot;</span>));<br>            SaRouter.match(<span class="hljs-string">&quot;/orders/**&quot;</span>, r -&gt; StpUtil.checkPermission(<span class="hljs-string">&quot;orders&quot;</span>));<br>            SaRouter.match(<span class="hljs-string">&quot;/notice/**&quot;</span>, r -&gt; StpUtil.checkPermission(<span class="hljs-string">&quot;notice&quot;</span>));<br>            SaRouter.match(<span class="hljs-string">&quot;/comment/**&quot;</span>, r -&gt; StpUtil.checkPermission(<span class="hljs-string">&quot;comment&quot;</span>));<br>        &#125;)).addPathPatterns(<span class="hljs-string">&quot;/**&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h3><blockquote>
+<p>通过 Session 我们可以很方便的缓存一些高频读写数据</p>
+</blockquote>
+<ul>
+<li><code>Account-Session</code>: 指的是框架为每个 账号id 分配的 Session</li>
+<li><code>Token-Session</code>: 指的是框架为每个 token 分配的 Session</li>
+<li><code>Custom-Session</code>: 指的是以一个 特定的值 作为SessionId，来分配的 Session</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 在登录时缓存 user 对象 </span><br>StpUtil.getSession().set(<span class="hljs-string">&quot;user&quot;</span>, user);<br><br><span class="hljs-comment">// 然后我们就可以在任意处使用这个 user 对象</span><br><span class="hljs-type">SysUser</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> (SysUser) StpUtil.getSession().get(<span class="hljs-string">&quot;user&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Sa-Token</div>
+      <div>http://xwww12.github.io/2026/07/14/后端/Sa-Token/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>xw</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年7月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/07/05/%E6%95%B0%E6%8D%AE%E5%BA%93/PostgreSQL/" title="PostgreSQL">
+                        <span class="hidden-mobile">PostgreSQL</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 10px"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/snow2.js"></script>
+<script src="/js/pageTitle.js"></script>
+<script src="/js/sakura.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

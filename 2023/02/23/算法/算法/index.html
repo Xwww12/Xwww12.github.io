@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xwww12.github.io/img/suanfa_img/%E7%8A%B6%E6%80%81%E6%9C%BA.png">
 <meta property="article:published_time" content="2023-02-23T03:54:32.439Z">
-<meta property="article:modified_time" content="2026-07-13T02:33:44.655Z">
+<meta property="article:modified_time" content="2026-07-14T01:02:24.339Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.5k 字
+          5.6k 字
         
       </span>
     
@@ -569,12 +569,12 @@
 <p>本质是选择每一阶段的<strong>局部最优</strong>，从而达到<strong>全局最优</strong>。</p>
 </blockquote>
 <p><strong>贪心算法一般分为如下四步</strong>：</p>
-<ul>
+<ol>
 <li>将问题分解为若干个子问题</li>
 <li>找出适合的贪心策略</li>
 <li>求解每一个子问题的最优解</li>
 <li>将局部最优解堆叠成全局最优解</li>
-</ul>
+</ol>
 <p><strong>碰到需要满足多个条件时，往往需要分开单独考虑，而不是一起考虑，会顾此失彼</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/queue-reconstruction-by-height/">406. 根据身高重建队列</a></li>
@@ -595,51 +595,59 @@
 <blockquote>
 <p>每个物品只能拿一次，求能拿的最大价值</p>
 </blockquote>
-<ul>
-<li><strong>做法</strong>：因为不能重复选同一个物品，所以要<strong>从大到小遍历容器</strong>， 避免同一个物品被多次计算<ol>
+<p><strong>做法</strong>：因为不能重复选同一个物品，所以要<strong>从大到小遍历容器</strong>， 避免同一个物品被多次计算</p>
+<ol>
 <li>定义dp[j] &#x3D; 背包容量为 j 时的最大价值</li>
 <li>遍历物品 + 容器</li>
 </ol>
-</li>
-<li><strong>题：</strong><ol>
+<p><strong>题：</strong></p>
+<ol>
 <li>01背包+记忆化搜索：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/target-sum/">494. 目标和</a></li>
 <li>二维01背包：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/ones-and-zeroes/">474. 一和零</a></li>
 <li>难点在于发现是01背包问题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/last-stone-weight-ii/">1049. 最后一块石头的重量 II</a></li>
 </ol>
-</li>
-</ul>
 <p><strong>完全背包</strong></p>
 <blockquote>
 <p>每个物品的<strong>数量是无限的</strong></p>
 </blockquote>
-<ul>
-<li><strong>做法</strong>：<strong>从小到大遍历容器</strong>，让物品可以被重复选择<ol>
+<p><strong>做法</strong>：<strong>从小到大遍历容器</strong>，让物品可以被重复选择</p>
+<ol>
 <li>定义dp[j] &#x3D; 背包容量为 j 时的最大价值</li>
 <li><strong>如果求组合数就是外层for循环遍历物品，内层for遍历背包</strong>。</li>
 <li><strong>如果求排列数就是外层for遍历背包，内层for循环遍历物品</strong>。</li>
 </ol>
-</li>
-<li><strong>题：</strong><ol>
+<p><strong>题：</strong></p>
+<ol>
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/coin-change/">322. 零钱兑换</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.smqyoj.com/p/CSP202503B">CSP202503B. 机器人饲养指南</a></li>
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/perfect-squares/">279. 完全平方数</a></li>
 <li>稍有不同的完全背包：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/word-break/">139. 单词拆分</a></li>
 </ol>
-</li>
-</ul>
 <p><strong>多重背包</strong></p>
 <blockquote>
 <p>每个物品的数量有限个</p>
 </blockquote>
-<ul>
-<li><strong>做法：</strong>当做01背包做，要<strong>从大到小遍历容器</strong><ol>
+<p><strong>做法：</strong>当做01背包做，要<strong>从大到小遍历容器</strong></p>
+<ol>
 <li>定义dp[j] &#x3D; 背包容量为 j 时的最大价值</li>
 <li>遍历物品+容器+选的物品个数</li>
 </ol>
-</li>
+<h3 id="树形DP"><a href="#树形DP" class="headerlink" title="树形DP"></a>树形DP</h3><blockquote>
+<p>在<strong>树结构上进行动态规划</strong>的算法，通过<strong>后序遍历（DFS）</strong>，利用子节点的状态来计算父节点的状态，从而求解整棵树上的最优解</p>
+</blockquote>
+<p><strong>做法</strong>：</p>
+<ol>
+<li><strong>定义状态</strong>：<code>dp[u]</code> 或 <code>dp[u][...]</code> 表示以节点 <code>u</code> 为根的子树所对应的问题答案。</li>
+<li><strong>确定状态转移</strong>：根据节点 <code>u</code> 的所有子节点 <code>v</code> 的 <code>dp[v]</code>，计算 <code>dp[u]</code>。</li>
+<li><strong>DFS 遍历</strong>：由于父节点依赖子节点，因此通常采用后序遍历进行计算。</li>
+<li><strong>得到答案</strong>：根节点的 DP 状态或所有节点状态的最优值即为最终答案。</li>
+</ol>
+<p><strong>题</strong>：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/house-robber-iii/">337. 打家劫舍 III</a></li>
 </ul>
 <h3 id="数位DP"><a href="#数位DP" class="headerlink" title="数位DP"></a>数位DP</h3><blockquote>
-<p>考虑人类计数的方式，最朴素的计数就是从小到大开始依次加一。但我们发现对于位数比较多的数，这样的过程中有许多重复的部分。例如，从 7000 数到 7999、从 8000 数到 8999、和从 9000 数到 9999 的过程非常相似，它们都是后三位从 000 变到 999，不一样的地方只有千位这一位，所以我们可以把这些过程归并起来，将这些过程中产生的计数答案也都存在一个通用的数组里。</p>
+<p><strong>用于统计某个数值区间内满足特定数位性质的数字个数</strong>的动态规划算法。它通过<strong>按位枚举数字</strong>，并记录构造过程中的状态，避免暴力枚举每个整数。</p>
 </blockquote>
 <p><strong>特征</strong>：</p>
 <ol>
