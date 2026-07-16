@@ -69,13 +69,14 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/redis%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/redis%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/MySQL%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84.png">
+<meta property="og:image" content="http://xwww12.github.io/img/else_img/undoLog.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/MyBatis%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/nginx%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%891.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/RabbitMQ%E7%94%9F%E4%BA%A7%E8%80%85%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/JMM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2026-07-14T08:08:37.806Z">
+<meta property="article:modified_time" content="2026-07-15T06:14:10.873Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -277,7 +278,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          20k 字
         
       </span>
     
@@ -288,7 +289,7 @@
         
         
         
-          161 分钟
+          171 分钟
         
       </span>
     
@@ -1705,11 +1706,15 @@
 <p>方案二：MySQL慢日志</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># my.cnf开启慢日志（在调试阶段才会开启，因为会损耗性能）<br>slow_query_log = 1<br># 设置执行时间(s)多久视为慢查询<br>long_query_time = 2<br><br># 在localhost-slow.log中记录了慢查询<br></code></pre></td></tr></table></figure>
 
-<h3 id="慢查询优化"><a href="#慢查询优化" class="headerlink" title="慢查询优化"></a>慢查询优化</h3><p>在查询语句前加<code>EXPLAIN</code>获取执行的信息</p>
-<p>possible_key：可能使用的索引</p>
-<p>key：实际使用的索引</p>
-<p>key_len：索引占用的大小（可以判断索引是否失效）</p>
-<p>Extra：额外的优化建议</p>
+<h3 id="慢查询优化"><a href="#慢查询优化" class="headerlink" title="慢查询优化"></a>慢查询优化</h3><h4 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h4><p>在查询语句前加<code>EXPLAIN</code>分析SQL的执行计划：</p>
+<ul>
+<li><p>possible_key：可能使用的索引</p>
+</li>
+<li><p>key：实际使用的索引</p>
+</li>
+<li><p>key_len：索引占用的大小（可以判断索引是否失效）</p>
+</li>
+<li><p>Extra：额外的优化建议</p>
 <table>
 <thead>
 <tr>
@@ -1726,7 +1731,8 @@
 <td>使用了索引，但需要回表</td>
 </tr>
 </tbody></table>
-<p>type：sql的查询的类型，当为index或all时速度慢</p>
+</li>
+<li><p>type：sql的查询的类型，当为index或all时速度慢</p>
 <table>
 <thead>
 <tr>
@@ -1763,6 +1769,21 @@
 <td>全表扫描</td>
 </tr>
 </tbody></table>
+</li>
+</ul>
+<h4 id="sql优化"><a href="#sql优化" class="headerlink" title="sql优化"></a>sql优化</h4><p><strong>表设计优化</strong>：</p>
+<ol>
+<li>选择合适的数值类型（tinyint、int、bigint）</li>
+<li>选择合适的字符串类型（char、varchar）</li>
+</ol>
+<p><strong>SQL语句优化</strong>：</p>
+<ol>
+<li>select语句避免使用select *（可能造成回表查询）</li>
+<li>避免索引失效</li>
+<li>尽量使用union all代替union（union会过滤重复数据，效率相对较低）</li>
+<li>尽量用inner join 代替left join&#x2F;right join，尽量小表驱动大表，减少数据库连接。inner join会优化把小表放到外边，大表放到里边</li>
+<li>主从复制，读写分离</li>
+</ol>
 <h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><blockquote>
 <p>高效获取数据的<strong>数据结构</strong>，提高数据库的检索效率，降低数据库的IO成本</p>
 </blockquote>
@@ -1914,68 +1935,103 @@
 <p><strong>一致性</strong>(Consistency)：所有的数据都保持一致的状态</p>
 <p><strong>隔离性</strong>(Isolation)：事务不受外部并发影响</p>
 <p><strong>持久性</strong>(Durability)：事务提交或回滚，对数据库的影响是永久的</p>
-<h4 id="并发事务问题"><a href="#并发事务问题" class="headerlink" title="并发事务问题"></a>并发事务问题</h4><p>脏读：一个事务读到另一个事务还没有提交的数据</p>
-<p>不可重复读：事务先后两次读取同一条记录，但读到的数据不同</p>
-<p>幻读：事务按照条件查询数据时没有对应数据，但插入时发现数据已经存在了</p>
-<h4 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h4><blockquote>
-<p>解决事务并发问题</p>
+<h4 id="并发事务问题"><a href="#并发事务问题" class="headerlink" title="并发事务问题"></a>并发事务问题</h4><p><strong>脏读</strong>：一个事务读取数据并且对数据进行了修改，这个修改对其他事务来说是可见的，即使当前事务没有提交。这时另外一个事务读取了这个还未提交的数据，但第一个事务突然回滚，导致数据并没有被提交到数据库，那第二个事务读取到的就是脏数据</p>
+<p><strong>丢失修改</strong>：两个事务同时修改一个数据，其中一个数据的修改被覆盖了</p>
+<p><strong>不可重复读</strong>：事务先后两次读取同一条记录，但读到的数据不同（被其它事务修改了）</p>
+<p><strong>幻读</strong>：事务用相同语句读取两次数据，得到的条数多了</p>
+<h4 id="并发事务的控制方式"><a href="#并发事务的控制方式" class="headerlink" title="并发事务的控制方式"></a>并发事务的控制方式</h4><p><strong>行锁</strong>：</p>
+<blockquote>
+<p>行锁是针对<strong>索引字段</strong>加的锁；</p>
+<p>如果<code>INSERT</code>和<code>DELETE</code>时，条件里没有使用到索引&#x2F;索引失效可能会导致大范围的上锁</p>
 </blockquote>
-<p>读未提交</p>
-<p>读已提交：解决脏读</p>
-<p>可重复读：InnoDB默认隔离级别，解决不可重复读</p>
-<p>串行化：性能低</p>
-<h3 id="sql优化"><a href="#sql优化" class="headerlink" title="sql优化"></a>sql优化</h3><p><strong>表设计优化</strong>：</p>
+<ul>
+<li><strong>记录锁</strong>：属于单个行记录上的锁</li>
+<li><strong>间隙锁</strong>：锁定一个范围，不包括记录本身</li>
+<li><strong>临键锁</strong>：锁定一个范围，包含记录本身，主要目的是为了解决幻读问题</li>
+</ul>
+<p><strong>表锁</strong>：</p>
+<ul>
+<li><p><strong>意向共享锁（Intention Shared Lock，IS 锁）</strong>：事务有意向对表中的某些记录加共享锁（S 锁），加共享锁前必须先取得该表的 IS 锁。</p>
+</li>
+<li><p><strong>意向排他锁（Intention Exclusive Lock，IX 锁）</strong>：事务有意向对表中的某些记录加排他锁（X 锁），加排他锁之前必须先取得该表的 IX 锁。</p>
+<blockquote>
+<p>意向锁的作用是在加表锁前快速判断是否有行锁；用户无法手动操作意向锁；意向锁之间是相互兼容的；</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h4><blockquote>
+<p>基于锁和MVCC实现</p>
+</blockquote>
+<ul>
+<li><strong>READ-UNCOMMITTED(读未提交)</strong> ：最低的隔离级别，允许读取尚未提交的数据变更，<strong>可能会导致脏读、幻读或不可重复读</strong>。这种级别在实际应用中很少使用，因为它对数据一致性的保证太弱。</li>
+<li><strong>READ-COMMITTED(读已提交)</strong> ：允许读取并发事务已经提交的数据，可以阻止脏读，<strong>但是幻读或不可重复读仍有可能发生</strong>。这是大多数数据库（如 Oracle, SQL Server）的默认隔离级别。</li>
+<li><strong>REPEATABLE-READ(可重复读)</strong> ：对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但<strong>幻读仍有可能发生</strong>。<strong>MySQL InnoDB 存储引擎的默认隔离级别</strong>正是 REPEATABLE READ。并且，InnoDB 在此级别下通过 MVCC（多版本并发控制） 和 Next-Key Locks（间隙锁+行锁） 机制，在很大程度上解决了幻读问题。</li>
+<li><strong>SERIALIZABLE(可串行化)</strong> ：最高的隔离级别，完全服从 ACID 的隔离级别。<strong>所有的事务依次逐个执行</strong>，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读。</li>
+</ul>
+<h5 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h5><blockquote>
+<p>Multiversion concurrency control，多版本并发控制，维护一个数据的多个版本，使得读写操作没有冲突</p>
+</blockquote>
 <ol>
-<li>选择合适的数值类型（tinyint、int、bigint）</li>
-<li>选择合适的字符串类型（char、varchar）</li>
+<li><p><strong>读操作</strong>（快照读）：</p>
+<ul>
+<li>事务会查找符合条件的数据行，并<strong>选择符合其事务开始时间的数据版本进行读取</strong></li>
+<li><strong>如果某个数据行有多个版本</strong>，事务会<strong>选择不晚于其开始时间的最新版本</strong>，确保事务只读取在它开始之前已经存在的数据</li>
+<li>事务<strong>读取的是快照数据</strong>，因此其他并发事务对数据行的<strong>修改不会影响当前事务的读取操作</strong></li>
+</ul>
+<blockquote>
+<p>锁定读（<strong>当前读</strong>）：对读取到的记录<strong>加锁</strong>，每次读取的都是最新数据，这时如果两次查询中间有其它事务插入数据，就会产生幻读</p>
+</blockquote>
+</li>
+<li><p><strong>写操作</strong>：</p>
+<ul>
+<li>事务会为要修改的数据行<strong>创建一个新的版本</strong>，并将修改后的数据写入新版本</li>
+<li>原始版本的数据仍然存在，供其他事务使用快照读取，这保证了<strong>其他事务不受当前事务的写操作影响</strong></li>
+</ul>
+</li>
+<li><p><strong>提交和回滚</strong>：</p>
+<ul>
+<li>当一个事务<strong>提交时</strong>，它所做的修改将<strong>成为数据库的最新版本</strong>，并且对其他事务可见</li>
+<li>当一个事务<strong>回滚时</strong>，它所做的修改<strong>将被撤销</strong>，对其他事务不可见</li>
+</ul>
+</li>
 </ol>
-<p><strong>SQL语句优化</strong>：</p>
-<ol>
-<li>select语句避免使用select *（可能造成回表查询）</li>
-<li>避免索引失效</li>
-<li>尽量使用union all代替union（union会过滤重复数据，效率相对较低）</li>
-<li>尽量用inner join 代替left join&#x2F;right join，尽量小表驱动大表，减少数据库连接。inner join会优化把小表放到外边，大表放到里边</li>
-<li>主从复制，读写分离</li>
-</ol>
+<p><strong>InnoDB对MVCC的实现</strong>：</p>
+<ul>
+<li><p><strong>每行数据的隐藏字段</strong>：</p>
+<ul>
+<li><p><code>DB_TRX_ID</code>：最后一次插入或更新该行的事务 id</p>
+</li>
+<li><p><code>DB_ROLL_PTR</code>：回滚指针，指向该行的 <code>undo log</code> 。如果该行未被更新，则为空</p>
+</li>
+<li><p><code>DB_ROW_ID</code>：如果没有设置主键且该表没有唯一非空索引时，<code>InnoDB</code> 会使用该 id 来生成聚簇索引</p>
+</li>
+</ul>
+</li>
+<li><p><strong>readView</strong>：</p>
+<blockquote>
+<p><strong>可重复读</strong>级别：在事务<strong>第一次进行快照读</strong>的时候创建；</p>
+<p><strong>读已提交</strong>级别：<strong>每次读都</strong>创建新的；</p>
+<p><strong>主要是用来做可见性判断</strong>，里面保存了 “当前对本事务不可见的其他活跃事务”</p>
+</blockquote>
+<p>  主要有以下字段：</p>
+<ul>
+<li><code>m_low_limit_id</code>：目前出现过的最大的事务 ID+1，即下一个将被分配的事务 ID。<strong>大于等于这个 ID 的数据版本均不可见</strong></li>
+<li><code>m_up_limit_id</code>：活跃事务列表 <code>m_ids</code> 中最小的事务 ID，如果 <code>m_ids</code> 为空，则 <code>m_up_limit_id</code> 为 <code>m_low_limit_id</code>。<strong>小于这个 ID 的数据版本均可见</strong></li>
+<li><code>m_ids</code>：<code>Read View</code> <strong>创建时其他未提交的活跃事务 ID 列表</strong>。创建 <code>Read View</code>时，将当前未提交事务 ID 记录下来，<strong>后续即使它们修改了记录行的值，对于当前事务也是不可见的</strong>。<code>m_ids</code> 不包括当前事务自己和已提交的事务（正在内存中）</li>
+<li><code>m_creator_trx_id</code>：创建该 <code>Read View</code> 的事务 ID</li>
+</ul>
+</li>
+<li><p><strong>undo log版本链</strong>：记录的多个版本串成链表，链表头为最新的记录</p>
+<blockquote>
+<p>用于<strong>回滚记录</strong>；</p>
+<p>另一个作用是 <code>MVCC</code> ，当读取记录时，若该记录被其他事务占用或当前版本对该事务不可见，则可以通过 <code>undo log</code> 读取之前的版本数据，以此<strong>实现非锁定读</strong></p>
+</blockquote>
+<p>  <img src="/img/else_img/undoLog.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
 <h3 id="日志文件"><a href="#日志文件" class="headerlink" title="日志文件"></a>日志文件</h3><p><strong>bin log</strong>：二进制日志文件，记录每一条DDL和DML，用于备份恢复和主从复制</p>
 <p><strong>redo log</strong>：重做日志，记录缓冲池里数据的变化。当刷新脏页到磁盘时发生了错误，就使用redo log进行数据恢复，保证持久性</p>
 <p><strong>undo log</strong>：回滚日志，记录被修改前的信息或反向操作。提供回滚和MVCC，保证一致性和持久性</p>
-<h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><blockquote>
-<p>多版本并发控制，维护一个数据的多个版本，使得读写操作没有冲突</p>
-</blockquote>
-<p><strong>隐藏字段</strong>：</p>
-<ul>
-<li>DB_TRX_ID：当前的事务ID</li>
-<li>DB_ROLL_PTR：指向这条记录的上一个版本</li>
-</ul>
-<p><strong>undo log版本链</strong>：记录的多个版本串成链表，链表头为最新的记录</p>
-<p><strong>readView</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>m_ids</td>
-<td>当前还没提交的事务ID的集合</td>
-</tr>
-<tr>
-<td>min_trx_id</td>
-<td>m_ids里面最小的事务ID</td>
-</tr>
-<tr>
-<td>max_trx_id</td>
-<td>m_ids里面最大的事务ID+1</td>
-</tr>
-<tr>
-<td>creator_trx_id</td>
-<td>ReadView创建时的事务ID</td>
-</tr>
-</tbody></table>
-<p>读已提交下每次读都会创建一个readView（当前读）</p>
-<p>可重复读下在事务的第一次读时创建readView，后续都用这个（快照读）</p>
 <h3 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h3><p>binLog日志记录主库的DML（数据操作语言）和DDL（数据定义语言）语句，从库去拉主库的binLog到自己的Relay Log中，再通过Relay Log同步数据</p>
 <h3 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h3><p>单表数据量达1000w或20G</p>
 <p>可以通过业务或字段或数据来分库分表</p>

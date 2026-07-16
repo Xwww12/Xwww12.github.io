@@ -24,7 +24,7 @@
 <meta property="og:description" content="基础基本概念 大模型的参数：   指神经网络中的权重（Weight）和偏置（Bias）的总数量。   参数数量和能力不是线性关系，存在边际效应。   参数不是越多越好，越多推理成本也越高。  Token：是模型内部的最小处理单元，模型通过分词器（Tokenizer）把文本切碎后的小片段。  上下文窗口：指模型单次能处理的最大 Token 总数  Temperature：控制输出的随机性与发散度">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-23T07:07:44.713Z">
-<meta property="article:modified_time" content="2026-07-13T08:36:37.956Z">
+<meta property="article:modified_time" content="2026-07-15T07:05:08.627Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.6k 字
+          10k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          80 分钟
+          85 分钟
         
       </span>
     
@@ -1194,6 +1194,120 @@
 <li>闲聊</li>
 <li>引导用户补充信息</li>
 </ul>
+<h2 id="Spring-Boot-SseEmitter"><a href="#Spring-Boot-SseEmitter" class="headerlink" title="Spring Boot SseEmitter"></a>Spring Boot SseEmitter</h2><blockquote>
+<p><code>SseEmitter</code> 是 Spring Boot 提供的一个用于实现 <strong>Server-Sent Events</strong> 的类，它允许<strong>服务器主动向客户端持续推送数据</strong>，而不需要客户端不断轮询请求</p>
+</blockquote>
+<h3 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h3><table>
+<thead>
+<tr>
+<th>API</th>
+<th>作用</th>
+<th>常用场景</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SseEmitter()</code></td>
+<td>创建一个默认超时的 SSE 连接</td>
+<td>简单场景</td>
+<td><code>new SseEmitter()</code></td>
+</tr>
+<tr>
+<td><code>SseEmitter(Long timeout)</code></td>
+<td>创建指定超时时间的 SSE 连接</td>
+<td>控制连接存活时间</td>
+<td><code>new SseEmitter(60000L)</code></td>
+</tr>
+<tr>
+<td><code>send(Object object)</code></td>
+<td>向客户端发送数据</td>
+<td>推送消息、流式输出</td>
+<td><code>emitter.send(&quot;hello&quot;)</code></td>
+</tr>
+<tr>
+<td><code>send(Object object, MediaType mediaType)</code></td>
+<td>指定数据类型发送</td>
+<td>发送 JSON、文本等</td>
+<td><code>emitter.send(data, MediaType.APPLICATION_JSON)</code></td>
+</tr>
+<tr>
+<td><code>send(SseEventBuilder builder)</code></td>
+<td>发送完整 SSE 事件</td>
+<td>自定义事件名称、ID、格式</td>
+<td><code>emitter.send(SseEmitter.event().name(&quot;msg&quot;).data(data))</code></td>
+</tr>
+<tr>
+<td><code>complete()</code></td>
+<td>正常结束 SSE 连接</td>
+<td>任务完成、主动关闭</td>
+<td><code>emitter.complete()</code></td>
+</tr>
+<tr>
+<td><code>completeWithError(Throwable ex)</code></td>
+<td>异常结束连接</td>
+<td>发生错误时通知客户端</td>
+<td><code>emitter.completeWithError(e)</code></td>
+</tr>
+<tr>
+<td><code>onCompletion(Runnable callback)</code></td>
+<td>注册连接完成回调</td>
+<td>清理资源</td>
+<td><code>emitter.onCompletion(() -&gt; remove())</code></td>
+</tr>
+<tr>
+<td><code>onTimeout(Runnable callback)</code></td>
+<td>注册超时回调</td>
+<td>处理连接超时</td>
+<td><code>emitter.onTimeout(() -&gt; close())</code></td>
+</tr>
+<tr>
+<td><code>onError(Consumer&lt;Throwable&gt; callback)</code></td>
+<td>注册异常回调</td>
+<td>网络异常、发送失败处理</td>
+<td><code>emitter.onError(e -&gt; log.error(e))</code></td>
+</tr>
+</tbody></table>
+<p>构造完整的SSE消息</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name(String name)</code></td>
+<td>设置事件名称</td>
+<td><code>.name(&quot;message&quot;)</code></td>
+</tr>
+<tr>
+<td><code>id(String id)</code></td>
+<td>设置事件 ID</td>
+<td><code>.id(&quot;10001&quot;)</code></td>
+</tr>
+<tr>
+<td><code>data(Object data)</code></td>
+<td>设置事件数据</td>
+<td><code>.data(&quot;hello&quot;)</code></td>
+</tr>
+<tr>
+<td><code>comment(String comment)</code></td>
+<td>设置注释信息</td>
+<td><code>.comment(&quot;heartbeat&quot;)</code></td>
+</tr>
+<tr>
+<td><code>reconnectTime(Long time)</code></td>
+<td>设置客户端重连时间(ms)</td>
+<td><code>.reconnectTime(3000L)</code></td>
+</tr>
+</tbody></table>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(value = &quot;/hello&quot;)</span><br><span class="hljs-keyword">public</span> SseEmitter <span class="hljs-title function_">hello</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 创建 SseEmitter，超时 60 秒</span><br>    <span class="hljs-type">SseEmitter</span> <span class="hljs-variable">emitter</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SseEmitter</span>(<span class="hljs-number">60_000L</span>);<br><br>    <span class="hljs-comment">// 启动一个新线程做数据推送（不能在 Controller 线程里做）</span><br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(() -&gt; &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">5</span>; i++) &#123;<br>                <span class="hljs-comment">// 推送事件：event 名称为 &quot;message&quot;（默认），data 是字符串</span><br>                emitter.send(SseEmitter.event()<br>                             .name(<span class="hljs-string">&quot;token&quot;</span>)<br>                             .data(<span class="hljs-string">&quot;第 &quot;</span> + i + <span class="hljs-string">&quot; 条消息&quot;</span>));<br>                Thread.sleep(<span class="hljs-number">1000</span>);  <span class="hljs-comment">// 每秒推送一条</span><br>            &#125;<br>            <span class="hljs-comment">// 推送完毕，关闭连接</span><br>            emitter.send(SseEmitter.event()<br>                         .name(<span class="hljs-string">&quot;done&quot;</span>)<br>                         .data(<span class="hljs-string">&quot;&#123;\&quot;msg\&quot;:\&quot;推送完毕\&quot;&#125;&quot;</span>));<br>            emitter.complete();<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            emitter.completeWithError(e);<br>        &#125;<br>    &#125;).start();<br><br>    <span class="hljs-comment">// Controller 线程立即返回，不等推送完成</span><br>    <span class="hljs-keyword">return</span> emitter;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
 <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="中间件部署"><a href="#中间件部署" class="headerlink" title="中间件部署"></a>中间件部署</h2><h3 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h3><blockquote>
 <p>Postgres 是一个免费且开源的<strong>关系型数据库</strong>管理系统（RDBMS），强调可扩展性和 SQL 兼容性。PostgreSQL 具有原子性、一致性、隔离性和持久性（ACID）属性、可自动更新的视图、物化视图、触发器、外键和存储过程。它在所有主流操作系统上得到支持，包括 Windows、Linux、macOS、FreeBSD 和 OpenBSD，并能够处理从单机到数据仓库、数据湖或具有大量并发用户的外部服务等各种工作负载。</p>
 </blockquote>
