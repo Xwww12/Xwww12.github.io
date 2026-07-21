@@ -77,7 +77,7 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/RabbitMQ%E7%94%9F%E4%BA%A7%E8%80%85%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/JMM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2026-07-16T07:07:17.786Z">
+<meta property="article:modified_time" content="2026-07-20T07:08:22.617Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
@@ -279,7 +279,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          21k 字
+          22k 字
         
       </span>
     
@@ -290,7 +290,7 @@
         
         
         
-          177 分钟
+          183 分钟
         
       </span>
     
@@ -601,6 +601,34 @@
 <li><p>如果两个对象有相同的 hashcode 值，它们也不⼀定是相等的</p>
 </li>
 </ul>
+<h4 id="Java的IO模型"><a href="#Java的IO模型" class="headerlink" title="Java的IO模型"></a>Java的IO模型</h4><h5 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h5><blockquote>
+<p>Blocking IO，阻塞式IO</p>
+</blockquote>
+<p>应用发起系统调用后，程序会一直阻塞，直到内核把数据拷贝到用户空间</p>
+<h5 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h5><blockquote>
+<p>Non blocking IO，非阻塞IO</p>
+</blockquote>
+<p><strong>非阻塞式IO类型</strong>：</p>
+<ul>
+<li><strong>同步非阻塞</strong>：线程发起一个 read 调用，如果没有数据，会立即返回。这个时候应用程序可以不阻塞等待，而是切换去做一些小的计算任务，然后很快回来继续发起 read 调用<ul>
+<li>优点：比BIO高效</li>
+<li>缺点：轮询消耗CPU资源</li>
+</ul>
+</li>
+<li><strong>多路复用</strong>（Java使用这个）：所有请求都会注册到<code>Selector</code>选择器上，该线程不断轮询，只有真正有数据到达时，线程才会读取<ul>
+<li>优点：通过减少无效的系统调用，减少了对 CPU 资源的消耗</li>
+</ul>
+</li>
+</ul>
+<p><strong>NIO核心组件</strong>：</p>
+<ul>
+<li><strong>Buffer（缓冲区）</strong>：NIO 读写数据都是通过缓冲区进行操作的。读操作的时候将 Channel 中的数据填充到 Buffer 中，而写操作时将 Buffer 中的数据写入到 Channel 中。</li>
+<li><strong>Channel（通道）</strong>：Channel 是一个双向的、可读可写的数据传输通道，NIO 通过 Channel 来实现数据的输入输出。通道是一个抽象的概念，它可以代表文件、套接字或者其他数据源之间的连接。</li>
+<li><strong>Selector（选择器）</strong>：允许一个线程处理多个 Channel，基于事件驱动的 I&#x2F;O 多路复用模型。所有的 Channel 都可以注册到 Selector 上，由 Selector 来分配线程来处理事件。</li>
+</ul>
+<h5 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h5><blockquote>
+<p>异步 IO 是基于事件和回调机制实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作</p>
+</blockquote>
 <h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><h4 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h4><h5 id="5种实现方式"><a href="#5种实现方式" class="headerlink" title="5种实现方式"></a>5种实现方式</h5><h6 id="1-饿汉式"><a href="#1-饿汉式" class="headerlink" title="1.饿汉式"></a>1.饿汉式</h6><blockquote>
 <p>要点：构造方法私有、静态成员变量、静态方法</p>
 </blockquote>
@@ -1895,11 +1923,6 @@
 </blockquote>
 </li>
 </ul>
-<p>可通过覆盖索引来优化超大分页：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- MySQL需要对整个查询结果集进行排序，当数据规模过大时，排序时间会明显增加<br>select * from tb_sku limit 900000, 10;<br><br>-- 使用覆盖索引+子查询来优化<br>select *<br>from tb_sku t,<br>	(select id from tb_sku order by id limit 900000, 10) a<br>where t.id = a.id;<br></code></pre></td></tr></table></figure>
-
-
-
 <h4 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h4><blockquote>
 <p>使用表中的多个字段创建索引，就是 <strong>联合索引</strong>，也叫 <strong>组合索引</strong> 或 <strong>复合索引</strong></p>
 </blockquote>
@@ -2080,6 +2103,25 @@
 <li><strong>全局唯一约束问题</strong>：单库唯一索引只能保证单个分片内唯一。比如手机号、用户名、商家订单号如果没有作为分片键，数据库很难直接保证全局唯一。</li>
 <li><strong>跨库聚合和分页查询问题</strong>：分库分表会导致常规聚合查询操作，如 group by，order by 等变得异常复杂。</li>
 </ul>
+<h4 id="深度分页"><a href="#深度分页" class="headerlink" title="深度分页"></a>深度分页</h4><blockquote>
+<p>查询<strong>偏移量过大</strong>的场景称为深度分页；</p>
+<p>当查询偏移量过大时，MySQL 的查询<strong>优化器可能会选择全表扫描</strong>而不是利用索引来优化查询</p>
+</blockquote>
+<p><strong>慢的原因</strong>：对于<code>LIMIT offset N</code>，MySQL会查询offset + N条数记录，有必要的话会再回表查询，最后取最后N条数据。如果成本过大，还有可能全表扫描</p>
+<p><strong>优化方式</strong>：</p>
+<ol>
+<li><p><strong>子查询</strong>：查出第一个记录的id，使用这个id来过滤后再limit</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 先通过子查询在主键索引上进行偏移，快速找到起始ID<br>SELECT * FROM t_order<br>WHERE id &gt;= (<br>    SELECT id FROM t_order ORDER BY id LIMIT 1000000, 1<br>) ORDER BY id LIMIT 10;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>延迟关联</strong>：将limit操作转移到主键索引树上，减少回表次数</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- MySQL需要对整个查询结果集进行排序，当数据规模过大时，排序时间会明显增加<br>select * from tb_sku limit 900000, 10;<br><br>-- 使用覆盖索引+子查询来优化<br>select *<br>from tb_sku t,<br>	(select id from tb_sku order by id limit 900000, 10) a<br>where t.id = a.id;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>游标分页</strong>：通过上一页最后一个id，不支持跳页</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># 通过记录上次查询结果的最后一条记录的 ID 进行下一页的查询<br>SELECT * FROM t_order WHERE id &gt; 100000 ORDER BY id LIMIT 10<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>覆盖索引</strong>：不需要回表</p>
+</li>
+</ol>
 <h3 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h3><p>导出备份sql文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysqldump -u [username] -p [database_name] &gt; [backup_file].sql<br></code></pre></td></tr></table></figure>
 
