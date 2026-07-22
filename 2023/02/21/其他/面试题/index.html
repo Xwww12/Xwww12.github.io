@@ -16,14 +16,13 @@
   <meta name="author" content="xw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="面试题java基础二分问题1：128个元素最多二分几次找到目标 答：128 &#x3D; 2^7，最多7次 问题2：100000000000个元素最多二分几次找到目标 答： ​	公式：logb(a) &#x3D; logc(a) &#x2F; logc(b) ​	log2(100000000000) &#x3D; log10(100000000000) &#x2F; log10(2)，向上取整 排">
+    <meta name="description" content="面试题java基础集合 ArrayList 动态数组  实现接口 List : 表明它是一个列表，支持添加、删除、查找等操作，并且可以通过下标进行访问。 RandomAccess：这是一个标志接口，表明实现这个接口的 List 集合是支持 快速随机访问 的。在 ArrayList 中，我们就可以通过元素的序号快速获取元素对象，这就是快速随机访问。 Cloneable：表明它具有拷贝能力，可以进行深">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试题">
 <meta property="og:url" content="http://xwww12.github.io/2023/02/21/%E5%85%B6%E4%BB%96/%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="面试题java基础二分问题1：128个元素最多二分几次找到目标 答：128 &#x3D; 2^7，最多7次 问题2：100000000000个元素最多二分几次找到目标 答： ​	公式：logb(a) &#x3D; logc(a) &#x2F; logc(b) ​	log2(100000000000) &#x3D; log10(100000000000) &#x2F; log10(2)，向上取整 排">
+<meta property="og:description" content="面试题java基础集合 ArrayList 动态数组  实现接口 List : 表明它是一个列表，支持添加、删除、查找等操作，并且可以通过下标进行访问。 RandomAccess：这是一个标志接口，表明实现这个接口的 List 集合是支持 快速随机访问 的。在 ArrayList 中，我们就可以通过元素的序号快速获取元素对象，这就是快速随机访问。 Cloneable：表明它具有拷贝能力，可以进行深">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://xwww12.github.io/img/else_img/%E6%8E%92%E5%BA%8F.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/%E9%9B%86%E5%90%88%E5%85%B3%E7%B3%BB%E5%9B%BE.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/hashMap.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/hashMap%E7%9A%84put%E6%B5%81%E7%A8%8B.png">
@@ -77,11 +76,11 @@
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/RabbitMQ%E7%94%9F%E4%BA%A7%E8%80%85%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6.png">
 <meta property="og:image" content="http://xwww12.github.io/img/else_img/JMM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png">
 <meta property="article:published_time" content="2023-02-21T14:27:49.466Z">
-<meta property="article:modified_time" content="2026-07-20T07:08:22.617Z">
+<meta property="article:modified_time" content="2026-07-21T08:52:09.407Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://xwww12.github.io/img/else_img/%E6%8E%92%E5%BA%8F.png">
+<meta name="twitter:image" content="http://xwww12.github.io/img/else_img/%E9%9B%86%E5%90%88%E5%85%B3%E7%B3%BB%E5%9B%BE.png">
   
   
   
@@ -279,7 +278,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          22k 字
+          21k 字
         
       </span>
     
@@ -290,7 +289,7 @@
         
         
         
-          183 分钟
+          176 分钟
         
       </span>
     
@@ -349,112 +348,32 @@
             
               <div class="markdown-body">
                 
-                <h1 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h1><h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><h4 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h4><p>问题1：128个元素最多二分几次找到目标</p>
-<p>答：128 &#x3D; 2^7，最多7次</p>
-<p>问题2：100000000000个元素最多二分几次找到目标</p>
-<p>答：</p>
-<p>​	公式：<font color="red">logb(a) &#x3D; logc(a) &#x2F; logc(b)</font></p>
-<p>​	log2(100000000000) &#x3D; log10(100000000000) &#x2F; log10(2)，向上取整</p>
-<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><h5 id="经典排序算法"><a href="#经典排序算法" class="headerlink" title="经典排序算法"></a>经典排序算法</h5><p><strong>冒泡排序</strong>：每次相邻两个元素比较，一趟选出一个最大&#x2F;最小的元素</p>
-<p>示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 优化过的冒泡，记录最后一次交换索引作为下轮冒泡的比较次数</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">bubble</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr)</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> arr.length - <span class="hljs-number">1</span>;	<span class="hljs-comment">// 记录每次循环比较的次数</span><br>    <span class="hljs-keyword">while</span> (n &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">last</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;	<span class="hljs-comment">// 记录最后一次交换的索引</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>            <span class="hljs-keyword">if</span> (arr[i] &gt; arr[i + <span class="hljs-number">1</span>]) &#123;<br>                swap(arr, i, i + <span class="hljs-number">1</span>);<br>                last = i;<br>            &#125;<br>        &#125;<br>        n = last;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+                <h1 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h1><h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><p><img src="/img/else_img/%E9%9B%86%E5%90%88%E5%85%B3%E7%B3%BB%E5%9B%BE.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h5><blockquote>
+<p>动态数组</p>
+</blockquote>
+<h6 id="实现接口"><a href="#实现接口" class="headerlink" title="实现接口"></a>实现接口</h6><ul>
+<li><code>List</code> : 表明它是一个列表，支持添加、删除、查找等操作，并且可以通过下标进行访问。</li>
+<li><code>RandomAccess</code>：这是一个标志接口，表明实现这个接口的 <code>List</code> 集合是支持 <strong>快速随机访问</strong> 的。在 <code>ArrayList</code> 中，我们就可以通过元素的序号快速获取元素对象，这就是快速随机访问。</li>
+<li><code>Cloneable</code>：表明它具有拷贝能力，可以进行深拷贝或浅拷贝操作。</li>
+<li><code>Serializable</code> : 表明它可以进行序列化操作，也就是可以将对象转换为字节流进行持久化存储或网络传输，非常方便。</li>
+</ul>
+<h6 id="主要成员变量"><a href="#主要成员变量" class="headerlink" title="主要成员变量"></a>主要成员变量</h6><ul>
+<li><code>Object[] elementData</code>：存放元素</li>
+<li><code>int size</code>：所包含元素个数</li>
+<li><code>static final int DEFAULT_CAPACITY</code>：默认初始容量</li>
+<li><code>static final Object[] EMPTY_ELEMENTDATA</code>：用于空实例的共享空数组实例</li>
+<li><code>static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code></li>
+</ul>
+<h6 id="扩容机制"><a href="#扩容机制" class="headerlink" title="扩容机制"></a>扩容机制</h6><blockquote>
+<p>第一次扩容容量为Math.max(10, 插入的元素数量)，之后扩容都是之前容量的1.5倍</p>
+</blockquote>
+<p><strong>java8</strong>：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">add</span><span class="hljs-params">()</span></span><br>   ↓<br><span class="hljs-function"><span class="hljs-title">ensureCapacityInternal</span><span class="hljs-params">()</span></span>	<span class="hljs-comment">// 计算添加元素后需要的容量</span><br>   ↓<br><span class="hljs-function"><span class="hljs-title">ensureExplicitCapacity</span><span class="hljs-params">()</span></span>	<span class="hljs-comment">// 容量检查，判断是否需要扩容</span><br>   ↓<br><span class="hljs-function"><span class="hljs-title">grow</span><span class="hljs-params">()</span></span>						<span class="hljs-comment">// 实际扩容</span><br></code></pre></td></tr></table></figure>
 
-<p><strong>选择排序</strong>：每次选择一个最大&#x2F;最小元素，放到已排序区域的末尾</p>
-<p>示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">selection</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; arr.length - <span class="hljs-number">1</span>; ++i) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> i;	<span class="hljs-comment">// 最小元素下标</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> s + <span class="hljs-number">1</span>; j &lt; arr.length; ++j) &#123;<br>            <span class="hljs-keyword">if</span> (arr[s] &gt; arr[j])<br>                	s = j;<br>        &#125;<br>        swap(arr, s, i);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>java11</strong>：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">add</span><span class="hljs-params">()</span></span>						<span class="hljs-comment">// 容量检查</span><br>   ↓<br><span class="hljs-function"><span class="hljs-title">grow</span><span class="hljs-params">()</span></span>						<span class="hljs-comment">// 实际扩容</span><br></code></pre></td></tr></table></figure>
 
-<p><strong>插入排序</strong>：遍历每个元素，插入到已排序区域中适合的位置</p>
-<p>示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">insert</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; arr.length; ++i) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">tmp</span> <span class="hljs-operator">=</span> arr[i];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> i - <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span>; --j) &#123;<br>            <span class="hljs-keyword">if</span> (arr[j] &gt; tmp) &#123;<br>                arr[j + <span class="hljs-number">1</span>] = arr[j];<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        arr[j + <span class="hljs-number">1</span>] = tmp;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p><strong>希尔排序</strong>：开始选定一个间隙n，每轮排序间隔n的元素，之后减小n再排序，直到n&#x3D;1。这么做大的元素会更快的往右边靠，减少之后的移动次数。</p>
-<p><strong>快速排序</strong>：每轮找一个基准点进行分区，比基准点小的放到基准点左边，大的放到基准点右边。直到分区内元素个数小于等于1。</p>
-<ol>
-<li><p>单边循环快排</p>
-<ol>
-<li><p>以最右边元素作为基准点</p>
-</li>
-<li><p>i，j指针指向左边界的元素</p>
-</li>
-<li><p>j往右移，当找到比基准点小的元素就和i交换，i++</p>
-</li>
-<li><p>当交换完后i和基准点交换，这样基准点左边的元素就比基准点小</p>
-</li>
-</ol>
-<p>示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> staic <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>    <span class="hljs-type">int</span>[] arr = &#123;<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>&#125;;<br>    quick(arr, <span class="hljs-number">0</span>, arr.length - <span class="hljs-number">1</span>);<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">quickSort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span> &#123;<br>    <span class="hljs-keyword">if</span> (l &gt;= r)<br>        <span class="hljs-keyword">return</span>;<br> 	<span class="hljs-type">int</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> partition(arr, l, r);<br>    partition(arr, l, p - <span class="hljs-number">1</span>);<br>    partition(arr, p + <span class="hljs-number">1</span>, r);<br>&#125;<br><br><span class="hljs-comment">// 分区，返回中间下标</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">partition</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span> &#123;<br>    <span class="hljs-keyword">if</span> (l &gt;= r)<br>        <span class="hljs-keyword">return</span> l;<br>	<span class="hljs-type">int</span> <span class="hljs-variable">pv</span> <span class="hljs-operator">=</span> a[r];	<span class="hljs-comment">// 基准点</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> l;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> l; j &lt; r; ++j) &#123;<br>        <span class="hljs-keyword">if</span> (arr[j] &lt; pv) &#123;<br>            swap(arr, i, j);<br>            ++i;<br>        &#125;<br>    &#125;<br>    swap(arr, r, i);<br>    <span class="hljs-keyword">return</span> i;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-</li>
-<li><p>双边循环快排(更快一点)</p>
-<ol>
-<li>以最左边元素作为基准点</li>
-<li>i指向左边界，j指向右边界，两边互找</li>
-<li>当i，j相遇时吧基准点和i交换</li>
-</ol>
-<p>示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> staic <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>    <span class="hljs-type">int</span>[] arr = &#123;<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>&#125;;<br>    quick(arr, <span class="hljs-number">0</span>, arr.length - <span class="hljs-number">1</span>);<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">quickSort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span> &#123;<br>    <span class="hljs-keyword">if</span> (l &gt;= r)<br>        <span class="hljs-keyword">return</span>;<br> 	<span class="hljs-type">int</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> partition(arr, l, r);<br>    partition(arr, l, p - <span class="hljs-number">1</span>);<br>    partition(arr, p + <span class="hljs-number">1</span>, r);<br>&#125;<br><br><span class="hljs-comment">// 分区，返回中间下标</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">partition</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">pv</span> <span class="hljs-operator">=</span> arr[l];<br>    <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> l, j = r;<br>    <span class="hljs-keyword">while</span> (i &lt; j) &#123;<br>        <span class="hljs-comment">// 这两个while不能交换</span><br>        <span class="hljs-keyword">while</span> (i &lt; j &amp;&amp; arr[j] &gt; pv)<br>            --j;<br>        <span class="hljs-keyword">while</span> (i &lt; j &amp;&amp; arr[i] &lt;= pv)<br>            ++i;<br>        swap(arr, i, j);<br>    &#125;<br>    swap(arr, l, i);<br>    <span class="hljs-keyword">return</span> i;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p><img src="/img/else_img/%E6%8E%92%E5%BA%8F.png" srcset="/img/loading.gif" lazyload></p>
-</li>
-</ol>
-<h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><p><img src="/img/else_img/%E9%9B%86%E5%90%88%E5%85%B3%E7%B3%BB%E5%9B%BE.png" srcset="/img/loading.gif" lazyload></p>
-<h5 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h5><h6 id="成员变量-x2F-构造函数"><a href="#成员变量-x2F-构造函数" class="headerlink" title="成员变量&#x2F;构造函数"></a>成员变量&#x2F;构造函数</h6><table>
-<thead>
-<tr>
-<th>变量</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Object[] elementData</td>
-<td>存放元素</td>
-</tr>
-<tr>
-<td>int size</td>
-<td>大小</td>
-</tr>
-<tr>
-<td>static final int DEFAULT_CAPACITY &#x3D; 10</td>
-<td>初始容量</td>
-</tr>
-<tr>
-<td>static final Object[] EMPTY_ELEMENTDATA &#x3D; {}</td>
-<td></td>
-</tr>
-<tr>
-<td>static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA &#x3D; {}</td>
-<td></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>构造函数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>public ArrayList(int initialCapacity)</td>
-<td>若参数合法则根据参数来初始化此容量的集合</td>
-</tr>
-<tr>
-<td>public ArrayList()</td>
-<td>elementData &#x3D; DEFAULTCAPACITY_EMPTY_ELEMENTDATA</td>
-</tr>
-<tr>
-<td>public ArrayList(Collection&lt;? extends E&gt; c)</td>
-<td>将c转换成数组，将数组的地址赋给elementData</td>
-</tr>
-</tbody></table>
-<h6 id="扩容机制"><a href="#扩容机制" class="headerlink" title="扩容机制"></a>扩容机制</h6><p>​	<strong>初始化</strong>：无参构造刚创建出来的时候容量为0，有参则按传入的值或集合的大小作为容量</p>
-<p>​	<strong>add方法</strong>：</p>
-<ol>
-<li>添加元素时会先判断添加元素后的容量是否超过当前容量</li>
-<li>如果是无参构造，首次添加元素时会创建一个容量为<code>DEFAULT_CAPACITY=10</code>的数组，</li>
-<li>之后每次添加元素容量不足时会按原数组容量的<strong>1.5倍</strong>（向下取整）创建新数组，把原数组的元素复制到新数组中，用新数组替换原数组。</li>
-</ol>
-<p>​	<strong>addAll方法</strong>：没有元素时扩容为Math.max(10, 实际元素个数)，有元素时为Math.max(原容量1.5倍, 实际元素个数)。</p>
 <h6 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h6><p>当在使用迭代器时有其它线程修改数组时有两种<strong>策略</strong>：</p>
 <ol>
 <li><strong>fail-fast</strong>：在使用迭代器的线程立即报错</li>
@@ -466,26 +385,26 @@
 <p>ArrayList使用的第一种策略，CopyOnWriteArrayList是第二种策略（对策是添加把原集合复制出来，在新集合上进行修改，修改好后指向新集合。创建迭代器时会指向当前集合，遍历的是旧集合不影响（读写分离））；</p>
 </blockquote>
 <h6 id="数组和List之间的转换"><a href="#数组和List之间的转换" class="headerlink" title="数组和List之间的转换"></a>数组和List之间的转换</h6><p>数组转List（浅拷贝）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">String[] strs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[]&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>&#125;;<br>List&lt;String&gt; list = Arrays.asList(strs);<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;String&gt; list = Arrays.asList(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[]&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>&#125;);<br></code></pre></td></tr></table></figure>
 
 <p>List转数组（深拷贝）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;String&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>list.add(<span class="hljs-string">&quot;a&quot;</span>); list.add(<span class="hljs-string">&quot;b&quot;</span>);<br>String[] strs = list.toArray(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[list.size()]);<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;String&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><br>list.add(<span class="hljs-string">&quot;a&quot;</span>); <br>list.add(<span class="hljs-string">&quot;b&quot;</span>);<br><br>String[] strs = list.toArray(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[list.size()]);<br></code></pre></td></tr></table></figure>
 
 <h5 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h5><h6 id="与ArrayList的比较"><a href="#与ArrayList的比较" class="headerlink" title="与ArrayList的比较"></a>与ArrayList的比较</h6><ul>
 <li><p><strong>底层数据结构</strong></p>
-<p>ArrayList基于动态数组，需要连续内存</p>
-<p>LinkedList基于双向链表，无需连续内存</p>
+<p><code>ArrayList</code>基于<strong>Object数组</strong>，需要连续内存</p>
+<p><code>LinkedList</code>基于<strong>双向链表</strong>，无需连续内存</p>
 </li>
 <li><p><strong>效率</strong></p>
-<p>ArrayList随机访问快，尾部插入和插入性能可以，其它部分都会移动元素，性能低</p>
-<p>LinkedList随机访问慢，尾插入删除性能高，其他部分效率低</p>
+<p><code>ArrayList</code>的随机访问、末尾插入&#x2F;删除为O(1)，指定位置插入&#x2F;删除为O(n)</p>
+<p><code>LinkedList</code>的头尾插入&#x2F;删除为O(1)，指定位置插入&#x2F;删除为O(n)</p>
 </li>
 <li><p><strong>占用空间</strong></p>
-<p>ArrayList可以利用cpu缓存，局部性原理</p>
-<p>LinkedList占用内存多</p>
+<p><code>ArrayList</code>需要<strong>预留一定的容量</strong></p>
+<p><code>LinkedList</code>每个元素都<strong>需要额外空间</strong>（前后指针）</p>
 </li>
 <li><p><strong>线程安全</strong></p>
-<p>ArrayList和LinkedList都不是线程安全的，可以通过</p>
+<p><code>ArrayList</code>和<code>LinkedList</code>都<strong>不是线程安全的</strong>，可以通过</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Object&gt; list = Collections.synchronizedList(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;());<br>List&lt;Object&gt; list = Collections.synchronizedList(<span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;());<br></code></pre></td></tr></table></figure>
 
 <p>包装一下，变成线程安全的</p>
